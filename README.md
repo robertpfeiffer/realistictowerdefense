@@ -1,7 +1,7 @@
 Projekt bauen
 -------------
-  cd build
-  cmake ..
+	cd build
+	cmake ..
   
 Verzeichnis build ist auf gitignore.
 Ebenfalls im gitignore ist das verzeichnis OSG
