@@ -5,14 +5,14 @@ SET(OUTPUT_LIBDIR ${PROJECT_BINARY_DIR}/lib)
 SET(OUTPUT_BINDIR ${PROJECT_BINARY_DIR}/bin)
 
 FOREACH(CONF ${CMAKE_CONFIGURATION_TYPES})        # For each configuration (Debug, Release, MinSizeRel... and/or anything the user chooses)
-	STRING(TOUPPER "${CONF}" CONF)                # Go uppercase (DEBUG, RELEASE...)
-	SET("CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${CONF}" "${OUTPUT_LIBDIR}")
-	SET("CMAKE_RUNTIME_OUTPUT_DIRECTORY_${CONF}" "${OUTPUT_BINDIR}")
-	IF(WIN32)
-		SET("CMAKE_LIBRARY_OUTPUT_DIRECTORY_${CONF}" "${OUTPUT_BINDIR}")
-	ELSE()
-		SET("CMAKE_LIBRARY_OUTPUT_DIRECTORY_${CONF}" "${OUTPUT_LIBDIR}")
-	ENDIF()
+	string(TOUPPER "${CONF}" CONF)                # Go uppercase (DEBUG, RELEASE...)
+	set("CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${CONF}" "${OUTPUT_LIBDIR}")
+	set("CMAKE_RUNTIME_OUTPUT_DIRECTORY_${CONF}" "${OUTPUT_BINDIR}")
+	if(WIN32)
+		set("CMAKE_LIBRARY_OUTPUT_DIRECTORY_${CONF}" "${OUTPUT_BINDIR}")
+	else()
+		set("CMAKE_LIBRARY_OUTPUT_DIRECTORY_${CONF}" "${OUTPUT_LIBDIR}")
+	endif()
 ENDFOREACH()
 
 cmake_policy(SET CMP0015 NEW)
@@ -28,12 +28,21 @@ link_directories("OSG/bin")
 # 		Towerdefense
 # ========================
 
+include_directories("include")
+
 # Executables
 # -----------
 add_executable(Towerdefense "src/main.cpp")
+
+# own libraries
+# -------------
+
+add_library(Map_Library STATIC "src/map.cpp")
 
 # linked libraries
 # ----------------
 target_link_libraries(Towerdefense "osg.lib")
 target_link_libraries(Towerdefense "osgViewer.lib")
 target_link_libraries(Towerdefense "osgGA.lib")
+
+target_link_libraries(Towerdefense Map_Library)
