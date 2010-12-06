@@ -23,6 +23,12 @@ add_executable(Towerdefense "src/main.cpp")
 
 # linked libraries
 # ----------------
-target_link_libraries(Towerdefense "osg.lib")
-target_link_libraries(Towerdefense "osgViewer.lib")
-target_link_libraries(Towerdefense "osgGA.lib")
+# Release
+target_link_libraries(Towerdefense optimized osg)
+target_link_libraries(Towerdefense optimized osgViewer)
+target_link_libraries(Towerdefense optimized osgGA)
+
+# Debug
+target_link_libraries(Towerdefense debug osgd)
+target_link_libraries(Towerdefense debug osgViewerd)
+target_link_libraries(Towerdefense debug osgGAd)
