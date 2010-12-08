@@ -84,14 +84,14 @@ int main()
 	Map map("maps/default.map");
     for(unsigned int x = 0; x < map.GetWidth(); x++)
 	{
-		for(unsigned int z = 0; z < map.GetHeight(); z++) {
+		for(unsigned int y = 0; y < map.GetHeight(); y++) {
 			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
 			terrain->addChild(terrainBlockTransform);
-			if(x == 5)
+			if(x == map.GetWidth()/2)
 				terrainBlockTransform->addChild(wayTerrain);
 			else
 				terrainBlockTransform->addChild(emptyTerrain);
-			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, z*TERRAIN_BLOCK_SIZE, 0);
+			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, y*TERRAIN_BLOCK_SIZE, 0);
 			terrainBlockTransform->setPosition(terrainBlockTranslation);
 		}
 	}
@@ -102,11 +102,11 @@ int main()
     //The final step is to set up and enter a simulation loop.
 
     viewer.setSceneData( root );
-    //viewer.run();
 
     osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
 	manipulator->setRotationMode(osgGA::TerrainManipulator::RotationMode::ELEVATION_AZIM);
 	manipulator->setWheelZoomFactor(WHEEL_ZOOM_FACTOR);
+	manipulator->setAllowThrow(false);
 
 	viewer.setCameraManipulator(manipulator);
     viewer.realize();
@@ -114,7 +114,6 @@ int main()
     while( !viewer.done() )
     {
 		LimitElevation(manipulator);
-		printf("%f", manipulator->getWheelZoomFactor());
         viewer.frame();
     }
 
