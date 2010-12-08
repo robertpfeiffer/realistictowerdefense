@@ -69,7 +69,7 @@ int main()
 	osg::Geode* emptyTerrain = CreateEmptyTerrainBlock();
 	osg::Geode* wayTerrain = CreateWayTerrainBlock();
 
-	Map map("../maps/default.map");
+	Map map("maps/default.map");
     for(unsigned int x = 0; x < map.GetWidth(); x++)
 	{
 		for(unsigned int z = 0; z < map.GetHeight(); z++) {
