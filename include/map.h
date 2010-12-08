@@ -1,4 +1,5 @@
 #include <string>
+#include <SimpleIni.h>
 
 class Map
 {	
@@ -9,4 +10,5 @@ class Map
 	private:
 		unsigned int Height;
 		unsigned int Width;
+		CSimpleIni Ini;
 };

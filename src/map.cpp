@@ -1,10 +1,13 @@
 #include "map.h"
-#include "SimpleIni.h"
+#include <SimpleIni.h>
 #include <string>
 
 Map::Map(const std::string& filename)
 {
-	Width = 5;
+	CSimpleIni Ini(false, false, false);
+	Ini.Load(filename);
+	Width  = Ini.GetLongValue("Size", "Width", 10);
+	Height = Ini.GetLongValue("Size", "Height", 10);
 }
 
 unsigned int Map::GetWidth()
