@@ -1,6 +1,6 @@
-#include "map.h"
-#include <SimpleIni.h>
 #include <string>
+#include <SimpleIni.h>
+#include "map.h"
 
 Map::Map(const std::string& filename)
 {
