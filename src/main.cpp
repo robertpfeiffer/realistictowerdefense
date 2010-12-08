@@ -12,6 +12,11 @@
 
 #define TERRAIN_BLOCK_SIZE 10
 
+//elevation im bogenmass
+#define MIN_ELEVATION 0.1
+
+#define WHEEL_ZOOM_FACTOR -0.1
+
 osg::Geode* CreateColoredTerrainBlock(osg::Vec4 color)
 {
 	osg::Geode* terrainBlock = new osg::Geode();
@@ -22,8 +27,8 @@ osg::Geode* CreateColoredTerrainBlock(osg::Vec4 color)
     osg::Vec3Array* terrainBlockVertices = new osg::Vec3Array;
     terrainBlockVertices->push_back( osg::Vec3( 0, 0, 0) );
     terrainBlockVertices->push_back( osg::Vec3(TERRAIN_BLOCK_SIZE, 0, 0) );
-    terrainBlockVertices->push_back( osg::Vec3(TERRAIN_BLOCK_SIZE,TERRAIN_BLOCK_SIZE, 0) );
-    terrainBlockVertices->push_back( osg::Vec3( 0,TERRAIN_BLOCK_SIZE, 0) );
+    terrainBlockVertices->push_back( osg::Vec3(TERRAIN_BLOCK_SIZE, TERRAIN_BLOCK_SIZE, 0) );
+    terrainBlockVertices->push_back( osg::Vec3( 0, TERRAIN_BLOCK_SIZE, 0) );
 
     terrainBlockGeometry->setVertexArray(terrainBlockVertices);
 
@@ -51,6 +56,13 @@ osg::Geode* CreateEmptyTerrainBlock()
 osg::Geode* CreateWayTerrainBlock()
 {
 	return CreateColoredTerrainBlock(osg::Vec4(0.3f, 0.2f, 0.1f, 1.0f));
+}
+
+void LimitElevation(osgGA::TerrainManipulator* manipulator)
+{
+	if(manipulator->getElevation() > -MIN_ELEVATION) {
+		manipulator->setElevation(MIN_ELEVATION);
+	}
 }
 
 int main()
@@ -92,11 +104,17 @@ int main()
     viewer.setSceneData( root );
     //viewer.run();
 
-    viewer.setCameraManipulator(new osgGA::TerrainManipulator());
+    osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
+	manipulator->setRotationMode(osgGA::TerrainManipulator::RotationMode::ELEVATION_AZIM);
+	manipulator->setWheelZoomFactor(WHEEL_ZOOM_FACTOR);
+
+	viewer.setCameraManipulator(manipulator);
     viewer.realize();
 
     while( !viewer.done() )
     {
+		LimitElevation(manipulator);
+		printf("%f", manipulator->getWheelZoomFactor());
         viewer.frame();
     }
 
