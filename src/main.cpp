@@ -6,7 +6,7 @@
 #include <osgDB/ReadFile> 
 #include <osgViewer/Viewer>
 #include <osg/PositionAttitudeTransform>
-#include <osgGA/TrackballManipulator>
+#include <osgGA/TerrainManipulator>
 
 #define TERRAIN_BLOCK_SIZE 10
 
@@ -89,7 +89,7 @@ int main()
     viewer.setSceneData( root );
     //viewer.run();
 
-    viewer.setCameraManipulator(new osgGA::TrackballManipulator());
+    viewer.setCameraManipulator(new osgGA::TerrainManipulator());
     viewer.realize();
 
     while( !viewer.done() )
