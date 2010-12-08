@@ -3,4 +3,8 @@
 /OSG
 /OSGBullet
 /Bullet
-/osgWorks
+
+CMakeCache.txt
+/bin
+/CMakeFiles
+Makefile
