@@ -8,6 +8,8 @@
 #include <osg/PositionAttitudeTransform>
 #include <osgGA/TerrainManipulator>
 
+#include <map.h>
+
 #define TERRAIN_BLOCK_SIZE 10
 
 osg::Geode* CreateColoredTerrainBlock(osg::Vec4 color)
@@ -67,9 +69,10 @@ int main()
 	osg::Geode* emptyTerrain = CreateEmptyTerrainBlock();
 	osg::Geode* wayTerrain = CreateWayTerrainBlock();
 
-    for(int x=0;x<10;x++)
+	Map map("../maps/default.map");
+    for(unsigned int x = 0; x < map.GetWidth(); x++)
 	{
-		for(int z=0;z<10;z++) {
+		for(unsigned int z = 0; z < map.GetHeight(); z++) {
 			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
 			terrain->addChild(terrainBlockTransform);
 			if(x == 5)
