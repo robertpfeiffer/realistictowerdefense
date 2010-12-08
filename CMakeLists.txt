@@ -32,16 +32,15 @@ include_directories("include")
 
 # Executables
 # -----------
-add_executable(Towerdefense "src/main.cpp")
+set(sources
+	"src/main.cpp"
+	"src/map.cpp"
+)
 
-# own libraries
-# -------------
-
-add_library(Map_Library STATIC "src/map.cpp")
+add_executable(Towerdefense ${sources})
 
 # linked libraries
 # ----------------
-target_link_libraries(Towerdefense optimized Map_Library)
 
 # Release
 target_link_libraries(Towerdefense optimized osg)
