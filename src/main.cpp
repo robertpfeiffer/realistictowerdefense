@@ -104,7 +104,7 @@ int main()
     viewer.setSceneData( root );
 
     osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
-	manipulator->setRotationMode(osgGA::TerrainManipulator::RotationMode::ELEVATION_AZIM);
+	manipulator->setRotationMode(osgGA::TerrainManipulator::ELEVATION_AZIM);
 	manipulator->setWheelZoomFactor(WHEEL_ZOOM_FACTOR);
 	manipulator->setAllowThrow(false);
 
