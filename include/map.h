@@ -5,9 +5,11 @@ class Map
 {	
 	public:
 		Map(const std::string& filename);
-		unsigned int GetWidth();
-		unsigned int GetHeight();
+		unsigned int getWidth();
+		unsigned int getHeight();
 	private:
+		void loadMap();
+
 		unsigned int Height;
 		unsigned int Width;
 		CSimpleIni Ini;

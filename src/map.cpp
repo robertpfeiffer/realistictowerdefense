@@ -4,19 +4,23 @@
 
 Map::Map(const std::string& filename)
 {
-	CSimpleIni Ini(false, false, false);
 	Ini.LoadFile(filename.c_str());
 
-	Width  = Ini.GetLongValue("Size", "Width", 10);
-	Height = Ini.GetLongValue("Size", "Height", 10);
+	loadMap();
 }
 
-unsigned int Map::GetWidth()
+unsigned int Map::getWidth()
 {
 	return Width;
 }
 
-unsigned int Map::GetHeight()
+unsigned int Map::getHeight()
 {
 	return Height;
+}
+
+void Map::loadMap()
+{
+	Width  = Ini.GetLongValue("Size", "Width", 10);
+	Height = Ini.GetLongValue("Size", "Height", 10);
 }

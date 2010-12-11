@@ -82,12 +82,12 @@ int main()
 	osg::Geode* wayTerrain = CreateWayTerrainBlock();
 
 	Map map("maps/default.map");
-    for(unsigned int x = 0; x < map.GetWidth(); x++)
+    for(unsigned int x = 0; x < map.getWidth(); x++)
 	{
-		for(unsigned int y = 0; y < map.GetHeight(); y++) {
+		for(unsigned int y = 0; y < map.getHeight(); y++) {
 			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
 			terrain->addChild(terrainBlockTransform);
-			if(x == map.GetWidth()/2)
+			if(x == map.getWidth()/2)
 				terrainBlockTransform->addChild(wayTerrain);
 			else
 				terrainBlockTransform->addChild(emptyTerrain);
@@ -104,7 +104,7 @@ int main()
     viewer.setSceneData( root );
 
     osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
-	manipulator->setRotationMode(osgGA::TerrainManipulator::ELEVATION_AZIM);
+	manipulator->setVerticalAxisFixed(true);
 	manipulator->setWheelZoomFactor(WHEEL_ZOOM_FACTOR);
 	manipulator->setAllowThrow(false);
 
