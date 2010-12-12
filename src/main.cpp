@@ -1,7 +1,8 @@
+#include <osg/DisplaySettings>
 #include <osg/Node>
-#include <osg/Group>
 #include <osg/Geode>
 #include <osg/Geometry>
+#include <osg/Group>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile> 
 #include <osgViewer/Viewer>
@@ -16,7 +17,7 @@
 
 #include <map.h>
 
-#define TERRAIN_BLOCK_SIZE 10
+#define TERRAIN_BLOCK_SIZE 1
 
 //elevation im bogenmass
 #define MIN_ELEVATION 0.1
@@ -135,15 +136,20 @@ int main()
 	osg::Geode* wayTerrain = CreateWayTerrainBlock();
 
 	Map map("maps/default.map");
-    for(unsigned int x = 0; x < map.GetWidth(); x++)
+    for(unsigned int x = 0; x < map.getWidth(); x++)
 	{
-		for(unsigned int y = 0; y < map.GetHeight(); y++) {
+		for(unsigned int y = 0; y < map.getHeight(); y++) {
 			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
 			terrain->addChild(terrainBlockTransform);
-			if(x == map.GetWidth()/2)
-				terrainBlockTransform->addChild(wayTerrain);
-			else
-				terrainBlockTransform->addChild(emptyTerrain);
+			switch(map.getField(x, y))
+			{
+				case INI_FIELD_WAY:
+					terrainBlockTransform->addChild(wayTerrain);
+					break;
+				default:
+					terrainBlockTransform->addChild(emptyTerrain);
+					break;
+			}
 			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, y*TERRAIN_BLOCK_SIZE, 0);
 			terrainBlockTransform->setPosition(terrainBlockTranslation);
 		}
@@ -190,11 +196,17 @@ int main()
     viewer.setSceneData( root );
 
     osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
-	manipulator->setRotationMode(osgGA::TerrainManipulator::ELEVATION_AZIM);
+	manipulator->setVerticalAxisFixed(true);
 	manipulator->setWheelZoomFactor(WHEEL_ZOOM_FACTOR);
 	manipulator->setAllowThrow(false);
 
 	viewer.setCameraManipulator(manipulator);
+
+	//activate 4x multisample
+	osg::DisplaySettings* displaySettings = new osg::DisplaySettings;
+    displaySettings->setNumMultiSamples(4);
+	viewer.setDisplaySettings(displaySettings);
+
     viewer.realize();
 
     while( !viewer.done() )
