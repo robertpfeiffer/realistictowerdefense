@@ -1,7 +1,8 @@
+#include <osg/DisplaySettings>
 #include <osg/Node>
-#include <osg/Group>
 #include <osg/Geode>
 #include <osg/Geometry>
+#include <osg/Group>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile> 
 #include <osgViewer/Viewer>
@@ -10,7 +11,7 @@
 
 #include <map.h>
 
-#define TERRAIN_BLOCK_SIZE 10
+#define TERRAIN_BLOCK_SIZE 1
 
 //elevation im bogenmass
 #define MIN_ELEVATION 0.1
@@ -87,10 +88,15 @@ int main()
 		for(unsigned int y = 0; y < map.getHeight(); y++) {
 			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
 			terrain->addChild(terrainBlockTransform);
-			if(x == map.getWidth()/2)
-				terrainBlockTransform->addChild(wayTerrain);
-			else
-				terrainBlockTransform->addChild(emptyTerrain);
+			switch(map.getField(x, y))
+			{
+				case INI_FIELD_WAY:
+					terrainBlockTransform->addChild(wayTerrain);
+					break;
+				default:
+					terrainBlockTransform->addChild(emptyTerrain);
+					break;
+			}
 			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, y*TERRAIN_BLOCK_SIZE, 0);
 			terrainBlockTransform->setPosition(terrainBlockTranslation);
 		}
@@ -109,6 +115,12 @@ int main()
 	manipulator->setAllowThrow(false);
 
 	viewer.setCameraManipulator(manipulator);
+
+	//activate 4x multisample (works only in debug modus :? )
+	osg::DisplaySettings* displaySettings = new osg::DisplaySettings;
+    displaySettings->setNumMultiSamples(4);
+	viewer.setDisplaySettings(displaySettings);
+
     viewer.realize();
 
     while( !viewer.done() )
