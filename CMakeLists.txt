@@ -46,8 +46,12 @@ add_executable(Towerdefense ${sources})
 target_link_libraries(Towerdefense optimized osg)
 target_link_libraries(Towerdefense optimized osgViewer)
 target_link_libraries(Towerdefense optimized osgGA)
+target_link_libraries(Towerdefense optimized osgDB)
+target_link_libraries(Towerdefense optimized OpenThreads)
 
 # Debug
 target_link_libraries(Towerdefense debug osgd)
 target_link_libraries(Towerdefense debug osgViewerd)
 target_link_libraries(Towerdefense debug osgGAd)
+target_link_libraries(Towerdefense debug osgDBd)
+target_link_libraries(Towerdefense debug OpenThreadsd)
