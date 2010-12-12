@@ -116,7 +116,7 @@ int main()
 
 	viewer.setCameraManipulator(manipulator);
 
-	//activate 4x multisample (works only in debug modus :? )
+	//activate 4x multisample
 	osg::DisplaySettings* displaySettings = new osg::DisplaySettings;
     displaySettings->setNumMultiSamples(4);
 	viewer.setDisplaySettings(displaySettings);
