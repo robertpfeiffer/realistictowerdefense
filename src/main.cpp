@@ -18,7 +18,7 @@
 
 #define WHEEL_ZOOM_FACTOR -0.1
 
-osg::Geode* CreateColoredTerrainBlock(osg::Vec4 color)
+osg::Geode* CreateTerrainBlock()
 {
 	osg::Geode* terrainBlock = new osg::Geode();
 	osg::Geometry* terrainBlockGeometry = new osg::Geometry();
@@ -40,23 +40,44 @@ osg::Geode* CreateColoredTerrainBlock(osg::Vec4 color)
     terrainBlockPrimitiveSet->push_back(0);
     terrainBlockGeometry->addPrimitiveSet(terrainBlockPrimitiveSet);
 
-    osg::Vec4Array* terrainBlockColors = new osg::Vec4Array;
-    terrainBlockColors->push_back(color);
-
-    terrainBlockGeometry->setColorArray(terrainBlockColors);
-	terrainBlockGeometry->setColorBinding(osg::Geometry::BIND_PER_PRIMITIVE_SET);
+	osg::Vec2Array* texcoords = new osg::Vec2Array(4);
+	(*texcoords)[0].set(0.0, 0.0);
+	(*texcoords)[1].set(1.0, 0.0f);
+	(*texcoords)[2].set(1.0, 1.0);
+	(*texcoords)[3].set(0.0, 1.0);
+   terrainBlockGeometry->setTexCoordArray(0,texcoords);
 
 	return terrainBlock;
 }
 
 osg::Geode* CreateEmptyTerrainBlock()
 {
-	return CreateColoredTerrainBlock(osg::Vec4(0.0f, 0.7f, 0.0f, 1.0f));
+	osg::Geode* geode = CreateTerrainBlock();
+
+	osg::Image* grasImage = osgDB::readImageFile("textures/gras.jpg");
+	osg::Texture2D* grasTexture = new osg::Texture2D(grasImage);
+	grasTexture->setDataVariance(osg::Object::STATIC);
+
+	osg::StateSet* state = new osg::StateSet();
+	state->setTextureAttributeAndModes(0, grasTexture, osg::StateAttribute::ON);
+	geode->setStateSet(state);
+
+	return geode;
 }
 
 osg::Geode* CreateWayTerrainBlock()
 {
-	return CreateColoredTerrainBlock(osg::Vec4(0.3f, 0.2f, 0.1f, 1.0f));
+	osg::Geode* geode = CreateTerrainBlock();
+
+	osg::Image* grasImage = osgDB::readImageFile("textures/way.jpg");
+	osg::Texture2D* grasTexture = new osg::Texture2D(grasImage);
+	grasTexture->setDataVariance(osg::Object::STATIC);
+
+	osg::StateSet* state = new osg::StateSet();
+	state->setTextureAttributeAndModes(0, grasTexture, osg::StateAttribute::ON);
+	geode->setStateSet(state);
+
+	return geode;
 }
 
 void LimitElevation(osgGA::TerrainManipulator* manipulator)
@@ -66,9 +87,10 @@ void LimitElevation(osgGA::TerrainManipulator* manipulator)
 	}
 }
 
+
 int main()
 {
-    osgViewer::Viewer viewer;
+    osgViewer::Viewer viewer;	
     osg::Group* root = new osg::Group();
 	 osg::Group* world = new osg::Group();
 	  osg::Group* terrain = new osg::Group();
