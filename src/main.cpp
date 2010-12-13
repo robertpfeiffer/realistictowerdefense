@@ -188,7 +188,8 @@ int main()
 
    osg::Texture2D *pinTexture = new osg::Texture2D;
    pinTexture->setImage(osgDB::readImageFile("textures/pin.png"));
- osg::Texture2D *kingpinTexture = new osg::Texture2D;
+
+ osg::Texture2D *kingpinTexture = new osg::Texture2D;
    kingpinTexture->setImage(osgDB::readImageFile("textures/kingpin.png"));
  
   osg::StateSet* billBoardStateSet = new osg::StateSet;
