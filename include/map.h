@@ -11,15 +11,16 @@ class Map
 {	
 	public:
 		Map(const std::string& filename);
-		unsigned int getWidth();
-		unsigned int getHeight();
+		long getWidth();
+		long getHeight();
 		char getField(unsigned int x, unsigned int y);
 	private:
 		void loadMap();
 		void loadTextures();
+		void loadFields();
 
-		unsigned int Height;
-		unsigned int Width;
+		long Height;
+		long Width;
 		std::vector<std::string> Fields;
 		std::vector<osg::Texture2D*> Textures;
 		CSimpleIni Ini;

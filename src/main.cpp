@@ -97,7 +97,7 @@ osg::Geode* CreateTerrainBlock()
 
 	osg::Vec2Array* texcoords = new osg::Vec2Array(4);
 	(*texcoords)[0].set(0.0, 0.0);
-	(*texcoords)[1].set(1.0, 0.0f);
+	(*texcoords)[1].set(1.0, 0.0);
 	(*texcoords)[2].set(1.0, 1.0);
 	(*texcoords)[3].set(0.0, 1.0);
    terrainBlockGeometry->setTexCoordArray(0,texcoords);
@@ -113,6 +113,8 @@ osg::Geode* CreateEmptyTerrainBlock()
 	osg::Texture2D* grasTexture = new osg::Texture2D(grasImage);
 	grasTexture->setDataVariance(osg::Object::STATIC);
 	grasTexture->setMaxAnisotropy(AF_LEVEL);
+	grasTexture->setWrap(osg::Texture::WRAP_S, osg::Texture::REPEAT);
+	grasTexture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
 
 	osg::StateSet* state = new osg::StateSet();
 	state->setTextureAttributeAndModes(0, grasTexture, osg::StateAttribute::ON);
@@ -129,6 +131,8 @@ osg::Geode* CreateWayTerrainBlock()
 	osg::Texture2D* wayTexture = new osg::Texture2D(wayImage);
 	wayTexture->setDataVariance(osg::Object::STATIC);
 	wayTexture->setMaxAnisotropy(AF_LEVEL);
+	wayTexture->setWrap(osg::Texture::WRAP_S, osg::Texture::REPEAT);
+	wayTexture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
 
 	osg::StateSet* state = new osg::StateSet();
 	state->setTextureAttributeAndModes(0, wayTexture, osg::StateAttribute::ON);
@@ -171,9 +175,9 @@ int main()
 	osg::Geode* wayTerrain = CreateWayTerrainBlock();
 
 	Map map("maps/default.map");
-    for(unsigned int x = 0; x < map.getWidth(); x++)
+    for(long x = 0; x < map.getWidth(); x++)
 	{
-		for(unsigned int y = 0; y < map.getHeight(); y++) {
+		for(long y = 0; y < map.getHeight(); y++) {
 			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
 			terrain->addChild(terrainBlockTransform);
 			switch(map.getField(x, y))
@@ -185,7 +189,7 @@ int main()
 					terrainBlockTransform->addChild(emptyTerrain);
 					break;
 			}
-			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, y*TERRAIN_BLOCK_SIZE, 0);
+			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, -y*TERRAIN_BLOCK_SIZE, 0);
 			terrainBlockTransform->setPosition(terrainBlockTranslation);
 		}
 	}
@@ -228,9 +232,9 @@ int main()
    osg::Drawable* shrub3Drawable = createPin( 0.6f, kingbillBoardStateSet);
 
    // Add these drawables to our billboard at various positions
-   pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,3,0) );
-   pinBillBoard->addDrawable( shrub2Drawable , osg::Vec3(10,18,0));
-   pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,10,0) );
+   pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,-3,0) );
+   pinBillBoard->addDrawable( shrub2Drawable , osg::Vec3(10,-18,0));
+   pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,-10,0) );
 
 
     //The final step is to set up and enter a simulation loop.
