@@ -218,9 +218,9 @@ int main()
    kingbillBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
 
 
-   osg::Drawable* shrub1Drawable = createPin( 3.0f, billBoardStateSet);
-   osg::Drawable* shrub2Drawable = createPin( 3.0f, billBoardStateSet);
-   osg::Drawable* shrub3Drawable = createPin( 3.0f, kingbillBoardStateSet);
+   osg::Drawable* shrub1Drawable = createPin( 0.4f, billBoardStateSet);
+   osg::Drawable* shrub2Drawable = createPin( 0.4f, billBoardStateSet);
+   osg::Drawable* shrub3Drawable = createPin( 0.6f, kingbillBoardStateSet);
 
    // Add these drawables to our billboard at various positions
    pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,3,0) );
