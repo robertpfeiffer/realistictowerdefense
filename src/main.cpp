@@ -19,6 +19,15 @@
 
 #define TERRAIN_BLOCK_SIZE 1
 
+//elevation im bogenmass
+#define MIN_ELEVATION 0.1
+#define MIN_DISTANCE 3.0
+#define MAX_DISTANCE 50.0
+
+#define WHEEL_ZOOM_FACTOR -0.1
+
+#define AF_LEVEL 16.0
+
 osg::Drawable* createPin(const float & scale, osg::StateSet* bbState)
 {
    // Standard size shrub
@@ -64,14 +73,6 @@ osg::Drawable* createPin(const float & scale, osg::StateSet* bbState)
    return geometry;
 } 
 
-
-//elevation im bogenmass
-#define MIN_ELEVATION 0.1
-#define MIN_DISTANCE 3.0
-#define MAX_DISTANCE 50.0
-
-#define WHEEL_ZOOM_FACTOR -0.1
-
 osg::Geode* CreateTerrainBlock()
 {
     osg::Geode* terrainBlock = new osg::Geode();
@@ -111,6 +112,7 @@ osg::Geode* CreateEmptyTerrainBlock()
 	osg::Image* grasImage = osgDB::readImageFile("textures/gras.jpg");
 	osg::Texture2D* grasTexture = new osg::Texture2D(grasImage);
 	grasTexture->setDataVariance(osg::Object::STATIC);
+	grasTexture->setMaxAnisotropy(AF_LEVEL);
 
 	osg::StateSet* state = new osg::StateSet();
 	state->setTextureAttributeAndModes(0, grasTexture, osg::StateAttribute::ON);
@@ -123,12 +125,13 @@ osg::Geode* CreateWayTerrainBlock()
 {
 	osg::Geode* geode = CreateTerrainBlock();
 
-	osg::Image* grasImage = osgDB::readImageFile("textures/way.jpg");
-	osg::Texture2D* grasTexture = new osg::Texture2D(grasImage);
-	grasTexture->setDataVariance(osg::Object::STATIC);
+	osg::Image* wayImage = osgDB::readImageFile("textures/way.jpg");
+	osg::Texture2D* wayTexture = new osg::Texture2D(wayImage);
+	wayTexture->setDataVariance(osg::Object::STATIC);
+	wayTexture->setMaxAnisotropy(AF_LEVEL);
 
 	osg::StateSet* state = new osg::StateSet();
-	state->setTextureAttributeAndModes(0, grasTexture, osg::StateAttribute::ON);
+	state->setTextureAttributeAndModes(0, wayTexture, osg::StateAttribute::ON);
 	geode->setStateSet(state);
 
 	return geode;
@@ -197,9 +200,11 @@ int main()
 
    osg::Texture2D *pinTexture = new osg::Texture2D;
    pinTexture->setImage(osgDB::readImageFile("textures/pin.png"));
+   pinTexture->setMaxAnisotropy(AF_LEVEL);
 
  osg::Texture2D *kingpinTexture = new osg::Texture2D;
    kingpinTexture->setImage(osgDB::readImageFile("textures/kingpin.png"));
+   kingpinTexture->setMaxAnisotropy(AF_LEVEL);
  
   osg::StateSet* billBoardStateSet = new osg::StateSet;
    billBoardStateSet->setTextureAttributeAndModes
