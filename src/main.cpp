@@ -67,6 +67,8 @@ osg::Drawable* createPin(const float & scale, osg::StateSet* bbState)
 
 //elevation im bogenmass
 #define MIN_ELEVATION 0.1
+#define MIN_DISTANCE 3.0
+#define MAX_DISTANCE 50.0
 
 #define WHEEL_ZOOM_FACTOR -0.1
 
@@ -132,10 +134,17 @@ osg::Geode* CreateWayTerrainBlock()
 	return geode;
 }
 
-void LimitElevation(osgGA::TerrainManipulator* manipulator)
+void LimitCamera(osgGA::TerrainManipulator* manipulator)
 {
 	if(manipulator->getElevation() > -MIN_ELEVATION) {
 		manipulator->setElevation(MIN_ELEVATION);
+	}
+
+	if(manipulator->getDistance() < MIN_DISTANCE){
+		manipulator->setDistance(MIN_DISTANCE);
+	}
+	else if(manipulator->getDistance() > MAX_DISTANCE){
+		manipulator->setDistance(MAX_DISTANCE);
 	}
 }
 
@@ -151,8 +160,8 @@ int main()
 	root->addChild(world);
 	root->addChild(hud);
 
- osg::Billboard* pinBillBoard = new osg::Billboard();
-   world->addChild(pinBillBoard);
+	osg::Billboard* pinBillBoard = new osg::Billboard();
+	world->addChild(pinBillBoard);
 	world->addChild(terrain);
 	
 	osg::Geode* emptyTerrain = CreateEmptyTerrainBlock();
@@ -239,7 +248,7 @@ int main()
 
     while( !viewer.done() )
     {
-		LimitElevation(manipulator);
+		LimitCamera(manipulator);
         viewer.frame();
     }
 
