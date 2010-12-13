@@ -3,4 +3,13 @@
 /OSG
 /OSGBullet
 /Bullet
+
+CMakeCache.txt
+/bin
+/CMakeFiles
+Makefile
+/Towerdefense
+/cmake_install.cmake
+
+/opensteer
 /osgWorks
