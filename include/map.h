@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <SimpleIni.h>
+#include <osg/Texture2D>
 
 #define INI_FIELD_GRAS 'G'
 #define INI_FIELD_TREE 'T'
@@ -15,9 +16,11 @@ class Map
 		char getField(unsigned int x, unsigned int y);
 	private:
 		void loadMap();
+		void loadTextures();
 
 		unsigned int Height;
 		unsigned int Width;
 		std::vector<std::string> Fields;
+		std::vector<osg::Texture2D*> Textures;
 		CSimpleIni Ini;
 };

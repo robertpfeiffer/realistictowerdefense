@@ -2,7 +2,32 @@
 Width = 75
 Height = 75
 
+[Textures]
+Tex1 = gras.jpg
+Tex2 = way.jpg
+
 [Fields]
+Gras = G
+Way  = +
+
+[Field_Way]
+Buildable = 0
+Accessible = 1
+TextureId = 1
+
+[Field_Gras]
+Buildable = 1
+Accessible = 0
+TextureId = 2
+
+
+[Checkpoints]
+Point1_X = 38 
+Point1_Y = 1
+Point2_X = 38 
+Point2_Y = 75
+
+[Map]
 Row1  = GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 Row2  = GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
 Row3  = GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
