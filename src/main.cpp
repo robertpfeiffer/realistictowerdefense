@@ -151,10 +151,12 @@ int main()
 	{
 		for(long y = 0; y < map.getHeight(); y++) {
 			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
-			terrain->addChild(terrainBlockTransform);
 			terrainBlockTransform->addChild(map.getFieldBlock(x, y));
+
 			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, -y*TERRAIN_BLOCK_SIZE, 0);
 			terrainBlockTransform->setPosition(terrainBlockTranslation);
+
+			terrain->addChild(terrainBlockTransform);
 		}
 	}
 

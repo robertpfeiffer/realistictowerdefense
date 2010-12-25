@@ -3,16 +3,19 @@
 #include <osg/Texture2D>
 
 
-FieldBlock::FieldBlock(bool isBuildable, bool isAccessible, osg::Texture2D* texture) : _isBuildable(isBuildable), _isAccessible(isAccessible)
+FieldBlock::FieldBlock(bool isBuildable, bool isAccessible, osg::Texture2D* texture, osg::Node* model) : _isBuildable(isBuildable), _isAccessible(isAccessible), _model(model)
 {
+	//Create ground
+	_ground = new osg::Geode();
+
 	osg::Geometry* geometry = new osg::Geometry();
 	   
 
 	osg::Vec3Array* vertices = new osg::Vec3Array(4);
-	(*vertices)[0].set(osg::Vec3(0.0, 0.0, 0.0));
-	(*vertices)[1].set(osg::Vec3(1.0, 0.0, 0.0));
-	(*vertices)[2].set(osg::Vec3(1.0, 1.0, 0.0));
-	(*vertices)[3].set(osg::Vec3(0.0, 1.0, 0.0));
+	(*vertices)[0].set(osg::Vec3(-0.5, -0.5, 0.0));
+	(*vertices)[1].set(osg::Vec3( 0.5, -0.5, 0.0));
+	(*vertices)[2].set(osg::Vec3( 0.5,  0.5, 0.0));
+	(*vertices)[3].set(osg::Vec3(-0.5,  0.5, 0.0));
 
 	geometry->setVertexArray(vertices);
 
@@ -32,9 +35,17 @@ FieldBlock::FieldBlock(bool isBuildable, bool isAccessible, osg::Texture2D* text
 
 	osg::StateSet* state = new osg::StateSet();
 	state->setTextureAttributeAndModes(0, texture, osg::StateAttribute::ON);
-	this->setStateSet(state);
+	_ground->setStateSet(state);
 
-	this->addDrawable(geometry);
+	_ground->addDrawable(geometry);
+
+	//add ground and model
+	this->addChild(_ground.get());
+
+	if (_model != NULL)
+	{
+		this->addChild(_model.get());
+	}
 }
 
 bool FieldBlock::isBuildable()

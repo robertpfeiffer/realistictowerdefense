@@ -15,6 +15,7 @@ Map::Map(const std::string& filename)
 	_ini.LoadFile(filename.c_str());
 
 	loadTextures();
+	loadModels();
 	loadFields();
 	loadMap();
 }
@@ -46,19 +47,41 @@ void Map::loadTextures()
 	for (int i = 0; i < textureCount; i++)
 	{
 		char texIdx[10];
-		sprintf_s(texIdx, 10, MAP_KEY_TEXTURES_MASK, i+1);
-		std::string tex = MAP_DIRECTORY_TEXTURES;
-		tex.append(_ini.GetValue(MAP_SECTION_TEXTURES, texIdx, ""));
+		sprintf_s(texIdx, 10, MAP_KEY_TEXTURE_MASK, i+1);
+		std::string textureFilename = MAP_DIRECTORY_TEXTURES;
+		textureFilename.append(_ini.GetValue(MAP_SECTION_TEXTURES, texIdx, ""));
 
-		osg::Image* image = osgDB::readImageFile(tex.c_str());
+		osg::Image* image = osgDB::readImageFile(textureFilename.c_str());
 		if (image != NULL)
 		{
-			_textures[i] = new osg::Texture2D(image);
-			_textures[i]->setMaxAnisotropy(AF_LEVEL);
-			_textures[i]->setWrap(osg::Texture::WRAP_S, osg::Texture::REPEAT);
-			_textures[i]->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
-			_textures[i]->setDataVariance(osg::Object::STATIC);
+			osg::Texture2D* texture = new osg::Texture2D(image);
+			texture = new osg::Texture2D(image);
+			texture->setMaxAnisotropy(AF_LEVEL);
+			texture->setWrap(osg::Texture::WRAP_S, osg::Texture::REPEAT);
+			texture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
+			texture->setDataVariance(osg::Object::STATIC);
+
+			_textures[i] = texture;
 		}
+	}
+}
+
+void Map::loadModels()
+{
+	int modelCount = _ini.GetSectionSize(MAP_SECTION_MODELS);
+	if (modelCount == -1)
+	{
+		modelCount = 0;
+	}
+
+	_models.resize(modelCount);
+	for (int i = 0; i < modelCount; i++)
+	{
+		char modelIdx[10];
+		sprintf_s(modelIdx, 10, MAP_KEY_MODEL_MASK, i+1);
+		std::string modelFilename = MAP_DIRECTORY_MODELS;
+		modelFilename.append(_ini.GetValue(MAP_SECTION_MODELS, modelIdx, ""));
+		_models[i] =  osgDB::readNodeFile(modelFilename);
 	}
 }
 
@@ -83,9 +106,16 @@ void Map::loadFieldBlock(const char* sectionKey, unsigned char fieldBlockIndex)
 {
 	bool isBuildable  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_BUILDABLE , 0) != 0;
 	bool isAccessible = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_ACCESSIBLE, 0) != 0;
-	long texureId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_TEXTUREID, 1) - 1;
+	long texureId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_TEXTUREID , 1) - 1;
+	long modelId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_MODELID   , 0) - 1;	
 
-	FieldBlock* fieldBlock =  new FieldBlock(isBuildable, isAccessible, _textures[texureId]);
+	FieldBlock* fieldBlock;
+	if (modelId > -1)
+	{
+		fieldBlock =  new FieldBlock(isBuildable, isAccessible, _textures[texureId].get(), _models[modelId].get());
+	}else{
+		fieldBlock =  new FieldBlock(isBuildable, isAccessible, _textures[texureId].get());
+	}
 
 	_fieldBlocks[fieldBlockIndex] = fieldBlock;
 }

@@ -5,10 +5,6 @@
 
 #include <field_block.h>
 
-#define INI_FIELD_GRAS 'G'
-#define INI_FIELD_TREE 'T'
-#define INI_FIELD_WAY  '+'
-
 class Map
 {	
 	public:
@@ -19,6 +15,7 @@ class Map
 	private:
 		void loadMap();
 		void loadTextures();
+		void loadModels();
 		void loadFields();
 		void loadFieldBlock(const char* sectionKey, unsigned char fieldBlockIndex);
 
@@ -26,6 +23,7 @@ class Map
 		long _width;
 		std::vector<std::string> _fields;
 		std::vector<osg::ref_ptr<osg::Texture2D>> _textures;
+		std::vector<osg::ref_ptr<osg::Node>> _models;
 		CSimpleIni _ini;
 		osg::ref_ptr<FieldBlock> _fieldBlocks[MAXBYTE];
 };
