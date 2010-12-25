@@ -13,12 +13,12 @@ Way  = +
 [Field_Way]
 Buildable = 0
 Accessible = 1
-TextureId = 1
+TextureId = 2
 
 [Field_Gras]
 Buildable = 1
 Accessible = 0
-TextureId = 2
+TextureId = 1
 
 
 [Checkpoints]
