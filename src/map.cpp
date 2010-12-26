@@ -18,6 +18,7 @@ Map::Map(const std::string& filename)
 	loadModels();
 	loadFields();
 	loadMap();
+	loadCheckPoints();
 }
 
 long Map::getWidth()
@@ -30,7 +31,7 @@ long Map::getHeight()
 	return _height;
 }
 
-FieldBlock* Map::getFieldBlock(unsigned int x, unsigned int y)
+FieldNode* Map::getFieldBlock(unsigned int x, unsigned int y)
 {
 	return _fieldBlocks[_fields[y][x]];
 }
@@ -47,7 +48,7 @@ void Map::loadTextures()
 	for (int i = 0; i < textureCount; i++)
 	{
 		char texIdx[10];
-		sprintf_s(texIdx, 10, MAP_KEY_TEXTURE_MASK, i+1);
+		sprintf_s(texIdx, 10, MAP_KEY_TEXTURE_MASK, i);
 		std::string textureFilename = MAP_DIRECTORY_TEXTURES;
 		textureFilename.append(_ini.GetValue(MAP_SECTION_TEXTURES, texIdx, ""));
 
@@ -78,7 +79,7 @@ void Map::loadModels()
 	for (int i = 0; i < modelCount; i++)
 	{
 		char modelIdx[10];
-		sprintf_s(modelIdx, 10, MAP_KEY_MODEL_MASK, i+1);
+		sprintf_s(modelIdx, 10, MAP_KEY_MODEL_MASK, i);
 		std::string modelFilename = MAP_DIRECTORY_MODELS;
 		modelFilename.append(_ini.GetValue(MAP_SECTION_MODELS, modelIdx, ""));
 		_models[i] =  osgDB::readNodeFile(modelFilename);
@@ -87,7 +88,7 @@ void Map::loadModels()
 
 void Map::loadFields()
 {
-	for (int i = 0; i < sizeof(char); i++)
+	for (int i = 0; i < MAXBYTE; i++)
 	{
 		_fieldBlocks[i] = 0;
 	}
@@ -104,20 +105,20 @@ void Map::loadFields()
 
 void Map::loadFieldBlock(const char* sectionKey, unsigned char fieldBlockIndex)
 {
-	bool isBuildable  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_BUILDABLE , 0) != 0;
-	bool isAccessible = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_ACCESSIBLE, 0) != 0;
-	long texureId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_TEXTUREID , 1) - 1;
-	long modelId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_MODELID   , 0) - 1;	
+	bool isBuildable  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_BUILDABLE ,  0) != 0;
+	bool isAccessible = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_ACCESSIBLE,  0) != 0;
+	long texureId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_TEXTUREID ,  0);
+	long modelId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_MODELID   , -1);	
 
-	FieldBlock* fieldBlock;
+	FieldNode* fieldNode;
 	if (modelId > -1)
 	{
-		fieldBlock =  new FieldBlock(isBuildable, isAccessible, _textures[texureId].get(), _models[modelId].get());
+		fieldNode =  new FieldNode(isBuildable, isAccessible, _textures[texureId].get(), _models[modelId].get());
 	}else{
-		fieldBlock =  new FieldBlock(isBuildable, isAccessible, _textures[texureId].get());
+		fieldNode =  new FieldNode(isBuildable, isAccessible, _textures[texureId].get());
 	}
 
-	_fieldBlocks[fieldBlockIndex] = fieldBlock;
+	_fieldBlocks[fieldBlockIndex] = fieldNode;
 }
 
 void Map::loadMap()
@@ -132,8 +133,31 @@ void Map::loadMap()
 	{
 		//allow up to 999.999 rows
 		char rowIdx[10];
-		snprintf(rowIdx, 10, MAP_KEY_MAP_ROW_MASK, y+1);
+		snprintf(rowIdx, 10, MAP_KEY_MAP_ROW_MASK, y);
 		_fields[y].assign(_ini.GetValue(MAP_SECTION_MAP, rowIdx, ""));
 		_fields[y].resize(_width, 0);
 	}
+}
+
+void Map::loadCheckPoints()
+{
+	_checkpoints.clear();
+
+	int i = -1;
+	do{
+		i++;
+
+		_checkpoints.resize(i+1);
+		_checkpoints[i].resize(2);
+
+		char pointName[10];
+
+		snprintf(pointName, 10, MAP_KEY_CHECKPOINTS_POINT_X_MASK, i);
+		_checkpoints[i][0] = _ini.GetLongValue(MAP_SECTION_CHECKPOINTS, pointName, -1);
+
+		snprintf(pointName, 10, MAP_KEY_CHECKPOINTS_POINT_Y_MASK, i);
+		_checkpoints[i][1] = _ini.GetLongValue(MAP_SECTION_CHECKPOINTS, pointName, -1);
+		
+	}while ((_checkpoints[i][0] > -1) && (_checkpoints[i][1] > -1));
+	_checkpoints.pop_back();
 }

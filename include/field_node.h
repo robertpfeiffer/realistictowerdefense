@@ -1,10 +1,10 @@
 #include <osg/Geode>
 #include <osg/Texture2D>
 
-class FieldBlock : public osg::Group
+class FieldNode : public osg::Group
 {
 	public:
-		FieldBlock(bool isBuildable, bool isAccessible, osg::Texture2D* texture, osg::Node* model = NULL);
+		FieldNode(bool isBuildable, bool isAccessible, osg::Texture2D* texture, osg::Node* model = NULL);
 
 		bool isBuildable();
 		bool isAccessible();

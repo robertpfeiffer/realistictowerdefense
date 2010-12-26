@@ -3,7 +3,7 @@
 #include <SimpleIni.h>
 #include <osg/Texture2D>
 
-#include <field_block.h>
+#include <field_node.h>
 
 class Map
 {	
@@ -11,13 +11,14 @@ class Map
 		Map(const std::string& filename);
 		long getWidth();
 		long getHeight();
-		FieldBlock* getFieldBlock(unsigned int x, unsigned int y);
+		FieldNode* getFieldBlock(unsigned int x, unsigned int y);
 	private:
 		void loadMap();
 		void loadTextures();
 		void loadModels();
 		void loadFields();
 		void loadFieldBlock(const char* sectionKey, unsigned char fieldBlockIndex);
+		void loadCheckPoints();
 
 		long _height;
 		long _width;
@@ -25,5 +26,6 @@ class Map
 		std::vector<osg::ref_ptr<osg::Texture2D>> _textures;
 		std::vector<osg::ref_ptr<osg::Node>> _models;
 		CSimpleIni _ini;
-		osg::ref_ptr<FieldBlock> _fieldBlocks[MAXBYTE];
+		osg::ref_ptr<FieldNode> _fieldBlocks[MAXBYTE];
+		std::vector<std::vector<long>> _checkpoints;
 };
