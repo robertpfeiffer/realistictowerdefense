@@ -5,8 +5,8 @@
 #include <osg/Texture2D>
 #include <osgDB/ReadFile>
 
-#ifdef _MSC_VER
-#define snprintf sprintf_s
+#ifndef _MSC_VER
+#define  sprintf_s snprintf
 #endif
 
 
@@ -45,7 +45,7 @@ void Map::loadMap()
 	{
 		//allow up to 999.999 rows
 		char rowIdx[10];
-		snprintf(rowIdx, 10, "Row%d", y+1);
+		sprintf_s(rowIdx, 10, "Row%d", y+1);
 		Fields[y].assign(Ini.GetValue("Map", rowIdx, ""));
 		Fields[y].resize(Width, INI_FIELD_GRAS);
 	}
