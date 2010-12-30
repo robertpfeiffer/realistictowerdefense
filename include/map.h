@@ -3,24 +3,29 @@
 #include <SimpleIni.h>
 #include <osg/Texture2D>
 
-#define INI_FIELD_GRAS 'G'
-#define INI_FIELD_TREE 'T'
-#define INI_FIELD_WAY  '+'
+#include <field_node.h>
 
 class Map
 {	
 	public:
 		Map(const std::string& filename);
-		unsigned int getWidth();
-		unsigned int getHeight();
-		char getField(unsigned int x, unsigned int y);
+		long getWidth();
+		long getHeight();
+		FieldNode* getFieldBlock(unsigned int x, unsigned int y);
 	private:
 		void loadMap();
 		void loadTextures();
+		void loadModels();
+		void loadFields();
+		void loadFieldBlock(const char* sectionKey, unsigned char fieldBlockIndex);
+		void loadCheckPoints();
 
-		unsigned int Height;
-		unsigned int Width;
-		std::vector<std::string> Fields;
-		std::vector<osg::Texture2D*> Textures;
-		CSimpleIni Ini;
+		long _height;
+		long _width;
+		std::vector<std::string> _fields;
+		std::vector<osg::ref_ptr<osg::Texture2D>> _textures;
+		std::vector<osg::ref_ptr<osg::Node>> _models;
+		CSimpleIni _ini;
+		osg::ref_ptr<FieldNode> _fieldBlocks[MAXBYTE];
+		std::vector<std::vector<long>> _checkpoints;
 };

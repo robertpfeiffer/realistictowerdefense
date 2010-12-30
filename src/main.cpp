@@ -1,3 +1,11 @@
+//detect memory leaks (see at output window of MS VC; only in debug mode active)
+#ifdef _MSC_VER
+	#define _CRTDBG_MAP_ALLOC
+	#include <stdlib.h>
+	#include <crtdbg.h>
+#endif
+
+
 #include <osg/DisplaySettings>
 #include <osg/Node>
 #include <osg/Geode>
@@ -16,6 +24,7 @@
 #include <osg/PositionAttitudeTransform>
 
 #include <map.h>
+#include <constants.h>
 
 #define TERRAIN_BLOCK_SIZE 1
 
@@ -25,8 +34,6 @@
 #define MAX_DISTANCE 50.0
 
 #define WHEEL_ZOOM_FACTOR -0.1
-
-#define AF_LEVEL 16.0
 
 osg::Drawable* createPin(const float & scale, osg::StateSet* bbState)
 {
@@ -97,44 +104,12 @@ osg::Geode* CreateTerrainBlock()
 
 	osg::Vec2Array* texcoords = new osg::Vec2Array(4);
 	(*texcoords)[0].set(0.0, 0.0);
-	(*texcoords)[1].set(1.0, 0.0f);
+	(*texcoords)[1].set(1.0, 0.0);
 	(*texcoords)[2].set(1.0, 1.0);
 	(*texcoords)[3].set(0.0, 1.0);
    terrainBlockGeometry->setTexCoordArray(0,texcoords);
 
 	return terrainBlock;
-}
-
-osg::Geode* CreateEmptyTerrainBlock()
-{
-	osg::Geode* geode = CreateTerrainBlock();
-
-	osg::Image* grasImage = osgDB::readImageFile("textures/gras.jpg");
-	osg::Texture2D* grasTexture = new osg::Texture2D(grasImage);
-	grasTexture->setDataVariance(osg::Object::STATIC);
-	grasTexture->setMaxAnisotropy(AF_LEVEL);
-
-	osg::StateSet* state = new osg::StateSet();
-	state->setTextureAttributeAndModes(0, grasTexture, osg::StateAttribute::ON);
-	geode->setStateSet(state);
-
-	return geode;
-}
-
-osg::Geode* CreateWayTerrainBlock()
-{
-	osg::Geode* geode = CreateTerrainBlock();
-
-	osg::Image* wayImage = osgDB::readImageFile("textures/way.jpg");
-	osg::Texture2D* wayTexture = new osg::Texture2D(wayImage);
-	wayTexture->setDataVariance(osg::Object::STATIC);
-	wayTexture->setMaxAnisotropy(AF_LEVEL);
-
-	osg::StateSet* state = new osg::StateSet();
-	state->setTextureAttributeAndModes(0, wayTexture, osg::StateAttribute::ON);
-	geode->setStateSet(state);
-
-	return geode;
 }
 
 void LimitCamera(osgGA::TerrainManipulator* manipulator)
@@ -154,6 +129,10 @@ void LimitCamera(osgGA::TerrainManipulator* manipulator)
 
 int main()
 {
+	#ifdef _MSC_VER
+		_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+	#endif
+
     osgViewer::Viewer viewer;	
     osg::Group* root = new osg::Group();
 	 osg::Group* world = new osg::Group();
@@ -166,27 +145,18 @@ int main()
 	osg::Billboard* pinBillBoard = new osg::Billboard();
 	world->addChild(pinBillBoard);
 	world->addChild(terrain);
-	
-	osg::Geode* emptyTerrain = CreateEmptyTerrainBlock();
-	osg::Geode* wayTerrain = CreateWayTerrainBlock();
 
 	Map map("maps/default.map");
-    for(unsigned int x = 0; x < map.getWidth(); x++)
+    for(long x = 0; x < map.getWidth(); x++)
 	{
-		for(unsigned int y = 0; y < map.getHeight(); y++) {
+		for(long y = 0; y < map.getHeight(); y++) {
 			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
-			terrain->addChild(terrainBlockTransform);
-			switch(map.getField(x, y))
-			{
-				case INI_FIELD_WAY:
-					terrainBlockTransform->addChild(wayTerrain);
-					break;
-				default:
-					terrainBlockTransform->addChild(emptyTerrain);
-					break;
-			}
-			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, y*TERRAIN_BLOCK_SIZE, 0);
+			terrainBlockTransform->addChild(map.getFieldBlock(x, y));
+
+			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, -y*TERRAIN_BLOCK_SIZE, 0);
 			terrainBlockTransform->setPosition(terrainBlockTranslation);
+
+			terrain->addChild(terrainBlockTransform);
 		}
 	}
 
@@ -228,9 +198,9 @@ int main()
    osg::Drawable* shrub3Drawable = createPin( 0.6f, kingbillBoardStateSet);
 
    // Add these drawables to our billboard at various positions
-   pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,3,0) );
-   pinBillBoard->addDrawable( shrub2Drawable , osg::Vec3(10,18,0));
-   pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,10,0) );
+   pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,-3,0) );
+   pinBillBoard->addDrawable( shrub2Drawable , osg::Vec3(10,-18,0));
+   pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,-10,0) );
 
 
     //The final step is to set up and enter a simulation loop.

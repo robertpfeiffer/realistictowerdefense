@@ -33,8 +33,15 @@ include_directories("include")
 # Executables
 # -----------
 set(sources
+	#source files
+	"src/field_node.cpp"
 	"src/main.cpp"
 	"src/map.cpp"
+	
+	#header files
+	"include/constants.h"
+	"include/field_node.h"
+	"include/map.h"
 )
 
 add_executable(Towerdefense ${sources})
