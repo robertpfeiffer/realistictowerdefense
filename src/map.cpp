@@ -88,7 +88,7 @@ void Map::loadModels()
 
 void Map::loadFields()
 {
-	for (int i = 0; i < MAXBYTE; i++)
+	for (int i = 0; i <= MAXBYTE; i++)
 	{
 		_fieldBlocks[i] = 0;
 	}
@@ -148,16 +148,15 @@ void Map::loadCheckPoints()
 		i++;
 
 		_checkpoints.resize(i+1);
-		_checkpoints[i].resize(2);
 
 		char pointName[10];
 
 		snprintf(pointName, 10, MAP_KEY_CHECKPOINTS_POINT_X_MASK, i);
-		_checkpoints[i][0] = _ini.GetLongValue(MAP_SECTION_CHECKPOINTS, pointName, -1);
+		_checkpoints[i].X = _ini.GetLongValue(MAP_SECTION_CHECKPOINTS, pointName, -1);
 
 		snprintf(pointName, 10, MAP_KEY_CHECKPOINTS_POINT_Y_MASK, i);
-		_checkpoints[i][1] = _ini.GetLongValue(MAP_SECTION_CHECKPOINTS, pointName, -1);
+		_checkpoints[i].Y = _ini.GetLongValue(MAP_SECTION_CHECKPOINTS, pointName, -1);
 		
-	}while ((_checkpoints[i][0] > -1) && (_checkpoints[i][1] > -1));
+	}while ((_checkpoints[i].X > -1) && (_checkpoints[i].Y > -1));
 	_checkpoints.pop_back();
 }

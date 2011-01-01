@@ -33,6 +33,11 @@ FieldNode::FieldNode(bool isBuildable, bool isAccessible, osg::Texture2D* textur
 	(*texcoords)[3].set(0.0, 1.0);
 	geometry->setTexCoordArray(0,texcoords);
 
+	osg::Vec3Array* normals = new osg::Vec3Array;
+	normals->push_back(osg::Vec3(0.0, 0.0, 1.0));
+	geometry->setNormalArray(normals);
+	geometry->setNormalBinding(osg::Geometry::BIND_OVERALL);
+
 	osg::StateSet* state = new osg::StateSet();
 	state->setTextureAttributeAndModes(0, texture, osg::StateAttribute::ON);
 	_ground->setStateSet(state);

@@ -5,6 +5,11 @@
 
 #include <field_node.h>
 
+struct MapPoint{
+	long X;
+	long Y;
+};
+
 class Map
 {	
 	public:
@@ -26,6 +31,6 @@ class Map
 		std::vector<osg::ref_ptr<osg::Texture2D>> _textures;
 		std::vector<osg::ref_ptr<osg::Node>> _models;
 		CSimpleIni _ini;
-		osg::ref_ptr<FieldNode> _fieldBlocks[MAXBYTE];
-		std::vector<std::vector<long>> _checkpoints;
+		osg::ref_ptr<FieldNode> _fieldBlocks[MAXBYTE + 1];
+		std::vector<MapPoint> _checkpoints;
 };

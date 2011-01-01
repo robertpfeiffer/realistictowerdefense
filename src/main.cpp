@@ -126,6 +126,51 @@ void LimitCamera(osgGA::TerrainManipulator* manipulator)
 	}
 }
 
+void addBillBoards(osg::Group* world, osg::Group* terrain)
+{
+	osg::Billboard* pinBillBoard = new osg::Billboard();
+	world->addChild(pinBillBoard);
+	world->addChild(terrain);
+
+
+	pinBillBoard->setMode(osg::Billboard::AXIAL_ROT);
+	pinBillBoard->setAxis(osg::Vec3(0.0f,0.0f,1.0f));
+	pinBillBoard->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
+
+	osg::Texture2D *pinTexture = new osg::Texture2D;
+	pinTexture->setImage(osgDB::readImageFile("textures/pin.png"));
+	pinTexture->setMaxAnisotropy(AF_LEVEL);
+
+	osg::Texture2D *kingpinTexture = new osg::Texture2D;
+	kingpinTexture->setImage(osgDB::readImageFile("textures/kingpin.png"));
+	kingpinTexture->setMaxAnisotropy(AF_LEVEL);
+ 
+	osg::StateSet* billBoardStateSet = new osg::StateSet;
+	billBoardStateSet->setTextureAttributeAndModes
+		(0, pinTexture, osg::StateAttribute::ON);
+	osg::BlendFunc *blendFunc = new osg::BlendFunc;
+	billBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
+	billBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
+	billBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+
+
+	osg::StateSet* kingbillBoardStateSet = new osg::StateSet;
+	kingbillBoardStateSet->setTextureAttributeAndModes
+		(0, kingpinTexture, osg::StateAttribute::ON);
+	kingbillBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
+		kingbillBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
+	kingbillBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+
+
+	osg::Drawable* shrub1Drawable = createPin( 0.4f, billBoardStateSet);
+	osg::Drawable* shrub2Drawable = createPin( 0.4f, billBoardStateSet);
+	osg::Drawable* shrub3Drawable = createPin( 0.6f, kingbillBoardStateSet);
+
+	// Add these drawables to our billboard at various positions
+	pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,-3,0) );
+	pinBillBoard->addDrawable( shrub2Drawable , osg::Vec3(10,-18,0));
+	pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,-10,0) );
+}
 
 int main()
 {
@@ -142,10 +187,6 @@ int main()
 	root->addChild(world);
 	root->addChild(hud);
 
-	osg::Billboard* pinBillBoard = new osg::Billboard();
-	world->addChild(pinBillBoard);
-	world->addChild(terrain);
-
 	Map map("maps/default.map");
     for(long x = 0; x < map.getWidth(); x++)
 	{
@@ -160,48 +201,13 @@ int main()
 		}
 	}
 
-    // switch off lighting as we haven't assigned any normals.
-    root->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
+	addBillBoards(world, terrain);
 
-
-   pinBillBoard->setMode(osg::Billboard::AXIAL_ROT);
-   pinBillBoard->setAxis(osg::Vec3(0.0f,0.0f,1.0f));
-   pinBillBoard->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
-
-   osg::Texture2D *pinTexture = new osg::Texture2D;
-   pinTexture->setImage(osgDB::readImageFile("textures/pin.png"));
-   pinTexture->setMaxAnisotropy(AF_LEVEL);
-
- osg::Texture2D *kingpinTexture = new osg::Texture2D;
-   kingpinTexture->setImage(osgDB::readImageFile("textures/kingpin.png"));
-   kingpinTexture->setMaxAnisotropy(AF_LEVEL);
- 
-  osg::StateSet* billBoardStateSet = new osg::StateSet;
-   billBoardStateSet->setTextureAttributeAndModes
-     (0, pinTexture, osg::StateAttribute::ON);
-   osg::BlendFunc *blendFunc = new osg::BlendFunc;
-   billBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
-   billBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
-   billBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-
-
-   osg::StateSet* kingbillBoardStateSet = new osg::StateSet;
-   kingbillBoardStateSet->setTextureAttributeAndModes
-     (0, kingpinTexture, osg::StateAttribute::ON);
-   kingbillBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
-     kingbillBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
-   kingbillBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-
-
-   osg::Drawable* shrub1Drawable = createPin( 0.4f, billBoardStateSet);
-   osg::Drawable* shrub2Drawable = createPin( 0.4f, billBoardStateSet);
-   osg::Drawable* shrub3Drawable = createPin( 0.6f, kingbillBoardStateSet);
-
-   // Add these drawables to our billboard at various positions
-   pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,-3,0) );
-   pinBillBoard->addDrawable( shrub2Drawable , osg::Vec3(10,-18,0));
-   pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,-10,0) );
-
+	viewer.setLightingMode(osg::View::SKY_LIGHT);
+	osg::Light* globalLight = new osg::Light;
+	globalLight->setLightNum(0);
+	globalLight->setAmbient(osg::Vec4(1.0, 1.0, 1.0, 0.0));
+	viewer.setLight(globalLight);
 
     //The final step is to set up and enter a simulation loop.
 
