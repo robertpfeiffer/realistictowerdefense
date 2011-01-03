@@ -1,9 +1,9 @@
-#include <field_node.h>
+#include <field_type.h>
 #include <osg/Geometry>
 #include <osg/Texture2D>
 
 
-FieldNode::FieldNode(bool isBuildable, bool isAccessible, osg::Texture2D* texture, osg::Node* model) : _isBuildable(isBuildable), _isAccessible(isAccessible), _model(model)
+FieldType::FieldType(bool isBuildable, bool isAccessible, osg::Texture2D* texture, osg::Node* model) : _isBuildable(isBuildable), _isAccessible(isAccessible), _model(model)
 {
 	//Create ground
 	_ground = new osg::Geode();
@@ -53,12 +53,12 @@ FieldNode::FieldNode(bool isBuildable, bool isAccessible, osg::Texture2D* textur
 	}
 }
 
-bool FieldNode::isBuildable()
+bool FieldType::isBuildable()
 {
 	return _isBuildable;
 }
 
-bool FieldNode::isAccessible()
+bool FieldType::isAccessible()
 {
 	return _isAccessible;
 }

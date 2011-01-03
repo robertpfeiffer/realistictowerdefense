@@ -172,6 +172,17 @@ void addBillBoards(osg::Group* world, osg::Group* terrain)
 	pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,-10,0) );
 }
 
+osg::Node* createTerrainBlockFromMap(Map* map, int x, int y)
+{
+	osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
+	terrainBlockTransform->addChild(map->getField(x, y));
+
+	osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, -y*TERRAIN_BLOCK_SIZE, 0);
+	terrainBlockTransform->setPosition(terrainBlockTranslation);
+
+	return terrainBlockTransform;
+}
+
 int main()
 {
 	#ifdef _MSC_VER
@@ -191,13 +202,7 @@ int main()
     for(long x = 0; x < map.getWidth(); x++)
 	{
 		for(long y = 0; y < map.getHeight(); y++) {
-			osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
-			terrainBlockTransform->addChild(map.getFieldBlock(x, y));
-
-			osg::Vec3 terrainBlockTranslation(x*TERRAIN_BLOCK_SIZE, -y*TERRAIN_BLOCK_SIZE, 0);
-			terrainBlockTransform->setPosition(terrainBlockTranslation);
-
-			terrain->addChild(terrainBlockTransform);
+			terrain->addChild(createTerrainBlockFromMap(&map, x, y));
 		}
 	}
 
@@ -226,6 +231,8 @@ int main()
 	viewer.setDisplaySettings(displaySettings);
 
     viewer.realize();
+
+	//viewer.run();
 
     while( !viewer.done() )
     {

@@ -34,13 +34,15 @@ include_directories("include")
 # -----------
 set(sources
 	#source files
-	"src/field_node.cpp"
+	"src/field.cpp"
+	"src/field_type.cpp"
 	"src/main.cpp"
 	"src/map.cpp"
 	
 	#header files
+	"include/field.h"
 	"include/constants.h"
-	"include/field_node.h"
+	"include/field_type.h"
 	"include/map.h"
 )
 
