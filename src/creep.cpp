@@ -44,7 +44,6 @@
 #include <sstream>
 #include "OpenSteer/Pathway.h"
 #include "OpenSteer/SimpleVehicle.h"
-#include "OpenSteer/OpenSteerDemo.h"
 #include "OpenSteer/Proximity.h"
 
 
@@ -65,12 +64,6 @@ typedef AbstractTokenForProximityDatabase<AbstractVehicle*> ProximityToken;
 
 // creates a path for the PlugIn
 ObstacleGroup gObstacles;
-Vec3 gEndpoint0;
-Vec3 gEndpoint1;
-bool gUseDirectedPathFollowing = true;
-
-// this was added for debugging tool, but I might as well leave it in
-bool gWanderSwitch = true;
 
 
 // ----------------------------------------------------------------------------
@@ -83,14 +76,27 @@ public:
     // type for a group of Pedestrians
     typedef std::vector<Pedestrian*> groupType;
 
-    // constructor
+	// a pointer to this boid's interface object for the proximity database
+    ProximityToken* proximityToken;
+
+    // allocate one and share amoung instances just to save memory usage
+    // (change to per-instance allocation to be more MP-safe)
+    static AVGroup neighbors;
+
+    // path to be followed by this pedestrian
+    // XXX Ideally this should be a generic Pathway, but we use the
+    // XXX getTotalPathLength and radius methods (currently defined only
+    // XXX on PolylinePathway) to set random initial positions.  Could
+    // XXX there be a "random position inside path" method on Pathway?
+    PolylinePathway* path;
+
+    // direction for path following (upstream or downstream)
+    int pathDirection;
+
     Creep (ProximityDatabase& pd)
     {
-        // allocate a token for this boid in the proximity database
-        proximityToken = NULL;
-        newPD (pd);
+        proximityToken = pd.allocateToken (this);        
 
-        // reset Pedestrian state
         reset ();
     }
 
@@ -147,27 +153,6 @@ public:
         applySteeringForce (determineCombinedSteering (elapsedTime),
                             elapsedTime);
 
-        // reverse direction when we reach an endpoint
-        if (gUseDirectedPathFollowing)
-        {
-            const Vec3 darkRed (0.7f, 0, 0);
-
-            if (Vec3::distance (position(), gEndpoint0) < path->radius)
-            {
-                pathDirection = +1;
-                annotationXZCircle (path->radius, gEndpoint0, darkRed, 20);
-            }
-            if (Vec3::distance (position(), gEndpoint1) < path->radius)
-            {
-                pathDirection = -1;
-                annotationXZCircle (path->radius, gEndpoint1, darkRed, 20);
-            }
-        }
-
-        // annotation
-        annotationVelocityAcceleration (5, 0);
-        recordTrailVertex (currentTime, position());
-
         // notify proximity database that our position has changed
         proximityToken->updateForNewPosition (position());
     }
@@ -179,18 +164,9 @@ public:
         // move forward
         Vec3 steeringForce = forward();
 
-        // probability that a lower priority behavior will be given a
-        // chance to "drive" even if a higher priority behavior might
-        // otherwise be triggered.
-        const float leakThrough = 0.1f;
-
         // determine if obstacle avoidance is required
-        Vec3 obstacleAvoidance;
-        if (leakThrough < frandom01())
-        {
-            const float oTime = 6; // minTimeToCollision = 6 seconds
-            obstacleAvoidance = steerToAvoidObstacles (oTime, gObstacles);
-        }
+        const float oTime = 6; // minTimeToCollision = 6 seconds
+        Vec3 obstacleAvoidance = steerToAvoidObstacles (oTime, gObstacles);
 
         // if obstacle avoidance is needed, do it
         if (obstacleAvoidance != Vec3::zero)
@@ -210,9 +186,7 @@ public:
             neighbors.clear();
             proximityToken->findNeighbors (position(), maxRadius, neighbors);
 
-            if (leakThrough < frandom01())
-                collisionAvoidance =
-                    steerToAvoidNeighbors (caLeadTime, neighbors) * 10;
+            collisionAvoidance = steerToAvoidNeighbors (caLeadTime, neighbors) * 10;
 
             // if collision avoidance is needed, do it
             if (collisionAvoidance != Vec3::zero)
@@ -221,16 +195,15 @@ public:
             }
             else
             {
-                // add in wander component (according to user switch)
-                if (gWanderSwitch)
-                    steeringForce += steerForWander (elapsedTime);
+                // add in wander component
+                //steeringForce += steerForWander (elapsedTime);
 
                 // do (interactively) selected type of path following
                 const float pfLeadTime = 3;
-                const Vec3 pathFollow =
-                    (gUseDirectedPathFollowing ?
-                     steerToFollowPath (pathDirection, pfLeadTime, *path) :
-                     steerToStayOnPath (pfLeadTime, *path));
+
+				//see whats the best mechanism to use here
+                const Vec3 pathFollow = steerToFollowPath (pathDirection, pfLeadTime, *path);
+                //const Vec3 pathFollow = steerToStayOnPath (pfLeadTime, *path));
 
                 // add in to steeringForce
                 steeringForce += pathFollow * 0.5;
@@ -240,33 +213,6 @@ public:
         // return steering constrained to global XZ "ground" plane
         return steeringForce.setYtoZero ();
     }
-
-    // switch to new proximity database -- just for demo purposes
-    void newPD (ProximityDatabase& pd)
-    {
-        // delete this boid's token in the old proximity database
-        delete proximityToken;
-
-        // allocate a token for this boid in the proximity database
-        proximityToken = pd.allocateToken (this);
-    }
-
-    // a pointer to this boid's interface object for the proximity database
-    ProximityToken* proximityToken;
-
-    // allocate one and share amoung instances just to save memory usage
-    // (change to per-instance allocation to be more MP-safe)
-    static AVGroup neighbors;
-
-    // path to be followed by this pedestrian
-    // XXX Ideally this should be a generic Pathway, but we use the
-    // XXX getTotalPathLength and radius methods (currently defined only
-    // XXX on PolylinePathway) to set random initial positions.  Could
-    // XXX there be a "random position inside path" method on Pathway?
-    PolylinePathway* path;
-
-    // direction for path following (upstream or downstream)
-    int pathDirection;
 };
 
 
