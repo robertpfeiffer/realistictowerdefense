@@ -1,3 +1,5 @@
+#pragma once
+
 #include <osg/Geode>
 #include <osg/Texture2D>
 

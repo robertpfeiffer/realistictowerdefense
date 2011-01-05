@@ -1,3 +1,5 @@
+#pragma once
+
 #define AF_LEVEL 16.0
 
 #define MAP_DIRECTORY_TEXTURES "textures/"

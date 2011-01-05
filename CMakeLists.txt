@@ -38,12 +38,14 @@ set(sources
 	"src/field_type.cpp"
 	"src/main.cpp"
 	"src/map.cpp"
+	"src/world.cpp"
 	
 	#header files
 	"include/field.h"
 	"include/constants.h"
 	"include/field_type.h"
 	"include/map.h"
+	"include/world.h"
 )
 
 add_executable(Towerdefense ${sources})

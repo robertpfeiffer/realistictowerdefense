@@ -1,5 +1,6 @@
-#include <osg/Geode>
+#pragma once
 
+#include <osg/Geode>
 #include <field_type.h>
 
 class Field : public osg::Group
