@@ -1,3 +1,4 @@
+#include <constants.h>
 #include <world.h>
 
 #include <osg/DisplaySettings>
@@ -19,12 +20,6 @@
 
 #include <map.h>
 #include <constants.h>
-
-#define WHEEL_ZOOM_FACTOR -0.1
-//elevation im bogenmass
-#define MIN_ELEVATION 0.1
-#define MIN_DISTANCE 3.0
-#define MAX_DISTANCE 50.0
 
 osg::Drawable* World::createPin(const float & scale, osg::StateSet* bbState)
 {
@@ -71,12 +66,9 @@ osg::Drawable* World::createPin(const float & scale, osg::StateSet* bbState)
    return geometry;
 } 
 
-void World::addBillBoards(osg::Group* world, osg::Group* terrain)
+osg::Billboard* World::addBillBoards()
 {
 	osg::Billboard* pinBillBoard = new osg::Billboard();
-	world->addChild(pinBillBoard);
-	world->addChild(terrain);
-
 
 	pinBillBoard->setMode(osg::Billboard::AXIAL_ROT);
 	pinBillBoard->setAxis(osg::Vec3(0.0f,0.0f,1.0f));
@@ -115,6 +107,8 @@ void World::addBillBoards(osg::Group* world, osg::Group* terrain)
 	pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,-3,0) );
 	pinBillBoard->addDrawable( shrub2Drawable , osg::Vec3(10,-18,0));
 	pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,-10,0) );
+
+	return pinBillBoard;
 }
 
 osg::Node* World::createTerrainBlockFromMap(Map* map, int x, int y)
@@ -128,30 +122,9 @@ osg::Node* World::createTerrainBlockFromMap(Map* map, int x, int y)
 	return terrainBlockTransform;
 }
 
-void World::LimitCamera(osgGA::TerrainManipulator* manipulator)
+World::World() : osg::Group()
 {
-	if(manipulator->getElevation() > -MIN_ELEVATION) {
-		manipulator->setElevation(MIN_ELEVATION);
-	}
-
-	if(manipulator->getDistance() < MIN_DISTANCE){
-		manipulator->setDistance(MIN_DISTANCE);
-	}
-	else if(manipulator->getDistance() > MAX_DISTANCE){
-		manipulator->setDistance(MAX_DISTANCE);
-	}
-}
-
-void World::run()
-{
-	osgViewer::Viewer viewer;	
-    osg::Group* root = new osg::Group();
-	 osg::Group* world = new osg::Group();
-	  osg::Group* terrain = new osg::Group();
-	 osg::Group* hud = new osg::Group();
-
-	root->addChild(world);
-	root->addChild(hud);
+	osg::Group* terrain = new osg::Group();
 
 	Map map("maps/default.map");
     for(long x = 0; x < map.getWidth(); x++)
@@ -161,37 +134,6 @@ void World::run()
 		}
 	}
 
-	addBillBoards(world, terrain);
-
-	viewer.setLightingMode(osg::View::SKY_LIGHT);
-	osg::Light* globalLight = new osg::Light;
-	globalLight->setLightNum(0);
-	globalLight->setAmbient(osg::Vec4(1.0, 1.0, 1.0, 0.0));
-	viewer.setLight(globalLight);
-
-    //The final step is to set up and enter a simulation loop.
-
-    viewer.setSceneData( root );
-
-    osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
-	manipulator->setVerticalAxisFixed(true);
-	manipulator->setWheelZoomFactor(WHEEL_ZOOM_FACTOR);
-	manipulator->setAllowThrow(false);
-
-	viewer.setCameraManipulator(manipulator);
-
-	//activate 4x multisample
-	osg::DisplaySettings* displaySettings = new osg::DisplaySettings;
-    displaySettings->setNumMultiSamples(4);
-	viewer.setDisplaySettings(displaySettings);
-
-    viewer.realize();
-
-	//viewer.run();
-
-    while( !viewer.done() )
-    {
-		LimitCamera(manipulator);
-        viewer.frame();
-    }
+	this->addChild(addBillBoards());
+	this->addChild(terrain);
 }

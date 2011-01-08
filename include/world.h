@@ -1,16 +1,14 @@
 #pragma once
 
 #include <map.h>
-#include <osg/Node>
-#include <osgGA/TerrainManipulator>
+#include <osg/Group>
 
-class World
+class World : public osg::Group
 {
 	public:
-		void run();
+		World();
 	private:
 		osg::Drawable* createPin(const float & scale, osg::StateSet* bbState);
-		void addBillBoards(osg::Group* world, osg::Group* terrain);
-		void LimitCamera(osgGA::TerrainManipulator* manipulator);
+		osg::Billboard* addBillBoards();
 		osg::Node* createTerrainBlockFromMap(Map* map, int x, int y);
 };

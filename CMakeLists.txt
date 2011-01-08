@@ -36,14 +36,18 @@ set(sources
 	#source files
 	"src/field.cpp"
 	"src/field_type.cpp"
+	"src/game.cpp"
+	"src/hud.cpp"
 	"src/main.cpp"
 	"src/map.cpp"
 	"src/world.cpp"
 	
 	#header files
-	"include/field.h"
 	"include/constants.h"
+	"include/field.h"
 	"include/field_type.h"
+	"include/game.h"
+	"include/hud.h"
 	"include/map.h"
 	"include/world.h"
 )
