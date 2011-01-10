@@ -42,9 +42,9 @@
 
 #include <iomanip>
 #include <sstream>
-#include "OpenSteer/Pathway.h"
-#include "OpenSteer/SimpleVehicle.h"
-#include "OpenSteer/Proximity.h"
+#include <OpenSteer/Pathway.h>
+#include <OpenSteer/SimpleVehicle.h>
+#include <OpenSteer/Proximity.h>
 
 
 
@@ -58,20 +58,14 @@ using namespace OpenSteer;
 typedef AbstractProximityDatabase<AbstractVehicle*> ProximityDatabase;
 typedef AbstractTokenForProximityDatabase<AbstractVehicle*> ProximityToken;
 
-
-// ----------------------------------------------------------------------------
-
-
-// creates a path for the PlugIn
-ObstacleGroup gObstacles;
-
-
 // ----------------------------------------------------------------------------
 
 
 class Creep : public SimpleVehicle
 {
 public:
+	// creates a path for the PlugIn
+	static ObstacleGroup gObstacles;
 
     // type for a group of Pedestrians
     typedef std::vector<Creep*> groupType;
@@ -126,18 +120,14 @@ public:
         // set the path for this Pedestrian to follow
         path = runPath;
 
-        // set initial position
-        // (random point on path + random horizontal offset)
-        const float d = path->getTotalPathLength() * frandom01();
-        const float r = path->radius;
-        const Vec3 randomOffset = randomVectorOnUnitRadiusXZDisk () * r;
-        setPosition (path->mapPathDistanceToPoint (d) + randomOffset);
+        // set initial position (path-beginning)
+        setPosition (path->mapPathDistanceToPoint (0));
 
         // randomize 2D heading
         randomizeHeadingOnXZPlane ();
 
-        // pick a random direction for path following (upstream or downstream)
-        pathDirection = (frandom01() > 0.5) ? -1 : +1;
+        // follow the path in pathDirection
+        pathDirection = +1;
 
         // trail parameters: 3 seconds with 60 points along the trail
         setTrailParameters (3, 60);
@@ -216,3 +206,4 @@ public:
 };
 
 AVGroup Creep::neighbors;
+ObstacleGroup Creep::gObstacles;

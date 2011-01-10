@@ -122,6 +122,11 @@ osg::Node* World::createTerrainBlock(int x, int y)
 	return terrainBlockTransform;
 }
 
+void World::createPath()
+{
+	_path = new OpenSteer::PolylinePathway();
+}
+
 World::World(const std::string mapFilename) : osg::Group()
 {
 	osg::Group* terrain = new osg::Group();
@@ -134,6 +139,13 @@ World::World(const std::string mapFilename) : osg::Group()
 		}
 	}
 
+	createPath();
+
 	this->addChild(addBillBoards());
 	this->addChild(terrain);
+}
+
+World::~World()
+{
+	delete _path;
 }
