@@ -74,7 +74,7 @@ class Creep : public SimpleVehicle
 public:
 
     // type for a group of Pedestrians
-    typedef std::vector<Pedestrian*> groupType;
+    typedef std::vector<Creep*> groupType;
 
 	// a pointer to this boid's interface object for the proximity database
     ProximityToken* proximityToken;
@@ -93,11 +93,11 @@ public:
     // direction for path following (upstream or downstream)
     int pathDirection;
 
-    Creep (ProximityDatabase& pd)
+    Creep (ProximityDatabase& pd, PolylinePathway* runPath)
     {
         proximityToken = pd.allocateToken (this);        
 
-        reset ();
+        init (runPath);
     }
 
     // destructor
@@ -108,7 +108,7 @@ public:
     }
 
     // reset all instance state
-    void reset (void)
+    void init (PolylinePathway* runPath)
     {
         // reset the vehicle 
         SimpleVehicle::reset ();
@@ -124,7 +124,7 @@ public:
         setRadius (0.5); // width = 0.7, add 0.3 margin, take half
 
         // set the path for this Pedestrian to follow
-        path = getTestPath ();
+        path = runPath;
 
         // set initial position
         // (random point on path + random horizontal offset)
@@ -215,5 +215,4 @@ public:
     }
 };
 
-
-AVGroup Pedestrian::neighbors;
+AVGroup Creep::neighbors;

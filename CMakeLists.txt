@@ -24,6 +24,13 @@ include_directories("OSG/include")
 link_directories("OSG/lib")
 link_directories("OSG/bin")
 
+
+# ========================
+# 		OpenSteer
+# ========================
+include_directories("opensteer/include")
+link_directories("opensteer/lib")
+
 # ========================
 # 		Towerdefense
 # ========================
@@ -34,6 +41,7 @@ include_directories("include")
 # -----------
 set(sources
 	#source files
+	"src/creep.cpp"
 	"src/field.cpp"
 	"src/field_type.cpp"
 	"src/game.cpp"
@@ -63,6 +71,7 @@ target_link_libraries(Towerdefense optimized osgViewer)
 target_link_libraries(Towerdefense optimized osgGA)
 target_link_libraries(Towerdefense optimized osgDB)
 target_link_libraries(Towerdefense optimized OpenThreads)
+target_link_libraries(Towerdefense optimized opensteer)
 
 # Debug
 target_link_libraries(Towerdefense debug osgd)
@@ -70,3 +79,4 @@ target_link_libraries(Towerdefense debug osgViewerd)
 target_link_libraries(Towerdefense debug osgGAd)
 target_link_libraries(Towerdefense debug osgDBd)
 target_link_libraries(Towerdefense debug OpenThreadsd)
+target_link_libraries(Towerdefense debug opensteerd)
