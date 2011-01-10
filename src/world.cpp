@@ -111,10 +111,10 @@ osg::Billboard* World::addBillBoards()
 	return pinBillBoard;
 }
 
-osg::Node* World::createTerrainBlockFromMap(Map* map, int x, int y)
+osg::Node* World::createTerrainBlock(int x, int y)
 {
 	osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
-	terrainBlockTransform->addChild(map->getField(x, y));
+	terrainBlockTransform->addChild(_map->getField(x, y));
 
 	osg::Vec3 terrainBlockTranslation(x, -y, 0);
 	terrainBlockTransform->setPosition(terrainBlockTranslation);
@@ -122,15 +122,15 @@ osg::Node* World::createTerrainBlockFromMap(Map* map, int x, int y)
 	return terrainBlockTransform;
 }
 
-World::World() : osg::Group()
+World::World(const std::string mapFilename) : osg::Group()
 {
 	osg::Group* terrain = new osg::Group();
 
-	Map map("maps/default.map");
-    for(long x = 0; x < map.getWidth(); x++)
+	_map = new Map(mapFilename);
+    for(long x = 0; x < _map->getWidth(); x++)
 	{
-		for(long y = 0; y < map.getHeight(); y++) {
-			terrain->addChild(createTerrainBlockFromMap(&map, x, y));
+		for(long y = 0; y < _map->getHeight(); y++) {
+			terrain->addChild(createTerrainBlock(x, y));
 		}
 	}
 

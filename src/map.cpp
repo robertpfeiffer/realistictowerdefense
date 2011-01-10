@@ -10,13 +10,14 @@
 #endif
 
 
-Map::Map(const std::string& filename)
+Map::Map(const std::string& filename) : osg::Referenced()
 {
 	_ini.LoadFile(filename.c_str());
 
 	loadTextures();
 	loadModels();
 	loadMap();
+	loadWorld();
 	loadCheckPoints();
 }
 
@@ -33,6 +34,11 @@ long Map::getHeight()
 Field* Map::getField(unsigned int x, unsigned int y)
 {
 	return _fields[y][x];
+}
+
+osg::Texture2D* Map::getStrataTexture()
+{
+	return _textures[_strataTextureId];
 }
 
 void Map::loadTextures()
@@ -144,6 +150,11 @@ void Map::loadMap()
 			_fields[y][x] = new Field(_fieldTypes[rowString[x]].get());
 		}
 	}
+}
+
+void Map::loadWorld()
+{
+	_strataTextureId = _ini.GetLongValue(MAP_SECTION_WORLD, MAP_KEY_WORLD_STRATA, 0);
 }
 
 void Map::loadCheckPoints()

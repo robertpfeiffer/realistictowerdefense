@@ -47,7 +47,7 @@ void Game::setGlobalLight()
 void Game::run()
 {
 	osg::Group* root = new osg::Group();
-	root->addChild(new World());
+	root->addChild(new World("maps/default.map"));
 	root->addChild(new Hud());
 
     _viewer.setSceneData(root);

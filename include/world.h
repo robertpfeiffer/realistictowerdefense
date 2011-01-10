@@ -6,9 +6,12 @@
 class World : public osg::Group
 {
 	public:
-		World();
+		World(const std::string mapFilename);
 	private:
 		osg::Drawable* createPin(const float & scale, osg::StateSet* bbState);
 		osg::Billboard* addBillBoards();
-		osg::Node* createTerrainBlockFromMap(Map* map, int x, int y);
+		osg::Node* createTerrainBlock(int x, int y);
+		osg::Node* createStrata();
+
+		osg::ref_ptr<Map> _map;
 };

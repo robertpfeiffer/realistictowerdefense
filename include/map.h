@@ -12,7 +12,7 @@ struct MapPoint{
 	long Y;
 };
 
-class Map
+class Map : public osg::Referenced
 {	
 	public:
 		Map(const std::string& filename);
@@ -20,12 +20,14 @@ class Map
 		long getHeight();
 
 		Field* getField(unsigned int x, unsigned int y);
+		osg::Texture2D* getStrataTexture();
 	private:
 		void loadMap();
 		void loadTextures();
 		void loadModels();
 		void loadFields();
 		void loadFieldTypes(const char* sectionKey, unsigned char fieldTypeIndex);
+		void loadWorld();
 		void loadCheckPoints();
 
 		void createFields();
@@ -38,4 +40,5 @@ class Map
 		CSimpleIni _ini;
 		osg::ref_ptr<FieldType> _fieldTypes[MAXBYTE + 1];
 		std::vector<MapPoint> _checkpoints;
+		long _strataTextureId;
 };

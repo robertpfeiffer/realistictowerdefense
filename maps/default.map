@@ -1,3 +1,6 @@
+[World]
+StrataTextureId = 2
+
 [Size]
 Width = 75
 Height = 75
@@ -5,6 +8,7 @@ Height = 75
 [Textures]
 Tex0 = gras.jpg
 Tex1 = way.jpg
+Tex2 = sediment.jpg
 
 [Models]
 Model0 = firetree/firtree.3ds
