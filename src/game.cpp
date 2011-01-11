@@ -50,10 +50,7 @@ void Game::run()
 	root->addChild(new World("maps/default.map"));
 	root->addChild(new Hud());
 
-    _viewer.setSceneData(root);
-
 	_viewer.setUpViewInWindow( 100, 100, 1024, 768 ); //maybe improve with osgViewer::WindowSizeHandler
-    _viewer.realize();
 
 	activateAntialiasing(NUM_MULTISAMPLES);
 	setCameraManipulator();
@@ -61,10 +58,13 @@ void Game::run()
 
 	_viewer.getCamera()->setClearColor(osg::Vec4(0, 0, 0, 0));
 
+	_viewer.setSceneData(root);
+	_viewer.realize();
+
 	//viewer.run();
     while( !_viewer.done() )
     {
-		limitCamera((osgGA::TerrainManipulator*) _viewer.getCameraManipulator());
+		//limitCamera((osgGA::TerrainManipulator*) _viewer.getCameraManipulator());
         _viewer.frame();
     }
 }
