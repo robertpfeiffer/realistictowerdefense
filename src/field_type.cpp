@@ -1,4 +1,5 @@
 #include <field_type.h>
+#include <osg/CullFace>
 #include <osg/Geometry>
 #include <osg/Texture2D>
 
@@ -40,6 +41,7 @@ FieldType::FieldType(bool isBuildable, bool isAccessible, osg::Texture2D* textur
 
 	osg::StateSet* state = new osg::StateSet();
 	state->setTextureAttributeAndModes(0, texture, osg::StateAttribute::ON);
+	state->setAttributeAndModes(new osg::CullFace(osg::CullFace::FRONT), osg::StateAttribute::ON);
 	_ground->setStateSet(state);
 
 	_ground->addDrawable(geometry);
