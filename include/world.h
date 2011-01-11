@@ -12,8 +12,6 @@ class World : public osg::Group
 	private:
 		osg::Drawable* createPin(const float & scale, osg::StateSet* bbState);
 		osg::Billboard* addBillBoards();
-		osg::Node* createTerrainBlock(int x, int y);
-		osg::Node* createStrata();
 		void createPath();
 
 		osg::ref_ptr<Map> _map;

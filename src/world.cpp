@@ -1,25 +1,20 @@
-#include <constants.h>
-#include <world.h>
-
-#include <osg/DisplaySettings>
 #include <osg/Node>
 #include <osg/Geode>
 #include <osg/Geometry>
 #include <osg/Group>
 #include <osg/Texture2D>
-#include <osgDB/ReadFile> 
-#include <osgViewer/Viewer>
-#include <osg/PositionAttitudeTransform>
+#include <osgDB/ReadFile>
 #include <osgGA/TerrainManipulator>
 
 #include <osg/Billboard>
 #include <osg/BlendFunc>
 #include <osg/AlphaFunc>
 #include <osgDB/Registry>
-#include <osg/PositionAttitudeTransform>
 
-#include <map.h>
 #include <constants.h>
+#include <map.h>
+#include <terrain.h>
+#include <world.h>
 
 osg::Drawable* World::createPin(const float & scale, osg::StateSet* bbState)
 {
@@ -111,17 +106,6 @@ osg::Billboard* World::addBillBoards()
 	return pinBillBoard;
 }
 
-osg::Node* World::createTerrainBlock(int x, int y)
-{
-	osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
-	terrainBlockTransform->addChild(_map->getField(x, y));
-
-	osg::Vec3 terrainBlockTranslation(x, -y, 0);
-	terrainBlockTransform->setPosition(terrainBlockTranslation);
-
-	return terrainBlockTransform;
-}
-
 void World::createPath()
 {
 	_path = new OpenSteer::PolylinePathway();
@@ -129,20 +113,12 @@ void World::createPath()
 
 World::World(const std::string mapFilename) : osg::Group()
 {
-	osg::Group* terrain = new osg::Group();
-
 	_map = new Map(mapFilename);
-    for(long x = 0; x < _map->getWidth(); x++)
-	{
-		for(long y = 0; y < _map->getHeight(); y++) {
-			terrain->addChild(createTerrainBlock(x, y));
-		}
-	}
 
 	createPath();
 
 	this->addChild(addBillBoards());
-	this->addChild(terrain);
+	this->addChild(new Terrain(_map));
 }
 
 World::~World()

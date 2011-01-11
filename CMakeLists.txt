@@ -48,6 +48,7 @@ set(sources
 	"src/hud.cpp"
 	"src/main.cpp"
 	"src/map.cpp"
+	"src/terrain.cpp"
 	"src/world.cpp"
 	
 	#header files
@@ -57,6 +58,7 @@ set(sources
 	"include/game.h"
 	"include/hud.h"
 	"include/map.h"
+	"include/terrain.h"
 	"include/world.h"
 )
 
