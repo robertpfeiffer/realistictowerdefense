@@ -59,6 +59,8 @@ void Game::run()
 	setCameraManipulator();
 	setGlobalLight();
 
+	_viewer.getCamera()->setClearColor(osg::Vec4(0, 0, 0, 0));
+
 	//viewer.run();
     while( !_viewer.done() )
     {
