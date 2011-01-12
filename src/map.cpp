@@ -183,8 +183,3 @@ std::vector<MapPoint>* Map::getCheckpoints()
 {
 	return &_checkpoints;
 }
-
-void Map::createFields()
-{
-
-}

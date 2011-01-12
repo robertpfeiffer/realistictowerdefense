@@ -31,8 +31,6 @@ class Map : public osg::Referenced
 		void loadWorld();
 		void loadCheckPoints();
 
-		void createFields();
-
 		long _height;
 		long _width;
 		std::vector<std::vector<osg::ref_ptr<Field>>> _fields;
