@@ -179,6 +179,11 @@ void Map::loadCheckPoints()
 	_checkpoints.pop_back();
 }
 
+std::vector<MapPoint>* Map::getCheckpoints()
+{
+	return &_checkpoints;
+}
+
 void Map::createFields()
 {
 

@@ -108,6 +108,13 @@ osg::Billboard* World::addBillBoards()
 
 void World::createPath()
 {
+	std::vector<OpenSteer::Vec3> pathPoints = std::vector<OpenSteer::Vec3>();
+	pathPoints.resize(_map->getCheckpoints()->size());
+	for(int i=0;i < _map->getCheckpoints()->size(); i++)
+	{
+		pathPoints[i] = OpenSteer::Vec3((float)(_map->getCheckpoints()->at(i).X), 0.0, (float)(_map->getCheckpoints()->at(i).Y));
+	}
+	//create path from backing array of vector
 	_path = new OpenSteer::PolylinePathway();
 }
 

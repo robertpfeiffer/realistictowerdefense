@@ -21,6 +21,7 @@ class Map : public osg::Referenced
 
 		Field* getField(unsigned int x, unsigned int y);
 		osg::Texture2D* getStrataTexture();
+		std::vector<MapPoint>* getCheckpoints();
 	private:
 		void loadMap();
 		void loadTextures();
