@@ -115,8 +115,8 @@ void World::createPath()
 	{
 		pathPoints[i] = OpenSteer::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) ((*checkpoints)[i].Y));
 	}
-	//create path from backing array of vector
-	_path = new OpenSteer::PolylinePathway();
+	
+	_path = new OpenSteer::PolylinePathway(pathPoints.size(), pathPoints.data(), 0.5, false);
 }
 
 World::World(const std::string mapFilename) : osg::Group()
