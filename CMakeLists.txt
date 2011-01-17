@@ -24,6 +24,8 @@ include_directories("OSG/include")
 link_directories("OSG/lib")
 link_directories("OSG/bin")
 
+include_directories("OSG/3rdParty/x86/include")
+link_directories("OSG/3rdParty/x86/lib")
 
 # ========================
 # 		OpenSteer
@@ -41,6 +43,7 @@ include_directories("include")
 # -----------
 set(sources
 	#source files
+	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
 	"src/field_type.cpp"
@@ -53,6 +56,8 @@ set(sources
 	
 	#header files
 	"include/constants.h"
+	"include/creep.h"
+	"include/creepsteering.h"
 	"include/field.h"
 	"include/field_type.h"
 	"include/game.h"

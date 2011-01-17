@@ -40,170 +40,121 @@
 // ----------------------------------------------------------------------------
 
 
-#include <iomanip>
-#include <sstream>
-#include <OpenSteer/Pathway.h>
-#include <OpenSteer/SimpleVehicle.h>
-#include <OpenSteer/Proximity.h>
+#include <creepsteering.h>
 
+OpenSteer::AVGroup CreepSteering::neighbors;
+OpenSteer::ObstacleGroup CreepSteering::gObstacles;
 
-
-
-using namespace OpenSteer;
-
-
-// ----------------------------------------------------------------------------
-
-
-typedef AbstractProximityDatabase<AbstractVehicle*> ProximityDatabase;
-typedef AbstractTokenForProximityDatabase<AbstractVehicle*> ProximityToken;
-
-// ----------------------------------------------------------------------------
-
-
-class CreepSteering : public SimpleVehicle
+CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::PolylinePathway* runPath)
 {
-public:
-	// creates a path for the PlugIn
-	static ObstacleGroup gObstacles;
+    proximityToken = pd.allocateToken (this);        
 
-    // type for a group of Pedestrians
-    typedef std::vector<CreepSteering*> groupType;
+    init (runPath);
+}
 
-	// a pointer to this boid's interface object for the proximity database
-    ProximityToken* proximityToken;
+// destructor
+CreepSteering::~CreepSteering()
+{
+    // delete this boid's token in the proximity database
+    delete proximityToken;
+}
 
-    // allocate one and share amoung instances just to save memory usage
-    // (change to per-instance allocation to be more MP-safe)
-    static AVGroup neighbors;
+// reset all instance state
+void CreepSteering::init (OpenSteer::PolylinePathway* runPath)
+{
+    // reset the vehicle 
+    SimpleVehicle::reset ();
 
-    // path to be followed by this pedestrian
-    // XXX Ideally this should be a generic Pathway, but we use the
-    // XXX getTotalPathLength and radius methods (currently defined only
-    // XXX on PolylinePathway) to set random initial positions.  Could
-    // XXX there be a "random position inside path" method on Pathway?
-    PolylinePathway* path;
+    // max speed and max steering force (maneuverability) 
+    setMaxSpeed (2.0);
+    setMaxForce (8.0);
 
-    // direction for path following (upstream or downstream)
-    int pathDirection;
+    // initially stopped
+    setSpeed (0);
 
-    CreepSteering(ProximityDatabase& pd, PolylinePathway* runPath)
+    // size of bounding sphere, for obstacle avoidance, etc.
+    setRadius (0.5); // width = 0.7, add 0.3 margin, take half
+
+    // set the path for this Pedestrian to follow
+    path = runPath;
+
+    // set initial position (path-beginning)
+    setPosition (path->mapPathDistanceToPoint (0));
+
+    // randomize 2D heading
+    randomizeHeadingOnXZPlane ();
+
+    // follow the path in pathDirection
+    pathDirection = +1;
+
+    // notify proximity database that our position has changed
+    proximityToken->updateForNewPosition (position());
+}
+
+// per frame simulation update
+void CreepSteering::update (const float currentTime, const float elapsedTime)
+{
+    // apply steering force to our momentum
+    applySteeringForce (determineCombinedSteering (elapsedTime),
+                        elapsedTime);
+
+    // notify proximity database that our position has changed
+    proximityToken->updateForNewPosition (position());
+}
+
+// compute combined steering force: move forward, avoid obstacles
+// or neighbors if needed, otherwise follow the path and wander
+OpenSteer::Vec3 CreepSteering::determineCombinedSteering (const float elapsedTime)
+{
+    // move forward
+    OpenSteer::Vec3 steeringForce = forward();
+
+    // determine if obstacle avoidance is required
+    const float oTime = 6; // minTimeToCollision = 6 seconds
+    OpenSteer::Vec3 obstacleAvoidance = steerToAvoidObstacles (oTime, gObstacles);
+
+    // if obstacle avoidance is needed, do it
+    if (obstacleAvoidance != OpenSteer::Vec3::zero)
     {
-        proximityToken = pd.allocateToken (this);        
-
-        init (runPath);
+        steeringForce += obstacleAvoidance;
     }
-
-    // destructor
-    virtual ~CreepSteering()
+    else
     {
-        // delete this boid's token in the proximity database
-        delete proximityToken;
-    }
+        // otherwise consider avoiding collisions with others
+        OpenSteer::Vec3 collisionAvoidance;
+        const float caLeadTime = 3;
 
-    // reset all instance state
-    void init (PolylinePathway* runPath)
-    {
-        // reset the vehicle 
-        SimpleVehicle::reset ();
+        // find all neighbors within maxRadius using proximity database
+        // (radius is largest distance between vehicles traveling head-on
+        // where a collision is possible within caLeadTime seconds.)
+        const float maxRadius = caLeadTime * maxSpeed() * 2;
+        neighbors.clear();
+        proximityToken->findNeighbors (position(), maxRadius, neighbors);
 
-        // max speed and max steering force (maneuverability) 
-        setMaxSpeed (2.0);
-        setMaxForce (8.0);
+        collisionAvoidance = steerToAvoidNeighbors (caLeadTime, neighbors) * 10;
 
-        // initially stopped
-        setSpeed (0);
-
-        // size of bounding sphere, for obstacle avoidance, etc.
-        setRadius (0.5); // width = 0.7, add 0.3 margin, take half
-
-        // set the path for this Pedestrian to follow
-        path = runPath;
-
-        // set initial position (path-beginning)
-        setPosition (path->mapPathDistanceToPoint (0));
-
-        // randomize 2D heading
-        randomizeHeadingOnXZPlane ();
-
-        // follow the path in pathDirection
-        pathDirection = +1;
-
-        // trail parameters: 3 seconds with 60 points along the trail
-        setTrailParameters (3, 60);
-
-        // notify proximity database that our position has changed
-        proximityToken->updateForNewPosition (position());
-    }
-
-    // per frame simulation update
-    void update (const float currentTime, const float elapsedTime)
-    {
-        // apply steering force to our momentum
-        applySteeringForce (determineCombinedSteering (elapsedTime),
-                            elapsedTime);
-
-        // notify proximity database that our position has changed
-        proximityToken->updateForNewPosition (position());
-    }
-
-    // compute combined steering force: move forward, avoid obstacles
-    // or neighbors if needed, otherwise follow the path and wander
-    Vec3 determineCombinedSteering (const float elapsedTime)
-    {
-        // move forward
-        Vec3 steeringForce = forward();
-
-        // determine if obstacle avoidance is required
-        const float oTime = 6; // minTimeToCollision = 6 seconds
-        Vec3 obstacleAvoidance = steerToAvoidObstacles (oTime, gObstacles);
-
-        // if obstacle avoidance is needed, do it
-        if (obstacleAvoidance != Vec3::zero)
+        // if collision avoidance is needed, do it
+        if (collisionAvoidance != OpenSteer::Vec3::zero)
         {
-            steeringForce += obstacleAvoidance;
+            steeringForce += collisionAvoidance;
         }
         else
         {
-            // otherwise consider avoiding collisions with others
-            Vec3 collisionAvoidance;
-            const float caLeadTime = 3;
+            // add in wander component
+            //steeringForce += steerForWander (elapsedTime);
 
-            // find all neighbors within maxRadius using proximity database
-            // (radius is largest distance between vehicles traveling head-on
-            // where a collision is possible within caLeadTime seconds.)
-            const float maxRadius = caLeadTime * maxSpeed() * 2;
-            neighbors.clear();
-            proximityToken->findNeighbors (position(), maxRadius, neighbors);
+            // do (interactively) selected type of path following
+            const float pfLeadTime = 3;
 
-            collisionAvoidance = steerToAvoidNeighbors (caLeadTime, neighbors) * 10;
+			//see whats the best mechanism to use here
+            const OpenSteer::Vec3 pathFollow = steerToFollowPath (pathDirection, pfLeadTime, *path);
+            //const Vec3 pathFollow = steerToStayOnPath (pfLeadTime, *path));
 
-            // if collision avoidance is needed, do it
-            if (collisionAvoidance != Vec3::zero)
-            {
-                steeringForce += collisionAvoidance;
-            }
-            else
-            {
-                // add in wander component
-                //steeringForce += steerForWander (elapsedTime);
-
-                // do (interactively) selected type of path following
-                const float pfLeadTime = 3;
-
-				//see whats the best mechanism to use here
-                const Vec3 pathFollow = steerToFollowPath (pathDirection, pfLeadTime, *path);
-                //const Vec3 pathFollow = steerToStayOnPath (pfLeadTime, *path));
-
-                // add in to steeringForce
-                steeringForce += pathFollow * 0.5;
-            }
+            // add in to steeringForce
+            steeringForce += pathFollow * 0.5;
         }
-
-        // return steering constrained to global XZ "ground" plane
-        return steeringForce.setYtoZero ();
     }
-};
 
-AVGroup CreepSteering::neighbors;
-ObstacleGroup CreepSteering::gObstacles;
+    // return steering constrained to global XZ "ground" plane
+    return steeringForce.setYtoZero ();
+}

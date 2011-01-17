@@ -3,6 +3,7 @@
 #include <map.h>
 #include <osg/Group>
 #include <OpenSteer\Pathway.h>
+#include <creep.h>
 
 class World : public osg::Group
 {
