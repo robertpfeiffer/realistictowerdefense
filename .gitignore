@@ -11,5 +11,11 @@ Makefile
 /Towerdefense
 /cmake_install.cmake
 
-/opensteer
 /osgWorks
+/opensteer/doc
+/opensteer/macosx
+/opensteer/plugins
+/opensteer/src
+/opensteer/win32
+/opensteer/COPYING.OPENSTEER
+/opensteer/linux
