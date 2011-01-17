@@ -41,7 +41,7 @@ include_directories("include")
 # -----------
 set(sources
 	#source files
-	"src/creep.cpp"
+	"src/creepsteering.cpp"
 	"src/field.cpp"
 	"src/field_type.cpp"
 	"src/game.cpp"
