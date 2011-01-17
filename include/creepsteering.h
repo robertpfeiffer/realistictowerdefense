@@ -82,13 +82,13 @@ public:
     // direction for path following (upstream or downstream)
     int pathDirection;
 
-    CreepSteering(ProximityDatabase& pd, OpenSteer::PolylinePathway* runPath);
+	CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath);
 
     // destructor
     virtual ~CreepSteering();
 
     // reset all instance state
-    void init (OpenSteer::PolylinePathway* runPath);
+    void init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath);
 
     // per frame simulation update
     void update (const float currentTime, const float elapsedTime);

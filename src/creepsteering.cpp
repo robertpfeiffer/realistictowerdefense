@@ -45,11 +45,11 @@
 OpenSteer::AVGroup CreepSteering::neighbors;
 OpenSteer::ObstacleGroup CreepSteering::gObstacles;
 
-CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::PolylinePathway* runPath)
+CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath)
 {
     proximityToken = pd.allocateToken (this);        
 
-    init (runPath);
+    init (startPosition, runPath);
 }
 
 // destructor
@@ -60,7 +60,7 @@ CreepSteering::~CreepSteering()
 }
 
 // reset all instance state
-void CreepSteering::init (OpenSteer::PolylinePathway* runPath)
+void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath)
 {
     // reset the vehicle 
     SimpleVehicle::reset ();
@@ -79,7 +79,7 @@ void CreepSteering::init (OpenSteer::PolylinePathway* runPath)
     path = runPath;
 
     // set initial position (path-beginning)
-    setPosition (path->mapPathDistanceToPoint (0));
+    setPosition (startPosition);
 
     // randomize 2D heading
     randomizeHeadingOnXZPlane ();
