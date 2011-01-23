@@ -1,24 +1,36 @@
 #include "map.h"
 #include "constants.h"
 #include <string>
-#include <SimpleIni.h>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile>
+
+#include "rapidxml.hpp"
+#include "rapidxml_utils.hpp"
 
 #ifdef _MSC_VER
 	#define snprintf sprintf_s
 #endif
 
+using namespace rapidxml;
+
+Map::Map() : osg::Referenced()
+{
+	_reset();
+}
 
 Map::Map(const std::string& filename) : osg::Referenced()
 {
-	_ini.LoadFile(filename.c_str());
+	_load(filename);
+}
 
-	loadTextures();
-	loadModels();
-	loadMap();
-	loadWorld();
-	loadCheckPoints();
+std::vector<MapPoint>* Map::getCheckpoints()
+{
+	return &_checkpoints;
+}
+
+osg::Texture2D* Map::getStrataTexture()
+{
+	return _strata.get();
 }
 
 long Map::getWidth()
@@ -36,150 +48,259 @@ Field* Map::getField(unsigned int x, unsigned int y)
 	return _fields[y][x];
 }
 
-osg::Texture2D* Map::getStrataTexture()
+bool Map::_strToBool(const char* str, bool defaultValue)
 {
-	return _textures[_strataTextureId];
+	if (strcmp(str, "0") == 0) return false;
+	if (strcmp(str, "1") == 0) return true;
+
+	if (strcmpi(str, "false") == 0) return false;
+	if (strcmpi(str, "true") == 0) return true;
+
+	return defaultValue;
 }
 
-void Map::loadTextures()
+long Map::_strToLong(char* str, long defaultValue)
 {
-	int textureCount = _ini.GetSectionSize(MAP_SECTION_TEXTURES);
-	if (textureCount == -1)
+	long val = strtol(str, &str, 10);
+	if (val == 0)
 	{
-		textureCount = 0;
+		if (strcmp(str, "0") != 0) return defaultValue;
 	}
+	return val;	
+}
 
-	_textures.resize(textureCount);
-	for (int i = 0; i < textureCount; i++)
+void Map::_reset()
+{
+	//mark all textures as not used on current map
 	{
-		char texIdx[10];
-		sprintf_s(texIdx, 10, MAP_KEY_TEXTURE_MASK, i);
-		std::string textureFilename = MAP_DIRECTORY_TEXTURES;
-		textureFilename.append(_ini.GetValue(MAP_SECTION_TEXTURES, texIdx, ""));
-
-		osg::Image* image = osgDB::readImageFile(textureFilename.c_str());
-		if (image != NULL)
+		std::list<_cache<osg::ref_ptr<osg::Texture2D>>>::iterator it;
+		for(it = _textureCache.begin(); it != _textureCache.end(); it++)
 		{
-			osg::Texture2D* texture = new osg::Texture2D(image);
-			texture->setMaxAnisotropy(AF_LEVEL);
-			texture->setWrap(osg::Texture::WRAP_S, osg::Texture::REPEAT);
-			texture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
-			texture->setDataVariance(osg::Object::STATIC);
-
-			_textures[i] = texture;
+			it->used = false;
 		}
 	}
-}
 
-void Map::loadModels()
-{
-	int modelCount = _ini.GetSectionSize(MAP_SECTION_MODELS);
-	if (modelCount == -1)
+	//mark all models as not used on current map
 	{
-		modelCount = 0;
-	}
-
-	_models.resize(modelCount);
-	for (int i = 0; i < modelCount; i++)
-	{
-		char modelIdx[10];
-		sprintf_s(modelIdx, 10, MAP_KEY_MODEL_MASK, i);
-		std::string modelFilename = MAP_DIRECTORY_MODELS;
-		modelFilename.append(_ini.GetValue(MAP_SECTION_MODELS, modelIdx, ""));
-		_models[i] =  osgDB::readNodeFile(modelFilename);
-	}
-}
-
-void Map::loadFields()
-{
-	for (int i = 0; i <= MAXBYTE; i++)
-	{
-		_fieldTypes[i] = 0;
-	}
-
-	const CSimpleIni::TKeyVal * pSectionData = _ini.GetSection(MAP_SECTION_FIELDS);
-	if (pSectionData) {
-		for (CSimpleIni::TKeyVal::const_iterator iKeyVal = pSectionData->begin(); iKeyVal != pSectionData->end(); iKeyVal++) {
-			std::string sectionKey = MAP_KEY_FIELDS_PREFIX;
-			sectionKey.append(iKeyVal->first.pItem);
-			loadFieldTypes(sectionKey.c_str(), *(iKeyVal->second));
-		}
-	}
-}
-
-void Map::loadFieldTypes(const char* sectionKey, unsigned char fieldBlockIndex)
-{
-	bool isBuildable  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_BUILDABLE ,  0) != 0;
-	bool isAccessible = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_ACCESSIBLE,  0) != 0;
-	long texureId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_TEXTUREID ,  0);
-	long modelId	  = _ini.GetLongValue(sectionKey, MAP_KEY_FIELD_MODELID   , -1);	
-
-	FieldType* fieldType;
-	if (modelId > -1)
-	{
-		fieldType =  new FieldType(isBuildable, isAccessible, _textures[texureId].get(), _models[modelId].get());
-	}else{
-		fieldType =  new FieldType(isBuildable, isAccessible, _textures[texureId].get());
-	}
-
-	_fieldTypes[fieldBlockIndex] = fieldType;
-}
-
-void Map::loadMap()
-{
-	loadFields();
-
-	//Load dimension of map
-	_width  = _ini.GetLongValue(MAP_SECTION_SIZE, MAP_KEY_SIZE_WIDTH, 0);
-	_height = _ini.GetLongValue(MAP_SECTION_SIZE, MAP_KEY_SIZE_HEIGHT, 0);
-
-	//prepare field 2d vector
-	_fields.resize(_height);
-	for (long y = 0; y < _height; y++)
-	{
-		_fields[y].resize(_width);
-
-		//allow up to 999.999 rows
-		char rowIdx[10];
-		snprintf(rowIdx, 10, MAP_KEY_MAP_ROW_MASK, y);
-		std::string rowString = _ini.GetValue(MAP_SECTION_MAP, rowIdx, "");
-		rowString.resize(_width, 0);
-
-		for (long x = 0; x < _width; x++)
+		std::list<_cache<osg::ref_ptr<osg::Node>>>::iterator it;
+		for(it = _modelCache.begin(); it != _modelCache.end(); it++)
 		{
-			_fields[y][x] = new Field(_fieldTypes[rowString[x]].get());
+			it->used = false;
 		}
 	}
-}
 
-void Map::loadWorld()
-{
-	_strataTextureId = _ini.GetLongValue(MAP_SECTION_WORLD, MAP_KEY_WORLD_STRATA, 0);
-}
-
-void Map::loadCheckPoints()
-{
 	_checkpoints.clear();
 
-	int i = -1;
-	do{
-		i++;
+	for (int i = 0; i <= 255; i++)
+	{
+		_fieldTypes[i] = NULL;
+	}
 
-		_checkpoints.resize(i+1);
-
-		char pointName[10];
-
-		snprintf(pointName, 10, MAP_KEY_CHECKPOINTS_POINT_X_MASK, i);
-		_checkpoints[i].X = _ini.GetLongValue(MAP_SECTION_CHECKPOINTS, pointName, -1);
-
-		snprintf(pointName, 10, MAP_KEY_CHECKPOINTS_POINT_Y_MASK, i);
-		_checkpoints[i].Y = _ini.GetLongValue(MAP_SECTION_CHECKPOINTS, pointName, -1);
-		
-	}while ((_checkpoints[i].X > -1) && (_checkpoints[i].Y > -1));
-	_checkpoints.pop_back();
+	_width = 0;
+	_height = 0;
 }
 
-std::vector<MapPoint>* Map::getCheckpoints()
+void Map::_cleanup()
 {
-	return &_checkpoints;
+	_textureCache.remove_if([] (_cache<osg::ref_ptr<osg::Texture2D>> item) {return !item.used;});
+	_modelCache.remove_if([] (_cache<osg::ref_ptr<osg::Node>> item) {return !item.used;});
+
+	for (int i = 0; i <= 255; i++)
+	{
+		_fieldTypes[i] = NULL;
+	}
+}
+
+void Map::_load(const std::string& filename)
+{
+	_reset();
+
+	file<> file(filename.c_str());
+	_xml.parse<0>(file.data());
+
+	xml_node<> *root = _xml.first_node("Map", 0, false);
+
+	xml_node<> *child = root->first_node("Terrain", 0, false);
+	if (child != NULL)
+	{
+		_loadTerrain(child);
+	}
+
+	child = root->first_node("Checkpoints", 0, false);
+	if (child != NULL)
+	{
+		_loadCheckPoints(child);
+	}
+
+	_cleanup();
+}
+
+void Map::_loadTerrain(xml_node<> *node)
+{
+	xml_node<> *child = node->first_node("Strata", 0, false);
+	if (child != NULL)
+	{
+		_loadStrata(child);
+	}
+
+	child = node->first_node("Fields", 0, false);
+	if (child != NULL)
+	{
+		_loadFieldTypes(child);
+	}
+
+	child = node->first_node("Grid", 0, false);
+	if (child != NULL)
+	{
+		_loadGrid(child);
+	}
+}
+
+void Map::_loadStrata(xml_node<> *node)
+{
+	xml_attribute<> *attr = node->first_attribute("texture", 0, false);
+	if (attr != NULL)
+	{
+		_strata = _getTexture(attr->value());
+	}
+}
+
+void Map::_loadFieldTypes(xml_node<> *node)
+{
+	for(xml_node<> *child = node->first_node("Field", 0, false); child; child = child->next_sibling("Field", 0, false))
+	{
+		osg::Texture2D* texture = NULL;
+		xml_attribute<> *attr = child->first_attribute("texture", 0, false);
+		if (attr != NULL)
+		{
+			texture = _getTexture(attr->value());
+		}
+
+		char shortcut = 0;
+		attr = child->first_attribute("shortcut", 0, false);
+		if (attr != NULL)
+		{
+			if (attr->value_size() > 0)
+			{
+				shortcut = attr->value()[0];
+			}
+		}
+		
+		bool buildable = true;
+		attr = child->first_attribute("buildable", 0, false);
+		if (attr != NULL)
+		{
+			buildable = _strToBool(attr->value(), true);
+		}
+		
+		osg::Node* model = NULL;
+		attr = child->first_attribute("model", 0, false);
+		if (attr != NULL)
+		{
+			model = _getModel(attr->value());
+		}
+
+		FieldType* fieldType =  new FieldType(buildable, false, texture, model);
+
+		_fieldTypes[shortcut] = fieldType;
+	}
+}
+
+void Map::_loadGrid(xml_node<> *node)
+{
+	_height = 0;
+	for(xml_node<> *child = node->first_node("Row", 0, false); child; child = child->next_sibling("Row", 0, false))
+	{
+		std::string rowString = child->value();
+		_width = child->value_size();
+
+		_fields.resize(_fields.size() + 1);
+		_fields[_height].resize(_width);
+
+		for (long x = _width - 1; x >= 0; x--)
+		{
+			_fields[_height][x] = new Field(_fieldTypes[rowString[x]].get());
+		}
+
+		_height++;
+	}
+}
+
+void Map::_loadCheckPoints(xml_node<> *node)
+{
+	for(xml_node<> *child = node->first_node("Checkpoint", 0, false); child; child = child->next_sibling("Checkpoint", 0, false))
+	{
+		xml_attribute<> *x = child->first_attribute("x", 0, false);
+		xml_attribute<> *y = child->first_attribute("y", 0, false);
+
+		if ((x == NULL) || (y == NULL))
+		{
+			continue;
+		}
+
+		MapPoint p;
+		p.X = _strToLong(x->value(), 0);
+		p.Y = _strToLong(y->value(), 0);
+
+		_checkpoints.push_back(p);
+	}
+	_checkpoints.shrink_to_fit();
+}
+
+osg::Texture2D* Map::_getTexture(const char* filename)
+{
+	std::list<_cache<osg::ref_ptr<osg::Texture2D>>>::iterator it;
+	for(it = _textureCache.begin(); it != _textureCache.end(); it++)
+	{
+		if (it->filename.compare(filename) == 0)
+		{
+			it->used = true;
+			return it->item;
+		}
+	}
+
+	std::string textureFilename = MAP_DIRECTORY_TEXTURES;
+	textureFilename.append(filename);
+
+	osg::Image* image = osgDB::readImageFile(textureFilename.c_str());
+	if (image != NULL)
+	{
+		osg::Texture2D* texture = new osg::Texture2D(image);
+		texture->setMaxAnisotropy(AF_LEVEL);
+		texture->setWrap(osg::Texture::WRAP_S, osg::Texture::REPEAT);
+		texture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
+		texture->setDataVariance(osg::Object::STATIC);
+
+		_cache<osg::ref_ptr<osg::Texture2D>> newElement;
+
+		newElement.filename = filename;
+		newElement.item = texture;
+		newElement.used = true;
+		_textureCache.push_back(newElement);
+		return texture;
+	}
+	return NULL;
+}
+
+osg::Node* Map::_getModel(const char* filename)
+{
+	std::list<_cache<osg::ref_ptr<osg::Node>>>::iterator it;
+	for(it = _modelCache.begin(); it != _modelCache.end(); it++)
+	{
+		if (it->filename.compare(filename) == 0)
+		{
+			it->used = true;
+			return it->item;
+		}
+	}
+	std::string modelFilename = MAP_DIRECTORY_MODELS;
+	modelFilename.append(filename);
+
+	_cache<osg::ref_ptr<osg::Node>> newElement;
+
+	newElement.filename = filename;
+	newElement.item = osgDB::readNodeFile(modelFilename);
+	newElement.used = true;
+	_modelCache.push_back(newElement);
+	return newElement.item;
 }

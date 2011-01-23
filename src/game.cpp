@@ -64,7 +64,7 @@ void Game::run()
 	//viewer.run();
     while( !_viewer.done() )
     {
-		//limitCamera((osgGA::TerrainManipulator*) _viewer.getCameraManipulator());
+		limitCamera((osgGA::TerrainManipulator*) _viewer.getCameraManipulator());
         _viewer.frame();
     }
 }
