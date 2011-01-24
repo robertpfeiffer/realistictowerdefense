@@ -91,7 +91,7 @@ public:
     void init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath);
 
     // per frame simulation update
-    void update (const float currentTime, const float elapsedTime);
+    void update (const float elapsedTime);
 
     // compute combined steering force: move forward, avoid obstacles
     // or neighbors if needed, otherwise follow the path and wander
