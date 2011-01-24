@@ -9,7 +9,12 @@
 		<Fields>
 			<Field texture="gras.jpg" shortcut="G" buildable="true"  />
 			<Field texture="way.jpg"  shortcut="+" buildable="false" />
-			<Field texture="gras.jpg" shortcut="T" buildable="true"  model="firetree/firtree.3ds" />
+			<Field texture="gras.jpg" shortcut="T" buildable="true">
+				<Model path="firetree/firtree.3ds">
+					<Scale min="0.8" max="0.9" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
 		</Fields>
 		<Grid>
 			<Row>TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</Row>

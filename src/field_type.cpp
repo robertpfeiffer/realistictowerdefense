@@ -5,7 +5,8 @@
 #include <osg/Texture2D>
 
 
-FieldType::FieldType(bool isBuildable, osg::Texture2D* texture, osg::Node* model) : osg::Referenced(), _isBuildable(isBuildable), _model(model)
+FieldType::FieldType(osg::Texture2D* texture, ModelData* modelData, bool isBuildable)
+	: osg::Referenced(), _modelData(modelData), _isBuildable(isBuildable)
 {
 	//Create ground
 	_ground = new osg::Geode();

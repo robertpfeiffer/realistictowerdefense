@@ -1,6 +1,8 @@
 #include "map.h"
 #include "constants.h"
+#include "model_data.h"
 #include <string>
+#include <osg/PositionAttitudeTransform>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile>
 
@@ -61,10 +63,20 @@ bool Map::_strToBool(const char* str, bool defaultValue)
 
 long Map::_strToLong(char* str, long defaultValue)
 {
-	long val = strtol(str, &str, 10);
+	long val = atol(str);
 	if (val == 0)
 	{
 		if (strcmp(str, "0") != 0) return defaultValue;
+	}
+	return val;	
+}
+
+float Map::_strToFloat(char* str, long defaultValue)
+{
+	float val = atof(str);
+	if (val == 0.0)
+	{
+		if (strcmp(str, "0.0") != 0) return defaultValue;
 	}
 	return val;	
 }
@@ -193,17 +205,43 @@ void Map::_loadFieldTypes(xml_node<> *node)
 			buildable = _strToBool(attr->value(), true);
 		}
 		
-		osg::Node* model = NULL;
-		attr = child->first_attribute("model", 0, false);
-		if (attr != NULL)
+		ModelData* modelData = NULL;
+		xml_node<> *modelNode= child->first_node("Model", 0, false);
+		if (modelNode != NULL)
 		{
-			model = _getModel(attr->value());
+			modelData = _readModel(modelNode);
 		}
 
-		FieldType* fieldType =  new FieldType(buildable, texture, model);
+		FieldType* fieldType =  new FieldType(texture, modelData, buildable);
 
 		_fieldTypes[shortcut] = fieldType;
 	}
+}
+
+ModelData* Map::_readModel(xml_node<> *node)
+{
+	ModelData* modelData = new ModelData();
+	xml_attribute<> *attr = node->first_attribute("path", 0, false);
+	if (attr != NULL)
+	{
+		modelData->model = _getModel(attr->value());
+	}
+
+	//scale model
+	xml_node<> *child = node->first_node("Scale", 0, false);
+	attr = child->first_attribute("min", 0, false);
+	modelData->minScale = _strToFloat(attr->value(), 1.0);
+	attr = child->first_attribute("max", 0, false);
+	modelData->maxScale = _strToFloat(attr->value(), 1.0);
+
+	//rotate model
+	child = node->first_node("Rotation", 0, false);
+	attr = child->first_attribute("min", 0, false);
+	modelData->minRotation = _strToFloat(attr->value(), 1.0);
+	attr = child->first_attribute("max", 0, false);
+	modelData->maxRotation = _strToFloat(attr->value(), 1.0);
+
+	return modelData;
 }
 
 void Map::_loadGrid(xml_node<> *node)

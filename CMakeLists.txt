@@ -63,6 +63,7 @@ set(sources
 	"include/game.h"
 	"include/hud.h"
 	"include/map.h"
+	"include/model_data.h"
 	"include/terrain.h"
 	"include/world.h"
 )
