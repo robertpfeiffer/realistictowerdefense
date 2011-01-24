@@ -1,10 +1,13 @@
 #include <field.h>
 
-Field::Field(FieldType* fieldType)
+Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround()), _model(fieldType->getModel())
 {
-	_fieldType = fieldType;
+	this->addChild(_ground.get());
 
-	this->addChild(fieldType);
+	if (_model != NULL)
+	{
+		this->addChild(_model.get());
+	}
 }
 
 bool Field::setBuilding()

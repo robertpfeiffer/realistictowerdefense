@@ -200,7 +200,7 @@ void Map::_loadFieldTypes(xml_node<> *node)
 			model = _getModel(attr->value());
 		}
 
-		FieldType* fieldType =  new FieldType(buildable, false, texture, model);
+		FieldType* fieldType =  new FieldType(buildable, texture, model);
 
 		_fieldTypes[shortcut] = fieldType;
 	}

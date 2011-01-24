@@ -1,10 +1,11 @@
 #include <field_type.h>
+#include <osg/Geode>
 #include <osg/CullFace>
 #include <osg/Geometry>
 #include <osg/Texture2D>
 
 
-FieldType::FieldType(bool isBuildable, bool isAccessible, osg::Texture2D* texture, osg::Node* model) : _isBuildable(isBuildable), _isAccessible(isAccessible), _model(model)
+FieldType::FieldType(bool isBuildable, osg::Texture2D* texture, osg::Node* model) : osg::Referenced(), _isBuildable(isBuildable), _model(model)
 {
 	//Create ground
 	_ground = new osg::Geode();
@@ -45,22 +46,4 @@ FieldType::FieldType(bool isBuildable, bool isAccessible, osg::Texture2D* textur
 	_ground->setStateSet(state);
 
 	_ground->addDrawable(geometry);
-
-	//add ground and model
-	this->addChild(_ground.get());
-
-	if (_model != NULL)
-	{
-		this->addChild(_model.get());
-	}
-}
-
-bool FieldType::isBuildable()
-{
-	return _isBuildable;
-}
-
-bool FieldType::isAccessible()
-{
-	return _isAccessible;
 }

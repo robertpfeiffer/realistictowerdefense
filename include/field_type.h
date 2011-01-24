@@ -1,19 +1,18 @@
 #pragma once
 
-#include <osg/Geode>
+#include <osg/Referenced>
 #include <osg/Texture2D>
 
-class FieldType : public osg::Group
+class FieldType : public osg::Referenced
 {
 	public:
-		FieldType(bool isBuildable, bool isAccessible, osg::Texture2D* texture, osg::Node* model = NULL);
+		FieldType(bool isBuildable, osg::Texture2D* texture, osg::Node* model = NULL);
 
-		bool isBuildable();
-		bool isAccessible();
-
+		inline osg::ref_ptr<osg::Node> getModel() {return _model.get();};
+		inline osg::ref_ptr<osg::Geode> getGround() {return _ground.get();};
+		inline bool isBuildable() {return _isBuildable;};
 	private:
-		bool _isBuildable;
-		bool _isAccessible;
 		osg::ref_ptr<osg::Node> _model;
 		osg::ref_ptr<osg::Geode> _ground;
+		bool _isBuildable;
 };
