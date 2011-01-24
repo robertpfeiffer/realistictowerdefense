@@ -19,6 +19,8 @@ void Creep::OnUpdate()
 	osg::Timer_t now = _timer->tick();
 
 	_steering->update(_timer->delta_s(now, _lastTick));
+	this->setPosition(osg::Vec3(_steering->position().x, _steering->position().z, 0));
+	//TODO: heading
 
 	_lastTick = now;
 }
