@@ -16,7 +16,7 @@
 #include <terrain.h>
 #include <world.h>
 
-osg::Drawable* World::createPin(const float & scale, osg::StateSet* bbState)
+osg::Drawable* World::createTestPin(const float & scale, osg::StateSet* bbState)
 {
    // Standard size shrub
    float width = 1.5f;
@@ -61,7 +61,7 @@ osg::Drawable* World::createPin(const float & scale, osg::StateSet* bbState)
    return geometry;
 } 
 
-osg::Billboard* World::addBillBoards()
+osg::Node* World::createTestBillboard()
 {
 	osg::Billboard* pinBillBoard = new osg::Billboard();
 
@@ -69,23 +69,11 @@ osg::Billboard* World::addBillBoards()
 	pinBillBoard->setAxis(osg::Vec3(0.0f,0.0f,1.0f));
 	pinBillBoard->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 
-	osg::Texture2D *pinTexture = new osg::Texture2D;
-	pinTexture->setImage(osgDB::readImageFile("textures/pin.png"));
-	pinTexture->setMaxAnisotropy(AF_LEVEL);
-
 	osg::Texture2D *kingpinTexture = new osg::Texture2D;
 	kingpinTexture->setImage(osgDB::readImageFile("textures/kingpin.png"));
 	kingpinTexture->setMaxAnisotropy(AF_LEVEL);
  
-	osg::StateSet* billBoardStateSet = new osg::StateSet;
-	billBoardStateSet->setTextureAttributeAndModes
-		(0, pinTexture, osg::StateAttribute::ON);
 	osg::BlendFunc *blendFunc = new osg::BlendFunc;
-	billBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
-	billBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
-	billBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-
-
 	osg::StateSet* kingbillBoardStateSet = new osg::StateSet;
 	kingbillBoardStateSet->setTextureAttributeAndModes
 		(0, kingpinTexture, osg::StateAttribute::ON);
@@ -93,15 +81,9 @@ osg::Billboard* World::addBillBoards()
 		kingbillBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
 	kingbillBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
 
+	osg::Drawable* shrub3Drawable = createTestPin( 0.6f, kingbillBoardStateSet);
 
-	osg::Drawable* shrub1Drawable = createPin( 0.4f, billBoardStateSet);
-	osg::Drawable* shrub2Drawable = createPin( 0.4f, billBoardStateSet);
-	osg::Drawable* shrub3Drawable = createPin( 0.6f, kingbillBoardStateSet);
-
-	// Add these drawables to our billboard at various positions
-	pinBillBoard->addDrawable( shrub1Drawable , osg::Vec3(12,-3,0) );
-	pinBillBoard->addDrawable( shrub2Drawable , osg::Vec3(10,-18,0));
-	pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(6,-10,0) );
+	pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(0,0,0) );
 
 	return pinBillBoard;
 }
@@ -113,23 +95,38 @@ void World::createPath()
 	pathPoints.resize(_map->getCheckpoints()->size());
 	for(unsigned int i=0;i < _map->getCheckpoints()->size(); i++)
 	{
+		if(i==0)
+		{
+			_spawnPosition = new osg::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) ((*checkpoints)[i].Y));
+		}
 		pathPoints[i] = OpenSteer::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) ((*checkpoints)[i].Y));
 	}
 	
 	_path = new OpenSteer::PolylinePathway(pathPoints.size(), pathPoints.data(), 0.5, false);
 }
 
+void World::spawnCreep(osg::Node* style)
+{
+	Creep* myCreep = new Creep(*_proximities, *_spawnPosition, _path);
+	myCreep->addChild(style);
+	this->addChild(myCreep);
+	myCreep->setUpdateCallback(new CreepCallback());
+}
+
 World::World(const std::string mapFilename) : osg::Group()
 {
 	_map = new Map(mapFilename);
+	_proximities = new ProximityDatabase();
 
 	createPath();
 
-	this->addChild(addBillBoards());
+	spawnCreep(createTestBillboard());
 	this->addChild(new Terrain(_map));
 }
 
 World::~World()
 {
 	delete _path;
+	delete _spawnPosition;
+	//delete _proximities; //uncomment for crash
 }

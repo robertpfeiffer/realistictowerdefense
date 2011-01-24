@@ -49,8 +49,10 @@
 
 // ----------------------------------------------------------------------------
 
+// we can choose between bruteforce and LQ:
+typedef OpenSteer::BruteForceProximityDatabase<OpenSteer::AbstractVehicle*> ProximityDatabase;
+//typedef OpenSteer::LQProximityDatabase<OpenSteer::AbstractVehicle*> ProximityDatabase;
 
-typedef OpenSteer::AbstractProximityDatabase<OpenSteer::AbstractVehicle*> ProximityDatabase;
 typedef OpenSteer::AbstractTokenForProximityDatabase<OpenSteer::AbstractVehicle*> ProximityToken;
 
 // ----------------------------------------------------------------------------

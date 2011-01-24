@@ -14,4 +14,7 @@ private:
 	CreepSteering* _steering;
 	osg::Timer* _timer;
 	osg::Timer_t _lastTick;
+
+	void updateRealPosition();
+	void updateRealHeading();
 };
