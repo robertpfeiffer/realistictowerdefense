@@ -92,7 +92,7 @@ void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePath
 }
 
 // per frame simulation update
-void CreepSteering::update (const float currentTime, const float elapsedTime)
+void CreepSteering::update (const float elapsedTime)
 {
     // apply steering force to our momentum
     applySteeringForce (determineCombinedSteering (elapsedTime),

@@ -45,6 +45,7 @@ set(sources
 	#source files
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
+	"src/creepcallback.cpp"
 	"src/field.cpp"
 	"src/field_type.cpp"
 	"src/game.cpp"
@@ -58,6 +59,7 @@ set(sources
 	"include/constants.h"
 	"include/creep.h"
 	"include/creepsteering.h"
+	"include/creepcallback.h"
 	"include/field.h"
 	"include/field_type.h"
 	"include/game.h"
