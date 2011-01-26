@@ -99,7 +99,7 @@ void World::createPath()
 		{
 			_spawnPosition = new osg::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) ((*checkpoints)[i].Y));
 		}
-		pathPoints[i] = OpenSteer::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) ((*checkpoints)[i].Y));
+		pathPoints[i] = OpenSteer::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) -((*checkpoints)[i].Y));
 	}
 	
 	_path = new OpenSteer::PolylinePathway(pathPoints.size(), pathPoints.data(), 0.5, false);
