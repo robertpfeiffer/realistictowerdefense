@@ -44,6 +44,13 @@
 
 OpenSteer::AVGroup CreepSteering::neighbors;
 OpenSteer::ObstacleGroup CreepSteering::gObstacles;
+float CreepSteering::_followPathWeight		= 0.5;
+float CreepSteering::_avoidCollisionWeight	= 10.0;
+float CreepSteering::_avoidObstaclesWeight	= 1.0;
+
+float CreepSteering::_pathFollowLeadTime		 = 3.0;
+float CreepSteering::_obstacleAvoidanceLeadTime	 = 6.0;
+float CreepSteering::_collisionAvoidanceLeadTime = 3.0;
 
 CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath)
 {
@@ -112,48 +119,43 @@ OpenSteer::Vec3 CreepSteering::determineCombinedSteering (const float elapsedTim
     OpenSteer::Vec3 steeringForce = forward();
 
     // determine if obstacle avoidance is required
-    const float oTime = 6; // minTimeToCollision = 6 seconds
-    OpenSteer::Vec3 obstacleAvoidance = steerToAvoidObstacles (oTime, gObstacles);
+    OpenSteer::Vec3 obstacleAvoidance = steerToAvoidObstacles (_obstacleAvoidanceLeadTime, gObstacles);
 
     // if obstacle avoidance is needed, do it
     if (obstacleAvoidance != OpenSteer::Vec3::zero)
     {
-        steeringForce += obstacleAvoidance;
+        steeringForce += obstacleAvoidance * _avoidObstaclesWeight;
     }
     else
     {
         // otherwise consider avoiding collisions with others
         OpenSteer::Vec3 collisionAvoidance;
-        const float caLeadTime = 3;
 
         // find all neighbors within maxRadius using proximity database
         // (radius is largest distance between vehicles traveling head-on
         // where a collision is possible within caLeadTime seconds.)
-        const float maxRadius = caLeadTime * maxSpeed() * 2;
+        const float maxRadius = _collisionAvoidanceLeadTime * maxSpeed() * 2;
         neighbors.clear();
-        proximityToken->findNeighbors (position(), maxRadius, neighbors);
+        proximityToken->findNeighbors(position(), maxRadius, neighbors);
 
-        collisionAvoidance = steerToAvoidNeighbors (caLeadTime, neighbors) * 10;
+        collisionAvoidance = steerToAvoidNeighbors (_collisionAvoidanceLeadTime, neighbors);
 
         // if collision avoidance is needed, do it
         if (collisionAvoidance != OpenSteer::Vec3::zero)
         {
-            steeringForce += collisionAvoidance;
+            steeringForce += collisionAvoidance * _avoidCollisionWeight;
         }
         else
         {
             // add in wander component
             //steeringForce += steerForWander (elapsedTime);
 
-            // do (interactively) selected type of path following
-            const float pfLeadTime = 3;
-
 			//see whats the best mechanism to use here
-            const OpenSteer::Vec3 pathFollow = steerToFollowPath (pathDirection, pfLeadTime, *path);
+			const OpenSteer::Vec3 pathFollow = steerToFollowPath (pathDirection, _pathFollowLeadTime, *path);
             //const OpenSteer::Vec3 pathFollow = steerToStayOnPath (pfLeadTime, *path);
 
             // add in to steeringForce
-            steeringForce += pathFollow * 0.5;
+            steeringForce += pathFollow * _followPathWeight;
         }
     }
 

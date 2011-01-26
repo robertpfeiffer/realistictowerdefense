@@ -98,4 +98,11 @@ public:
     // compute combined steering force: move forward, avoid obstacles
     // or neighbors if needed, otherwise follow the path and wander
     OpenSteer::Vec3 determineCombinedSteering (const float elapsedTime);
+private:
+	static float _followPathWeight;
+	static float _avoidCollisionWeight;
+	static float _avoidObstaclesWeight;
+	static float _pathFollowLeadTime;
+	static float _obstacleAvoidanceLeadTime;
+	static float _collisionAvoidanceLeadTime;
 };
