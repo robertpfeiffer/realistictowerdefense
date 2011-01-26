@@ -21,7 +21,7 @@ void Creep::OnUpdate()
 {
 	osg::Timer_t now = _timer->tick();
 
-	_steering->update(_timer->delta_m(now, _lastTick));
+	_steering->update(_timer->delta_s(_lastTick, now));
 	updateRealPosition();
 	updateRealHeading();
 
