@@ -1,20 +1,20 @@
 <?xml version="1.0" ?>
 <Map>
 	<Checkpoints>
-		<Checkpoint x="38" y="1"  />
-		<Checkpoint x="38" y="11" />
-		<Checkpoint x="58" y="11" />
-		<Checkpoint x="58" y="18" />
-		<Checkpoint x="38" y="18" />
-		<Checkpoint x="38" y="25" />
-		<Checkpoint x="32" y="25" />
-		<Checkpoint x="32" y="16" />
-		<Checkpoint x="56" y="16" />
-		<Checkpoint x="56" y="13" />
-		<Checkpoint x="9" y="13"  />
-		<Checkpoint x="9" y="30"  />
-		<Checkpoint x="38" y="30" />
-		<Checkpoint x="38" y="40" />
+		<Checkpoint x="37" y="0"  />
+		<Checkpoint x="37" y="10" />
+		<Checkpoint x="57" y="10" />
+		<Checkpoint x="57" y="17" />
+		<Checkpoint x="37" y="17" />
+		<Checkpoint x="37" y="24" />
+		<Checkpoint x="31" y="24" />
+		<Checkpoint x="31" y="15" />
+		<Checkpoint x="55" y="15" />
+		<Checkpoint x="55" y="12" />
+		<Checkpoint x="8" y="12"  />
+		<Checkpoint x="8" y="29"  />
+		<Checkpoint x="37" y="29" />
+		<Checkpoint x="37" y="39" />
 	</Checkpoints>
 	<Terrain>
 		<Strata texture="sediment.jpg" />
