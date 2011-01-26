@@ -44,11 +44,11 @@
 
 OpenSteer::AVGroup CreepSteering::neighbors;
 OpenSteer::ObstacleGroup CreepSteering::gObstacles;
-float CreepSteering::_followPathWeight		= 0.5;
+float CreepSteering::_followPathWeight		= 8.0;
 float CreepSteering::_avoidCollisionWeight	= 10.0;
 float CreepSteering::_avoidObstaclesWeight	= 1.0;
 
-float CreepSteering::_pathFollowLeadTime		 = 3.0;
+float CreepSteering::_pathFollowLeadTime		 = 0.6;
 float CreepSteering::_obstacleAvoidanceLeadTime	 = 6.0;
 float CreepSteering::_collisionAvoidanceLeadTime = 3.0;
 
