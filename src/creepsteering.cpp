@@ -148,7 +148,7 @@ OpenSteer::Vec3 CreepSteering::determineCombinedSteering (const float elapsedTim
 
 			//see whats the best mechanism to use here
             const OpenSteer::Vec3 pathFollow = steerToFollowPath (pathDirection, pfLeadTime, *path);
-            //const Vec3 pathFollow = steerToStayOnPath (pfLeadTime, *path));
+            //const OpenSteer::Vec3 pathFollow = steerToStayOnPath (pfLeadTime, *path);
 
             // add in to steeringForce
             steeringForce += pathFollow * 0.5;
