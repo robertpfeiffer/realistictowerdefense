@@ -81,8 +81,10 @@ void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePath
     // set initial position (path-beginning)
     setPosition (startPosition);
 
-    // randomize 2D heading
-    randomizeHeadingOnXZPlane ();
+    // head into path-direction
+	setUp(OpenSteer::Vec3::up);
+	setForward((path->points[1]-path->points[0]).normalize());
+	setSide(localRotateForwardToSide (forward()));
 
     // follow the path in pathDirection
     pathDirection = +1;
