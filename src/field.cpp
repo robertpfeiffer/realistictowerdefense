@@ -12,20 +12,23 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 	_model = NULL;
 	if (modelData != NULL)
 	{
-		osg::PositionAttitudeTransform* transform = new osg::PositionAttitudeTransform();
-		transform->addChild(modelData->model);
+		if (modelData->probability >= (float) rand() / RAND_MAX)
+		{
+			osg::PositionAttitudeTransform* transform = new osg::PositionAttitudeTransform();
+			transform->addChild(modelData->model);
 
-		osg::StateSet* state = new osg::StateSet();
-		state->setMode( GL_RESCALE_NORMAL, osg::StateAttribute::ON );
-		transform->setStateSet(state);
+			osg::StateSet* state = new osg::StateSet();
+			state->setMode( GL_RESCALE_NORMAL, osg::StateAttribute::ON );
+			transform->setStateSet(state);
 
-		float scale = _getRandomFloat(modelData->minScale, modelData->maxScale);
-		transform->setScale(osg::Vec3d(scale, scale, scale));
+			float scale = _getRandomFloat(modelData->minScale, modelData->maxScale);
+			transform->setScale(osg::Vec3d(scale, scale, scale));
 
-		float rotation =  _getRandomFloat(modelData->minRotation, modelData->maxRotation);
-		transform->setAttitude(osg::Quat(osg::DegreesToRadians(rotation), osg::Vec3d(0.0, 0.0, 1.0)));
+			float rotation =  _getRandomFloat(modelData->minRotation, modelData->maxRotation);
+			transform->setAttitude(osg::Quat(osg::DegreesToRadians(rotation), osg::Vec3d(0.0, 0.0, 1.0)));
 
-		this->addChild(transform);
+			this->addChild(transform);
+		}
 	}
 }
 

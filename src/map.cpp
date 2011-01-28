@@ -50,8 +50,11 @@ Field* Map::getField(unsigned int x, unsigned int y)
 	return _fields[y][x];
 }
 
-bool Map::_strToBool(const char* str, bool defaultValue)
+bool Map::_attrToBool(xml_attribute<>* attr, bool defaultValue)
 {
+	if (attr == NULL) return defaultValue;
+	char* str = attr->value();
+
 	if (strcmp(str, "0") == 0) return false;
 	if (strcmp(str, "1") == 0) return true;
 
@@ -61,8 +64,11 @@ bool Map::_strToBool(const char* str, bool defaultValue)
 	return defaultValue;
 }
 
-long Map::_strToLong(char* str, long defaultValue)
+long Map::_attrToLong(xml_attribute<>* attr, long defaultValue)
 {
+	if (attr == NULL) return defaultValue;
+	char* str = attr->value();
+
 	long val = atol(str);
 	if (val == 0)
 	{
@@ -71,8 +77,11 @@ long Map::_strToLong(char* str, long defaultValue)
 	return val;	
 }
 
-float Map::_strToFloat(char* str, long defaultValue)
+float Map::_attrToFloat(xml_attribute<>* attr, float defaultValue)
 {
+	if (attr == NULL) return defaultValue;
+	char* str = attr->value();
+
 	float val = atof(str);
 	if (val == 0.0)
 	{
@@ -199,11 +208,8 @@ void Map::_loadFieldTypes(xml_node<> *node)
 		}
 		
 		bool buildable = true;
-		attr = child->first_attribute("buildable", 0, false);
-		if (attr != NULL)
-		{
-			buildable = _strToBool(attr->value(), true);
-		}
+		attr = child->first_attribute("buildable", 0, false);		
+		buildable = _attrToBool(attr, true);
 		
 		ModelData* modelData = NULL;
 		xml_node<> *modelNode= child->first_node("Model", 0, false);
@@ -230,16 +236,20 @@ ModelData* Map::_readModel(xml_node<> *node)
 	//scale model
 	xml_node<> *child = node->first_node("Scale", 0, false);
 	attr = child->first_attribute("min", 0, false);
-	modelData->minScale = _strToFloat(attr->value(), 1.0);
+	modelData->minScale = _attrToFloat(attr, 1.0);
 	attr = child->first_attribute("max", 0, false);
-	modelData->maxScale = _strToFloat(attr->value(), 1.0);
+	modelData->maxScale = _attrToFloat(attr, 1.0);
 
 	//rotate model
 	child = node->first_node("Rotation", 0, false);
 	attr = child->first_attribute("min", 0, false);
-	modelData->minRotation = _strToFloat(attr->value(), 1.0);
+	modelData->minRotation = _attrToFloat(attr, 1.0);
 	attr = child->first_attribute("max", 0, false);
-	modelData->maxRotation = _strToFloat(attr->value(), 1.0);
+	modelData->maxRotation = _attrToFloat(attr, 1.0);
+
+	//probability of displaying model
+	attr = node->first_attribute("probability", 0, false);
+	modelData->probability = _attrToFloat(attr, 1.0);
 
 	return modelData;
 }
@@ -271,14 +281,9 @@ void Map::_loadCheckPoints(xml_node<> *node)
 		xml_attribute<> *x = child->first_attribute("x", 0, false);
 		xml_attribute<> *y = child->first_attribute("y", 0, false);
 
-		if ((x == NULL) || (y == NULL))
-		{
-			continue;
-		}
-
 		MapPoint p;
-		p.X = _strToLong(x->value(), 0);
-		p.Y = _strToLong(y->value(), 0);
+		p.X = _attrToLong(x, 0);
+		p.Y = _attrToLong(y, 0);
 
 		_checkpoints.push_back(p);
 	}

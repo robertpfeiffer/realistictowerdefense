@@ -12,4 +12,6 @@ class ModelData : public osg::Referenced
 
 		float minRotation;
 		float maxRotation;
+
+		float probability;
 };

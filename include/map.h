@@ -34,9 +34,9 @@ class Map : public osg::Referenced
 			bool used;
 		};
 
-		bool _strToBool(const char* str, bool defaultValue);
-		long _strToLong(char* str, long defaultValue);
-		float _strToFloat(char* str, long defaultValue);
+		bool _attrToBool(xml_attribute<>* attr, bool defaultValue);
+		long _attrToLong(xml_attribute<>* attr, long defaultValue);
+		float _attrToFloat(xml_attribute<>* attr, float defaultValue);
 		void _reset();
 		void _cleanup();
 		void _load(const std::string& filename);	// +
