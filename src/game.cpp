@@ -30,9 +30,7 @@ void Game::limitCamera(osgGA::TerrainManipulator* manipulator)
 
 void Game::activateAntialiasing(unsigned int samples)
 {
-	osg::DisplaySettings* displaySettings = new osg::DisplaySettings;
-    displaySettings->setNumMultiSamples(samples);
-	_viewer.setDisplaySettings(displaySettings);
+	osg::DisplaySettings::instance()->setNumMultiSamples(samples);
 }
 
 void Game::setGlobalLight()
@@ -50,9 +48,9 @@ void Game::run()
 	root->addChild(new World("maps/default.map"));
 	root->addChild(new Hud());
 
-	_viewer.setUpViewInWindow( 100, 100, 1024, 768 ); //maybe improve with osgViewer::WindowSizeHandler
-
-	activateAntialiasing(NUM_MULTISAMPLES);
+	activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
+	_viewer.setUpViewInWindow(100, 100, 1024, 768); //maybe improve with osgViewer::WindowSizeHandler
+		
 	setCameraManipulator();
 	setGlobalLight();
 
