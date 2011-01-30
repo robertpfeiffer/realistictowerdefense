@@ -197,13 +197,13 @@ void Map::_loadFieldTypes(xml_node<> *node)
 			texture = _getTexture(attr->value());
 		}
 
-		char shortcut = 0;
-		attr = child->first_attribute("shortcut", 0, false);
+		char symbol = 0;
+		attr = child->first_attribute("symbol", 0, false);
 		if (attr != NULL)
 		{
 			if (attr->value_size() > 0)
 			{
-				shortcut = attr->value()[0];
+				symbol = attr->value()[0];
 			}
 		}
 		
@@ -220,7 +220,7 @@ void Map::_loadFieldTypes(xml_node<> *node)
 
 		FieldType* fieldType =  new FieldType(texture, modelData, buildable);
 
-		_fieldTypes[shortcut] = fieldType;
+		_fieldTypes[symbol] = fieldType;
 	}
 }
 

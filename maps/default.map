@@ -19,9 +19,9 @@
 	<Terrain>
 		<Strata texture="sediment.jpg" />
 		<Fields>
-			<Field texture="gras.jpg" shortcut="G" buildable="true"  />
-			<Field texture="way.jpg"  shortcut="+" buildable="false" />
-			<Field texture="gras.jpg" shortcut="T" buildable="true">
+			<Field texture="gras.jpg" symbol="G" buildable="true"  />
+			<Field texture="way.jpg"  symbol="+" buildable="false" />
+			<Field texture="gras.jpg" symbol="T" buildable="true">
 				<Model path="firtree/firtree.3ds" probability="0.9">
 					<Scale min="0.8" max="0.9" />
 					<Rotation min="0" max="360" />
