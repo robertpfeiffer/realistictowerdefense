@@ -42,6 +42,16 @@ void Game::setGlobalLight()
 	_viewer.setLight(globalLight);
 }
 
+void Game::setWindowTitle(const std::string& title)
+{
+	osgViewer::Viewer::Windows windows;	
+	_viewer.getWindows(windows);
+	for (osgViewer::Viewer::Windows::iterator window = windows.begin(); window != windows.end(); ++window)
+	{
+		(*window)->setWindowName(title);
+	}
+}
+
 void Game::run()
 {
 	osg::Group* root = new osg::Group();
@@ -50,6 +60,7 @@ void Game::run()
 
 	activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
 	_viewer.setUpViewInWindow(100, 100, 1024, 768); //maybe improve with osgViewer::WindowSizeHandler
+
 		
 	setCameraManipulator();
 	setGlobalLight();
@@ -58,6 +69,9 @@ void Game::run()
 
 	_viewer.setSceneData(root);
 	_viewer.realize();
+
+	//this must be called after realize()
+	setWindowTitle("Towerdefense");
 
 	//viewer.run();
     while( !_viewer.done() )

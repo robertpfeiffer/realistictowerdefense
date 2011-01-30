@@ -14,6 +14,7 @@ class Game
 		void setGlobalLight();
 		void setCameraManipulator();
 		void limitCamera(osgGA::TerrainManipulator* manipulator);
+		void setWindowTitle(const std::string& title);
 
 		osgViewer::Viewer _viewer;
 };
