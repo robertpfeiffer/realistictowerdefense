@@ -53,6 +53,7 @@ set(sources
 	"src/main.cpp"
 	"src/map.cpp"
 	"src/terrain.cpp"
+	"src/user_event_handler.cpp"
 	"src/world.cpp"
 	
 	#header files
@@ -60,6 +61,7 @@ set(sources
 	"include/creep.h"
 	"include/creepsteering.h"
 	"include/creepcallback.h"
+	"include/event_handler.h"
 	"include/field.h"
 	"include/field_type.h"
 	"include/game.h"
@@ -67,6 +69,7 @@ set(sources
 	"include/map.h"
 	"include/model_data.h"
 	"include/terrain.h"
+	"include/user_event_handler.h"
 	"include/world.h"
 )
 

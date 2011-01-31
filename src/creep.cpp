@@ -4,7 +4,7 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylinePathw
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
 	_steering = new CreepSteering(pd, steer_position, path);
-	_timer = new osg::Timer();
+	_timer = osg::Timer::instance();
 	_lastTick = _timer->tick();
 
 	updateRealPosition();
@@ -14,7 +14,6 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylinePathw
 Creep::~Creep()
 {
 	delete _steering;
-	delete _timer;
 }
 
 void Creep::OnUpdate()

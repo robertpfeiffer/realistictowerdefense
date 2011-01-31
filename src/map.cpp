@@ -9,10 +9,6 @@
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 
-#ifdef _MSC_VER
-	#define snprintf sprintf_s
-#endif
-
 using namespace rapidxml;
 
 Map::Map() : osg::Referenced()
