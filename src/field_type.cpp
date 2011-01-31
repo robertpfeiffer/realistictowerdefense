@@ -1,9 +1,12 @@
-#include <field_node.h>
+#include <field_type.h>
+#include <osg/Geode>
+#include <osg/CullFace>
 #include <osg/Geometry>
 #include <osg/Texture2D>
 
 
-FieldNode::FieldNode(bool isBuildable, bool isAccessible, osg::Texture2D* texture, osg::Node* model) : _isBuildable(isBuildable), _isAccessible(isAccessible), _model(model)
+FieldType::FieldType(osg::Texture2D* texture, ModelData* modelData, bool isBuildable)
+	: osg::Referenced(), _modelData(modelData), _isBuildable(isBuildable)
 {
 	//Create ground
 	_ground = new osg::Geode();
@@ -33,27 +36,15 @@ FieldNode::FieldNode(bool isBuildable, bool isAccessible, osg::Texture2D* textur
 	(*texcoords)[3].set(0.0, 1.0);
 	geometry->setTexCoordArray(0,texcoords);
 
+	osg::Vec3Array* normals = new osg::Vec3Array;
+	normals->push_back(osg::Vec3(0.0, 0.0, 1.0));
+	geometry->setNormalArray(normals);
+	geometry->setNormalBinding(osg::Geometry::BIND_OVERALL);
+
 	osg::StateSet* state = new osg::StateSet();
 	state->setTextureAttributeAndModes(0, texture, osg::StateAttribute::ON);
+	state->setAttributeAndModes(new osg::CullFace(osg::CullFace::FRONT), osg::StateAttribute::ON);
 	_ground->setStateSet(state);
 
 	_ground->addDrawable(geometry);
-
-	//add ground and model
-	this->addChild(_ground.get());
-
-	if (_model != NULL)
-	{
-		this->addChild(_model.get());
-	}
-}
-
-bool FieldNode::isBuildable()
-{
-	return _isBuildable;
-}
-
-bool FieldNode::isAccessible()
-{
-	return _isAccessible;
 }
