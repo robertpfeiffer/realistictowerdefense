@@ -2,6 +2,7 @@
 #include <game.h>
 #include <world.h>
 #include <hud.h>
+#include <user_event_handler.h>
 #include <osgGA/TerrainManipulator>
 
 void Game::setCameraManipulator()
@@ -52,6 +53,11 @@ void Game::setWindowTitle(const std::string& title)
 	}
 }
 
+void Game::onKeyDown(osgGA::GUIActionAdapter& aa)
+{
+
+}
+
 void Game::run()
 {
 	osg::Group* root = new osg::Group();
@@ -68,10 +74,11 @@ void Game::run()
 	_viewer.getCamera()->setClearColor(osg::Vec4(0, 0, 0, 0));
 
 	_viewer.setSceneData(root);
-	_viewer.realize();
 
 	//this must be called after realize()
 	setWindowTitle("Towerdefense");
+
+	_viewer.addEventHandler(new UserEventHandler());
 
 	//viewer.run();
     while( !_viewer.done() )
