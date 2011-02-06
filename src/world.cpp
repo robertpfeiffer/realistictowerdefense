@@ -97,7 +97,7 @@ void World::createPath()
 	{
 		if(i==0)
 		{
-			_spawnPosition = new osg::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) ((*checkpoints)[i].Y));
+			_spawnPosition = osg::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) ((*checkpoints)[i].Y));
 		}
 		pathPoints[i] = OpenSteer::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) -((*checkpoints)[i].Y));
 	}
@@ -107,7 +107,7 @@ void World::createPath()
 
 void World::spawnCreep(osg::Node* style)
 {
-	Creep* myCreep = new Creep(*_proximities, *_spawnPosition, _path);
+	Creep* myCreep = new Creep(*_proximities, _spawnPosition, _path);
 	myCreep->addChild(style);
 	this->addChild(myCreep);
 	myCreep->setUpdateCallback(new CreepCallback());
@@ -127,6 +127,5 @@ World::World(const std::string mapFilename) : osg::Group()
 World::~World()
 {
 	delete _path;
-	delete _spawnPosition;
-	//delete _proximities; //uncomment for crash
+	//delete _proximities; //uncomment for crash -> crash because memory is still in use by creeps
 }

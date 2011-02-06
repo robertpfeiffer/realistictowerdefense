@@ -20,7 +20,7 @@ class World : public osg::Group
 
 		osg::ref_ptr<Map> _map;
 		OpenSteer::PolylinePathway* _path;
-		osg::Vec3* _spawnPosition;
+		osg::Vec3 _spawnPosition;
 
 		ProximityDatabase* _proximities;
 };

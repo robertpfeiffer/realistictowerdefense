@@ -55,7 +55,8 @@ void Game::setWindowTitle(const std::string& title)
 
 void Game::onKeyDown(osgGA::GUIActionAdapter& aa)
 {
-
+	//_viewer.setUpViewAcrossAllScreens();
+	_viewer.realize();
 }
 
 void Game::run()
@@ -78,7 +79,11 @@ void Game::run()
 	//this must be called after realize()
 	setWindowTitle("Towerdefense");
 
-	_viewer.addEventHandler(new UserEventHandler());
+	_eventHandler = new UserEventHandler();
+	_viewer.addEventHandler(getEventHandler());
+
+	//_eventHandler->registerKeyDownEvent(osgGA::GUIEventAdapter::MODKEY_LEFT_ALT, osgGA::GUIEventAdapter::KEY_Return, this);
+	_eventHandler->registerKeyDownEvent(0, 'p', this);
 
 	//viewer.run();
     while( !_viewer.done() )
