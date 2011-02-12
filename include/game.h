@@ -1,19 +1,19 @@
 #pragma once
 
 #include <map.h>
-#include <event_handler.h>
-#include <user_event_handler.h>
+#include <keyboard_event_handler.h>
+#include <user_interaction_handler.h>
 
 #include <osg/Node>
 #include <osgGA/TerrainManipulator>
 #include <osgViewer/Viewer>
 
-class Game : EventHandler
+class Game : KeyboardEventHandler
 {
 	public:
 		void run();
 
-		inline UserEventHandler* getEventHandler() { return _eventHandler.get(); };
+		inline UserInteractionHandler* getInteractiontHandler() { return _interactionHandler.get(); };
 	private:
 		void activateAntialiasing(unsigned int samples);
 		void setGlobalLight();
@@ -24,5 +24,5 @@ class Game : EventHandler
 		void onKeyDown(osgGA::GUIActionAdapter& aa);
 
 		osgViewer::Viewer _viewer;
-		osg::ref_ptr<UserEventHandler> _eventHandler;
+		osg::ref_ptr<UserInteractionHandler> _interactionHandler;
 };

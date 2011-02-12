@@ -1,10 +1,12 @@
 #pragma once
 
-#include <osg/Geode>
 #include <field_type.h>
+#include <keyboard_event_handler.h>
+
+#include <osg/Geode>
 #include <osg/PositionAttitudeTransform>
 
-class Field : public osg::Group
+class Field : public osg::Group, KeyboardEventHandler
 {
 	public:
 		Field(FieldType* fieldType);

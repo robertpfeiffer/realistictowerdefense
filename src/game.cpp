@@ -2,7 +2,7 @@
 #include <game.h>
 #include <world.h>
 #include <hud.h>
-#include <user_event_handler.h>
+#include <user_interaction_handler.h>
 #include <osgGA/TerrainManipulator>
 
 void Game::setCameraManipulator()
@@ -79,11 +79,11 @@ void Game::run()
 	//this must be called after realize()
 	setWindowTitle("Towerdefense");
 
-	_eventHandler = new UserEventHandler();
-	_viewer.addEventHandler(getEventHandler());
+	_interactionHandler = new UserInteractionHandler();
+	_viewer.addEventHandler(getInteractiontHandler());
 
 	//_eventHandler->registerKeyDownEvent(osgGA::GUIEventAdapter::MODKEY_LEFT_ALT, osgGA::GUIEventAdapter::KEY_Return, this);
-	_eventHandler->registerKeyDownEvent(0, 'p', this);
+	_interactionHandler->registerKeyEvent(0, 'p', this);
 
 	//viewer.run();
     while( !_viewer.done() )

@@ -6,6 +6,7 @@
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround())
 {
 	this->addChild(_ground.get());
+	this->setName("Field");
 
 	ModelData* modelData = fieldType->getModelData();
 
