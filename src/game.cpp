@@ -97,7 +97,6 @@ void Game::run()
     while (!_viewer.done())
     {
 		limitCamera((osgGA::TerrainManipulator*) _viewer.getCameraManipulator());
-		_viewer.frame(_gameTimer->elapsedTime());
-		_gameTimer->nextFrame();
+		_viewer.frame(_gameTimer->nextFrame());
     }
 }
