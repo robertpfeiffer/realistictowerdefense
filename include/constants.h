@@ -11,3 +11,5 @@
 
 #define MAP_DIRECTORY_TEXTURES "textures/"
 #define MAP_DIRECTORY_MODELS   "models/"
+
+#define EVENT_PAUSE 1

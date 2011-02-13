@@ -1,5 +1,6 @@
 #pragma once
 #include <creepsteering.h>
+#include <game_timer.h>
 #include <osg/Geometry>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Timer>
@@ -12,8 +13,7 @@ public:
 	~Creep();
 private:
 	CreepSteering* _steering;
-	osg::Timer* _timer;
-	osg::Timer_t _lastTick;
+	GameTimer* _gameTimer;
 
 	void updateRealPosition();
 	void updateRealHeading();

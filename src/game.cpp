@@ -53,10 +53,16 @@ void Game::setWindowTitle(const std::string& title)
 	}
 }
 
-void Game::onKeyDown(osgGA::GUIActionAdapter& aa)
+void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 {
-	//_viewer.setUpViewAcrossAllScreens();
-	_viewer.realize();
+	switch (eventId)
+	{
+		case EVENT_PAUSE:
+			_gameTimer->togglePause();
+			break;
+		default:
+			break;
+	}
 }
 
 void Game::run()
@@ -79,16 +85,19 @@ void Game::run()
 	//this must be called after realize()
 	setWindowTitle("Towerdefense");
 
+	_gameTimer = GameTimer::instance();
+
 	_interactionHandler = new UserInteractionHandler();
 	_viewer.addEventHandler(getInteractiontHandler());
 
-	//_eventHandler->registerKeyDownEvent(osgGA::GUIEventAdapter::MODKEY_LEFT_ALT, osgGA::GUIEventAdapter::KEY_Return, this);
-	_interactionHandler->registerKeyEvent(0, 'p', this);
+	//_eventHandler->registerKeyDownEvent(osgGA::GUIEventAdapter::MODKEY_LEFT_ALT, osgGA::GUIEventAdapter::KEY_Return, this, EVENT_FULLSCREEN);
+	_interactionHandler->registerKeyEvent(0, 'p', this, EVENT_PAUSE);
 
 	//viewer.run();
-    while( !_viewer.done() )
+    while (!_viewer.done())
     {
 		limitCamera((osgGA::TerrainManipulator*) _viewer.getCameraManipulator());
-        _viewer.frame();
+		_viewer.frame(_gameTimer->elapsedTime());
+		_gameTimer->nextFrame();
     }
 }

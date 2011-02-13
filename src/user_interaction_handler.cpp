@@ -39,8 +39,8 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIA
 				keyboardKeyMap::iterator keyMapping = keyMask->second.find(ea.getKey());
 				if (keyMapping != keyMask->second.end())
 				{
-					KeyboardEventHandler* handler = keyMapping->second;
-					handler->onKeyDown(aa);
+					KeyboardEvent* keyboardEvent = &keyMapping->second;
+					keyboardEvent->eventHandler->onKeyDown(aa, keyboardEvent->eventId);
 					return false;
 				}
 			}
@@ -51,9 +51,11 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIA
 	}
 }
 
-void UserInteractionHandler::registerKeyEvent(int modKeyMask, int key, KeyboardEventHandler* eventReceiver)
+void UserInteractionHandler::registerKeyEvent(int modKeyMask, int key, KeyboardEventHandler* eventReceiver, int eventId)
 {
-	_keyMapping[modKeyMask][key] = eventReceiver;
+	KeyboardEvent* keyboardEvent = &_keyMapping[modKeyMask][key];
+	keyboardEvent->eventHandler = eventReceiver;
+	keyboardEvent->eventId = eventId;
 }
 
 void UserInteractionHandler::unregisterKeyEvent(int modKeyMask, int key)

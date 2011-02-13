@@ -1,5 +1,6 @@
 #pragma once
 
+#include <game_timer.h>
 #include <map.h>
 #include <keyboard_event_handler.h>
 #include <user_interaction_handler.h>
@@ -21,8 +22,9 @@ class Game : KeyboardEventHandler
 		void limitCamera(osgGA::TerrainManipulator* manipulator);
 		void setWindowTitle(const std::string& title);
 
-		void onKeyDown(osgGA::GUIActionAdapter& aa);
+		void onKeyDown(osgGA::GUIActionAdapter& aa, int eventId);
 
 		osgViewer::Viewer _viewer;
 		osg::ref_ptr<UserInteractionHandler> _interactionHandler;
+		GameTimer* _gameTimer;
 };

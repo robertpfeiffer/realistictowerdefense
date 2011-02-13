@@ -5,5 +5,5 @@
 class KeyboardEventHandler
 {
 	public:
-		virtual void onKeyDown(osgGA::GUIActionAdapter& aa) {};
+		virtual void onKeyDown(osgGA::GUIActionAdapter& aa, int eventId) {};
 };

@@ -4,8 +4,8 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylinePathw
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
 	_steering = new CreepSteering(pd, steer_position, path);
-	_timer = osg::Timer::instance();
-	_lastTick = _timer->tick();
+
+	_gameTimer = GameTimer::instance();
 
 	updateRealPosition();
 	updateRealHeading();
@@ -18,13 +18,9 @@ Creep::~Creep()
 
 void Creep::OnUpdate()
 {
-	osg::Timer_t now = _timer->tick();
-
-	_steering->update(_timer->delta_s(_lastTick, now));
+	_steering->update(_gameTimer->elapsedTime());
 	updateRealPosition();
 	updateRealHeading();
-
-	_lastTick = now;
 }
 
 void Creep::updateRealPosition()
