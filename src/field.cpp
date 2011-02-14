@@ -1,12 +1,12 @@
 #include <field.h>
 #include <model_data.h>
+#include <iostream>
 
 #include <osg/PositionAttitudeTransform>
 
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround())
 {
 	this->addChild(_ground.get());
-	this->setName("Field");
 
 	ModelData* modelData = fieldType->getModelData();
 
@@ -31,6 +31,11 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 			this->addChild(transform);
 		}
 	}
+}
+
+void Field::onClick(osgGA::GUIActionAdapter& aa)
+{
+	std::cout << "Click";
 }
 
 bool Field::setBuilding()

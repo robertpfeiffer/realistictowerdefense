@@ -1,8 +1,8 @@
 #include <keyboard_event_handler.h>
+#include <mouse_event_handler.h>
 #include <user_interaction_handler.h>
 
 #include <osgViewer/Viewer>
-#include <iostream>
 
 bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa)
 {
@@ -20,9 +20,10 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIA
 					{
 						for(osg::NodePath::const_reverse_iterator hitNodeIt = hitr->nodePath.rbegin(); hitNodeIt != hitr->nodePath.rend(); ++hitNodeIt)
 						{
-							if (!(*hitNodeIt)->getName().empty())
+							MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
+							if (handler != NULL)
 							{
-								std::cout << (*hitNodeIt)->getName();
+								handler->onClick(aa);
 								return false;
 							}
 						}

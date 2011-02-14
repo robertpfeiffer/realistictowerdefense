@@ -1,11 +1,12 @@
 #pragma once
 
 #include <field_type.h>
+#include <mouse_event_handler.h>
 
 #include <osg/Geode>
 #include <osg/PositionAttitudeTransform>
 
-class Field : public osg::Group
+class Field : public osg::Group, public MouseEventHandler
 {
 	public:
 		Field(FieldType* fieldType);
@@ -14,6 +15,7 @@ class Field : public osg::Group
 		bool _isBuildable;
 
 		float _getRandomFloat(float min, float max);
+		void onClick(osgGA::GUIActionAdapter& aa);
 
 		osg::ref_ptr<osg::Node> _ground;
 		osg::ref_ptr<osg::PositionAttitudeTransform> _model;
