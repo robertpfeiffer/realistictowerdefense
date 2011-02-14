@@ -21,7 +21,7 @@ double GameTimer::nextFrame()
 	_elapsedTime = _timer->delta_s(_offsetTicks, _newOffsetTicks);
 	_offsetTicks = _newOffsetTicks;
 
-	return _elapsedTime;
+	return _offsetTicks;
 }
 
 double GameTimer::elapsedTime()

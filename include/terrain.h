@@ -3,9 +3,8 @@
 #include <osg/Geode>
 #include <osg/Texture2D>
 #include <map.h>
-#include <keyboard_event_handler.h>
 
-class Terrain : public osg::Group, public KeyboardEventHandler
+class Terrain : public osg::Group
 {
 	public:
 		Terrain(Map* map);
