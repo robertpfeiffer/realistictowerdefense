@@ -33,9 +33,14 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 	}
 }
 
-void Field::onClick(osgGA::GUIActionAdapter& aa)
+void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
-	std::cout << "Click";
+	std::cout << "Focus field\r\n";
+}
+
+void Field::onBlur()
+{
+	std::cout << "Blur field\r\n";
 }
 
 bool Field::setBuilding()

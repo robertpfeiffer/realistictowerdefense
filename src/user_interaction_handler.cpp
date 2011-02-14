@@ -4,6 +4,20 @@
 
 #include <osgViewer/Viewer>
 
+UserInteractionHandler::UserInteractionHandler()
+{
+	_activeMouseHandler = NULL;
+}
+
+void UserInteractionHandler::blurActiveMouseHandler()
+{
+	if (_activeMouseHandler != NULL) 
+	{
+		_activeMouseHandler->onBlur();
+		_activeMouseHandler = NULL;
+	}
+}
+
 bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa)
 {
 	switch(ea.getEventType())
@@ -23,13 +37,16 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIA
 							MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
 							if (handler != NULL)
 							{
-								handler->onClick(aa);
+								blurActiveMouseHandler();
+								handler->onFocus(aa);
+								_activeMouseHandler = handler;
 								return false;
 							}
 						}
 					}
 				}
 			}
+			blurActiveMouseHandler();
             return false;
         }    
         case(osgGA::GUIEventAdapter::KEYDOWN):

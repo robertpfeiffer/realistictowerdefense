@@ -6,6 +6,7 @@
 class UserInteractionHandler : public osgGA::GUIEventHandler
 {
 	public:
+		UserInteractionHandler();
 		bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa);
 		void registerKeyEvent(int modKeyMask, int key, KeyboardEventHandler* eventReceiver, int eventId);
 		void unregisterKeyEvent(int modKeyMask, int key);
@@ -17,6 +18,10 @@ class UserInteractionHandler : public osgGA::GUIEventHandler
 
 		typedef std::map<int, KeyboardEvent> keyboardKeyMap;
 		typedef std::map<int, keyboardKeyMap> keyboardEventMap;
+
+		void blurActiveMouseHandler();
+
+		MouseEventHandler* _activeMouseHandler;
 
 		keyboardEventMap _keyMapping;
 };

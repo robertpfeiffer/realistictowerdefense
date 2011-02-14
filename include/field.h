@@ -15,7 +15,8 @@ class Field : public osg::Group, public MouseEventHandler
 		bool _isBuildable;
 
 		float _getRandomFloat(float min, float max);
-		void onClick(osgGA::GUIActionAdapter& aa);
+		void onFocus(osgGA::GUIActionAdapter& aa);
+		void onBlur();
 
 		osg::ref_ptr<osg::Node> _ground;
 		osg::ref_ptr<osg::PositionAttitudeTransform> _model;
