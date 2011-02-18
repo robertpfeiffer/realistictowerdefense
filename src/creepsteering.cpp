@@ -43,14 +43,12 @@
 #include <creepsteering.h>
 
 OpenSteer::AVGroup CreepSteering::neighbors;
-OpenSteer::ObstacleGroup CreepSteering::gObstacles;
+
 float CreepSteering::_followPathWeight		= 8.0f;
-float CreepSteering::_avoidCollisionWeight	= 10.0f;
-float CreepSteering::_avoidObstaclesWeight	= 1.0f;
+float CreepSteering::_avoidCollisionWeight	= 5.0f;
 
 float CreepSteering::_pathFollowLeadTime		 = 0.6f;
-float CreepSteering::_obstacleAvoidanceLeadTime	 = 6.0f;
-float CreepSteering::_collisionAvoidanceLeadTime = 3.0f;
+float CreepSteering::_collisionAvoidanceLeadTime = 4.0f;
 
 CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath)
 {
@@ -123,47 +121,36 @@ OpenSteer::Vec3 CreepSteering::determineCombinedSteering (const float elapsedTim
 {
     // move forward
     OpenSteer::Vec3 steeringForce = forward();
+	
+	// follow the path
 
-    // determine if obstacle avoidance is required
-    OpenSteer::Vec3 obstacleAvoidance = steerToAvoidObstacles (_obstacleAvoidanceLeadTime, gObstacles);
+	const OpenSteer::Vec3 pathFollow = steerToFollowPath (pathDirection, _pathFollowLeadTime, *path);
+	//const OpenSteer::Vec3 pathFollow = steerToStayOnPath (_pathFollowLeadTime, *path);
 
-    // if obstacle avoidance is needed, do it
-    if (obstacleAvoidance != OpenSteer::Vec3::zero)
+	if (pathFollow != OpenSteer::Vec3::zero)
     {
-        steeringForce += obstacleAvoidance * _avoidObstaclesWeight;
-    }
-    else
-    {
-        // otherwise consider avoiding collisions with others
-        OpenSteer::Vec3 collisionAvoidance;
+		steeringForce += pathFollow * _followPathWeight;
+	}
+	else
+	{
+		// consider avoiding collisions with others
+		OpenSteer::Vec3 collisionAvoidance;
 
-        // find all neighbors within maxRadius using proximity database
-        // (radius is largest distance between vehicles traveling head-on
-        // where a collision is possible within caLeadTime seconds.)
-        const float maxRadius = _collisionAvoidanceLeadTime * maxSpeed() * 2;
-        neighbors.clear();
-        proximityToken->findNeighbors(position(), maxRadius, neighbors);
+		//find neighbours in a circle in front of this creep
+		//the circle only contains neighbours, that are reachable within
+		// the collisionAvoidanceLeadTime (considering actual speed)
+		const float radius = _collisionAvoidanceLeadTime * speed() * 0.5;
+		neighbors.clear();
+		proximityToken->findNeighbors(position()+(forward()*radius), radius, neighbors);
 
-        collisionAvoidance = steerToAvoidNeighbors (_collisionAvoidanceLeadTime, neighbors);
+		collisionAvoidance = steerToAvoidNeighbors (_collisionAvoidanceLeadTime, neighbors);
 
-        // if collision avoidance is needed, do it
-        if (collisionAvoidance != OpenSteer::Vec3::zero)
-        {
-            steeringForce += collisionAvoidance * _avoidCollisionWeight;
-        }
-        else
-        {
-            // add in wander component
-            //steeringForce += steerForWander (elapsedTime);
-
-			//see whats the best mechanism to use here
-			const OpenSteer::Vec3 pathFollow = steerToFollowPath (pathDirection, _pathFollowLeadTime, *path);
-            //const OpenSteer::Vec3 pathFollow = steerToStayOnPath (pfLeadTime, *path);
-
-            // add in to steeringForce
-            steeringForce += pathFollow * _followPathWeight;
-        }
-    }
+		// if collision avoidance is needed, do it
+		if (collisionAvoidance != OpenSteer::Vec3::zero)
+		{
+			steeringForce += collisionAvoidance * _avoidCollisionWeight;
+		}
+	}
 
     // return steering constrained to global XZ "ground" plane
     return steeringForce.setYtoZero ();

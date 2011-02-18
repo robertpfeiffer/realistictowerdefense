@@ -62,8 +62,6 @@ typedef OpenSteer::AbstractTokenForProximityDatabase<OpenSteer::AbstractVehicle*
 class CreepSteering : public OpenSteer::SimpleVehicle
 {
 public:
-	// creates a path for the PlugIn
-	static OpenSteer::ObstacleGroup gObstacles;
 
     // type for a group of Pedestrians
     typedef std::vector<CreepSteering*> groupType;
@@ -105,8 +103,6 @@ public:
 private:
 	static float _followPathWeight;
 	static float _avoidCollisionWeight;
-	static float _avoidObstaclesWeight;
 	static float _pathFollowLeadTime;
-	static float _obstacleAvoidanceLeadTime;
 	static float _collisionAvoidanceLeadTime;
 };

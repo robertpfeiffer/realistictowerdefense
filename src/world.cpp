@@ -121,6 +121,7 @@ World::World(const std::string mapFilename) : osg::Group()
 	createPath();
 
 	spawnCreep(createTestBillboard());
+
 	this->addChild(new Terrain(_map));
 }
 
