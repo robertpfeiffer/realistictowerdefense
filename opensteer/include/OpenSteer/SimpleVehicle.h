@@ -3,7 +3,7 @@
 //
 // OpenSteer -- Steering Behaviors for Autonomous Characters
 //
-// Copyright (c) 2002-2003, Sony Computer Entertainment America
+// Copyright (c) 2002-2005, Sony Computer Entertainment America
 // Original author: Craig Reynolds <craig_reynolds@playstation.sony.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -64,8 +64,9 @@
 #define OPENSTEER_SIMPLEVEHICLE_H
 
 
-#include "AbstractVehicle.h"
-#include "SteerLibrary.h"
+#include "OpenSteer/AbstractVehicle.h"
+#include "OpenSteer/SteerLibrary.h"
+#include "OpenSteer/Annotation.h"
 
 
 namespace OpenSteer {
@@ -78,8 +79,12 @@ namespace OpenSteer {
     typedef LocalSpaceMixin<AbstractVehicle> SimpleVehicle_1;
 
 
-    // SimpleVehicle_3 adds concrete steering methods to SimpleVehicle_1
-    typedef SteerLibraryMixin<SimpleVehicle_1> SimpleVehicle_3;
+    // SimpleVehicle_2 adds concrete annotation methods to SimpleVehicle_1
+    typedef AnnotationMixin<SimpleVehicle_1> SimpleVehicle_2;
+
+
+    // SimpleVehicle_3 adds concrete steering methods to SimpleVehicle_2
+    typedef SteerLibraryMixin<SimpleVehicle_2> SimpleVehicle_3;
 
 
     // SimpleVehicle adds concrete vehicle methods to SimpleVehicle_3
@@ -140,6 +145,9 @@ namespace OpenSteer {
         float maxSpeed (void) const {return _maxSpeed;}
         float setMaxSpeed (float ms) {return _maxSpeed = ms;}
 
+        // ratio of speed to max possible speed (0 slowest, 1 fastest)
+        float relativeSpeed (void) const {return speed () / maxSpeed ();}
+
 
         // apply a given steering force to our momentum,
         // adjusting our orientation to maintain velocity-alignment.
@@ -172,7 +180,7 @@ namespace OpenSteer {
         Vec3 predictFuturePosition (const float predictionTime) const;
 
         // get instantaneous curvature (since last update)
-        float curvature (void) {return _curvature;}
+        float curvature (void) const {return _curvature;}
 
         // get/reset smoothedCurvature, smoothedAcceleration and smoothedPosition
         float smoothedCurvature (void) {return _smoothedCurvature;}
@@ -196,6 +204,13 @@ namespace OpenSteer {
         // give each vehicle a unique number
         int serialNumber;
         static int serialNumberCounter;
+
+        // draw lines from vehicle's position showing its velocity and acceleration
+        void annotationVelocityAcceleration (float maxLengthA, float maxLengthV);
+        void annotationVelocityAcceleration (float maxLength)
+            {annotationVelocityAcceleration (maxLength, maxLength);}
+        void annotationVelocityAcceleration (void)
+            {annotationVelocityAcceleration (3, 3);}
 
         // set a random "2D" heading: set local Up to global Y, then effectively
         // rotate about it by a random angle (pick random forward, derive side).

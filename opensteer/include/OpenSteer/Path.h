@@ -2,7 +2,7 @@
  * OpenSteer -- Steering Behaviors for Autonomous Characters
  *
  * Copyright (c) 2002-2005, Sony Computer Entertainment America
- * Original author: Craig Reynolds <craig_reynolds@playstation.sony.com>
+ * Original authors: Craig Reynolds <craig_reynolds@playstation.sony.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -25,26 +25,32 @@
  *
  * @file
  *
- * Abstract base class for pathways - paths with associated radii.
+ * Abstract interface for paths.
  */
-#ifndef OPENSTEER_PATHWAY_H
-#define OPENSTEER_PATHWAY_H
+#ifndef OPENSTEER_PATH_H
+#define OPENSTEER_PATH_H
+
+
+
+
 
 namespace OpenSteer {
-    
-    // Forward declaration, include Vec3.h if needed.
-    // @todo Include Vec3.h?
+
+    // Forward declaration.
     class Vec3;
     
     
-    
     /**
-     * Pure virtual base class representing an abstract pathway in space.
-     * Could be used for example in path following.
+     * Path in space that might be cyclic.
+     *
+     * Paths are infinitesimal thin.
      */
-    class Pathway {
+    class Path {
     public:
-        virtual ~Pathway() = 0;
+        
+        
+        virtual ~Path() = 0;
+        
         
         /**
          * Returns @c true if the path is valid, @c false otherwise.
@@ -93,11 +99,11 @@ namespace OpenSteer {
          *
          * @todo Should this be added or not? Have to read a bit...
          */
-        // Pathway& operator=( Pathway const& );    
+        // Path& operator=( Path const& );
         
-    }; // class Pathway
+    }; // class Path
     
 } // namespace OpenSteer
 
 
-#endif // OPENSTEER_PATHWAY_H
+#endif // OPENSTEER_PATH_H
