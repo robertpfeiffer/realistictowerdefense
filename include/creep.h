@@ -8,7 +8,7 @@
 class Creep : public osg::PositionAttitudeTransform
 {
 public:
-	Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylinePathway* path);
+	Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path);
 	void OnUpdate();
 	~Creep();
 private:

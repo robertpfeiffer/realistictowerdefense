@@ -102,7 +102,7 @@ void World::createPath()
 		pathPoints[i] = OpenSteer::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) -((*checkpoints)[i].Y));
 	}
 	
-	_path = new OpenSteer::PolylinePathway(pathPoints.size(), pathPoints.data(), 0.5, false);
+	_path = new OpenSteer::PolylineSegmentedPathwaySingleRadius(pathPoints.size(), pathPoints.data(), 0.5, false);
 }
 
 void World::spawnCreep(osg::Node* style)

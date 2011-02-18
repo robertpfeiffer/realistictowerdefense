@@ -2,7 +2,7 @@
 
 #include <map.h>
 #include <osg/Group>
-#include <OpenSteer\Pathway.h>
+#include <OpenSteer\PolylineSegmentedPathwaySingleRadius.h>
 #include <creep.h>
 #include <creepcallback.h>
 
@@ -19,7 +19,7 @@ class World : public osg::Group
 		void spawnCreep(osg::Node* style);
 
 		osg::ref_ptr<Map> _map;
-		OpenSteer::PolylinePathway* _path;
+		OpenSteer::PolylineSegmentedPathwaySingleRadius* _path;
 		osg::Vec3 _spawnPosition;
 
 		ProximityDatabase* _proximities;

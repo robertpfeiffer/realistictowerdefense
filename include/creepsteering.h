@@ -43,7 +43,7 @@
 
 #include <iomanip>
 #include <sstream>
-#include <OpenSteer/Pathway.h>
+#include <OpenSteer/PolylineSegmentedPathwaySingleRadius.h>
 #include <OpenSteer/SimpleVehicle.h>
 #include <OpenSteer/Proximity.h>
 
@@ -79,21 +79,24 @@ public:
     // XXX getTotalPathLength and radius methods (currently defined only
     // XXX on PolylinePathway) to set random initial positions.  Could
     // XXX there be a "random position inside path" method on Pathway?
-    OpenSteer::PolylinePathway* path;
+    OpenSteer::PolylineSegmentedPathwaySingleRadius* path;
 
     // direction for path following (upstream or downstream)
     int pathDirection;
 
-	CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath);
+	CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath);
 
     // destructor
     virtual ~CreepSteering();
 
     // reset all instance state
-    void init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath);
+    void init (OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath);
 
     // per frame simulation update
     void update (const float elapsedTime);
+
+	//needs to be overridden
+	void update(const float, const float elapsedTime);
 
     // compute combined steering force: move forward, avoid obstacles
     // or neighbors if needed, otherwise follow the path and wander

@@ -44,15 +44,15 @@
 
 OpenSteer::AVGroup CreepSteering::neighbors;
 OpenSteer::ObstacleGroup CreepSteering::gObstacles;
-float CreepSteering::_followPathWeight		= 8.0;
-float CreepSteering::_avoidCollisionWeight	= 10.0;
-float CreepSteering::_avoidObstaclesWeight	= 1.0;
+float CreepSteering::_followPathWeight		= 8.0f;
+float CreepSteering::_avoidCollisionWeight	= 10.0f;
+float CreepSteering::_avoidObstaclesWeight	= 1.0f;
 
-float CreepSteering::_pathFollowLeadTime		 = 0.6;
-float CreepSteering::_obstacleAvoidanceLeadTime	 = 6.0;
-float CreepSteering::_collisionAvoidanceLeadTime = 3.0;
+float CreepSteering::_pathFollowLeadTime		 = 0.6f;
+float CreepSteering::_obstacleAvoidanceLeadTime	 = 6.0f;
+float CreepSteering::_collisionAvoidanceLeadTime = 3.0f;
 
-CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath)
+CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath)
 {
     proximityToken = pd.allocateToken (this);        
 
@@ -67,7 +67,7 @@ CreepSteering::~CreepSteering()
 }
 
 // reset all instance state
-void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePathway* runPath)
+void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath)
 {
     // reset the vehicle 
     SimpleVehicle::reset ();
@@ -90,7 +90,7 @@ void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePath
 
     // head into path-direction
 	setUp(OpenSteer::Vec3::up);
-	setForward((path->points[1]-path->points[0]).normalize());
+	setForward((path->point(1)-path->point(0)).normalize());
 	setSide(localRotateForwardToSide (forward()));
 
     // follow the path in pathDirection
@@ -98,6 +98,12 @@ void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylinePath
 
     // notify proximity database that our position has changed
     proximityToken->updateForNewPosition (position());
+}
+
+//needs to be overridden
+void CreepSteering::update (const float, const float elapsedTime)
+{
+	update(elapsedTime);
 }
 
 // per frame simulation update
