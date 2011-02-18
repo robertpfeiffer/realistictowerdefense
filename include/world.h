@@ -1,5 +1,7 @@
 #pragma once
 
+#define HAVE_NO_GLUT
+
 #include <map.h>
 #include <osg/Group>
 #include <OpenSteer\PolylineSegmentedPathwaySingleRadius.h>
