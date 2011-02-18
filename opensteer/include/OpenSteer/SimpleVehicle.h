@@ -79,8 +79,14 @@ namespace OpenSteer {
     typedef LocalSpaceMixin<AbstractVehicle> SimpleVehicle_1;
 
 
-    // SimpleVehicle_2 adds concrete annotation methods to SimpleVehicle_1
-    typedef AnnotationMixin<SimpleVehicle_1> SimpleVehicle_2;
+    #ifndef HAVE_NO_GLUT
+		// SimpleVehicle_2 adds concrete annotation methods to SimpleVehicle_1
+		typedef AnnotationMixin<SimpleVehicle_1> SimpleVehicle_2;
+	#endif
+	#ifdef HAVE_NO_GLUT
+		// don't add Annotations
+		typedef SimpleVehicle_1 SimpleVehicle_2;
+	#endif
 
 
     // SimpleVehicle_3 adds concrete steering methods to SimpleVehicle_2
@@ -205,12 +211,14 @@ namespace OpenSteer {
         int serialNumber;
         static int serialNumberCounter;
 
+	#ifndef HAVE_NO_GLUT
         // draw lines from vehicle's position showing its velocity and acceleration
         void annotationVelocityAcceleration (float maxLengthA, float maxLengthV);
         void annotationVelocityAcceleration (float maxLength)
             {annotationVelocityAcceleration (maxLength, maxLength);}
         void annotationVelocityAcceleration (void)
             {annotationVelocityAcceleration (3, 3);}
+	#endif
 
         // set a random "2D" heading: set local Up to global Y, then effectively
         // rotate about it by a random angle (pick random forward, derive side).
