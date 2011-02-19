@@ -38,6 +38,11 @@ void Field::onFocus(osgGA::GUIActionAdapter& aa)
 	std::cout << "Focus field\r\n";
 }
 
+void Field::onClick(osgGA::GUIActionAdapter& aa)
+{
+	std::cout << "Click field\r\n";
+}
+
 void Field::onBlur()
 {
 	std::cout << "Blur field\r\n";

@@ -19,6 +19,7 @@ class UserInteractionHandler : public osgGA::GUIEventHandler
 		typedef std::map<int, KeyboardEvent> keyboardKeyMap;
 		typedef std::map<int, keyboardKeyMap> keyboardEventMap;
 
+		void setActiveMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa);
 		void blurActiveMouseHandler();
 
 		MouseEventHandler* _activeMouseHandler;

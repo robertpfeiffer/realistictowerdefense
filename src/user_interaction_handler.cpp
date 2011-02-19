@@ -9,6 +9,15 @@ UserInteractionHandler::UserInteractionHandler()
 	_activeMouseHandler = NULL;
 }
 
+void UserInteractionHandler::setActiveMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa)
+{
+	if (_activeMouseHandler == handler) return;
+	blurActiveMouseHandler();
+
+	_activeMouseHandler = handler;
+	handler->onFocus(aa);
+}
+
 void UserInteractionHandler::blurActiveMouseHandler()
 {
 	if (_activeMouseHandler != NULL) 
@@ -18,7 +27,7 @@ void UserInteractionHandler::blurActiveMouseHandler()
 	}
 }
 
-bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa)
+bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
 	switch(ea.getEventType())
     {
@@ -37,9 +46,8 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIA
 							MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
 							if (handler != NULL)
 							{
-								blurActiveMouseHandler();
-								handler->onFocus(aa);
-								_activeMouseHandler = handler;
+								setActiveMouseHandler(handler, aa);								
+								handler->onClick(aa);
 								return false;
 							}
 						}
