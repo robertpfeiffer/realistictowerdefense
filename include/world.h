@@ -4,7 +4,7 @@
 
 #include <map.h>
 #include <osg/Group>
-#include <OpenSteer\PolylineSegmentedPathwaySingleRadius.h>
+#include <OpenSteer/PolylineSegmentedPathwaySingleRadius.h>
 #include <creep.h>
 #include <creepcallback.h>
 
