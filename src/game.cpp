@@ -2,6 +2,7 @@
 #include <game.h>
 #include <world.h>
 #include <hud.h>
+#include <graveyard.h>
 #include <user_interaction_handler.h>
 #include <osgGA/TerrainManipulator>
 
@@ -98,5 +99,6 @@ void Game::run()
     {
 		limitCamera((osgGA::TerrainManipulator*) _viewer.getCameraManipulator());
 		_viewer.frame(_gameTimer->nextFrame());
+		Graveyard::instance()->burryAll();
     }
 }

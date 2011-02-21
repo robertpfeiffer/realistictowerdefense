@@ -14,5 +14,5 @@ void CreepEventHandler::onDeath(Creep* creep)
 
 void CreepEventHandler::onLeak(Creep* creep)
 {
-	Graveyard::instance()->killFrom(creep, _world);
+	Graveyard::instance()->killChild(_world, creep);
 }
