@@ -68,6 +68,7 @@ set(sources
 	"include/game_timer.h"
 	"include/hud.h"
 	"include/keyboard_event_handler.h"
+	"include/creep_event_handler.h"
 	"include/map.h"
 	"include/model_data.h"
 	"include/mouse_event_handler.h"

@@ -107,7 +107,7 @@ void World::createPath()
 
 void World::spawnCreep(osg::Node* style)
 {
-	Creep* myCreep = new Creep(*_proximities, _spawnPosition, _path);
+	Creep* myCreep = new Creep(*_proximities, _spawnPosition, _path, NULL);
 	myCreep->addChild(style);
 	this->addChild(myCreep);
 	myCreep->setUpdateCallback(new CreepCallback());

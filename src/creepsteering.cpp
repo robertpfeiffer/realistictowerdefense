@@ -50,9 +50,10 @@ float CreepSteering::_avoidCollisionWeight	= 5.0f;
 float CreepSteering::_pathFollowLeadTime		 = 0.6f;
 float CreepSteering::_collisionAvoidanceLeadTime = 4.0f;
 
-CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath)
+CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath, CreepEventHandler* eventHandler)
 {
     proximityToken = pd.allocateToken (this);        
+	_eventHandler = eventHandler;
 
     init (startPosition, runPath);
 }
