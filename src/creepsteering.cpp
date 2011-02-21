@@ -50,10 +50,11 @@ float CreepSteering::_avoidCollisionWeight	= 5.0f;
 float CreepSteering::_pathFollowLeadTime		 = 0.6f;
 float CreepSteering::_collisionAvoidanceLeadTime = 4.0f;
 
-CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath, CreepEventHandler* eventHandler)
+CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath, Creep* creep, CreepEventHandler* eventHandler)
 {
     proximityToken = pd.allocateToken (this);        
 	_eventHandler = eventHandler;
+	_creep = creep;
 
     init (startPosition, runPath);
 }
@@ -114,6 +115,16 @@ void CreepSteering::update (const float elapsedTime)
 
     // notify proximity database that our position has changed
     proximityToken->updateForNewPosition (position());
+
+	if(path->mapPointToPathDistance(position()) >= path->length())
+	{
+		RaiseLeakEvent();
+	}
+}
+
+void CreepSteering::RaiseLeakEvent()
+{
+	_eventHandler->onLeak(_creep);
 }
 
 // compute combined steering force: move forward, avoid obstacles

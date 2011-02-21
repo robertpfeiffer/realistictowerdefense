@@ -7,6 +7,7 @@
 #include <OpenSteer\PolylineSegmentedPathwaySingleRadius.h>
 #include <creep.h>
 #include <creepcallback.h>
+#include <creep_event_handler.h>
 
 class World : public osg::Group
 {
