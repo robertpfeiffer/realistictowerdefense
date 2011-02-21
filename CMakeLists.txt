@@ -60,21 +60,49 @@ set(sources
 	#header files
 	"include/constants.h"
 	"include/creep.h"
-	"include/creepsteering.h"
 	"include/creepcallback.h"
+	"include/creepsteering.h"	
+	"include/creep_event_handler.h"
 	"include/field.h"
 	"include/field_type.h"
 	"include/game.h"
 	"include/game_timer.h"
 	"include/hud.h"
 	"include/keyboard_event_handler.h"
-	"include/creep_event_handler.h"
 	"include/map.h"
 	"include/model_data.h"
 	"include/mouse_event_handler.h"
 	"include/terrain.h"
 	"include/user_interaction_handler.h"
 	"include/world.h"
+)
+
+# Interaction Handler
+# -------------------
+source_group("Source Files\\Interaction Handler" FILES
+	"src/user_interaction_handler.cpp"
+)
+
+source_group("Header Files\\Interaction Handler" FILES
+	"include/keyboard_event_handler.h"
+	"include/creep_event_handler.h"
+	"include/mouse_event_handler.h"
+	"include/user_interaction_handler.h"
+)
+
+# Creeps
+# -------------------
+source_group("Source Files\\Creeps" FILES
+	"src/creep.cpp"
+	"src/creepsteering.cpp"
+	"src/creepcallback.cpp"
+)
+
+source_group("Header Files\\Creeps" FILES
+	"include/creep.h"
+	"include/creepcallback.h"
+	"include/creepsteering.h"	
+	"include/creep_event_handler.h"
 )
 
 add_executable(Towerdefense ${sources})
