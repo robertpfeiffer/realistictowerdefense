@@ -8,11 +8,6 @@ public:
 
 	void burryAll();
 	void killChild(osg::Group* group, osg::Node* child);
-
-	~Graveyard();
-
 private:
-	Graveyard();
-
-	std::vector<osg::ref_ptr<osg::Node>>* _killList;
+	std::vector<osg::ref_ptr<osg::Node>> _killList;
 };
