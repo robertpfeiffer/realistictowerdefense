@@ -42,6 +42,9 @@
 
 #define HAVE_NO_GLUT
 
+class Creep;
+
+#include <creep_event_handler.h>
 #include <iomanip>
 #include <sstream>
 #include <OpenSteer/PolylineSegmentedPathwaySingleRadius.h>
@@ -83,7 +86,7 @@ public:
     // direction for path following (upstream or downstream)
     int pathDirection;
 
-	CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath);
+	CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath, Creep* creep, CreepEventHandler* eventHandler);
 
     // destructor
     virtual ~CreepSteering();
@@ -101,6 +104,11 @@ public:
     // or neighbors if needed, otherwise follow the path and wander
     OpenSteer::Vec3 determineCombinedSteering (const float elapsedTime);
 private:
+	void RaiseLeakEvent();
+
+	CreepEventHandler* _eventHandler;
+	Creep* _creep;
+
 	static float _followPathWeight;
 	static float _avoidCollisionWeight;
 	static float _pathFollowLeadTime;

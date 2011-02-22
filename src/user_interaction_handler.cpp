@@ -27,6 +27,17 @@ void UserInteractionHandler::blurActiveMouseHandler()
 	}
 }
 
+UserInteractionHandler::KeyboardEvent* UserInteractionHandler::getKeyBoardHandler(const osgGA::GUIEventAdapter& ea)
+{
+	keyboardEventMap::iterator keyMask = _keyMapping.find(ea.getModKeyMask());
+	if (keyMask == _keyMapping.end()) return NULL;
+		
+	keyboardKeyMap::iterator keyMapping = keyMask->second.find(ea.getKey());
+	if (keyMapping == keyMask->second.end()) return NULL;
+	
+	return &keyMapping->second;
+}
+
 bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
 	switch(ea.getEventType())
@@ -59,16 +70,19 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
         }    
         case(osgGA::GUIEventAdapter::KEYDOWN):
         {
-			keyboardEventMap::iterator keyMask = _keyMapping.find(ea.getModKeyMask());
-			if (keyMask != _keyMapping.end())
+			KeyboardEvent* keyboardEvent = getKeyBoardHandler(ea);
+			if (keyboardEvent != NULL)
 			{
-				keyboardKeyMap::iterator keyMapping = keyMask->second.find(ea.getKey());
-				if (keyMapping != keyMask->second.end())
-				{
-					KeyboardEvent* keyboardEvent = &keyMapping->second;
-					keyboardEvent->eventHandler->onKeyDown(aa, keyboardEvent->eventId);
-					return false;
-				}
+				keyboardEvent->eventHandler->onKeyDown(aa, keyboardEvent->eventId);
+			}
+			return false;
+		}
+		case(osgGA::GUIEventAdapter::KEYUP):
+        {
+			KeyboardEvent* keyboardEvent = getKeyBoardHandler(ea);
+			if (keyboardEvent != NULL)
+			{
+				keyboardEvent->eventHandler->onKeyUp(aa, keyboardEvent->eventId);
 			}
 			return false;
 		}

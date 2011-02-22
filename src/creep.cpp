@@ -1,9 +1,10 @@
 #include <creep.h>
 
-Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path)
+Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path, CreepEventHandler* eventHandler)
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
-	_steering = new CreepSteering(pd, steer_position, path);
+	_steering = new CreepSteering(pd, steer_position, path, this, eventHandler);
+	_eventHandler = eventHandler;
 
 	_gameTimer = GameTimer::instance();
 

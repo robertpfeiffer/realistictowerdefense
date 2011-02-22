@@ -21,6 +21,7 @@ class UserInteractionHandler : public osgGA::GUIEventHandler
 
 		void setActiveMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa);
 		void blurActiveMouseHandler();
+		KeyboardEvent* getKeyBoardHandler(const osgGA::GUIEventAdapter& ea);
 
 		MouseEventHandler* _activeMouseHandler;
 
