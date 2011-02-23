@@ -12,11 +12,3 @@ Makefile
 /cmake_install.cmake
 
 /osgWorks
-/opensteer/doc
-/opensteer/macosx
-/opensteer/plugins
-/opensteer/src
-/opensteer/win32
-/opensteer/COPYING.OPENSTEER
-/opensteer/linux
-/opensteer/latest
