@@ -2,18 +2,18 @@
 <Map>
 	<Player money="1000" life="50"/>
 	<Waves>
-		<Wave spawntime="30">
-			<Creep model="bots/bot1.3ds" name="Simple Bots" count="10" speed="1" armor="30" magicresistence="20" spawnoffset="0.2" />
+		<Wave spawnoffset="30">
+			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" bounty="10" count="10" speed="1" armor="30" magicresist="20" spawnoffset="0.2" />
 		</Wave>
 		<Wave spawnoffset="15">
-			<Creep model="bots/bot1.3ds" name="Simple Bots" count="10" killvalue="50" speed="2.0" armor="30" magicresistence="20" spawnoffset="0.1" />
-			<Creep model="bots/bot2.3ds" name="Master" count="1" killvalue="500" speed="1.0" armor="100" magicresistence="50" spawnoffset="0.2" />
+			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" count="10" bounty="50" speed="2.0" armor="30" magicresist="20" spawnoffset="0.1" />
+			<Creep model="creeps/bot3.3ds" name="Master Bot" health="100" count="1" bounty="500" speed="1.0" armor="100" magicresist="50" spawnoffset="0.2" />
 		</Wave>
 	</Waves>
 	<Towers>
-		<Tower name="Base tower" model="tower/tower1.3ds" physicaldamage="20" magicdamage="10" attackspeed="1.25" coast="100">
-			<Tower name="Upgrade from base tower" model="tower/tower2.3ds" physicaldamage="50" magicdamage="25" attackspeed="1.75" minwave="2" coast="500" />
-			<Tower name="Another upgrade from base tower" model="tower/tower3.3ds" physicaldamage="40" magicdamage="35" attackspeed="1.9" minwave="2" coast="450" />
+		<Tower name="Base tower" model="tower/tower1.3ds" physicaldamage="20" magicdamage="10" attackspeed="1.25" cost="100">
+			<Tower name="Upgrade from base tower" model="tower/tower2.3ds" physicaldamage="50" magicdamage="25" attackspeed="1.75" minwave="2" cost="500" />
+			<Tower name="Another upgrade from base tower" model="tower/tower3.3ds" physicaldamage="40" magicdamage="35" attackspeed="1.9" minwave="2" cost="450" />
 		</Tower>
 		<Tower name="Second base tower" model="tower/tower4.3ds" physicaldamage="15" magicdamage="15" attackspeed="1.1" coast="125" />
 	</Towers>
