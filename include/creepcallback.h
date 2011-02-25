@@ -1,5 +1,5 @@
-#include <osgDB\Callbacks>
-#include <osg\Node>
+#include <osgDB/Callbacks>
+#include <osg/Node>
 
 class CreepCallback : public osg::NodeCallback
 {

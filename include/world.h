@@ -4,7 +4,7 @@
 
 #include <map.h>
 #include <osg/Group>
-#include <OpenSteer\PolylineSegmentedPathwaySingleRadius.h>
+#include <OpenSteer/PolylineSegmentedPathwaySingleRadius.h>
 #include <creep.h>
 #include <creepcallback.h>
 #include <creep_event_handler.h>
@@ -14,6 +14,8 @@ class World : public osg::Group
 	public:
 		World(const std::string mapFilename);
 		~World();
+
+
 	private:
 		osg::Drawable* createTestPin(const float & scale, osg::StateSet* bbState);
 		osg::Node* createTestBillboard();

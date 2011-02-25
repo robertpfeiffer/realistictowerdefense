@@ -1,5 +1,5 @@
-#include<osg\Node>
-#include<osg\Group>
+#include<osg/Node>
+#include<osg/Group>
 
 class Graveyard
 {
@@ -9,5 +9,5 @@ public:
 	void burryAll();
 	void killChild(osg::Group* group, osg::Node* child);
 private:
-	std::vector<osg::ref_ptr<osg::Node>> _killList;
+	std::vector< osg::ref_ptr<osg::Node> > _killList;
 };

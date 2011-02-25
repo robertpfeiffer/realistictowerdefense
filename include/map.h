@@ -26,13 +26,13 @@ class Map : public osg::Referenced
 		Field* getField(unsigned int x, unsigned int y);
 		std::vector<MapPoint>* getCheckpoints();
 		osg::Texture2D* getStrataTexture();
-	private:
 		template<class T>
 		struct _cache{
 			std::string filename;
 			T item;
 			bool used;
 		};
+	private:
 
 		bool _attrToBool(xml_attribute<>* attr, bool defaultValue);
 		long _attrToLong(xml_attribute<>* attr, long defaultValue);
@@ -52,8 +52,8 @@ class Map : public osg::Referenced
 
 		osg::ref_ptr<osg::Texture2D> _strata;
 
-		std::list<_cache<osg::ref_ptr<osg::Texture2D>>> _textureCache;
-		std::list<_cache<osg::ref_ptr<osg::Node>>> _modelCache;
+		std::list< _cache< osg::ref_ptr<osg::Texture2D> > > _textureCache;
+		std::list< _cache< osg::ref_ptr<osg::Node> > > _modelCache;
 
 		xml_document<> _xml;
 		std::vector<MapPoint> _checkpoints;
@@ -61,5 +61,5 @@ class Map : public osg::Referenced
 
 		long _height;
 		long _width;
-		std::vector<std::vector<osg::ref_ptr<Field>>> _fields;
+		std::vector< std::vector< osg::ref_ptr<Field> > > _fields;
 };

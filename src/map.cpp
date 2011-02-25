@@ -1,15 +1,18 @@
 #include "map.h"
 #include "constants.h"
 #include "model_data.h"
-#include <string>
+#include <string.h>
+#include <strings.h>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile>
+#include <stdlib.h>
 
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 
 using namespace rapidxml;
+#define strcmpi strcasecmp
 
 Map::Map() : osg::Referenced()
 {
@@ -90,7 +93,7 @@ void Map::_reset()
 {
 	//mark all textures as not used on current map
 	{
-		std::list<_cache<osg::ref_ptr<osg::Texture2D>>>::iterator it;
+		std::list< _cache< osg::ref_ptr<osg::Texture2D> > >::iterator it;
 		for(it = _textureCache.begin(); it != _textureCache.end(); it++)
 		{
 			it->used = false;
@@ -99,7 +102,7 @@ void Map::_reset()
 
 	//mark all models as not used on current map
 	{
-		std::list<_cache<osg::ref_ptr<osg::Node>>>::iterator it;
+		std::list< _cache< osg::ref_ptr<osg::Node> > >::iterator it;
 		for(it = _modelCache.begin(); it != _modelCache.end(); it++)
 		{
 			it->used = false;
@@ -117,10 +120,18 @@ void Map::_reset()
 	_height = 0;
 }
 
+bool is_texture_unused(Map::_cache<osg::ref_ptr<osg::Texture2D> > item) {
+    return !item.used;
+}
+
+bool is_model_unused(Map::_cache<osg::ref_ptr<osg::Node> > item) {
+    return !item.used;
+}
+
 void Map::_cleanup()
 {
-	_textureCache.remove_if([] (_cache<osg::ref_ptr<osg::Texture2D>> item) {return !item.used;});
-	_modelCache.remove_if([] (_cache<osg::ref_ptr<osg::Node>> item) {return !item.used;});
+      _textureCache.remove_if(is_texture_unused);
+      _modelCache.remove_if(is_model_unused);
 
 	for (int i = 0; i <= 255; i++)
 	{
@@ -283,12 +294,14 @@ void Map::_loadCheckPoints(xml_node<> *node)
 
 		_checkpoints.push_back(p);
 	}
-	_checkpoints.shrink_to_fit();
+
+        std::vector<MapPoint>(_checkpoints).swap(_checkpoints);
+	  //_checkpoints.shrink_to_fit();
 }
 
 osg::Texture2D* Map::_getTexture(const char* filename)
 {
-	std::list<_cache<osg::ref_ptr<osg::Texture2D>>>::iterator it;
+	std::list< _cache< osg::ref_ptr<osg::Texture2D> > >::iterator it;
 	for(it = _textureCache.begin(); it != _textureCache.end(); it++)
 	{
 		if (it->filename.compare(filename) == 0)
@@ -310,7 +323,7 @@ osg::Texture2D* Map::_getTexture(const char* filename)
 		texture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
 		texture->setDataVariance(osg::Object::STATIC);
 
-		_cache<osg::ref_ptr<osg::Texture2D>> newElement;
+		_cache< osg::ref_ptr<osg::Texture2D> > newElement;
 
 		newElement.filename = filename;
 		newElement.item = texture;
@@ -323,7 +336,7 @@ osg::Texture2D* Map::_getTexture(const char* filename)
 
 osg::Node* Map::_getModel(const char* filename)
 {
-	std::list<_cache<osg::ref_ptr<osg::Node>>>::iterator it;
+	std::list< _cache< osg::ref_ptr<osg::Node> > >::iterator it;
 	for(it = _modelCache.begin(); it != _modelCache.end(); it++)
 	{
 		if (it->filename.compare(filename) == 0)
@@ -335,7 +348,7 @@ osg::Node* Map::_getModel(const char* filename)
 	std::string modelFilename = MAP_DIRECTORY_MODELS;
 	modelFilename.append(filename);
 
-	_cache<osg::ref_ptr<osg::Node>> newElement;
+	_cache< osg::ref_ptr<osg::Node> > newElement;
 
 	newElement.filename = filename;
 	newElement.item = osgDB::readNodeFile(modelFilename);
