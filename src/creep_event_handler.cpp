@@ -9,7 +9,7 @@ CreepEventHandler::CreepEventHandler(World* world)
 
 void CreepEventHandler::onDeath(Creep* creep)
 {
-	_world->removeChild(creep);
+	Graveyard::instance()->killChild(_world, creep);
 }
 
 void CreepEventHandler::onLeak(Creep* creep)
