@@ -90,7 +90,6 @@ source_group("Source Files\\Interaction Handler" FILES
 
 source_group("Header Files\\Interaction Handler" FILES
 	"include/keyboard_event_handler.h"
-	"include/creep_event_handler.h"
 	"include/mouse_event_handler.h"
 	"include/user_interaction_handler.h"
 )
@@ -101,6 +100,7 @@ source_group("Source Files\\Creeps" FILES
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/creepcallback.cpp"
+	"src/creep_event_handler.cpp"
 )
 
 source_group("Header Files\\Creeps" FILES
