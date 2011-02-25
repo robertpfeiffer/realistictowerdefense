@@ -4,6 +4,11 @@
 /OSGBullet
 /Bullet
 
+*.o
+*.exe
+*.dll
+
+
 CMakeCache.txt
 /bin
 /CMakeFiles
