@@ -2,17 +2,20 @@
 #include "constants.h"
 #include "model_data.h"
 #include <string.h>
-#include <strings.h>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile>
 #include <stdlib.h>
 
+#ifndef WIN32
+	#include <strings.h>
+	#define strcmpi strcasecmp
+#endif
+
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 
 using namespace rapidxml;
-#define strcmpi strcasecmp
 
 Map::Map() : osg::Referenced()
 {
