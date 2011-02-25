@@ -26,12 +26,9 @@ void Creep::OnUpdate()
 
 void Creep::OnHit(Projectile* hitter)
 {
-	int damage = computeDamageReceived(hitter);
-	if(damage < _health)
-	{
-		_health -= damage;
-	}
-	else
+	_health -= computeDamageReceived(hitter);
+
+	if(_health <= 0)
 	{
 		_health = 0;
 		_eventHandler->onDeath(this);
