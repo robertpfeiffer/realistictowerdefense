@@ -15,9 +15,14 @@ class GameTimer
 		inline void pause() {_paused = true; };
 		inline void resume() {_paused = false; };
 		inline bool isPaused() { return _paused; };
+
+		void increaseSpeed();
+		void decreaseSpeed();
 	private:
 		osg::Timer* _timer;
 		bool _paused;
 		double _elapsedTime;
 		osg::Timer_t _offsetTicks;
+
+		int _speed;
 };

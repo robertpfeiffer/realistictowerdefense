@@ -61,10 +61,10 @@ osg::Drawable* Field::createMenuItem(osg::StateSet* bbState)
    // Declare an array of vertices, assign values so we can create a
    // quadrilateral centered relative to the Z axis
    osg::Vec3Array* verts = new osg::Vec3Array(4);
-   (*verts)[0] = osg::Vec3(-width/2.0f, 0, 0);
-   (*verts)[1] = osg::Vec3( width/2.0f, 0, 0);
-   (*verts)[2] = osg::Vec3( width/2.0f, 0, height);
-   (*verts)[3] = osg::Vec3(-width/2.0f, 0, height);
+   (*verts)[0] = osg::Vec3( 0, 0, 0);
+   (*verts)[1] = osg::Vec3( width, 0, 0);
+   (*verts)[2] = osg::Vec3( width, 0, height);
+   (*verts)[3] = osg::Vec3(0, 0, height);
    geometry->setVertexArray(verts);
 
    // Declare and assign texture coordinates.
@@ -105,6 +105,7 @@ void Field::addMenuEntry(osg::Billboard* billBoard,
 	billBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
 	billBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
 	billBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+	//billBoardStateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
 
 	osg::Drawable* drawable = createMenuItem(billBoardStateSet);
 

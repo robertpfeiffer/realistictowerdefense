@@ -12,6 +12,7 @@ GameTimer::GameTimer()
 	_elapsedTime = 0;
 	_offsetTicks = _timer->tick();
 	_paused = false;
+	_speed = 2;
 	_timer->time_s();
 }
 
@@ -30,5 +31,18 @@ double GameTimer::elapsedTime()
 	{
 		return 0;
 	}
-	return _elapsedTime;
+	return _speed * _elapsedTime;
+}
+
+void GameTimer::increaseSpeed()
+{
+	_speed *= 2;
+}
+
+void GameTimer::decreaseSpeed()
+{
+	if (_speed > 1)
+	{
+		_speed /= 2;
+	}
 }

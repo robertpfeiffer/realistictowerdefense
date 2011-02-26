@@ -13,3 +13,5 @@
 #define MAP_DIRECTORY_MODELS   "models/"
 
 #define EVENT_PAUSE 1
+#define EVENT_INCREASE_SPEED 2
+#define EVENT_DECREASE_SPEED 3
