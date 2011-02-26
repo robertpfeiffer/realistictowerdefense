@@ -37,8 +37,8 @@ void Creep::OnHit(Projectile* hitter)
 
 int Creep::computeDamageReceived(Projectile* source)
 {
-	double physDmgFactor = 1.0 - _armor/(100.0+_armor);
-	double magicDmgFactor = 1.0 - _magicResistance/(100.0+_magicResistance);
+	double physDmgFactor = 1.0 - (double)_attributes->armor/(100.0+(double)_attributes->armor);
+	double magicDmgFactor = 1.0 - (double)_attributes->magicResistance/(100.0+(double)_attributes->magicResistance);
 
 	int totalDamage = 0;
 	totalDamage += source->physicalDamage() * physDmgFactor;
@@ -47,13 +47,11 @@ int Creep::computeDamageReceived(Projectile* source)
 	return totalDamage;
 }
 
-void Creep::setCreepStats(int maxHealth, int armor, int magicResistance, int speed, int bounty)
+void Creep::setCreepStats(CreepAttributes* attributes)
 {
-	_maxHealth = maxHealth;
-	_armor = (double)armor;
-	_magicResistance = (double)magicResistance;
-	_steering->setSpeed((float)speed/100.0f);
-	_bounty = bounty;
+	_attributes = attributes;
+	_health = _attributes->maxHealth;
+	_steering->setSpeed((float)_attributes->speed/100.0f);
 }
 
 int Creep::health()
@@ -63,17 +61,17 @@ int Creep::health()
 
 int Creep::maxHealth()
 {
-	return _maxHealth;
+	return _attributes->maxHealth;
 }
 
 int Creep::armor()
 {
-	return (int)_armor;
+	return _attributes->armor;
 }
 
 int Creep::magicResistance()
 {
-	return (int)_magicResistance;
+	return _attributes->magicResistance;
 }
 
 int Creep::speed()
@@ -83,7 +81,7 @@ int Creep::speed()
 
 int Creep::bounty()
 {
-	return _bounty;
+	return _attributes->bounty;
 }
 
 void Creep::updateRealPosition()

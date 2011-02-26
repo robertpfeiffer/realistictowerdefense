@@ -44,7 +44,6 @@ include_directories("include")
 set(sources
 	#source files
 	"src/creep.cpp"
-	"src/creepattributes.cpp"
 	"src/creepsteering.cpp"
 	"src/creep_event_handler.cpp"
 	"src/creepcallback.cpp"
@@ -100,7 +99,6 @@ source_group("Header Files\\Interaction Handler" FILES
 # -------------------
 source_group("Source Files\\Creeps" FILES
 	"src/creep.cpp"
-	"src/creepattributes.cpp"
 	"src/creepsteering.cpp"
 	"src/creepcallback.cpp"
 	"src/creep_event_handler.cpp"
