@@ -5,6 +5,7 @@
 #include <graveyard.h>
 #include <user_interaction_handler.h>
 #include <osgGA/TerrainManipulator>
+#include <osgViewer/ViewerEventHandlers>
 
 void Game::setCameraManipulator()
 {
@@ -101,6 +102,7 @@ void Game::run()
 	_interactionHandler->registerKeyEvent(0, 'p', this, EVENT_PAUSE);
 	_interactionHandler->registerKeyEvent(0, '-', this, EVENT_DECREASE_SPEED);
 	_interactionHandler->registerKeyEvent(0, '+', this, EVENT_INCREASE_SPEED);
+	_viewer.addEventHandler( new osgViewer::StatsHandler());
 
 	//viewer.run();
     while (!_viewer.done())
