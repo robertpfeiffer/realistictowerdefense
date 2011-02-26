@@ -28,7 +28,7 @@ class Map : public osg::Referenced
 
 		Field* getField(unsigned int x, unsigned int y);
 		std::vector<MapPoint>* getCheckpoints();
-		std::queue<Wave>* getWaves(); 
+		std::queue<Wave*>* getWaves(); 
 		osg::Texture2D* getStrataTexture();
 		template<class T>
 		struct _cache{

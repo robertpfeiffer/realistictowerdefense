@@ -37,6 +37,7 @@ void World::spawnCreep(Creep* creep)
 {
 	this->addChild(creep);
 	creep->setUpdateCallback(new CreepCallback());
+	_creepCount++;
 }
 
 ProximityDatabase* World::getProximities()
@@ -44,14 +45,45 @@ ProximityDatabase* World::getProximities()
 	return _proximities;
 }
 
+void World::startNextWave()
+{
+	if(_map->getWaves()->size() > 0)
+	{
+		_currentWave = _map->getWaves()->front();
+		_map->getWaves()->pop();
+
+		_currentWave->startSpawning(this);
+		this->setUpdateCallback(_currentWave);
+		_waveDone = false;
+	}
+}
+
+void World::dropCreep()
+{
+	_creepCount--;
+
+	if(_creepCount == 0 && _waveDone)
+	{
+		this->removeUpdateCallback(_currentWave);
+		startNextWave();
+	}
+}
+
+void World::OnWaveDone()
+{
+	_waveDone = true;
+}
+
 World::World(const std::string mapFilename) : osg::Group()
 {
+	_waveDone = true;
+	_creepCount = 0;
 	_map = new Map(mapFilename);
 	_proximities = new ProximityDatabase();
 
 	createPath();
 
-	_map->getWaves()->front().startSpawning(this);
+	startNextWave();
 
 	this->addChild(new Terrain(_map));
 }

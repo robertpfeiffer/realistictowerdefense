@@ -18,7 +18,6 @@ void Wave::addCreeps(int count, CreepAttributes* attributes)
 
 void Wave::startSpawning(World* world)
 {
-	world->setUpdateCallback(this);
 	_doSpawn = true;
 	prepareNextCreep(world);
 }
@@ -27,7 +26,6 @@ void Wave::prepareNextCreep(World* world)
 {
 	if(_attributes.size() == 0)
 	{
-		//world->removeUpdateCallback(this);
 		_doSpawn = false;
 		return;
 	}

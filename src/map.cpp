@@ -58,7 +58,7 @@ Field* Map::getField(unsigned int x, unsigned int y)
 	return _fields[y][x];
 }
 
-std::queue<Wave>* Map::getWaves()
+std::queue<Wave*>* Map::getWaves()
 {
 	CreepAttributes* attributes = new CreepAttributes();
 	attributes->armor = 50;
@@ -69,11 +69,15 @@ std::queue<Wave>* Map::getWaves()
 	attributes->speed = 100;
 	attributes->style = createTestBillboard();
 
-	Wave blubb = Wave(5);
-	blubb.addCreeps(10, attributes);
+	Wave* blubb = new Wave(5);
+	blubb->addCreeps(10, attributes);
 
-	std::queue<Wave>* mockWaves = new std::queue<Wave>();
+	Wave* bla = new Wave(2);
+	bla->addCreeps(10, attributes);
+
+	std::queue<Wave*>* mockWaves = new std::queue<Wave*>();
 	mockWaves->push(blubb);
+	mockWaves->push(bla);
 	return mockWaves;
 }
 
