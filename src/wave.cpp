@@ -1,0 +1,64 @@
+#include <game_timer.h>
+#include <wave.h>
+#include <world.h>
+
+Wave::Wave()
+{
+	_doSpawn = false;
+}
+
+void Wave::addCreeps(int count, CreepAttributes* attributes)
+{
+	for(int i=0;i<count;i++)
+	{
+		_attributes.push(attributes);
+	}
+}
+
+void Wave::startSpawning(World* world)
+{
+	world->setUpdateCallback(this);
+	_doSpawn = true;
+	prepareNextCreep(world);
+}
+
+void Wave::prepareNextCreep(World* world)
+{
+	if(_attributes.size() == 0)
+	{
+		//world->removeUpdateCallback(this);
+		_doSpawn = false;
+		return;
+	}
+
+	_currentOffset = _attributes.front()->spawnOffset;
+}
+
+void Wave::spawnNextCreep(World* world)
+{
+	OpenSteer::Vec3 steerSpawn = world->getPath()->point(0);
+	osg::Vec3 osgSpawn = osg::Vec3(steerSpawn.x, steerSpawn.y, steerSpawn.z);
+
+	Creep* myCreep = new Creep(*world->getProximities(), osgSpawn, world->getPath(), new CreepEventHandler(world));
+	myCreep->setCreepStats(_attributes.front());
+	myCreep->addChild(_attributes.front()->style);
+	_attributes.pop();
+
+	world->spawnCreep(myCreep);
+
+	prepareNextCreep(world);
+}
+
+void Wave::operator()(osg::Node* node, osg::NodeVisitor* nv)
+{
+	World* myWorld = dynamic_cast<World*>(node);
+	if (myWorld != NULL && _doSpawn)
+	{
+		_currentOffset -= GameTimer::instance()->elapsedTime();
+		if(_currentOffset <= 0)
+		{
+			spawnNextCreep(myWorld);
+		}
+	}
+	traverse(node, nv);
+}

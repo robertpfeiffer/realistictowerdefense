@@ -58,6 +58,7 @@ set(sources
 	"src/projectile.cpp"
 	"src/terrain.cpp"
 	"src/user_interaction_handler.cpp"
+	"src/wave.cpp"
 	"src/world.cpp"
 	
 	#header files
@@ -80,6 +81,7 @@ set(sources
 	"include/projectile.h"
 	"include/terrain.h"
 	"include/user_interaction_handler.h"
+	"include/wave.h"
 	"include/world.h"
 )
 

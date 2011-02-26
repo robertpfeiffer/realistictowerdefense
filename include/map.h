@@ -2,8 +2,11 @@
 
 #include <string>
 #include <vector>
+#include <queue>
 #include <osg/Texture2D>
 #include <rapidxml.hpp>
+
+class Wave;
 
 #include <model_data.h>
 #include <field.h>
@@ -25,6 +28,7 @@ class Map : public osg::Referenced
 
 		Field* getField(unsigned int x, unsigned int y);
 		std::vector<MapPoint>* getCheckpoints();
+		std::queue<Wave>* getWaves(); 
 		osg::Texture2D* getStrataTexture();
 		template<class T>
 		struct _cache{
@@ -33,6 +37,8 @@ class Map : public osg::Referenced
 			bool used;
 		};
 	private:
+		osg::Drawable* createTestPin(const float & scale, osg::StateSet* bbState);
+		osg::Node* createTestBillboard();
 
 		bool _attrToBool(xml_attribute<>* attr, bool defaultValue);
 		long _attrToLong(xml_attribute<>* attr, long defaultValue);

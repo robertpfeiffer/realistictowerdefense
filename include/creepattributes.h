@@ -1,3 +1,5 @@
+#include <osg/Node>
+
 class CreepAttributes
 {
 public:
@@ -6,4 +8,8 @@ public:
 	int magicResistance;
 	int speed;
 	int bounty;
+
+	osg::Node* style;
+
+	double spawnOffset;
 };
