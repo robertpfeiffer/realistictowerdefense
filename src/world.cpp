@@ -36,7 +36,7 @@ OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
 void World::spawnCreep(Creep* creep)
 {
 	this->addChild(creep);
-	creep->setUpdateCallback(new CreepCallback());
+	creep->setUpdateCallback(_creepCallback.get());
 	_creepCount++;
 }
 
@@ -76,16 +76,17 @@ void World::OnWaveDone()
 
 World::World(const std::string mapFilename) : osg::Group()
 {
-	_waveDone = true;
-	_creepCount = 0;
 	_map = new Map(mapFilename);
+	this->addChild(new Terrain(_map));
+	
+	_waveDone = true;
+	_creepCount = 0;	
 	_proximities = new ProximityDatabase();
+	_creepCallback = new CreepCallback();
 
 	createPath();
 
 	startNextWave();
-
-	this->addChild(new Terrain(_map));
 }
 
 World::~World()

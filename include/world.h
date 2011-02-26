@@ -33,5 +33,7 @@ class World : public osg::Group
 		osg::ref_ptr<Map> _map;
 		OpenSteer::PolylineSegmentedPathwaySingleRadius* _path;
 
+		osg::ref_ptr<CreepCallback> _creepCallback;
+
 		ProximityDatabase* _proximities;
 };

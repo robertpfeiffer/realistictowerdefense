@@ -69,15 +69,15 @@ std::queue<Wave*>* Map::getWaves()
 	attributes->speed = 100;
 	attributes->style = createTestBillboard();
 
-	Wave* blubb = new Wave(5);
-	blubb->addCreeps(10, attributes);
-
-	Wave* bla = new Wave(2);
-	bla->addCreeps(10, attributes);
-
 	std::queue<Wave*>* mockWaves = new std::queue<Wave*>();
-	mockWaves->push(blubb);
-	mockWaves->push(bla);
+	Wave* wave = new Wave(5);
+	wave->addCreeps(10, attributes);
+	mockWaves->push(wave);
+
+	wave = new Wave(2);
+	wave->addCreeps(10, attributes);
+	mockWaves->push(wave);
+
 	return mockWaves;
 }
 
@@ -152,18 +152,18 @@ void Map::_reset()
 	_height = 0;
 }
 
-bool is_texture_unused(Map::_cache<osg::ref_ptr<osg::Texture2D> > item) {
+bool isTextureUnused(Map::_cache<osg::ref_ptr<osg::Texture2D> > item) {
     return !item.used;
 }
 
-bool is_model_unused(Map::_cache<osg::ref_ptr<osg::Node> > item) {
+bool isModelUnused(Map::_cache<osg::ref_ptr<osg::Node> > item) {
     return !item.used;
 }
 
 void Map::_cleanup()
 {
-      _textureCache.remove_if(is_texture_unused);
-      _modelCache.remove_if(is_model_unused);
+      _textureCache.remove_if(isTextureUnused);
+      _modelCache.remove_if(isModelUnused);
 
 	for (int i = 0; i <= 255; i++)
 	{
