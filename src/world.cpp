@@ -51,8 +51,6 @@ World::World(const std::string mapFilename) : osg::Group()
 
 	createPath();
 
-	this->addChild(new osg::Node());
-
 	_map->getWaves()->front().startSpawning(this);
 
 	this->addChild(new Terrain(_map));

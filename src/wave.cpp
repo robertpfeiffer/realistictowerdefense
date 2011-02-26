@@ -2,8 +2,9 @@
 #include <wave.h>
 #include <world.h>
 
-Wave::Wave()
+Wave::Wave(double waveOffset)
 {
+	_waveOffset = waveOffset;
 	_doSpawn = false;
 }
 
@@ -54,10 +55,16 @@ void Wave::operator()(osg::Node* node, osg::NodeVisitor* nv)
 	World* myWorld = dynamic_cast<World*>(node);
 	if (myWorld != NULL && _doSpawn)
 	{
-		_currentOffset -= GameTimer::instance()->elapsedTime();
-		if(_currentOffset <= 0)
+		if(_waveOffset <= 0) {
+			_currentOffset -= GameTimer::instance()->elapsedTime();
+			if(_currentOffset <= 0)
+			{
+				spawnNextCreep(myWorld);
+			}
+		}
+		else
 		{
-			spawnNextCreep(myWorld);
+			_waveOffset -= GameTimer::instance()->elapsedTime();
 		}
 	}
 	traverse(node, nv);

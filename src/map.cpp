@@ -69,7 +69,7 @@ std::queue<Wave>* Map::getWaves()
 	attributes->speed = 100;
 	attributes->style = createTestBillboard();
 
-	Wave blubb = Wave();
+	Wave blubb = Wave(5);
 	blubb.addCreeps(10, attributes);
 
 	std::queue<Wave>* mockWaves = new std::queue<Wave>();
