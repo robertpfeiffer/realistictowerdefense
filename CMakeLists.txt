@@ -78,6 +78,7 @@ set(sources
 	"include/map.h"
 	"include/model_data.h"
 	"include/mouse_event_handler.h"
+	"include/player.h"
 	"include/projectile.h"
 	"include/terrain.h"
 	"include/user_interaction_handler.h"

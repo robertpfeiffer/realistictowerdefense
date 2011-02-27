@@ -180,7 +180,13 @@ void Map::_load(const std::string& filename)
 
 	xml_node<> *root = _xml.first_node("Map", 0, false);
 
-	xml_node<> *child = root->first_node("Terrain", 0, false);
+	xml_node<> *child = root->first_node("Player", 0, false);
+	if (child != NULL)
+	{
+		_loadPlayer(child);
+	}
+
+	child = root->first_node("Terrain", 0, false);
 	if (child != NULL)
 	{
 		_loadTerrain(child);
@@ -193,6 +199,12 @@ void Map::_load(const std::string& filename)
 	}
 
 	_cleanup();
+}
+
+void Map::_loadPlayer(xml_node<> *node)
+{
+	_player.setLifes(_attrToLong(node->first_attribute("life", 0, false), 1));
+	_player.setMoney(_attrToLong(node->first_attribute("money", 0, false), 0));
 }
 
 void Map::_loadTerrain(xml_node<> *node)

@@ -8,6 +8,7 @@
 
 class Wave;
 
+#include <player.h>
 #include <model_data.h>
 #include <field.h>
 
@@ -30,6 +31,8 @@ class Map : public osg::Referenced
 		std::vector<MapPoint>* getCheckpoints();
 		std::queue<Wave*>* getWaves(); 
 		osg::Texture2D* getStrataTexture();
+		inline Player* getPlayer() { return &_player; };
+
 		template<class T>
 		struct _cache{
 			std::string filename;
@@ -46,6 +49,7 @@ class Map : public osg::Referenced
 		void _reset();
 		void _cleanup();
 		void _load(const std::string& filename);	// +
+		void _loadPlayer(xml_node<> *node);			// - +
 		void _loadTerrain(xml_node<> *node);		// - +
 		void _loadStrata(xml_node<> *node);			// - - +
 		void _loadFieldTypes(xml_node<> *node);		// - - +
@@ -64,6 +68,7 @@ class Map : public osg::Referenced
 		xml_document<> _xml;
 		std::vector<MapPoint> _checkpoints;
 		osg::ref_ptr<FieldType> _fieldTypes[256];
+		Player _player;
 
 		long _height;
 		long _width;
