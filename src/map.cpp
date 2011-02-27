@@ -58,29 +58,6 @@ Field* Map::getField(unsigned int x, unsigned int y)
 	return _fields[y][x];
 }
 
-std::queue<Wave*>* Map::getWaves()
-{
-	CreepAttributes* attributes = new CreepAttributes();
-	attributes->armor = 50;
-	attributes->bounty = 2;
-	attributes->magicResistance = 50;
-	attributes->maxHealth = 100;
-	attributes->spawnOffset = 0.5;
-	attributes->speed = 100;
-	attributes->style = createTestBillboard();
-
-	std::queue<Wave*>* mockWaves = new std::queue<Wave*>();
-	Wave* wave = new Wave(5);
-	wave->addCreeps(10, attributes);
-	mockWaves->push(wave);
-
-	wave = new Wave(2);
-	wave->addCreeps(10, attributes);
-	mockWaves->push(wave);
-
-	return mockWaves;
-}
-
 bool Map::_attrToBool(xml_attribute<>* attr, bool defaultValue)
 {
 	if (attr == NULL) return defaultValue;
@@ -186,6 +163,12 @@ void Map::_load(const std::string& filename)
 		_loadPlayer(child);
 	}
 
+	child = root->first_node("Waves", 0, false);
+	if (child != NULL)
+	{
+		_loadWaves(child);
+	}
+
 	child = root->first_node("Terrain", 0, false);
 	if (child != NULL)
 	{
@@ -205,6 +188,41 @@ void Map::_loadPlayer(xml_node<> *node)
 {
 	_player.setLifes(_attrToLong(node->first_attribute("life", 0, false), 1));
 	_player.setMoney(_attrToLong(node->first_attribute("money", 0, false), 0));
+}
+
+void Map::_loadWaves(xml_node<> *node)
+{
+	for(xml_node<> *creepWave = node->first_node("Wave", 0, false); creepWave; creepWave = creepWave->next_sibling("Wave", 0, false))
+	{
+		Wave* wave = new Wave(_attrToLong(node->first_attribute("spawnoffset", 0, false), 0));
+		for(xml_node<> *creep = creepWave->first_node("Creep", 0, false); creep; creep = creep->next_sibling("Wave", 0, false))
+		{
+			CreepAttributes* attributes = new CreepAttributes();
+			xml_attribute<>* nameAttr = creep->first_attribute("name", 0, false);
+			attributes->name = "";
+			if (nameAttr != NULL)
+			{
+				attributes->name = nameAttr->value();
+			}
+			
+			attributes->maxHealth = _attrToLong(creep->first_attribute("health", 0, false), 1);
+			attributes->armor = _attrToLong(creep->first_attribute("armor", 0, false), 0);
+			attributes->magicResistance = _attrToLong(creep->first_attribute("magicresist", 0, false), 0);
+			attributes->speed = _attrToFloat(creep->first_attribute("speed", 0, false), 1);
+			attributes->bounty = _attrToFloat(creep->first_attribute("bounty", 0, false), 0);
+			attributes->spawnOffset = _attrToFloat(creep->first_attribute("spawnOffset", 0, false), 0);
+
+			xml_attribute<>* modelAttr = creep->first_attribute("model", 0, false);
+			attributes->model = NULL;
+			if (modelAttr != NULL)
+			{
+				attributes->model = _getModel(modelAttr->value());
+			}
+
+			wave->addCreeps(_attrToLong(creep->first_attribute("count", 0, false), 0), attributes);
+		}
+		_waves.push(wave);
+	}
 }
 
 void Map::_loadTerrain(xml_node<> *node)

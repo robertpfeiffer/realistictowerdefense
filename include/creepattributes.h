@@ -1,15 +1,14 @@
 #include <osg/Node>
 
-class CreepAttributes
+class CreepAttributes : osg::Referenced
 {
 public:
 	int maxHealth;
 	int armor;
 	int magicResistance;
-	int speed;
+	float speed;
 	int bounty;
-
-	osg::Node* style;
-
-	double spawnOffset;
+	std::string name;
+	osg::Node* model;
+	float spawnOffset;
 };

@@ -26,7 +26,7 @@ class World : public osg::Group
 		void createPath();
 		void startNextWave();
 
-		Wave* _currentWave;
+		osg::ref_ptr<Wave> _currentWave;
 		bool _waveDone;
 		int _creepCount;
 

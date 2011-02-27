@@ -29,9 +29,9 @@ class Map : public osg::Referenced
 
 		Field* getField(unsigned int x, unsigned int y);
 		std::vector<MapPoint>* getCheckpoints();
-		std::queue<Wave*>* getWaves(); 
 		osg::Texture2D* getStrataTexture();
 		inline Player* getPlayer() { return &_player; };
+		inline std::queue<osg::ref_ptr<Wave>>* getWaves() { return &_waves; }; 
 
 		template<class T>
 		struct _cache{
@@ -50,6 +50,7 @@ class Map : public osg::Referenced
 		void _cleanup();
 		void _load(const std::string& filename);	// +
 		void _loadPlayer(xml_node<> *node);			// - +
+		void _loadWaves(xml_node<> *node);			// - +
 		void _loadTerrain(xml_node<> *node);		// - +
 		void _loadStrata(xml_node<> *node);			// - - +
 		void _loadFieldTypes(xml_node<> *node);		// - - +
@@ -72,5 +73,6 @@ class Map : public osg::Referenced
 
 		long _height;
 		long _width;
+		std::queue<osg::ref_ptr<Wave>> _waves;
 		std::vector< std::vector< osg::ref_ptr<Field> > > _fields;
 };

@@ -40,7 +40,7 @@ void Wave::spawnNextCreep(World* world)
 
 	Creep* myCreep = new Creep(*world->getProximities(), osgSpawn, world->getPath(), new CreepEventHandler(world));
 	myCreep->setCreepStats(_attributes.front());
-	myCreep->addChild(_attributes.front()->style);
+	myCreep->addChild(_attributes.front()->model);
 	_attributes.pop();
 
 	world->spawnCreep(myCreep);
