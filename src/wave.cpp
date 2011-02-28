@@ -27,6 +27,7 @@ void Wave::prepareNextCreep(World* world)
 	if(_attributes.size() == 0)
 	{
 		_doSpawn = false;
+		world->OnWaveDone();
 		return;
 	}
 

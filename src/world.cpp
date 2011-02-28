@@ -64,13 +64,13 @@ void World::dropCreep()
 
 	if(_creepCount == 0 && _waveDone)
 	{
-		this->removeUpdateCallback(_currentWave);
 		startNextWave();
 	}
 }
 
 void World::OnWaveDone()
 {
+	this->removeUpdateCallback(_currentWave);
 	_waveDone = true;
 }
 
