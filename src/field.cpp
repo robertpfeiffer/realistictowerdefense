@@ -11,7 +11,6 @@
 #include <osg/Group>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile>
-#include <osgGA/TerrainManipulator>
 
 #include <osg/Billboard>
 #include <osg/BlendFunc>
@@ -19,6 +18,7 @@
 #include <osgDB/Registry>
 #include <constants.h>
 #include <menubutton.h>
+
 #define PI 3.14159265
 
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround())

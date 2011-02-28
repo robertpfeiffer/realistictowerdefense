@@ -7,9 +7,6 @@
 #include <osgDB/ReadFile>
 #include <stdlib.h>
 
-#include <osg/Billboard>
-#include <osg/BlendFunc>
-
 #include <creepattributes.h>
 #include <wave.h>
 
@@ -417,76 +414,4 @@ osg::Node* Map::_getModel(const char* filename)
 	newElement.used = true;
 	_modelCache.push_back(newElement);
 	return newElement.item;
-}
-
-osg::Drawable* Map::createTestPin(const float & scale, osg::StateSet* bbState)
-{
-   // Standard size shrub
-   float width = 1.5f;
-   float height = 3.0f;
-
-   // Scale width and height based on 'scale' parameter
-   width *= scale;
-   height *= scale;
-
-   // Declare and initialize geometry
-   osg::Geometry* geometry = new osg::Geometry;
-
-   // Declare an array of vertices, assign values so we can create a
-   // quadrilateral centered relative to the Z axis
-   osg::Vec3Array* verts = new osg::Vec3Array(4);
-   (*verts)[0] = osg::Vec3(-width/2.0f, 0, 0);
-   (*verts)[1] = osg::Vec3( width/2.0f, 0, 0);
-   (*verts)[2] = osg::Vec3( width/2.0f, 0, height);
-   (*verts)[3] = osg::Vec3(-width/2.0f, 0, height);
-   geometry->setVertexArray(verts);
-
-   // Declare and assign texture coordinates.
-   osg::Vec2Array* texCoords = new osg::Vec2Array(4);
-   (*texCoords)[0].set(0.0f,0.0f);
-   (*texCoords)[1].set(1.0f,0.0f);
-   (*texCoords)[2].set(1.0f,1.0f);
-   (*texCoords)[3].set(0.0f,1.0f);
-   geometry->setTexCoordArray(0,texCoords);
-
-   // Add a primitive set (QUADS) to the geometry
-   geometry->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS,0,4));
-
-   // Make sure the geometry has the correct state
-   geometry->setStateSet(bbState);
-
-
-   osg::Vec4Array* colors = new osg::Vec4Array;
-    colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f));
-   geometry->setColorArray(colors);
-   geometry->setColorBinding(osg::Geometry::BIND_OVERALL);
-
-   return geometry;
-} 
-
-osg::Node* Map::createTestBillboard()
-{
-	osg::Billboard* pinBillBoard = new osg::Billboard();
-
-	pinBillBoard->setMode(osg::Billboard::AXIAL_ROT);
-	pinBillBoard->setAxis(osg::Vec3(0.0f,0.0f,1.0f));
-	pinBillBoard->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
-
-	osg::Texture2D *kingpinTexture = new osg::Texture2D;
-	kingpinTexture->setImage(osgDB::readImageFile("textures/kingpin.png"));
-	kingpinTexture->setMaxAnisotropy(AF_LEVEL);
- 
-	osg::BlendFunc *blendFunc = new osg::BlendFunc;
-	osg::StateSet* kingbillBoardStateSet = new osg::StateSet;
-	kingbillBoardStateSet->setTextureAttributeAndModes
-		(0, kingpinTexture, osg::StateAttribute::ON);
-	kingbillBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
-		kingbillBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
-	kingbillBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-
-	osg::Drawable* shrub3Drawable = createTestPin( 0.6f, kingbillBoardStateSet);
-
-	pinBillBoard->addDrawable( shrub3Drawable , osg::Vec3(0,0,0) );
-
-	return pinBillBoard;
 }
