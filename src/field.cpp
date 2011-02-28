@@ -18,7 +18,6 @@
 #include <osg/AlphaFunc>
 #include <osgDB/Registry>
 #include <constants.h>
-#define PI 3.14159265
 
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround())
 {
@@ -115,7 +114,7 @@ void Field::addMenuEntry(osg::Billboard* billBoard,
 
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
-        osg::Billboard* billBoard = new osg::Billboard();
+    osg::Billboard* billBoard = new osg::Billboard();
 	billBoard->setMode(osg::Billboard::POINT_ROT_EYE);
 	billBoard->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 
@@ -145,8 +144,8 @@ void Field::onFocus(osgGA::GUIActionAdapter& aa)
 		     osg::Vec3( 1,
 				1, 
 				0.1));
-        this->addChild(billBoard);
-        menu=billBoard;
+    this->addChild(billBoard);
+    menu = billBoard;
 }
 
 void Field::onClick(osgGA::GUIActionAdapter& aa)
@@ -156,10 +155,9 @@ void Field::onClick(osgGA::GUIActionAdapter& aa)
 
 void Field::onBlur()
 {
-	std::cout << "Blur field\r\n";
-        if(menu != NULL)
-	  this->removeChild(menu);
-        menu = NULL;
+	if(menu.get() != NULL)
+	this->removeChild(menu);
+	menu = NULL;
 }
 
 bool Field::setBuilding()
