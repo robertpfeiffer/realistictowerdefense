@@ -1,5 +1,6 @@
 #include <creep.h>
 #include <creepattributes.h>
+#include <game_timer.h>
 #include <projectileattributes.h>
 #include <world.h>
 
