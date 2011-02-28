@@ -31,7 +31,7 @@ class Map : public osg::Referenced
 		std::vector<MapPoint>* getCheckpoints();
 		osg::Texture2D* getStrataTexture();
 		inline Player* getPlayer() { return &_player; };
-		inline std::queue<osg::ref_ptr<Wave>>* getWaves() { return &_waves; }; 
+		inline std::queue< osg::ref_ptr<Wave> >* getWaves() { return &_waves; }; 
 
 		template<class T>
 		struct _cache{
@@ -73,6 +73,6 @@ class Map : public osg::Referenced
 
 		long _height;
 		long _width;
-		std::queue<osg::ref_ptr<Wave>> _waves;
+		std::queue< osg::ref_ptr<Wave> > _waves;
 		std::vector< std::vector< osg::ref_ptr<Field> > > _fields;
 };
