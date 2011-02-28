@@ -1,6 +1,7 @@
 #include <keyboard_event_handler.h>
 #include <mouse_event_handler.h>
 #include <user_interaction_handler.h>
+#include <menubutton.h>
 
 #include <osgViewer/Viewer>
 
@@ -52,9 +53,16 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 				{
 					for(osgUtil::LineSegmentIntersector::Intersections::iterator hitr = intersections.begin(); hitr != intersections.end();	++hitr)
 					{
+
+					  MenuButton* button = dynamic_cast<MenuButton*>(hitr->drawable.get());
+					  if(button){
+					    button->onClick(aa);
+					  }
+  
 						for(osg::NodePath::const_reverse_iterator hitNodeIt = hitr->nodePath.rbegin(); hitNodeIt != hitr->nodePath.rend(); ++hitNodeIt)
 						{
-							MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
+
+						  MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
 							if (handler != NULL)
 							{
 								setActiveMouseHandler(handler, aa);								

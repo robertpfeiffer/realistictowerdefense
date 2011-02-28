@@ -7,9 +7,6 @@
 #include <osgDB/ReadFile>
 #include <stdlib.h>
 
-#include <osg/Billboard>
-#include <osg/BlendFunc>
-
 #include <creepattributes.h>
 #include <wave.h>
 

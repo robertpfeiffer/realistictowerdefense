@@ -31,7 +31,7 @@ class Map : public osg::Referenced
 		std::vector<MapPoint>* getCheckpoints();
 		osg::Texture2D* getStrataTexture();
 		inline Player* getPlayer() { return &_player; };
-		inline std::queue<osg::ref_ptr<Wave>>* getWaves() { return &_waves; }; 
+		inline std::queue< osg::ref_ptr<Wave> >* getWaves() { return &_waves; }; 
 
 		template<class T>
 		struct _cache{
@@ -40,9 +40,6 @@ class Map : public osg::Referenced
 			bool used;
 		};
 	private:
-		osg::Drawable* createTestPin(const float & scale, osg::StateSet* bbState);
-		osg::Node* createTestBillboard();
-
 		bool _attrToBool(xml_attribute<>* attr, bool defaultValue);
 		long _attrToLong(xml_attribute<>* attr, long defaultValue);
 		float _attrToFloat(xml_attribute<>* attr, float defaultValue);
@@ -73,6 +70,6 @@ class Map : public osg::Referenced
 
 		long _height;
 		long _width;
-		std::queue<osg::ref_ptr<Wave>> _waves;
+		std::queue< osg::ref_ptr<Wave> > _waves;
 		std::vector< std::vector< osg::ref_ptr<Field> > > _fields;
 };
