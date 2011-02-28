@@ -80,6 +80,7 @@ set(sources
 	"include/mouse_event_handler.h"
 	"include/player.h"
 	"include/projectile.h"
+	"include/projectileattributes.h"
 	"include/terrain.h"
 	"include/user_interaction_handler.h"
 	"include/wave.h"

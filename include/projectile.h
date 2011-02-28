@@ -1,6 +1,9 @@
+class ProjectileAttributes;
+
 class Projectile
 {
 public:
-	int physicalDamage();
-	int magicalDamage();
+	
+private:
+	ProjectileAttributes* _attributes;
 };

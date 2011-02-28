@@ -1,6 +1,6 @@
 #include <creep.h>
 #include <creepattributes.h>
-#include <projectile.h>
+#include <projectileattributes.h>
 #include <world.h>
 
 Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path, World* eventHandler)
@@ -27,7 +27,7 @@ void Creep::OnUpdate()
 	updateRealHeading();
 }
 
-void Creep::OnHit(Projectile* hitter)
+void Creep::OnHit(ProjectileAttributes* hitter)
 {
 	_health -= computeDamageReceived(hitter);
 
@@ -38,14 +38,14 @@ void Creep::OnHit(Projectile* hitter)
 	}
 }
 
-int Creep::computeDamageReceived(Projectile* source)
+int Creep::computeDamageReceived(ProjectileAttributes* source)
 {
 	double physDmgFactor = 1.0 - (double)_attributes->armor/(100.0+(double)_attributes->armor);
 	double magicDmgFactor = 1.0 - (double)_attributes->magicResistance/(100.0+(double)_attributes->magicResistance);
 
 	int totalDamage = 0;
-	totalDamage += source->physicalDamage() * physDmgFactor;
-	totalDamage += source->magicalDamage() * magicDmgFactor;
+	totalDamage += source->physicalDamage * physDmgFactor;
+	totalDamage += source->magicalDamage * magicDmgFactor;
 
 	return totalDamage;
 }
