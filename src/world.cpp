@@ -36,7 +36,7 @@ OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
 void World::spawnCreep(Creep* creep)
 {
 	this->addChild(creep);
-	creep->setUpdateCallback(_creepCallback.get());
+	creep->addUpdateCallback(_creepCallback.get());
 	_creepCount++;
 }
 
@@ -53,7 +53,7 @@ void World::startNextWave()
 		_map->getWaves()->pop();
 
 		_currentWave->startSpawning(this);
-		this->setUpdateCallback(_currentWave);
+		this->addUpdateCallback(_currentWave);
 		_waveDone = false;
 	}
 }
