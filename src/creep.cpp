@@ -51,7 +51,7 @@ void Creep::setCreepStats(CreepAttributes* attributes)
 {
 	_attributes = attributes;
 	_health = _attributes->maxHealth;
-	_steering->setSpeed((float)_attributes->speed/100.0f);
+	_steering->setMaxSpeed((float)_attributes->speed/100.0f);
 }
 
 int Creep::health()
@@ -76,7 +76,7 @@ int Creep::magicResistance()
 
 int Creep::speed()
 {
-	return _steering->speed()*100;
+	return _steering->maxSpeed()*100;
 }
 
 int Creep::bounty()
@@ -90,7 +90,15 @@ void Creep::updateRealPosition()
 	osg::Vec3 pos = this->getPosition();
 }
 
+#include <math.h>
+
 void Creep::updateRealHeading()
 {
-	//TODO: implement
+	osg::Vec3 directionVector = osg::Vec3(_steering->forward().x, _steering->forward().z, 0);
+	directionVector.normalize();
+	osg::Quat quad; 
+    osg::Matrix matrix; 
+	matrix.makeLookAt(osg::Vec3d(0.0,0.0,0.0), directionVector, osg::Z_AXIS); 
+    matrix.get(quad);
+	this->setAttitude(quad.inverse());
 }

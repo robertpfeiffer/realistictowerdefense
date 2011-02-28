@@ -1,5 +1,7 @@
 #pragma once
 
+#define PI 3.14159265
+
 #define AF_LEVEL 16.0
 #define NUM_MULTISAMPLES 4
 

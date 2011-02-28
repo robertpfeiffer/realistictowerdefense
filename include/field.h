@@ -26,7 +26,7 @@ class Field : public osg::Group, public MouseEventHandler
 				  bool ignorez,
 				  void (*_onClick) (osg::ref_ptr<MenuButton>));
 
-		osg::Node* menu;
+		osg::ref_ptr<osg::Node> menu;
 
 		osg::ref_ptr<osg::Node> _ground;
 		osg::ref_ptr<osg::Node> _menu;

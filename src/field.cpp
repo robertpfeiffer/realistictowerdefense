@@ -141,7 +141,7 @@ void build_tower(osg::ref_ptr<MenuButton> button)
 
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
-        osg::Billboard* billBoard = new osg::Billboard();
+    osg::Billboard* billBoard = new osg::Billboard();
 	billBoard->setMode(osg::Billboard::POINT_ROT_EYE);
 	billBoard->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 
