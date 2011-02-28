@@ -45,7 +45,6 @@ set(sources
 	#source files
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
-	"src/creepcallback.cpp"
 	"src/field.cpp"
 	"src/field_type.cpp"
 	"src/game.cpp"
@@ -57,6 +56,8 @@ set(sources
 	"src/menubutton.cpp"
 	"src/projectile.cpp"
 	"src/terrain.cpp"
+	"src/updatablenode.cpp"
+	"src/updatecallback.cpp"
 	"src/user_interaction_handler.cpp"
 	"src/wave.cpp"
 	"src/world.cpp"
@@ -65,7 +66,6 @@ set(sources
 	"include/constants.h"
 	"include/creep.h"
 	"include/creepattributes.h"
-	"include/creepcallback.h"
 	"include/creepsteering.h"	
 	"include/field.h"
 	"include/menubutton.h"
@@ -82,6 +82,8 @@ set(sources
 	"include/projectile.h"
 	"include/projectileattributes.h"
 	"include/terrain.h"
+	"include/updatablenode.h"
+	"include/updatecallback.h"
 	"include/user_interaction_handler.h"
 	"include/wave.h"
 	"include/world.h"
@@ -104,13 +106,11 @@ source_group("Header Files\\Interaction Handler" FILES
 source_group("Source Files\\Creeps" FILES
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
-	"src/creepcallback.cpp"
 )
 
 source_group("Header Files\\Creeps" FILES
 	"include/creep.h"
 	"include/creepattributes.h"
-	"include/creepcallback.h"
 	"include/creep_event_handler.h"
 	"include/creepsteering.h"
 )

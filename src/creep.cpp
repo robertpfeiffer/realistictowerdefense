@@ -21,7 +21,7 @@ Creep::~Creep()
 	delete _steering;
 }
 
-void Creep::OnUpdate()
+void Creep::onUpdate()
 {
 	_steering->update(_gameTimer->elapsedTime());
 	updateRealPosition();
