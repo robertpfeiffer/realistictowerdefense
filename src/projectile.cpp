@@ -8,9 +8,11 @@
 
 Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* attributes)
 {
-	this->setPosition(origin);
 	_attributes = attributes;
 	_target = target;
+
+	this->setPosition(origin);
+	this->addChild(_attributes->model);
 }
 
 void Projectile::onUpdate()
