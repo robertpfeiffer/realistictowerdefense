@@ -3,6 +3,7 @@
 #include <creep.h>
 #include <algorithm>
 #include <game_timer.h>
+#include <graveyard.h>
 #include <projectileattributes.h>
 
 Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* attributes)
@@ -14,8 +15,6 @@ Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* at
 
 void Projectile::onUpdate()
 {
-	//TODO upodatecallback to call this... callback in projectile?
-
 	approachToTarget();
 
 	if(this->getPosition() == _target->getPosition()) //is this a good condition?
@@ -27,7 +26,7 @@ void Projectile::onUpdate()
 void Projectile::hitTarget()
 {
 	_target->OnHit(_attributes);
-	//TODO clean up (remove from everywhere)
+	Graveyard::instance()->killChild(this);
 }
 
 void Projectile::approachToTarget()
