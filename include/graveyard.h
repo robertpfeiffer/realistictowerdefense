@@ -6,9 +6,11 @@ class Graveyard
 public:
 	static Graveyard* instance();
 
+	void setWorld(osg::Group* world);
+
 	void burryAll();
-	void killChild(osg::Group* group, osg::Node* child);
+	void killChild(osg::Node* child);
 private:
 	std::vector< osg::ref_ptr<osg::Node> > _killList;
-	osg::Group* world;
+	osg::Group* _world;
 };

@@ -6,17 +6,21 @@ Graveyard* Graveyard::instance()
 	return &yard;
 }
 
-void Graveyard::burryAll()
+void Graveyard::setWorld(osg::Group* world)
 {
-	while(_killList.size() > 0) {
-		world->removeChild(_killList.back());
-		_killList.pop_back();
-	}
-	_killList.clear();
+	_world = world;
 }
 
-void Graveyard::killChild(osg::Group* group, osg::Node* child)
+void Graveyard::burryAll()
 {
-	world = group;
+	while(_killList.size() > 0)
+	{
+		_world->removeChild(_killList.back());
+		_killList.pop_back();
+	}
+}
+
+void Graveyard::killChild(osg::Node* child)
+{
 	_killList.push_back(child);
 }

@@ -10,6 +10,7 @@
 #include <osgDB/Registry>
 
 #include <constants.h>
+#include <graveyard.h>
 #include <map.h>
 #include <terrain.h>
 #include <wave.h>
@@ -56,6 +57,17 @@ void World::startNextWave()
 		this->addUpdateCallback(_currentWave);
 		_waveDone = false;
 	}
+}
+
+void World::onDeath(Creep* creep)
+{
+	Graveyard::instance()->killChild(creep);
+	dropCreep();
+}
+void World::onLeak(Creep* creep)
+{
+	Graveyard::instance()->killChild(creep);
+	dropCreep();
 }
 
 void World::dropCreep()

@@ -7,13 +7,15 @@
 #include <OpenSteer/PolylineSegmentedPathwaySingleRadius.h>
 #include <creep.h>
 #include <creepcallback.h>
-#include <creep_event_handler.h>
 
 class World : public osg::Group
 {
 	public:
 		World(const std::string mapFilename);
 		~World();
+
+		void onDeath(Creep* creep);
+		void onLeak(Creep* creep);
 
 		void dropCreep();
 		void OnWaveDone();

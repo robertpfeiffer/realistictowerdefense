@@ -39,7 +39,7 @@ void Wave::spawnNextCreep(World* world)
 	OpenSteer::Vec3 steerSpawn = world->getPath()->point(0);
 	osg::Vec3 osgSpawn = osg::Vec3(steerSpawn.x, steerSpawn.y, steerSpawn.z);
 
-	Creep* myCreep = new Creep(*world->getProximities(), osgSpawn, world->getPath(), new CreepEventHandler(world));
+	Creep* myCreep = new Creep(*world->getProximities(), osgSpawn, world->getPath(), world);
 	myCreep->setCreepStats(_attributes.front());
 	myCreep->addChild(_attributes.front()->model);
 	_attributes.pop();

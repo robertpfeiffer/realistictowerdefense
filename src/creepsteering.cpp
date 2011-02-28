@@ -41,6 +41,7 @@
 
 
 #include <creepsteering.h>
+#include <world.h>
 
 OpenSteer::AVGroup CreepSteering::neighbors;
 
@@ -50,7 +51,7 @@ float CreepSteering::_avoidCollisionWeight	= 5.0f;
 float CreepSteering::_pathFollowLeadTime		 = 0.6f;
 float CreepSteering::_collisionAvoidanceLeadTime = 4.0f;
 
-CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath, Creep* creep, CreepEventHandler* eventHandler)
+CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath, Creep* creep, World* eventHandler)
 {
     proximityToken = pd.allocateToken (this);        
 	_eventHandler = eventHandler;

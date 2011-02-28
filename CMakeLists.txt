@@ -45,7 +45,6 @@ set(sources
 	#source files
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
-	"src/creep_event_handler.cpp"
 	"src/creepcallback.cpp"
 	"src/field.cpp"
 	"src/field_type.cpp"
@@ -55,7 +54,7 @@ set(sources
 	"src/hud.cpp"
 	"src/main.cpp"
 	"src/map.cpp"
-        "src/menubutton.cpp"
+	"src/menubutton.cpp"
 	"src/projectile.cpp"
 	"src/terrain.cpp"
 	"src/user_interaction_handler.cpp"
@@ -68,9 +67,8 @@ set(sources
 	"include/creepattributes.h"
 	"include/creepcallback.h"
 	"include/creepsteering.h"	
-	"include/creep_event_handler.h"
 	"include/field.h"
-        "include/menubutton.h"
+	"include/menubutton.h"
 	"include/field_type.h"
 	"include/game.h"
 	"include/game_timer.h"
@@ -106,15 +104,14 @@ source_group("Source Files\\Creeps" FILES
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/creepcallback.cpp"
-	"src/creep_event_handler.cpp"
 )
 
 source_group("Header Files\\Creeps" FILES
 	"include/creep.h"
 	"include/creepattributes.h"
 	"include/creepcallback.h"
-	"include/creepsteering.h"	
 	"include/creep_event_handler.h"
+	"include/creepsteering.h"
 )
 
 add_executable(Towerdefense ${sources})

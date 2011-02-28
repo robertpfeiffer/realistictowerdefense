@@ -76,7 +76,9 @@ void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 void Game::run()
 {
 	osg::Group* root = new osg::Group();
-	root->addChild(new World("maps/snake.map"));
+	World* world = new World("maps/snake.map");
+	Graveyard::instance()->setWorld(world);
+	root->addChild(world);
 	root->addChild(new Hud());
 
 	activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
