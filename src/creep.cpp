@@ -51,7 +51,7 @@ void Creep::setCreepStats(CreepAttributes* attributes)
 {
 	_attributes = attributes;
 	_health = _attributes->maxHealth;
-	_steering->setSpeed((float)_attributes->speed/100.0f);
+	_steering->setMaxSpeed((float)_attributes->speed/100.0f);
 }
 
 int Creep::health()
@@ -76,7 +76,7 @@ int Creep::magicResistance()
 
 int Creep::speed()
 {
-	return _steering->speed()*100;
+	return _steering->maxSpeed()*100;
 }
 
 int Creep::bounty()
