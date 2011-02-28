@@ -29,7 +29,7 @@ public:
 private:
 	CreepSteering* _steering;
 	GameTimer* _gameTimer;
-	World* _eventHandler;
+	World* _world;
 
 	int _health;
 	CreepAttributes* _attributes;

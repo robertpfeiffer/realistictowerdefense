@@ -8,7 +8,7 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegme
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
 	_steering = new CreepSteering(pd, steer_position, path, this, eventHandler);
-	_eventHandler = eventHandler;
+	_world = eventHandler;
 
 	_gameTimer = GameTimer::instance();
 
@@ -35,7 +35,7 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 	if(_health <= 0)
 	{
 		_health = 0;
-		_eventHandler->onDeath(this);
+		_world->onDeath(this);
 	}
 }
 
@@ -93,8 +93,6 @@ void Creep::updateRealPosition()
 	this->setPosition(osg::Vec3(_steering->position().x, _steering->position().z, 0));
 	osg::Vec3 pos = this->getPosition();
 }
-
-#include <math.h>
 
 void Creep::updateRealHeading()
 {
