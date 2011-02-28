@@ -19,10 +19,11 @@ class Field : public osg::Group, public MouseEventHandler
 		void onClick(osgGA::GUIActionAdapter& aa);
 		void onBlur();
 
-                osg::Drawable* createMenuItem(osg::StateSet*);
+                osg::Drawable* createMenuItem(osg::StateSet* state, int offset);
 		void addMenuEntry(osg::Billboard* billBoard,
 					 const std::string texturepath,
-					 osg::Vec3 pos);
+				  int offset,
+				  bool ignorez);
 
 		osg::Node* menu;
 
