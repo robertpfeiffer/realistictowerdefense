@@ -1,4 +1,4 @@
-#include <osg/Node>
+#include <osg/PositionAttitudeTransform>
 
 class CreepAttributes : osg::Referenced
 {
@@ -9,6 +9,6 @@ public:
 	float speed;
 	int bounty;
 	std::string name;
-	osg::Node* model;
+	osg::ref_ptr<osg::PositionAttitudeTransform> model;
 	float spawnOffset;
 };

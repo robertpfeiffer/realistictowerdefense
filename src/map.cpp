@@ -216,7 +216,11 @@ void Map::_loadWaves(xml_node<> *node)
 			attributes->model = NULL;
 			if (modelAttr != NULL)
 			{
-				attributes->model = _getModel(modelAttr->value());
+				attributes->model = new osg::PositionAttitudeTransform();
+				attributes->model->addChild(_getModel(modelAttr->value()));
+
+				float scale = _attrToFloat(creep->first_attribute("scale", 0, false), 1);
+				attributes->model->setScale(osg::Vec3d(scale, scale, scale));
 			}
 
 			wave->addCreeps(_attrToLong(creep->first_attribute("count", 0, false), 0), attributes);

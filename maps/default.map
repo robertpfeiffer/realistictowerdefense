@@ -3,7 +3,7 @@
 	<Player money="1000" life="50"/>
 	<Waves>
 		<Wave spawnoffset="30">
-			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" bounty="10" count="10" speed="1" armor="30" magicresist="20" spawnoffset="0.2" />
+			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" bounty="10" count="10" speed="1" armor="30" magicresist="20" spawnoffset="0.2" scale="0.2" />
 		</Wave>
 		<Wave spawnoffset="15">
 			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" count="10" bounty="50" speed="2.0" armor="30" magicresist="20" spawnoffset="0.1" />
