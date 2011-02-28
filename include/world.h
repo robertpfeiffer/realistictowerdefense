@@ -24,6 +24,8 @@ class World : public osg::Group
 		OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
 		ProximityDatabase* getProximities();
 
+		UpdateCallback* getUpdateCallback();
+
 	private:
 		void createPath();
 		void startNextWave();

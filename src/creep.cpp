@@ -1,6 +1,7 @@
 #include <creep.h>
 #include <creepattributes.h>
 #include <game_timer.h>
+#include <inscenetext.h>
 #include <projectileattributes.h>
 #include <world.h>
 
@@ -30,7 +31,13 @@ void Creep::onUpdate()
 
 void Creep::OnHit(ProjectileAttributes* hitter)
 {
-	_health -= computeDamageReceived(hitter);
+	int damage = computeDamageReceived(hitter);
+	_health -= damage;
+
+	//TODO: insert damage-value
+	InSceneText* damageText = new InSceneText(osgText::String("ouch!"), this->getPosition());
+	_world->addChild(damageText);
+	damageText->addUpdateCallback(_world->getUpdateCallback());
 
 	if(_health <= 0)
 	{
