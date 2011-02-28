@@ -19,7 +19,7 @@ void Projectile::onUpdate()
 {
 	approachToTarget();
 
-	if(this->getPosition() == _target->getPosition()) //is this a good condition?
+	if((this->getPosition()-_target->getPosition()).length2() < 0.1) //FIXME is this a good condition?
 	{
 		hitTarget();
 	}
