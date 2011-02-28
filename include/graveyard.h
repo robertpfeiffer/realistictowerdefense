@@ -10,4 +10,5 @@ public:
 	void killChild(osg::Group* group, osg::Node* child);
 private:
 	std::vector< osg::ref_ptr<osg::Node> > _killList;
+	osg::Group* world;
 };
