@@ -1,4 +1,6 @@
 #include <creep.h>
+#include <creepattributes.h>
+#include <projectile.h>
 #include <world.h>
 
 Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path, World* eventHandler)

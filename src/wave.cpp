@@ -1,4 +1,5 @@
 #include <game_timer.h>
+#include <creepattributes.h>
 #include <wave.h>
 #include <world.h>
 

@@ -1,12 +1,12 @@
 #pragma once
-#include <creepattributes.h>
 #include <creepsteering.h>
 #include <game_timer.h>
-#include <projectile.h>
 #include <osg/Geometry>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Timer>
 
+class CreepAttributes;
+class Projectile;
 class World;
 
 class Creep : public osg::PositionAttitudeTransform
