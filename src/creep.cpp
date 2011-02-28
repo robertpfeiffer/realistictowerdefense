@@ -4,6 +4,7 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegme
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
 	_steering = new CreepSteering(pd, steer_position, path, this, eventHandler);
+	_steering->setRadius(5.0);
 	_eventHandler = eventHandler;
 
 	_gameTimer = GameTimer::instance();
@@ -90,7 +91,15 @@ void Creep::updateRealPosition()
 	osg::Vec3 pos = this->getPosition();
 }
 
+#include <math.h>
+
 void Creep::updateRealHeading()
 {
-	//TODO: implement
+	osg::Vec3 directionVector = osg::Vec3(_steering->forward().x, _steering->forward().z, 0);
+	directionVector.normalize();
+	osg::Quat quad; 
+    osg::Matrix matrix; 
+	matrix.makeLookAt(osg::Vec3d(0.0,0.0,0.0), directionVector, osg::Z_AXIS); 
+    matrix.get(quad);
+	this->setAttitude(quad.inverse());
 }
