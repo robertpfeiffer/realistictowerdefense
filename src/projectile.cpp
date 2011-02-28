@@ -1,4 +1,8 @@
-#include<projectile.h>
+#include <projectile.h>
+
+#include <creep.h>
+#include <algorithm>
+#include <projectileattributes.h>
 
 Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* attributes)
 {
@@ -9,9 +13,11 @@ Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* at
 
 void Projectile::onUpdate()
 {
+	//TODO upodatecallback to call this... callback in projectile?
+
 	approachToTarget();
 
-	if(/*close enough*/ false)
+	if(this->getPosition() == _target->getPosition()) //is this a good condition?
 	{
 		hitTarget();
 	}
@@ -19,10 +25,15 @@ void Projectile::onUpdate()
 
 void Projectile::hitTarget()
 {
-
+	_target->OnHit(_attributes);
+	//TODO clean up (remove from everywhere)
 }
 
 void Projectile::approachToTarget()
 {
+	osg::Vec3 targetVector = _target->getPosition() - this->getPosition();
+	float maxDistance = targetVector.normalize();
+	float travelDistance = std::min(maxDistance, _attributes->travelSpeed);
 
+	this->setPosition(this->getPosition()+(targetVector*travelDistance));
 }
