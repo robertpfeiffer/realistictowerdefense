@@ -1,8 +1,8 @@
 #pragma once
-
 #include <field_type.h>
 #include <mouse_event_handler.h>
 #include <string>
+#include <menubutton.h>
 #include <osg/Geode>
 #include <osg/PositionAttitudeTransform>
 
@@ -19,11 +19,12 @@ class Field : public osg::Group, public MouseEventHandler
 		void onClick(osgGA::GUIActionAdapter& aa);
 		void onBlur();
 
-                osg::Drawable* createMenuItem(osg::StateSet* state, int offset);
+                MenuButton* createMenuItem(osg::StateSet* state, int offset);
 		void addMenuEntry(osg::Billboard* billBoard,
-					 const std::string texturepath,
+				  const std::string texturepath,
 				  int offset,
-				  bool ignorez);
+				  bool ignorez,
+				  void (*_onClick) (osg::ref_ptr<MenuButton>));
 
 		osg::Node* menu;
 

@@ -40,9 +40,6 @@ class Map : public osg::Referenced
 			bool used;
 		};
 	private:
-		osg::Drawable* createTestPin(const float & scale, osg::StateSet* bbState);
-		osg::Node* createTestBillboard();
-
 		bool _attrToBool(xml_attribute<>* attr, bool defaultValue);
 		long _attrToLong(xml_attribute<>* attr, long defaultValue);
 		float _attrToFloat(xml_attribute<>* attr, float defaultValue);

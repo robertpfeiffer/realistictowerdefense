@@ -50,14 +50,14 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 	}
 }
 
-osg::Drawable* Field::createMenuItem(osg::StateSet* bbState, int offset)
+MenuButton* Field::createMenuItem(osg::StateSet* bbState, int offset)
 {
    // Standard size shrub
    float width = 1.0f;
    float height = 1.0f;
 
    // Declare and initialize geometry
-   osg::Geometry* geometry = new MenuButton;
+   MenuButton* geometry = new MenuButton;
 
    // Declare an array of vertices, assign values so we can create a
    // quadrilateral centered relative to the Z axis
@@ -102,7 +102,8 @@ osg::Drawable* Field::createMenuItem(osg::StateSet* bbState, int offset)
 void Field::addMenuEntry(osg::Billboard* billBoard,
 			 const std::string texturepath,
                          int offset,
-                         bool ignorez)
+                         bool ignorez,
+			 void (* _onClick)(osg::ref_ptr<MenuButton>))
 {
 	osg::Texture2D *texture = new osg::Texture2D;
 	texture->setImage(osgDB::readImageFile(texturepath));
@@ -119,45 +120,65 @@ void Field::addMenuEntry(osg::Billboard* billBoard,
 	if (ignorez)
 	  billBoardStateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF);
 
-	osg::Drawable* drawable = createMenuItem(billBoardStateSet, offset);
+	MenuButton* drawable = createMenuItem(billBoardStateSet, offset);
+
+	drawable->_onClick=_onClick;
 
 	billBoard->addDrawable(drawable);
 
 }
 
+void build_tower(osg::ref_ptr<MenuButton> button)
+{
+  Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
+
+  std::cout << "build tower" << std::endl;
+
+  if(f != NULL){
+      f->setBuilding();
+  }
+}
+
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
         osg::Billboard* billBoard = new osg::Billboard();
-	billBoard->setMode(osg::Billboard::POINT_ROT_WORLD);
+	billBoard->setMode(osg::Billboard::POINT_ROT_EYE);
 	billBoard->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 
 	addMenuEntry(billBoard,
 		     "textures/select.png", 
 		     0,
-                     true);
+                     true,
+		     NULL);
 
 	addMenuEntry(billBoard,
 		     "textures/tower.png", 
-		     4,
-		     false);
+		     3,
+		     false,
+		     build_tower);
 
 	addMenuEntry(billBoard,
 		     "textures/x.png", 
-		     5,
-                     false);
+		     4,
+                     false,
+		     NULL);
 
         this->addChild(billBoard);
         menu=billBoard;
+	std::cout << "open menu" << std::endl;
+
 }
+
+
 
 void Field::onClick(osgGA::GUIActionAdapter& aa)
 {
-
+  //handled by menubutton
 }
 
 void Field::onBlur()
 {
-	std::cout << "Blur field\r\n";
+  std::cout << "close menu" << std::endl;
         if(menu != NULL)
 	  this->removeChild(menu);
         menu = NULL;
@@ -165,12 +186,12 @@ void Field::onBlur()
 
 bool Field::setBuilding()
 {
-	FieldType* fieldType = _fieldType.get();
-	if (!fieldType->isBuildable())
+	if (_fieldType != NULL && !_fieldType->isBuildable()) //FIXME
 	{
-		return false;
+	  	return false;
 	}
-
+	osg::ref_ptr<osg::Node> n = osgDB::readNodeFile("models/towers/tower5.3ds"); //FIXME
+	this->addChild(n);
 	//TODO: now add building
 
 	return true;
