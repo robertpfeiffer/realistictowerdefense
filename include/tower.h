@@ -1,3 +1,5 @@
+#pragma once
+
 #include <osg/Group>
 #include <updatablenode.h>
 

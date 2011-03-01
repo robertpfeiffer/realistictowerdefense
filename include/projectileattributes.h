@@ -1,3 +1,5 @@
+#pragma once
+
 #include <osg/PositionAttitudeTransform>
 
 class ProjectileAttributes : public osg::Referenced

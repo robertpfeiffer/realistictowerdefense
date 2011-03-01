@@ -1,3 +1,5 @@
+#pragma once
+
 #include<osg/Node>
 
 class Graveyard

@@ -1,3 +1,4 @@
+#pragma once
 #include <osg/PositionAttitudeTransform>
 
 class CreepAttributes : osg::Referenced

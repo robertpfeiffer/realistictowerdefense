@@ -1,3 +1,5 @@
+#pragma once
+
 #include <osg/PositionAttitudeTransform>
 #include <osgText/Text>
 #include <updatablenode.h>
