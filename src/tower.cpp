@@ -12,6 +12,8 @@ Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
 	_position = position;
 	_attributes = attributes;
 	_target = NULL;
+
+	this->addChild(_attributes->model);
 }
 
 void Tower::onUpdate()
