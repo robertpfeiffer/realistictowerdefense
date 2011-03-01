@@ -21,12 +21,12 @@
 
 using namespace rapidxml;
 
-Map::Map() : osg::Referenced()
+Map::Map()
 {
 	_reset();
 }
 
-Map::Map(const std::string& filename) : osg::Referenced()
+Map::Map(const std::string& filename)
 {
 	_load(filename);
 }
