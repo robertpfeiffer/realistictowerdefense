@@ -56,7 +56,7 @@ bool Tower::findNewTarget()
 
 void Tower::shootAtTarget()
 {
-	osg::Vec3 origin = osg::Vec3(_position.x(), _attributes->height, _position.z());
+	osg::Vec3 origin = osg::Vec3(_position.x(), _position.y(), _attributes->height);
 	Projectile* p = new Projectile(origin, _target.get(), &(_attributes->projectile));
 	Hatchery::instance()->enqueueChild(p);
 }
