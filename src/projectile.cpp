@@ -3,7 +3,7 @@
 
 #include <creep.h>
 #include <algorithm>
-#include <game_timer.h>
+#include <gametimer.h>
 #include <graveyard.h>
 #include <projectileattributes.h>
 
