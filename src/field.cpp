@@ -20,8 +20,6 @@
 #include <constants.h>
 #include <menubutton.h>
 
-#define PI 3.14159265
-
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround())
 {
 	this->addChild(_ground.get());
