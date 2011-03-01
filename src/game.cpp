@@ -82,14 +82,11 @@ void Game::run()
 	root->addChild(world);
 	root->addChild(new Hud());
 
-	if (getenv("NETBOOK")!=NULL){
-	_viewer.setUpViewInWindow(100, 100, 600, 450);
-	//smaller window
-	//no antialiasing
-	} else {
+	if (getenv("NETBOOK") == NULL)
+	{
 		activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
-		_viewer.setUpViewInWindow(100, 100, 600, 450); //maybe improve with osgViewer::WindowSizeHandler
 	}
+	_viewer.setUpViewInWindow(100, 100, 600, 450); //maybe improve with osgViewer::WindowSizeHandler
 	
 	setCameraManipulator();
 	setGlobalLight();
