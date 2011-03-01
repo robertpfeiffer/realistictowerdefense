@@ -1,5 +1,6 @@
 #pragma once
 #include <creepsteering.h>
+#include <updatablenode.h>
 #include <osg/Geometry>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Timer>
@@ -9,11 +10,11 @@ class GameTimer;
 class ProjectileAttributes;
 class World;
 
-class Creep : public osg::PositionAttitudeTransform
+class Creep : public osg::PositionAttitudeTransform, public UpdatableNode
 {
 public:
 	Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path, World* eventHandler);
-	void OnUpdate();
+	void onUpdate();
 	void OnHit(ProjectileAttributes* hitter);
 	void setCreepStats(CreepAttributes* attributes);
 
@@ -28,7 +29,7 @@ public:
 private:
 	CreepSteering* _steering;
 	GameTimer* _gameTimer;
-	World* _eventHandler;
+	World* _world;
 
 	int _health;
 	CreepAttributes* _attributes;

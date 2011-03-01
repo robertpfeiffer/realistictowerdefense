@@ -45,18 +45,20 @@ set(sources
 	#source files
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
-	"src/creepcallback.cpp"
 	"src/field.cpp"
 	"src/field_type.cpp"
 	"src/game.cpp"
 	"src/game_timer.cpp"
 	"src/graveyard.cpp"
 	"src/hud.cpp"
+	"src/inscenetext.cpp"
 	"src/main.cpp"
 	"src/map.cpp"
 	"src/menubutton.cpp"
 	"src/projectile.cpp"
 	"src/terrain.cpp"
+	"src/updatablenode.cpp"
+	"src/updatecallback.cpp"
 	"src/user_interaction_handler.cpp"
 	"src/wave.cpp"
 	"src/world.cpp"
@@ -65,23 +67,25 @@ set(sources
 	"include/constants.h"
 	"include/creep.h"
 	"include/creepattributes.h"
-	"include/creepcallback.h"
 	"include/creepsteering.h"	
 	"include/field.h"
-	"include/menubutton.h"
 	"include/field_type.h"
 	"include/game.h"
 	"include/game_timer.h"
 	"include/graveyard.h"
 	"include/hud.h"
+	"include/inscenetext.h"
 	"include/keyboard_event_handler.h"
 	"include/map.h"
+	"include/menubutton.h"
 	"include/model_data.h"
 	"include/mouse_event_handler.h"
 	"include/player.h"
 	"include/projectile.h"
 	"include/projectileattributes.h"
 	"include/terrain.h"
+	"include/updatablenode.h"
+	"include/updatecallback.h"
 	"include/user_interaction_handler.h"
 	"include/wave.h"
 	"include/world.h"
@@ -104,13 +108,11 @@ source_group("Header Files\\Interaction Handler" FILES
 source_group("Source Files\\Creeps" FILES
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
-	"src/creepcallback.cpp"
 )
 
 source_group("Header Files\\Creeps" FILES
 	"include/creep.h"
 	"include/creepattributes.h"
-	"include/creepcallback.h"
 	"include/creep_event_handler.h"
 	"include/creepsteering.h"
 )
@@ -125,6 +127,7 @@ target_link_libraries(Towerdefense optimized osg)
 target_link_libraries(Towerdefense optimized osgViewer)
 target_link_libraries(Towerdefense optimized osgGA)
 target_link_libraries(Towerdefense optimized osgDB)
+target_link_libraries(Towerdefense optimized osgText)
 target_link_libraries(Towerdefense optimized OpenThreads)
 target_link_libraries(Towerdefense optimized opensteer)
 
@@ -133,5 +136,6 @@ target_link_libraries(Towerdefense debug osgd)
 target_link_libraries(Towerdefense debug osgViewerd)
 target_link_libraries(Towerdefense debug osgGAd)
 target_link_libraries(Towerdefense debug osgDBd)
+target_link_libraries(Towerdefense debug osgTextd)
 target_link_libraries(Towerdefense debug OpenThreadsd)
 target_link_libraries(Towerdefense debug opensteerd)

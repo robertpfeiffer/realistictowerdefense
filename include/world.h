@@ -6,7 +6,7 @@
 #include <osg/Group>
 #include <OpenSteer/PolylineSegmentedPathwaySingleRadius.h>
 #include <creep.h>
-#include <creepcallback.h>
+#include <updatecallback.h>
 
 class World : public osg::Group
 {
@@ -24,6 +24,8 @@ class World : public osg::Group
 		OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
 		ProximityDatabase* getProximities();
 
+		UpdateCallback* getUpdateCallback();
+
 	private:
 		void createPath();
 		void startNextWave();
@@ -35,7 +37,7 @@ class World : public osg::Group
 		osg::ref_ptr<Map> _map;
 		OpenSteer::PolylineSegmentedPathwaySingleRadius* _path;
 
-		osg::ref_ptr<CreepCallback> _creepCallback;
+		osg::ref_ptr<UpdateCallback> _updateCallback;
 
 		ProximityDatabase* _proximities;
 };
