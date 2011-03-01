@@ -13,6 +13,7 @@ private:
 	void shootAt(Creep* creep);
 
 	float _currentCooldown;
+	osg::Vec3 _position;
 
 	osg::ref_ptr<TowerAttributes> _attributes;
 };

@@ -7,6 +7,7 @@ class TowerAttributes : public osg::Referenced
 public:
 	float cooldown;
 	int cost;
+	float height;
 	std::string name;
 
 	osg::ref_ptr<ProjectileAttributes> projectile;
