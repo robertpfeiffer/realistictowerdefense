@@ -20,7 +20,7 @@
 #include <constants.h>
 #include <menubutton.h>
 
-Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround())
+Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround()), _fieldType(fieldType)
 {
 	this->addChild(_ground.get());
 

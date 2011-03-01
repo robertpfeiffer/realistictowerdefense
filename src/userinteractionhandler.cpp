@@ -63,11 +63,9 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 					}
 
 					for(osgUtil::LineSegmentIntersector::Intersections::iterator hitr = intersections.begin(); hitr != intersections.end();	++hitr)
-					{
-  
+					{  
 						for(osg::NodePath::const_reverse_iterator hitNodeIt = hitr->nodePath.rbegin(); hitNodeIt != hitr->nodePath.rend(); ++hitNodeIt)
 						{
-
 						  MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
 							if (handler != NULL)
 							{
