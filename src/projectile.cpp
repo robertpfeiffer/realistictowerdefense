@@ -18,6 +18,12 @@ Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* at
 
 void Projectile::onUpdate()
 {
+	if(_target->health() <= 0)
+	{
+		Graveyard::instance()->killChild(this);
+		return;
+	}
+
 	approachToTarget();
 
 	if((this->getPosition()-_target->getPosition()).length2() < 0.1) //FIXME is this a good condition?

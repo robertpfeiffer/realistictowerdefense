@@ -8,6 +8,7 @@ class TowerAttributes : public osg::Referenced
 {
 public:
 	float cooldown;
+	float range;
 	int cost;
 	float height;
 	std::string name;

@@ -48,7 +48,17 @@ OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
 void World::spawnCreep(Creep* creep)
 {
 	this->addUpdatableNode(creep);
-	_creepCount++;
+	_creeps.insert(creep);
+}
+
+std::set<osg::ref_ptr<Creep>>::iterator World::getCreepsIterator()
+{
+	return _creeps.begin();
+}
+
+std::set<osg::ref_ptr<Creep>>::iterator World::getCreepsIteratorEnd()
+{
+	return _creeps.end();
 }
 
 ProximityDatabase* World::getProximities()
@@ -72,19 +82,19 @@ void World::startNextWave()
 void World::onDeath(Creep* creep)
 {
 	Graveyard::instance()->killChild(creep);
-	dropCreep();
+	dropCreep(creep);
 }
 void World::onLeak(Creep* creep)
 {
 	Graveyard::instance()->killChild(creep);
-	dropCreep();
+	dropCreep(creep);
 }
 
-void World::dropCreep()
+void World::dropCreep(Creep* creep)
 {
-	_creepCount--;
+	_creeps.erase(creep);
 
-	if(_creepCount == 0 && _waveDone)
+	if(_creeps.size() == 0 && _waveDone)
 	{
 		startNextWave();
 	}
@@ -114,7 +124,6 @@ void World::loadMap(const std::string mapFilename)
 	this->addChild(new Terrain(_map));
 
 	_waveDone = true;
-	_creepCount = 0;	
 	_proximities = new ProximityDatabase();
 	_updateCallback = new UpdateCallback();
 
