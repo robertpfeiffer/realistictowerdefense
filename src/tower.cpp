@@ -3,6 +3,7 @@
 
 #include <creep.h>
 #include <gametimer.h>
+#include <hatchery.h>
 #include <projectile.h>
 #include <towerattributes.h>
 #include <world.h>
@@ -57,5 +58,5 @@ void Tower::shootAtTarget()
 {
 	osg::Vec3 origin = osg::Vec3(_position.x(), _attributes->height, _position.z());
 	Projectile* p = new Projectile(origin, _target.get(), &(_attributes->projectile));
-	World::instance()->addUpdatableNode(p);
+	Hatchery::instance()->enqueueChild(p);
 }
