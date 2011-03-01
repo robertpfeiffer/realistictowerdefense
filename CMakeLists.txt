@@ -46,9 +46,9 @@ set(sources
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
-	"src/field_type.cpp"
+	"src/fieldtype.cpp"
 	"src/game.cpp"
-	"src/game_timer.cpp"
+	"src/gametimer.cpp"
 	"src/graveyard.cpp"
 	"src/hud.cpp"
 	"src/inscenetext.cpp"
@@ -57,9 +57,10 @@ set(sources
 	"src/menubutton.cpp"
 	"src/projectile.cpp"
 	"src/terrain.cpp"
+	"src/tower.cpp"
 	"src/updatablenode.cpp"
 	"src/updatecallback.cpp"
-	"src/user_interaction_handler.cpp"
+	"src/userinteractionhandler.cpp"
 	"src/wave.cpp"
 	"src/world.cpp"
 	
@@ -69,52 +70,83 @@ set(sources
 	"include/creepattributes.h"
 	"include/creepsteering.h"	
 	"include/field.h"
-	"include/field_type.h"
+	"include/fieldtype.h"
 	"include/game.h"
-	"include/game_timer.h"
+	"include/gametimer.h"
 	"include/graveyard.h"
 	"include/hud.h"
 	"include/inscenetext.h"
-	"include/keyboard_event_handler.h"
+	"include/keyboardeventhandler.h"
 	"include/map.h"
 	"include/menubutton.h"
-	"include/model_data.h"
-	"include/mouse_event_handler.h"
+	"include/modeldata.h"
+	"include/mouseeventhandler.h"
 	"include/player.h"
 	"include/projectile.h"
 	"include/projectileattributes.h"
 	"include/terrain.h"
+	"include/tower.h"
+	"include/towerattributes.h"
 	"include/updatablenode.h"
 	"include/updatecallback.h"
-	"include/user_interaction_handler.h"
+	"include/userinteractionhandler.h"
 	"include/wave.h"
 	"include/world.h"
 )
 
-# Interaction Handler
+# Handlers and Callbacks
 # -------------------
-source_group("Source Files\\Interaction Handler" FILES
-	"src/user_interaction_handler.cpp"
+source_group("Source Files\\Handlers and Callbacks" FILES
+	"src/updatecallback.cpp"
+	"src/userinteractionhandler.cpp"
 )
 
-source_group("Header Files\\Interaction Handler" FILES
-	"include/keyboard_event_handler.h"
-	"include/mouse_event_handler.h"
-	"include/user_interaction_handler.h"
+source_group("Header Files\\Handlers and Callbacks" FILES
+	"include/keyboardeventhandler.h"
+	"include/mouseeventhandler.h"
+	"include/updatecallback.h"
+	"include/userinteractionhandler.h"
 )
 
-# Creeps
+# Creeps and Waves
 # -------------------
-source_group("Source Files\\Creeps" FILES
+source_group("Source Files\\Creeps and Waves" FILES
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
+	"src/wave.cpp"
 )
 
-source_group("Header Files\\Creeps" FILES
+source_group("Header Files\\Creeps and Waves" FILES
 	"include/creep.h"
 	"include/creepattributes.h"
-	"include/creep_event_handler.h"
 	"include/creepsteering.h"
+	"include/wave.h"
+)
+
+# Towers and Projectiles
+# -------------------
+source_group("Source Files\\Towers and Projectiles" FILES
+	"src/projectile.cpp"
+	"src/tower.cpp"
+)
+
+source_group("Header Files\\Towers and Projectiles" FILES
+	"include/projectile.h"
+	"include/projectileattributes.h"
+	"include/tower.h"
+	"include/towerattributes.h"
+)
+
+# User Interface
+# -------------------
+source_group("Source Files\\User Interface" FILES
+	"src/inscenetext.cpp"
+	"src/menubutton.cpp"
+)
+
+source_group("Header Files\\User Interface" FILES
+	"include/inscenetext.h"
+	"include/menubutton.h"
 )
 
 add_executable(Towerdefense ${sources})

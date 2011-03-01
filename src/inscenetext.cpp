@@ -1,5 +1,5 @@
 #include <inscenetext.h>
-#include <game_timer.h>
+#include <gametimer.h>
 #include <graveyard.h>
 
 InSceneText::InSceneText(osgText::String text, osg::Vec3 position)

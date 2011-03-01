@@ -1,7 +1,7 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
-#include <keyboard_event_handler.h>
-#include <mouse_event_handler.h>
-#include <user_interaction_handler.h>
+#include <keyboardeventhandler.h>
+#include <mouseeventhandler.h>
+#include <userinteractionhandler.h>
 #include <menubutton.h>
 
 #include <osgViewer/Viewer>

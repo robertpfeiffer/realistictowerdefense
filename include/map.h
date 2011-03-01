@@ -9,7 +9,7 @@
 class Wave;
 
 #include <player.h>
-#include <model_data.h>
+#include <modeldata.h>
 #include <field.h>
 
 using namespace rapidxml;

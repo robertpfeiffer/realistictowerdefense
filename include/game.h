@@ -1,9 +1,9 @@
 #pragma once
 
-#include <game_timer.h>
+#include <gametimer.h>
 #include <map.h>
-#include <keyboard_event_handler.h>
-#include <user_interaction_handler.h>
+#include <keyboardeventhandler.h>
+#include <userinteractionhandler.h>
 
 #include <osg/Node>
 #include <osgGA/TerrainManipulator>

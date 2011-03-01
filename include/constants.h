@@ -1,6 +1,7 @@
 #pragma once
+#include <math.h>
 
-#define PI 3.14159265
+double const PI = 2 * acos(0.0);
 
 #define AF_LEVEL 16.0
 #define NUM_MULTISAMPLES 4

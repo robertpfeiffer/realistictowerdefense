@@ -3,7 +3,7 @@
 #include <osg/Referenced>
 #include <osg/Texture2D>
 
-#include <model_data.h>
+#include <modeldata.h>
 
 class FieldType : public osg::Referenced
 {

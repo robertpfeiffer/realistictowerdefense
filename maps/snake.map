@@ -11,23 +11,23 @@
 		</Wave>
 	</Waves>
 	<Towers>
-		<Tower name="Base tower" model="tower/tower1.3ds" physicaldamage="20" magicdamage="10" attackspeed="1.25" cost="100">
-			<Tower name="Upgrade from base tower" model="tower/tower2.3ds" physicaldamage="50" magicdamage="25" attackspeed="1.75" minwave="2" cost="500" />
-			<Tower name="Another upgrade from base tower" model="tower/tower3.3ds" physicaldamage="40" magicdamage="35" attackspeed="1.9" minwave="2" cost="450" />
+		<Tower name="Base tower" model="tower/tower1.3ds" cost="100" projectile="creeps/bot3.3ds" physicaldamage="20" magicdamage="10" cooldown="1.25">
+			<Tower name="Upgrade from base tower" model="tower/tower2.3ds" cost="500" minwave="2" physicaldamage="50" magicdamage="25" cooldown="1.75" />
+			<Tower name="Another upgrade from base tower" model="tower/tower3.3ds" cost="450" minwave="2" physicaldamage="40" magicdamage="35" cooldown="1.9" />
 		</Tower>
-		<Tower name="Second base tower" model="tower/tower4.3ds" physicaldamage="15" magicdamage="15" attackspeed="1.1" coast="125" />
+		<Tower name="Second base tower" model="tower/tower4.3ds" coast="125" projectile="creeps/bot3.3ds" physicaldamage="15" magicdamage="15" cooldown="1.1" />
 	</Towers>
 	<Checkpoints>
 		<Checkpoint x="13" y= "0" />
 		<Checkpoint x="13" y="3" />
 		<Checkpoint x="5" y="3" />
 		<Checkpoint x="5" y="6" />
-    <Checkpoint x="13" y= "6" />
-    <Checkpoint x="13" y="9" />
-    <Checkpoint x="5" y="9" />
-    <Checkpoint x="5" y="12" />
-    <Checkpoint x="13" y= "12" />
-    <Checkpoint x="13" y="15" />
+		<Checkpoint x="13" y= "6" />
+		<Checkpoint x="13" y="9" />
+		<Checkpoint x="5" y="9" />
+		<Checkpoint x="5" y="12" />
+		<Checkpoint x="13" y= "12" />
+		<Checkpoint x="13" y="15" />
 	</Checkpoints>
 	<Terrain>
 		<Strata texture="sediment.jpg" />
@@ -35,7 +35,7 @@
 			<Field texture="gras.jpg" symbol="G" buildable="true"  />
 			<Field texture="way.jpg"  symbol="+" buildable="false" />
 			<Field texture="gras.jpg" symbol="T" buildable="true">
-				<Model path="firtree/baum.3ds" probability="0.2">
+				<Model path="firtree/tanne.3ds" probability="0.2">
 					<Scale min="0.3" max="0.5" />
 					<Rotation min="0" max="360" />
 				</Model>
