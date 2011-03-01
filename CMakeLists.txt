@@ -86,6 +86,7 @@ set(sources
 	"include/projectileattributes.h"
 	"include/terrain.h"
 	"include/tower.h"
+	"include/towerattributes.h"
 	"include/updatablenode.h"
 	"include/updatecallback.h"
 	"include/userinteractionhandler.h"
