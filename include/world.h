@@ -30,6 +30,7 @@ public:
 	void OnWaveDone();
 
 	void addUpdatableNode(osg::Node* node);
+	inline void registerForUpdates(osg::Node* node);
 
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
 	ProximityDatabase* getProximities();
