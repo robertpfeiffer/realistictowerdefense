@@ -235,15 +235,60 @@ void Map::_loadWaves(xml_node<> *node)
 
 void Map::_loadTowers(xml_node<> *node)
 {
-	for(xml_node<> *tower = node->first_node("Tower", 0, false); tower; tower = tower->next_sibling("Tower", 0, false))
+	for(xml_node<> *child = node->first_node("Tower", 0, false); child; child = child->next_sibling("Tower", 0, false))
 	{
-
+		_towers.push_back(_getTowerAttributes(child));
 	}
 }
 
-void Map::_getTowerAttributes(xml_node<> *node)
+TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 {
+	TowerAttributes* tower = new TowerAttributes();
+	tower->cooldown = _attrToFloat(node->first_attribute("cooldown", 0, false), 1);
+	tower->range = _attrToFloat(node->first_attribute("range", 0, false), 0);
+	tower->cost = _attrToLong(node->first_attribute("cost", 0, false), 0);
+	tower->height = _attrToFloat(node->first_attribute("shotheight", 0, false), 0);
 
+	xml_attribute<>* nameAttr = node->first_attribute("name", 0, false);
+	tower->name = "";
+	if (nameAttr != NULL)
+	{
+		tower->name = nameAttr->value();
+	}
+
+	xml_attribute<>* modelAttr = node->first_attribute("model", 0, false);
+	tower->model = NULL;
+	if (modelAttr != NULL)
+	{
+		tower->model = new osg::PositionAttitudeTransform();
+		tower->model->addChild(_getModel(modelAttr->value()));
+
+		float scale = _attrToFloat(node->first_attribute("scale", 0, false), 1);
+		tower->model->setScale(osg::Vec3d(scale, scale, scale));
+	}
+
+	//load projectile
+	modelAttr = node->first_attribute("projectile", 0, false);
+	tower->projectile.model = NULL;
+	if (modelAttr != NULL)
+	{
+		tower->projectile.model = new osg::PositionAttitudeTransform();
+		tower->projectile.model->addChild(_getModel(modelAttr->value()));
+
+		float scale = _attrToFloat(node->first_attribute("projectilescale", 0, false), 1);
+		tower->projectile.model->setScale(osg::Vec3d(scale, scale, scale));
+	}
+
+	tower->projectile.physicalDamage = _attrToLong(node->first_attribute("physicalDamage", 0, false), 0);
+	tower->projectile.magicalDamage = _attrToLong(node->first_attribute("magicalDamage", 0, false), 0);
+	tower->projectile.travelSpeed = _attrToLong(node->first_attribute("projectilespeed", 0, false), 1);
+
+	for(xml_node<> *child = node->first_node("Tower", 0, false); child; child = child->next_sibling("Tower", 0, false))
+	{
+		tower->upgrades.push_back(_getTowerAttributes(child));
+	}
+
+	return tower;
 }
 
 void Map::_loadTerrain(xml_node<> *node)

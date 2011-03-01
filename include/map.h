@@ -32,7 +32,8 @@ public:
 	std::vector<MapPoint>* getCheckpoints();
 	osg::Texture2D* getStrataTexture();
 	inline Player* getPlayer() { return &_player; };
-	inline std::queue< osg::ref_ptr<Wave> >* getWaves() { return &_waves; }; 
+	inline std::queue< osg::ref_ptr<Wave> >* getWaves() { return &_waves; };
+	inline std::vector<osg::ref_ptr<TowerAttributes>>* getTowerAttributes() { return &_towers; };
 
 	template<class T>
 	struct _cache{
@@ -46,17 +47,17 @@ private:
 	float _attrToFloat(xml_attribute<>* attr, float defaultValue) const;
 	void _reset();
 	void _cleanup();
-	void _load(const std::string& filename);	// +
-	void _loadPlayer(xml_node<> *node);			// - +
-	void _loadWaves(xml_node<> *node);			// - +
-	void _loadTowers(xml_node<> *node);			// - +
-	void _getTowerAttributes(xml_node<> *node);	// - - *
-	void _loadTerrain(xml_node<> *node);		// - +
-	void _loadStrata(xml_node<> *node);			// - - +
-	void _loadFieldTypes(xml_node<> *node);		// - - +
-	ModelData* _readModel(xml_node<> *node);	// - - - +
-	void _loadGrid(xml_node<> *node);			// - - +		
-	void _loadCheckPoints(xml_node<> *node);	// +
+	void _load(const std::string& filename);				// +
+	void _loadPlayer(xml_node<> *node);						// - +
+	void _loadWaves(xml_node<> *node);						// - +
+	void _loadTowers(xml_node<> *node);						// - +
+	TowerAttributes* _getTowerAttributes(xml_node<> *node);	// - - *
+	void _loadTerrain(xml_node<> *node);					// - +
+	void _loadStrata(xml_node<> *node);						// - - +
+	void _loadFieldTypes(xml_node<> *node);					// - - +
+	ModelData* _readModel(xml_node<> *node);				// - - - +
+	void _loadGrid(xml_node<> *node);						// - - +		
+	void _loadCheckPoints(xml_node<> *node);				// +
 
 	osg::Texture2D* _getTexture(const char* filename);
 	osg::Node* _getModel(const char* filename);
@@ -76,5 +77,5 @@ private:
 	std::queue< osg::ref_ptr<Wave> > _waves;
 	std::vector< std::vector< osg::ref_ptr<Field> > > _fields;
 
-	//std::vector<osg::ref_ptr<TowerAttributes>> upgrades;
+	std::vector<osg::ref_ptr<TowerAttributes>> _towers;
 };

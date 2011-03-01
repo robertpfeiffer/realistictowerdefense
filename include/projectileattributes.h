@@ -2,11 +2,11 @@
 
 #include <osg/PositionAttitudeTransform>
 
-class ProjectileAttributes : public osg::Referenced
+class ProjectileAttributes
 {
 public:
-	int physicalDamage;
-	int magicalDamage;
+	long physicalDamage;
+	long magicalDamage;
 	float travelSpeed;
 
 	osg::ref_ptr<osg::PositionAttitudeTransform> model;

@@ -51,6 +51,6 @@ void Tower::findNewTarget()
 void Tower::shootAtTarget()
 {
 	osg::Vec3 origin = osg::Vec3(_position.x(), _attributes->height, _position.z());
-	Projectile* p = new Projectile(origin, _target.get(), _attributes->projectile.get());
+	Projectile* p = new Projectile(origin, _target.get(), &(_attributes->projectile));
 	World::instance()->addUpdatableNode(p);
 }
