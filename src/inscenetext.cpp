@@ -9,24 +9,34 @@ InSceneText::InSceneText(osgText::String text, osg::Vec3 position)
 {
 	_distanceLeft = _totalDistance;
 
-	osgText::Text* myText = new osgText::Text();
-    myText->setCharacterSize(0.4);
-    myText->setFont("fonts/DejaVuSans.ttf");
-    myText->setText(text);
-	myText->setAxisAlignment(osgText::Text::SCREEN);
-	myText->setColor(osg::Vec4(255, 255, 255, 1));
+	_text = new osgText::Text();
+    _text->setCharacterSize(0.4);
+    _text->setFont("fonts/DejaVuSans.ttf");
+    _text->setText(text);
+	_text->setAxisAlignment(osgText::Text::SCREEN);
+	_text->setColor(osg::Vec4(1.0, 1.0, 1.0, 1.0));
 
 	osg::Geode* geode = new osg::Geode();
-	geode->addDrawable(myText);
+	geode->addDrawable(_text);
 
 	this->addChild(geode);
 	this->setPosition(position);
 }
 
+void InSceneText::setColor(osg::Vec3 color)
+{
+	_text->setColor(osg::Vec4(color.x(), color.y(), color.z(), _text->getColor().a()));
+}
+
 void InSceneText::onUpdate()
 {
 	float floatDistance = _stepSize * GameTimer::instance()->elapsedTime();
+	float opacityStep = floatDistance / _totalDistance;
 	this->setPosition(this->getPosition() + osg::Z_AXIS * floatDistance);
+	_text->setColor(osg::Vec4(  _text->getColor().r(),
+								_text->getColor().g(),
+								_text->getColor().b(),
+								_text->getColor().a() - opacityStep));
 
 	_distanceLeft -= floatDistance;
 	if(_distanceLeft <= 0)

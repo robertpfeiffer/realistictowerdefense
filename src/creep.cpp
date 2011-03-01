@@ -37,6 +37,7 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 	_health -= damage;
 
 	InSceneText* damageText = new InSceneText(osgText::String(Convert::toString(damage)), this->getPosition());
+	damageText->setColor(osg::Vec3(1.0, 0.0, 0.0));
 	Hatchery::instance()->enqueueChild(damageText);
 
 	if(_health <= 0)
