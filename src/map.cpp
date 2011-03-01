@@ -193,7 +193,7 @@ void Map::_loadWaves(xml_node<> *node)
 	for(xml_node<> *creepWave = node->first_node("Wave", 0, false); creepWave; creepWave = creepWave->next_sibling("Wave", 0, false))
 	{
 		Wave* wave = new Wave(_attrToLong(creepWave->first_attribute("spawnoffset", 0, false), 0));
-		for(xml_node<> *creep = creepWave->first_node("Creep", 0, false); creep; creep = creep->next_sibling("Wave", 0, false))
+		for(xml_node<> *creep = creepWave->first_node("Creep", 0, false); creep; creep = creep->next_sibling("Creep", 0, false))
 		{
 			CreepAttributes* attributes = new CreepAttributes();
 			xml_attribute<>* nameAttr = creep->first_attribute("name", 0, false);
