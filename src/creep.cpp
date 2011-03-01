@@ -36,8 +36,7 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 
 	//TODO: insert damage-value
 	InSceneText* damageText = new InSceneText(osgText::String("ouch!"), this->getPosition());
-	World::instance()->addChild(damageText);
-	damageText->addUpdateCallback(World::instance()->getUpdateCallback());
+	World::instance()->addUpdatableNode(damageText);
 
 	if(_health <= 0)
 	{

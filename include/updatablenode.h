@@ -1,5 +1,4 @@
 #pragma once
-#include <osg/Node>
 
 class UpdatableNode
 {

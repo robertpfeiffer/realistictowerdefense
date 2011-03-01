@@ -47,19 +47,13 @@ OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
 
 void World::spawnCreep(Creep* creep)
 {
-	this->addChild(creep);
-	creep->addUpdateCallback(_updateCallback.get());
+	this->addUpdatableNode(creep);
 	_creepCount++;
 }
 
 ProximityDatabase* World::getProximities()
 {
 	return _proximities;
-}
-
-UpdateCallback* World::getUpdateCallback()
-{
-	return _updateCallback.get();
 }
 
 void World::startNextWave()
@@ -100,6 +94,12 @@ void World::OnWaveDone()
 {
 	this->removeUpdateCallback(_currentWave);
 	_waveDone = true;
+}
+
+void World::addUpdatableNode(osg::Node* node)
+{
+	this->addChild(node);
+	node->addUpdateCallback(_updateCallback.get());
 }
 
 World::World() : osg::Group()

@@ -8,6 +8,8 @@
 #include <creep.h>
 #include <updatecallback.h>
 
+class UpdatableNode;
+
 class World : public osg::Group
 {
 public:
@@ -23,11 +25,11 @@ public:
 	void dropCreep();
 	void OnWaveDone();
 
+	void addUpdatableNode(osg::Node* node);
+
 	void spawnCreep(Creep* creep);
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
 	ProximityDatabase* getProximities();
-
-	UpdateCallback* getUpdateCallback();
 
 private:
 	void createPath();
