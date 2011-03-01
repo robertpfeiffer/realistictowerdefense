@@ -5,13 +5,13 @@
 
 class ModelData : public osg::Referenced
 {	
-	public:
-		osg::ref_ptr<osg::Node> model;
-		float minScale;
-		float maxScale;
+public:
+	osg::ref_ptr<osg::Node> model;
+	float minScale;
+	float maxScale;
 
-		float minRotation;
-		float maxRotation;
+	float minRotation;
+	float maxRotation;
 
-		float probability;
+	float probability;
 };

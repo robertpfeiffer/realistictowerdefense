@@ -4,25 +4,25 @@
 
 class GameTimer
 {
-	public:
-		static GameTimer* instance();
+public:
+	static GameTimer* instance();
 
-		GameTimer();
+	GameTimer();
 
-		double nextFrame();
-		double elapsedTime();
-		inline void togglePause() {_paused = !_paused;};
-		inline void pause() {_paused = true; };
-		inline void resume() {_paused = false; };
-		inline bool isPaused() { return _paused; };
+	double nextFrame();
+	double elapsedTime();
+	inline void togglePause() {_paused = !_paused;};
+	inline void pause() {_paused = true; };
+	inline void resume() {_paused = false; };
+	inline bool isPaused() { return _paused; };
 
-		void increaseSpeed();
-		void decreaseSpeed();
-	private:
-		osg::Timer* _timer;
-		bool _paused;
-		double _elapsedTime;
-		osg::Timer_t _offsetTicks;
+	void increaseSpeed();
+	void decreaseSpeed();
+private:
+	osg::Timer* _timer;
+	bool _paused;
+	double _elapsedTime;
+	osg::Timer_t _offsetTicks;
 
-		int _speed;
+	int _speed;
 };
