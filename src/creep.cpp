@@ -6,11 +6,10 @@
 #include <projectileattributes.h>
 #include <world.h>
 
-Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path, World* eventHandler)
+Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path)
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
-	_steering = new CreepSteering(pd, steer_position, path, this, eventHandler);
-	_world = eventHandler;
+	_steering = new CreepSteering(pd, steer_position, path, this);
 
 	_gameTimer = GameTimer::instance();
 
@@ -37,13 +36,13 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 
 	//TODO: insert damage-value
 	InSceneText* damageText = new InSceneText(osgText::String("ouch!"), this->getPosition());
-	_world->addChild(damageText);
-	damageText->addUpdateCallback(_world->getUpdateCallback());
+	World::instance()->addChild(damageText);
+	damageText->addUpdateCallback(World::instance()->getUpdateCallback());
 
 	if(_health <= 0)
 	{
 		_health = 0;
-		_world->onDeath(this);
+		World::instance()->onDeath(this);
 	}
 }
 

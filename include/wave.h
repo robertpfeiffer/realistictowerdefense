@@ -11,7 +11,7 @@ public:
 	Wave(double waveOffset);
 
 	void addCreeps(int count, CreepAttributes* attributes);
-	void startSpawning(World* world);
+	void startSpawning();
 
 	void operator()(osg::Node* node, osg::NodeVisitor* nv);
 
@@ -21,6 +21,6 @@ private:
 	bool _doSpawn;
 	std::queue<CreepAttributes*> _attributes;
 
-	void prepareNextCreep(World* world);
-	void spawnNextCreep(World* world);
+	void prepareNextCreep();
+	void spawnNextCreep();
 };

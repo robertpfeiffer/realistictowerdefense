@@ -11,8 +11,11 @@
 class World : public osg::Group
 {
 public:
-	World(const std::string mapFilename);
+	World();
+	static World* instance();
 	~World();
+
+	void loadMap(const std::string mapFilename);
 
 	void onDeath(Creep* creep);
 	void onLeak(Creep* creep);

@@ -77,9 +77,8 @@ void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 void Game::run()
 {
 	osg::Group* root = new osg::Group();
-	World* world = new World("maps/snake.map");
-	Graveyard::instance()->setWorld(world);
-	root->addChild(world);
+	World::instance()->loadMap("maps/snake.map");
+	root->addChild(World::instance());
 	root->addChild(new Hud());
 
 	if (getenv("NETBOOK") == NULL)

@@ -18,37 +18,37 @@ void Wave::addCreeps(int count, CreepAttributes* attributes)
 	}
 }
 
-void Wave::startSpawning(World* world)
+void Wave::startSpawning()
 {
 	_doSpawn = true;
-	prepareNextCreep(world);
+	prepareNextCreep();
 }
 
-void Wave::prepareNextCreep(World* world)
+void Wave::prepareNextCreep()
 {
 	if(_attributes.size() == 0)
 	{
 		_doSpawn = false;
-		world->OnWaveDone();
+		World::instance()->OnWaveDone();
 		return;
 	}
 
 	_currentOffset = _attributes.front()->spawnOffset;
 }
 
-void Wave::spawnNextCreep(World* world)
+void Wave::spawnNextCreep()
 {
-	OpenSteer::Vec3 steerSpawn = world->getPath()->point(0);
+	OpenSteer::Vec3 steerSpawn = World::instance()->getPath()->point(0);
 	osg::Vec3 osgSpawn = osg::Vec3(steerSpawn.x, steerSpawn.y, steerSpawn.z);
 
-	Creep* myCreep = new Creep(*world->getProximities(), osgSpawn, world->getPath(), world);
+	Creep* myCreep = new Creep(*World::instance()->getProximities(), osgSpawn, World::instance()->getPath());
 	myCreep->setCreepStats(_attributes.front());
 	myCreep->addChild(_attributes.front()->model);
 	_attributes.pop();
 
-	world->spawnCreep(myCreep);
+	World::instance()->spawnCreep(myCreep);
 
-	prepareNextCreep(world);
+	prepareNextCreep();
 }
 
 void Wave::operator()(osg::Node* node, osg::NodeVisitor* nv)
@@ -60,7 +60,7 @@ void Wave::operator()(osg::Node* node, osg::NodeVisitor* nv)
 			_currentOffset -= GameTimer::instance()->elapsedTime();
 			if(_currentOffset <= 0)
 			{
-				spawnNextCreep(myWorld);
+				spawnNextCreep();
 			}
 		}
 		else

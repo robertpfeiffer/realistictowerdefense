@@ -8,12 +8,11 @@
 class CreepAttributes;
 class GameTimer;
 class ProjectileAttributes;
-class World;
 
 class Creep : public osg::PositionAttitudeTransform, public UpdatableNode
 {
 public:
-	Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path, World* eventHandler);
+	Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path);
 	void onUpdate();
 	void OnHit(ProjectileAttributes* hitter);
 	void setCreepStats(CreepAttributes* attributes);
@@ -29,7 +28,6 @@ public:
 private:
 	CreepSteering* _steering;
 	GameTimer* _gameTimer;
-	World* _world;
 
 	int _health;
 	CreepAttributes* _attributes;

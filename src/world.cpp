@@ -17,6 +17,16 @@
 #include <wave.h>
 #include <world.h>
 
+World* World::instance()
+{
+	static osg::ref_ptr<World> world_ptr;
+	if(world_ptr.get() == NULL)
+	{
+		world_ptr = new World();
+	}
+	return world_ptr.get();
+}
+
 void World::createPath()
 {
 	std::vector<OpenSteer::Vec3> pathPoints = std::vector<OpenSteer::Vec3>();
@@ -59,7 +69,7 @@ void World::startNextWave()
 		_currentWave = _map->getWaves()->front();
 		_map->getWaves()->pop();
 
-		_currentWave->startSpawning(this);
+		_currentWave->startSpawning();
 		this->addUpdateCallback(_currentWave);
 		_waveDone = false;
 	}
@@ -92,11 +102,17 @@ void World::OnWaveDone()
 	_waveDone = true;
 }
 
-World::World(const std::string mapFilename) : osg::Group()
+World::World() : osg::Group()
+{
+	//hack hack: all construction stuff moved into loadMap
+}
+
+//TODO: this is not intended to be called twice
+void World::loadMap(const std::string mapFilename)
 {
 	_map = new Map(mapFilename);
 	this->addChild(new Terrain(_map));
-	
+
 	_waveDone = true;
 	_creepCount = 0;	
 	_proximities = new ProximityDatabase();
