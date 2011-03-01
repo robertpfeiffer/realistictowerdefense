@@ -66,6 +66,11 @@ ProximityDatabase* World::getProximities()
 	return _proximities;
 }
 
+Map* World::getMap()
+{
+	return _map.get();
+}
+
 void World::startNextWave()
 {
 	if(_map->getWaves()->size() > 0)

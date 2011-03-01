@@ -32,6 +32,8 @@ public:
 	void addUpdatableNode(osg::Node* node);
 	inline void registerForUpdates(osg::Node* node);
 
+	Map* getMap();
+
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
 	ProximityDatabase* getProximities();
 
