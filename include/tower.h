@@ -12,7 +12,7 @@ public:
 	Tower(osg::Vec3 position, TowerAttributes* attributes);
 	void onUpdate();
 private:
-	void findNewTarget();
+	bool findNewTarget();
 	void shootAtTarget();
 
 	float _currentCooldown;
