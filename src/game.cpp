@@ -1,3 +1,4 @@
+// -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <constants.h>
 #include <game.h>
 #include <world.h>
@@ -81,8 +82,8 @@ void Game::run()
 	root->addChild(world);
 	root->addChild(new Hud());
 
-	activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
-	_viewer.setUpViewInWindow(100, 100, 1024, 768); //maybe improve with osgViewer::WindowSizeHandler
+	//activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
+	_viewer.setUpViewInWindow(100, 100, 600, 450); //maybe improve with osgViewer::WindowSizeHandler
 
 		
 	setCameraManipulator();

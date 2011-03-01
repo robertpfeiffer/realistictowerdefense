@@ -1,3 +1,4 @@
+// -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 //detect memory leaks (see at output window of MS VC; only in debug mode active)
 #ifdef _MSC_VER
 	#define _CRTDBG_MAP_ALLOC

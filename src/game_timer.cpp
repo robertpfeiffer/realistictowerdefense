@@ -1,3 +1,4 @@
+// -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <game_timer.h>
 
 GameTimer* GameTimer::instance()
