@@ -2,9 +2,12 @@
 #include <gametimer.h>
 #include <graveyard.h>
 
+float InSceneText::_totalDistance = 10.0f;
+float InSceneText::_stepSize = 0.25f;
+
 InSceneText::InSceneText(osgText::String text, osg::Vec3 position)
 {
-	_distanceLeft = 1.2f;
+	_distanceLeft = _totalDistance;
 
 	osgText::Text* myText = new osgText::Text();
     myText->setCharacterSize(0.4);
@@ -22,7 +25,7 @@ InSceneText::InSceneText(osgText::String text, osg::Vec3 position)
 
 void InSceneText::onUpdate()
 {
-	float floatDistance = 0.25f * GameTimer::instance()->elapsedTime();
+	float floatDistance = _stepSize * GameTimer::instance()->elapsedTime();
 	this->setPosition(this->getPosition() + osg::Z_AXIS * floatDistance);
 
 	_distanceLeft -= floatDistance;

@@ -12,4 +12,7 @@ public:
 
 private:
 	float _distanceLeft;
+
+	static float _totalDistance;
+	static float _stepSize;
 };
