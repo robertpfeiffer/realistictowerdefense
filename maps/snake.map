@@ -35,7 +35,7 @@
 			<Field texture="gras.jpg" symbol="G" buildable="true"  />
 			<Field texture="way.jpg"  symbol="+" buildable="false" />
 			<Field texture="gras.jpg" symbol="T" buildable="true">
-				<Model path="firtree/tanne.3ds" probability="0.2">
+				<Model path="firtree/baum.3ds" probability="0.2">
 					<Scale min="0.3" max="0.5" />
 					<Rotation min="0" max="360" />
 				</Model>
