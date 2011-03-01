@@ -5,6 +5,7 @@
 #include <gametimer.h>
 #include <projectile.h>
 #include <towerattributes.h>
+#include <world.h>
 
 void Tower::onUpdate()
 {
@@ -22,5 +23,5 @@ void Tower::shootAt(Creep* creep)
 {
 	osg::Vec3 origin = osg::Vec3(_position.x(), _attributes->height, _position.z());
 	Projectile* p = new Projectile(origin, creep, _attributes->projectile.get());
-	//TODO: add projectile to world
+	World::instance()->addUpdatableNode(p);
 }
