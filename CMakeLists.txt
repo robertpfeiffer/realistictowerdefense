@@ -133,6 +133,7 @@ source_group("Header Files\\Towers and Projectiles" FILES
 	"include/projectile.h"
 	"include/projectileattributes.h"
 	"include/tower.h"
+	"include/towerattributes.h"
 )
 
 # User Interface
