@@ -11,7 +11,10 @@
 #include <osgDB/Registry>
 
 #include <constants.h>
+#include <convert.h>
 #include <graveyard.h>
+#include <hatchery.h>
+#include <inscenetext.h>
 #include <map.h>
 #include <terrain.h>
 #include <wave.h>
@@ -86,17 +89,22 @@ void World::startNextWave()
 
 void World::onDeath(Creep* creep)
 {
-	Graveyard::instance()->killChild(creep);
+	int bounty = creep->bounty(); //TODO: reward bounty
+
+	InSceneText* damageText = new InSceneText(osgText::String(Convert::toString(bounty)), creep->getPosition());
+	damageText->setColor(osg::Vec3(1.0, 1.0, 0.0));
+	Hatchery::instance()->enqueueChild(damageText);
+
 	dropCreep(creep);
 }
 void World::onLeak(Creep* creep)
 {
-	Graveyard::instance()->killChild(creep);
 	dropCreep(creep);
 }
 
 void World::dropCreep(Creep* creep)
 {
+	Graveyard::instance()->killChild(creep);
 	_creeps.erase(creep);
 
 	if(_creeps.size() == 0 && _waveDone)
