@@ -11,6 +11,7 @@ Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
 {
 	_position = position;
 	_attributes = attributes;
+	_target = NULL;
 }
 
 void Tower::onUpdate()
@@ -22,12 +23,23 @@ void Tower::onUpdate()
 	}
 
 	_currentCooldown = _attributes->cooldown;
-	//TODO: shootAt(someCreep);
+
+	if(_target.get() == NULL || _target->health() <= 0)
+	{
+		findNewTarget();
+	}
+
+	shootAtTarget();
 }
 
-void Tower::shootAt(Creep* creep)
+void Tower::findNewTarget()
+{
+
+}
+
+void Tower::shootAtTarget()
 {
 	osg::Vec3 origin = osg::Vec3(_position.x(), _attributes->height, _position.z());
-	Projectile* p = new Projectile(origin, creep, _attributes->projectile.get());
+	Projectile* p = new Projectile(origin, _target.get(), _attributes->projectile.get());
 	World::instance()->addUpdatableNode(p);
 }
