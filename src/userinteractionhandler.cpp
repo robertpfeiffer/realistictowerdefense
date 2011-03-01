@@ -3,7 +3,7 @@
 #include <mouseeventhandler.h>
 #include <userinteractionhandler.h>
 #include <menubutton.h>
-
+#include <iostream>
 #include <osgViewer/Viewer>
 
 UserInteractionHandler::UserInteractionHandler()
@@ -42,66 +42,97 @@ UserInteractionHandler::KeyboardEvent* UserInteractionHandler::getKeyBoardHandle
 
 bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
-	switch(ea.getEventType())
-    {
-        case(osgGA::GUIEventAdapter::PUSH):
-        {
-            osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
-            if (view)
+
+	osgGA::GUIEventAdapter::EventType eType = ea.getEventType();
+
+	switch(eType)
+	{
+	case( osgGA::GUIEventAdapter::DOUBLECLICK):
+	{
+		blurActiveMouseHandler();
+		osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
+		if (view)
+		{
+			osgUtil::LineSegmentIntersector::Intersections intersections;
+			if (view->computeIntersections(ea.getX(), ea.getY(), intersections))
 			{
-				osgUtil::LineSegmentIntersector::Intersections intersections;
-				if (view->computeIntersections(ea.getX(), ea.getY(), intersections))
+				for(osgUtil::LineSegmentIntersector::Intersections::iterator hitr = intersections.begin(); hitr != intersections.end();	++hitr)
 				{
-					for(osgUtil::LineSegmentIntersector::Intersections::iterator hitr = intersections.begin(); hitr != intersections.end();	++hitr)
+					for(osg::NodePath::const_reverse_iterator hitNodeIt = hitr->nodePath.rbegin(); hitNodeIt != hitr->nodePath.rend(); ++hitNodeIt)
 					{
-						MenuButton* button = dynamic_cast<MenuButton*>(hitr->drawable.get());
-
-						if(button != NULL){
-							button->onClick(aa);
-							return false;
-						}
-					}
-
-					for(osgUtil::LineSegmentIntersector::Intersections::iterator hitr = intersections.begin(); hitr != intersections.end();	++hitr)
-					{
-  
-						for(osg::NodePath::const_reverse_iterator hitNodeIt = hitr->nodePath.rbegin(); hitNodeIt != hitr->nodePath.rend(); ++hitNodeIt)
+						MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
+						if (handler != NULL)
 						{
-
-						  MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
-							if (handler != NULL)
-							{
-								setActiveMouseHandler(handler, aa);								
-								handler->onClick(aa);
-								return false;
-							}
+							setActiveMouseHandler(handler, aa);
+							return false;
 						}
 					}
 				}
 			}
+		}
+		return false;	
+	}
+	case( osgGA::GUIEventAdapter::PUSH):
+	{
+		if(ea.getButtonMask()==osgGA::GUIEventAdapter::RIGHT_MOUSE_BUTTON)
+		{
 			blurActiveMouseHandler();
-            return false;
-        }    
-        case(osgGA::GUIEventAdapter::KEYDOWN):
-        {
-			KeyboardEvent* keyboardEvent = getKeyBoardHandler(ea);
-			if (keyboardEvent != NULL)
-			{
-				keyboardEvent->eventHandler->onKeyDown(aa, keyboardEvent->eventId);
-			}
 			return false;
 		}
-		case(osgGA::GUIEventAdapter::KEYUP):
-        {
-			KeyboardEvent* keyboardEvent = getKeyBoardHandler(ea);
-			if (keyboardEvent != NULL)
+		osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
+		if (view)
+		{
+			osgUtil::LineSegmentIntersector::Intersections intersections;
+			if (view->computeIntersections(ea.getX(), ea.getY(), intersections))
 			{
-				keyboardEvent->eventHandler->onKeyUp(aa, keyboardEvent->eventId);
+				for(osgUtil::LineSegmentIntersector::Intersections::iterator hitr = intersections.begin(); hitr != intersections.end();	++hitr)
+				{
+					MenuButton* button = dynamic_cast<MenuButton*>(hitr->drawable.get());			
+					if(button != NULL){
+						button->onClick(aa);
+						blurActiveMouseHandler();
+						return false;
+					}
+				}
+
+				for(osgUtil::LineSegmentIntersector::Intersections::iterator hitr = intersections.begin(); hitr != intersections.end();	++hitr)
+				{
+
+					for(osg::NodePath::const_reverse_iterator hitNodeIt = hitr->nodePath.rbegin(); hitNodeIt != hitr->nodePath.rend(); ++hitNodeIt)
+					{
+						MouseEventHandler* handler = dynamic_cast<MouseEventHandler*>(*hitNodeIt);
+						if (handler != NULL)
+						{
+							handler->onClick(aa);
+							return false;
+						}
+					}
+				}
+				
 			}
-			return false;
 		}
-		default:
-			return false;
+		return false;
+	}
+	case(osgGA::GUIEventAdapter::KEYDOWN):
+	{
+		KeyboardEvent* keyboardEvent = getKeyBoardHandler(ea);
+		if (keyboardEvent != NULL)
+		{
+			keyboardEvent->eventHandler->onKeyDown(aa, keyboardEvent->eventId);
+		}
+		return false;
+	}
+	case(osgGA::GUIEventAdapter::KEYUP):
+	{
+		KeyboardEvent* keyboardEvent = getKeyBoardHandler(ea);
+		if (keyboardEvent != NULL)
+		{
+			keyboardEvent->eventHandler->onKeyUp(aa, keyboardEvent->eventId);
+		}
+		return false;
+	}
+	default:
+		return false;
 	}
 }
 
