@@ -6,7 +6,7 @@
 #include <osg/Geode>
 #include <osg/PositionAttitudeTransform>
 
-class Field : public osg::Group, public MouseEventHandler
+class Field : public osg::PositionAttitudeTransform, public MouseEventHandler
 {
 public:
 	Field(FieldType* fieldType);
@@ -19,7 +19,7 @@ private:
 	void onClick(osgGA::GUIActionAdapter& aa);
 	void onBlur();
 
-            MenuButton* createMenuItem(osg::StateSet* state, int offset);
+	MenuButton* createMenuItem(osg::StateSet* state, int offset);
 	void addMenuEntry(osg::Billboard* billBoard,
 				const std::string texturepath,
 				int offset,
