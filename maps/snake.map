@@ -11,11 +11,11 @@
 		</Wave>
 	</Waves>
 	<Towers>
-		<Tower name="Base tower" model="tower/tower1.3ds" cost="100" cooldown="1.25" projectile="creeps/bot3.3ds" physicaldamage="20" magicdamage="10" projectilespeed="4.0">
-			<Tower name="Upgrade from base tower" model="tower/tower2.3ds" cost="500" cooldown="1.75" minwave="2" projectile="creeps/bot3.3ds" physicaldamage="50" magicdamage="25" projectilespeed="4.0" />
-			<Tower name="Another upgrade from base tower" model="tower/tower3.3ds" cost="450" cooldown="1.9" minwave="2" projectile="creeps/bot3.3ds" physicaldamage="40" magicdamage="35" projectilespeed="4.0" />
+		<Tower name="Base tower" model="tower/tower1.3ds" cost="100" cooldown="1.25" projectile="towers/bomb.3ds" physicaldamage="20" magicdamage="10" projectilespeed="4.0">
+			<Tower name="Upgrade from base tower" model="tower/tower2.3ds" cost="500" cooldown="1.75" minwave="2" projectile="towers/bomb.3ds" physicaldamage="50" magicdamage="25" projectilespeed="4.0" />
+			<Tower name="Another upgrade from base tower" model="tower/tower3.3ds" cost="450" cooldown="1.9" minwave="2" projectile="towers/bomb.3ds" physicaldamage="40" magicdamage="35" projectilespeed="4.0" />
 		</Tower>
-		<Tower name="Second base tower" model="tower/tower4.3ds" cost="125" cooldown="1.1" projectile="creeps/bot3.3ds" physicaldamage="15" magicdamage="15" projectilespeed="4.0" />
+		<Tower name="Second base tower" model="tower/tower4.3ds" cost="125" cooldown="1.1" projectile="towers/bomb.3ds" physicaldamage="15" magicdamage="15" projectilespeed="4.0" />
 	</Towers>
 	<Checkpoints>
 		<Checkpoint x="13" y= "0" />
