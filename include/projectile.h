@@ -1,3 +1,5 @@
+#pragma once
+
 #include <osg/Geometry>
 #include <osg/PositionAttitudeTransform>
 #include <updatablenode.h>
@@ -17,5 +19,5 @@ private:
 	void approachToTarget();
 
 	ProjectileAttributes* _attributes;
-	Creep* _target;
+	osg::ref_ptr<Creep> _target;
 };

@@ -17,6 +17,16 @@
 #include <wave.h>
 #include <world.h>
 
+World* World::instance()
+{
+	static osg::ref_ptr<World> world_ptr;
+	if(world_ptr.get() == NULL)
+	{
+		world_ptr = new World();
+	}
+	return world_ptr.get();
+}
+
 void World::createPath()
 {
 	std::vector<OpenSteer::Vec3> pathPoints = std::vector<OpenSteer::Vec3>();
@@ -37,9 +47,18 @@ OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
 
 void World::spawnCreep(Creep* creep)
 {
-	this->addChild(creep);
-	creep->addUpdateCallback(_updateCallback.get());
-	_creepCount++;
+	this->addUpdatableNode(creep);
+	_creeps.insert(creep);
+}
+
+std::set<osg::ref_ptr<Creep>>::iterator World::getCreepsIterator()
+{
+	return _creeps.begin();
+}
+
+std::set<osg::ref_ptr<Creep>>::iterator World::getCreepsIteratorEnd()
+{
+	return _creeps.end();
 }
 
 ProximityDatabase* World::getProximities()
@@ -47,9 +66,9 @@ ProximityDatabase* World::getProximities()
 	return _proximities;
 }
 
-UpdateCallback* World::getUpdateCallback()
+Map* World::getMap()
 {
-	return _updateCallback.get();
+	return _map.get();
 }
 
 void World::startNextWave()
@@ -59,7 +78,7 @@ void World::startNextWave()
 		_currentWave = _map->getWaves()->front();
 		_map->getWaves()->pop();
 
-		_currentWave->startSpawning(this);
+		_currentWave->startSpawning();
 		this->addUpdateCallback(_currentWave);
 		_waveDone = false;
 	}
@@ -68,19 +87,19 @@ void World::startNextWave()
 void World::onDeath(Creep* creep)
 {
 	Graveyard::instance()->killChild(creep);
-	dropCreep();
+	dropCreep(creep);
 }
 void World::onLeak(Creep* creep)
 {
 	Graveyard::instance()->killChild(creep);
-	dropCreep();
+	dropCreep(creep);
 }
 
-void World::dropCreep()
+void World::dropCreep(Creep* creep)
 {
-	_creepCount--;
+	_creeps.erase(creep);
 
-	if(_creepCount == 0 && _waveDone)
+	if(_creeps.size() == 0 && _waveDone)
 	{
 		startNextWave();
 	}
@@ -92,13 +111,29 @@ void World::OnWaveDone()
 	_waveDone = true;
 }
 
-World::World(const std::string mapFilename) : osg::Group()
+void World::addUpdatableNode(osg::Node* node)
+{
+	this->addChild(node);
+	registerForUpdates(node);
+}
+
+inline void World::registerForUpdates(osg::Node* node)
+{
+	node->addUpdateCallback(_updateCallback.get());
+}
+
+World::World() : osg::Group()
+{
+	//hack hack: all construction stuff moved into loadMap
+}
+
+//TODO: this is not intended to be called twice
+void World::loadMap(const std::string mapFilename)
 {
 	_map = new Map(mapFilename);
 	this->addChild(new Terrain(_map));
-	
+
 	_waveDone = true;
-	_creepCount = 0;	
 	_proximities = new ProximityDatabase();
 	_updateCallback = new UpdateCallback();
 

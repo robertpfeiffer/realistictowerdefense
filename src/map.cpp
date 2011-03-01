@@ -21,12 +21,12 @@
 
 using namespace rapidxml;
 
-Map::Map() : osg::Referenced()
+Map::Map()
 {
 	_reset();
 }
 
-Map::Map(const std::string& filename) : osg::Referenced()
+Map::Map(const std::string& filename)
 {
 	_load(filename);
 }
@@ -56,7 +56,7 @@ Field* Map::getField(unsigned int x, unsigned int y)
 	return _fields[y][x];
 }
 
-bool Map::_attrToBool(xml_attribute<>* attr, bool defaultValue)
+bool Map::_attrToBool(xml_attribute<>* attr, bool defaultValue) const
 {
 	if (attr == NULL) return defaultValue;
 	char* str = attr->value();
@@ -70,7 +70,7 @@ bool Map::_attrToBool(xml_attribute<>* attr, bool defaultValue)
 	return defaultValue;
 }
 
-long Map::_attrToLong(xml_attribute<>* attr, long defaultValue)
+long Map::_attrToLong(xml_attribute<>* attr, long defaultValue) const
 {
 	if (attr == NULL) return defaultValue;
 	char* str = attr->value();
@@ -83,7 +83,7 @@ long Map::_attrToLong(xml_attribute<>* attr, long defaultValue)
 	return val;	
 }
 
-float Map::_attrToFloat(xml_attribute<>* attr, float defaultValue)
+float Map::_attrToFloat(xml_attribute<>* attr, float defaultValue) const
 {
 	if (attr == NULL) return defaultValue;
 	char* str = attr->value();
@@ -167,6 +167,12 @@ void Map::_load(const std::string& filename)
 		_loadWaves(child);
 	}
 
+	child = root->first_node("Towers", 0, false);
+	if (child != NULL)
+	{
+		_loadTowers(child);
+	}
+
 	child = root->first_node("Terrain", 0, false);
 	if (child != NULL)
 	{
@@ -193,7 +199,7 @@ void Map::_loadWaves(xml_node<> *node)
 	for(xml_node<> *creepWave = node->first_node("Wave", 0, false); creepWave; creepWave = creepWave->next_sibling("Wave", 0, false))
 	{
 		Wave* wave = new Wave(_attrToLong(creepWave->first_attribute("spawnoffset", 0, false), 0));
-		for(xml_node<> *creep = creepWave->first_node("Creep", 0, false); creep; creep = creep->next_sibling("Wave", 0, false))
+		for(xml_node<> *creep = creepWave->first_node("Creep", 0, false); creep; creep = creep->next_sibling("Creep", 0, false))
 		{
 			CreepAttributes* attributes = new CreepAttributes();
 			xml_attribute<>* nameAttr = creep->first_attribute("name", 0, false);
@@ -225,6 +231,64 @@ void Map::_loadWaves(xml_node<> *node)
 		}
 		_waves.push(wave);
 	}
+}
+
+void Map::_loadTowers(xml_node<> *node)
+{
+	for(xml_node<> *child = node->first_node("Tower", 0, false); child; child = child->next_sibling("Tower", 0, false))
+	{
+		_towers.push_back(_getTowerAttributes(child));
+	}
+}
+
+TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
+{
+	TowerAttributes* tower = new TowerAttributes();
+	tower->cooldown = _attrToFloat(node->first_attribute("cooldown", 0, false), 1);
+	tower->range = _attrToFloat(node->first_attribute("range", 0, false), 0);
+	tower->cost = _attrToLong(node->first_attribute("cost", 0, false), 0);
+	tower->height = _attrToFloat(node->first_attribute("shotheight", 0, false), 0);
+
+	xml_attribute<>* nameAttr = node->first_attribute("name", 0, false);
+	tower->name = "";
+	if (nameAttr != NULL)
+	{
+		tower->name = nameAttr->value();
+	}
+
+	xml_attribute<>* modelAttr = node->first_attribute("model", 0, false);
+	tower->model = NULL;
+	if (modelAttr != NULL)
+	{
+		tower->model = new osg::PositionAttitudeTransform();
+		tower->model->addChild(_getModel(modelAttr->value()));
+
+		float scale = _attrToFloat(node->first_attribute("scale", 0, false), 1);
+		tower->model->setScale(osg::Vec3d(scale, scale, scale));
+	}
+
+	//load projectile
+	modelAttr = node->first_attribute("projectile", 0, false);
+	tower->projectile.model = NULL;
+	if (modelAttr != NULL)
+	{
+		tower->projectile.model = new osg::PositionAttitudeTransform();
+		tower->projectile.model->addChild(_getModel(modelAttr->value()));
+
+		float scale = _attrToFloat(node->first_attribute("projectilescale", 0, false), 1);
+		tower->projectile.model->setScale(osg::Vec3d(scale, scale, scale));
+	}
+
+	tower->projectile.physicalDamage = _attrToLong(node->first_attribute("physicalDamage", 0, false), 0);
+	tower->projectile.magicalDamage = _attrToLong(node->first_attribute("magicalDamage", 0, false), 0);
+	tower->projectile.travelSpeed = _attrToLong(node->first_attribute("projectilespeed", 0, false), 1);
+
+	for(xml_node<> *child = node->first_node("Tower", 0, false); child; child = child->next_sibling("Tower", 0, false))
+	{
+		tower->upgrades.push_back(_getTowerAttributes(child));
+	}
+
+	return tower;
 }
 
 void Map::_loadTerrain(xml_node<> *node)
@@ -359,8 +423,7 @@ void Map::_loadCheckPoints(xml_node<> *node)
 		_checkpoints.push_back(p);
 	}
 
-        std::vector<MapPoint>(_checkpoints).swap(_checkpoints);
-	  //_checkpoints.shrink_to_fit();
+	std::vector<MapPoint>(_checkpoints).swap(_checkpoints);
 }
 
 osg::Texture2D* Map::_getTexture(const char* filename)

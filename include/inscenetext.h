@@ -1,3 +1,5 @@
+#pragma once
+
 #include <osg/PositionAttitudeTransform>
 #include <osgText/Text>
 #include <updatablenode.h>
@@ -10,4 +12,7 @@ public:
 
 private:
 	float _distanceLeft;
+
+	static float _totalDistance;
+	static float _stepSize;
 };

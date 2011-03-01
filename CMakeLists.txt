@@ -43,6 +43,7 @@ include_directories("include")
 # -----------
 set(sources
 	#source files
+	"src/convert.cpp"
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
@@ -66,6 +67,7 @@ set(sources
 	
 	#header files
 	"include/constants.h"
+	"include/convert.h"
 	"include/creep.h"
 	"include/creepattributes.h"
 	"include/creepsteering.h"	

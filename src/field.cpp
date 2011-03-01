@@ -1,6 +1,7 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <field.h>
 #include <modeldata.h>
+#include <tower.h>
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
@@ -20,7 +21,7 @@
 #include <constants.h>
 #include <menubutton.h>
 
-Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround())
+Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround()), _fieldType(fieldType)
 {
 	this->addChild(_ground.get());
 
@@ -184,7 +185,7 @@ void Field::onBlur()
 
 bool Field::setBuilding()
 {
-	if (_fieldType != NULL && !_fieldType->isBuildable()) //FIXME
+	if (!_fieldType->isBuildable())
 	{
 	  	return false;
 	}

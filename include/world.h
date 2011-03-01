@@ -8,23 +8,34 @@
 #include <creep.h>
 #include <updatecallback.h>
 
+class UpdatableNode;
+
 class World : public osg::Group
 {
 public:
-	World(const std::string mapFilename);
+	World();
+	static World* instance();
 	~World();
+
+	void loadMap(const std::string mapFilename);
 
 	void onDeath(Creep* creep);
 	void onLeak(Creep* creep);
 
-	void dropCreep();
-	void OnWaveDone();
+	std::set<osg::ref_ptr<Creep>>::iterator getCreepsIterator();
+	std::set<osg::ref_ptr<Creep>>::iterator getCreepsIteratorEnd();
 
 	void spawnCreep(Creep* creep);
+	void dropCreep(Creep* creep);
+	void OnWaveDone();
+
+	void addUpdatableNode(osg::Node* node);
+	inline void registerForUpdates(osg::Node* node);
+
+	Map* getMap();
+
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
 	ProximityDatabase* getProximities();
-
-	UpdateCallback* getUpdateCallback();
 
 private:
 	void createPath();
@@ -32,7 +43,7 @@ private:
 
 	osg::ref_ptr<Wave> _currentWave;
 	bool _waveDone;
-	int _creepCount;
+	std::set<osg::ref_ptr<Creep>> _creeps;
 
 	osg::ref_ptr<Map> _map;
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* _path;

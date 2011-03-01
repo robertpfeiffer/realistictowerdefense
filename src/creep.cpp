@@ -1,4 +1,5 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
+#include <convert.h>
 #include <creep.h>
 #include <creepattributes.h>
 #include <gametimer.h>
@@ -6,11 +7,10 @@
 #include <projectileattributes.h>
 #include <world.h>
 
-Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path, World* eventHandler)
+Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path)
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
-	_steering = new CreepSteering(pd, steer_position, path, this, eventHandler);
-	_world = eventHandler;
+	_steering = new CreepSteering(pd, steer_position, path, this);
 
 	_gameTimer = GameTimer::instance();
 
@@ -35,15 +35,13 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 	int damage = computeDamageReceived(hitter);
 	_health -= damage;
 
-	//TODO: insert damage-value
-	InSceneText* damageText = new InSceneText(osgText::String("ouch!"), this->getPosition());
-	_world->addChild(damageText);
-	damageText->addUpdateCallback(_world->getUpdateCallback());
+	InSceneText* damageText = new InSceneText(osgText::String(Convert::toString(damage)), this->getPosition());
+	World::instance()->addUpdatableNode(damageText);
 
 	if(_health <= 0)
 	{
 		_health = 0;
-		_world->onDeath(this);
+		World::instance()->onDeath(this);
 	}
 }
 
