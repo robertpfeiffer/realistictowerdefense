@@ -1,6 +1,6 @@
 #include <osg/Referenced>
 
-class ProjectileAttributes : osg::Referenced
+class ProjectileAttributes : public osg::Referenced
 {
 public:
 	int physicalDamage;
