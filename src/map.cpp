@@ -56,7 +56,7 @@ Field* Map::getField(unsigned int x, unsigned int y)
 	return _fields[y][x];
 }
 
-bool Map::_attrToBool(xml_attribute<>* attr, bool defaultValue)
+bool Map::_attrToBool(xml_attribute<>* attr, bool defaultValue) const
 {
 	if (attr == NULL) return defaultValue;
 	char* str = attr->value();
@@ -70,7 +70,7 @@ bool Map::_attrToBool(xml_attribute<>* attr, bool defaultValue)
 	return defaultValue;
 }
 
-long Map::_attrToLong(xml_attribute<>* attr, long defaultValue)
+long Map::_attrToLong(xml_attribute<>* attr, long defaultValue) const
 {
 	if (attr == NULL) return defaultValue;
 	char* str = attr->value();
@@ -83,7 +83,7 @@ long Map::_attrToLong(xml_attribute<>* attr, long defaultValue)
 	return val;	
 }
 
-float Map::_attrToFloat(xml_attribute<>* attr, float defaultValue)
+float Map::_attrToFloat(xml_attribute<>* attr, float defaultValue) const
 {
 	if (attr == NULL) return defaultValue;
 	char* str = attr->value();
@@ -167,6 +167,12 @@ void Map::_load(const std::string& filename)
 		_loadWaves(child);
 	}
 
+	child = root->first_node("Towers", 0, false);
+	if (child != NULL)
+	{
+		_loadTowers(child);
+	}
+
 	child = root->first_node("Terrain", 0, false);
 	if (child != NULL)
 	{
@@ -225,6 +231,19 @@ void Map::_loadWaves(xml_node<> *node)
 		}
 		_waves.push(wave);
 	}
+}
+
+void Map::_loadTowers(xml_node<> *node)
+{
+	for(xml_node<> *tower = node->first_node("Tower", 0, false); tower; tower = tower->next_sibling("Tower", 0, false))
+	{
+
+	}
+}
+
+void Map::_getTowerAttributes(xml_node<> *node)
+{
+
 }
 
 void Map::_loadTerrain(xml_node<> *node)
@@ -359,8 +378,7 @@ void Map::_loadCheckPoints(xml_node<> *node)
 		_checkpoints.push_back(p);
 	}
 
-        std::vector<MapPoint>(_checkpoints).swap(_checkpoints);
-	  //_checkpoints.shrink_to_fit();
+	std::vector<MapPoint>(_checkpoints).swap(_checkpoints);
 }
 
 osg::Texture2D* Map::_getTexture(const char* filename)

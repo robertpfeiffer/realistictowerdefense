@@ -11,6 +11,7 @@ class Wave;
 #include <player.h>
 #include <modeldata.h>
 #include <field.h>
+#include <towerattributes.h>
 
 using namespace rapidxml;
 
@@ -40,14 +41,16 @@ public:
 		bool used;
 	};
 private:
-	bool _attrToBool(xml_attribute<>* attr, bool defaultValue);
-	long _attrToLong(xml_attribute<>* attr, long defaultValue);
-	float _attrToFloat(xml_attribute<>* attr, float defaultValue);
+	bool _attrToBool(xml_attribute<>* attr, bool defaultValue) const;
+	long _attrToLong(xml_attribute<>* attr, long defaultValue) const;
+	float _attrToFloat(xml_attribute<>* attr, float defaultValue) const;
 	void _reset();
 	void _cleanup();
 	void _load(const std::string& filename);	// +
 	void _loadPlayer(xml_node<> *node);			// - +
 	void _loadWaves(xml_node<> *node);			// - +
+	void _loadTowers(xml_node<> *node);			// - +
+	void _getTowerAttributes(xml_node<> *node);	// - - *
 	void _loadTerrain(xml_node<> *node);		// - +
 	void _loadStrata(xml_node<> *node);			// - - +
 	void _loadFieldTypes(xml_node<> *node);		// - - +
@@ -72,4 +75,6 @@ private:
 	long _width;
 	std::queue< osg::ref_ptr<Wave> > _waves;
 	std::vector< std::vector< osg::ref_ptr<Field> > > _fields;
+
+	//std::vector<osg::ref_ptr<TowerAttributes>> upgrades;
 };
