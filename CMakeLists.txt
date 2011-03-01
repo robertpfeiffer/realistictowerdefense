@@ -93,30 +93,58 @@ set(sources
 	"include/world.h"
 )
 
-# Interaction Handler
+# Handlers and Callbacks
 # -------------------
-source_group("Source Files\\Interaction Handler" FILES
+source_group("Source Files\\Handlers and Callbacks" FILES
+	"src/updatecallback.cpp"
 	"src/user_interaction_handler.cpp"
 )
 
-source_group("Header Files\\Interaction Handler" FILES
+source_group("Header Files\\Handlers and Callbacks" FILES
 	"include/keyboard_event_handler.h"
 	"include/mouse_event_handler.h"
+	"include/updatecallback.h"
 	"include/user_interaction_handler.h"
 )
 
-# Creeps
+# Creeps and Waves
 # -------------------
 source_group("Source Files\\Creeps" FILES
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
+	"src/wave.cpp"
 )
 
 source_group("Header Files\\Creeps" FILES
 	"include/creep.h"
 	"include/creepattributes.h"
-	"include/creep_event_handler.h"
 	"include/creepsteering.h"
+	"include/wave.h"
+)
+
+# Towers and Projectiles
+# -------------------
+source_group("Source Files\\Towers and Projectiles" FILES
+	"src/projectile.cpp"
+	"src/tower.cpp"
+)
+
+source_group("Header Files\\Towers and Projectiles" FILES
+	"include/projectile.h"
+	"include/projectileattributes.h"
+	"include/tower.h"
+)
+
+# User Interface
+# -------------------
+source_group("Source Files\\User Interface" FILES
+	"src/inscenetext.cpp"
+	"src/menubutton.cpp"
+)
+
+source_group("Header Files\\User Interface" FILES
+	"include/inscenetext.h"
+	"include/menubutton.h"
 )
 
 add_executable(Towerdefense ${sources})
