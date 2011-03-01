@@ -126,7 +126,6 @@ void Field::addMenuEntry(osg::Billboard* billBoard,
 	drawable->_onClick=_onClick;
 
 	billBoard->addDrawable(drawable);
-
 }
 
 void build_tower(osg::ref_ptr<MenuButton> button)
@@ -147,22 +146,22 @@ void Field::onFocus(osgGA::GUIActionAdapter& aa)
 	billBoard->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 
 	addMenuEntry(billBoard,
-		     "textures/select.png", 
-		     0,
-                     true,
-		     NULL);
+				 "textures/select.png", 
+				 0,
+				 true,
+				 NULL);
 
 	addMenuEntry(billBoard,
-		     "textures/tower.png", 
-		     3,
-		     false,
-		     build_tower);
+				 "textures/tower.png", 
+				 3,
+				 true,
+				 build_tower);
 
 	addMenuEntry(billBoard,
-		     "textures/x.png", 
-		     4,
-                     false,
-		     NULL);
+				 "textures/x.png", 
+				 4,
+				 true,
+				 NULL);
 
         this->addChild(billBoard);
         menu=billBoard;
