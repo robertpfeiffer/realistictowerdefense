@@ -128,13 +128,13 @@ void Field::addMenuEntry(osg::Billboard* billBoard,
 
 void build_tower(osg::ref_ptr<MenuButton> button)
 {
-  Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
+	Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
 
-  std::cout << "build tower" << std::endl;
-
-  if(f != NULL){
-      f->setBuilding();
-  }
+	std::cout << "build tower" << std::endl;
+	
+	if(f != NULL){
+		f->setBuilding();
+	}
 }
 
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
@@ -161,8 +161,8 @@ void Field::onFocus(osgGA::GUIActionAdapter& aa)
 				 true,
 				 NULL);
 
-        this->addChild(billBoard);
-        menu=billBoard;
+	this->addChild(billBoard);
+	menu=billBoard;
 	std::cout << "open menu" << std::endl;
 
 }
@@ -176,10 +176,10 @@ void Field::onClick(osgGA::GUIActionAdapter& aa)
 
 void Field::onBlur()
 {
-  std::cout << "close menu" << std::endl;
-        if(menu != NULL)
-	  this->removeChild(menu);
-        menu = NULL;
+	std::cout << "close menu" << std::endl;
+	if(menu != NULL)
+		this->removeChild(menu);
+	menu = NULL;
 }
 
 bool Field::setBuilding()
