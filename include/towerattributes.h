@@ -2,18 +2,18 @@
 
 #include <osg/PositionAttitudeTransform>
 
-class ProjectileAttributes;
+#include <projectileattributes.h>
 
 class TowerAttributes : public osg::Referenced
 {
 public:
 	float cooldown;
 	float range;
-	int cost;
+	long cost;
 	float height;
 	std::string name;
 
-	osg::ref_ptr<ProjectileAttributes> projectile;
+	ProjectileAttributes projectile;
 
 	osg::ref_ptr<osg::PositionAttitudeTransform> model;
 	std::vector<osg::ref_ptr<TowerAttributes>> upgrades;
