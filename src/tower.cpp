@@ -7,6 +7,12 @@
 #include <towerattributes.h>
 #include <world.h>
 
+Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
+{
+	_position = position;
+	_attributes = attributes;
+}
+
 void Tower::onUpdate()
 {
 	_currentCooldown -= GameTimer::instance()->elapsedTime();
