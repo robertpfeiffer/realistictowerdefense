@@ -46,9 +46,9 @@ set(sources
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
-	"src/field_type.cpp"
+	"src/fieldtype.cpp"
 	"src/game.cpp"
-	"src/game_timer.cpp"
+	"src/gametimer.cpp"
 	"src/graveyard.cpp"
 	"src/hud.cpp"
 	"src/inscenetext.cpp"
@@ -60,7 +60,7 @@ set(sources
 	"src/tower.cpp"
 	"src/updatablenode.cpp"
 	"src/updatecallback.cpp"
-	"src/user_interaction_handler.cpp"
+	"src/userinteractionhandler.cpp"
 	"src/wave.cpp"
 	"src/world.cpp"
 	
@@ -70,17 +70,17 @@ set(sources
 	"include/creepattributes.h"
 	"include/creepsteering.h"	
 	"include/field.h"
-	"include/field_type.h"
+	"include/fieldtype.h"
 	"include/game.h"
-	"include/game_timer.h"
+	"include/gametimer.h"
 	"include/graveyard.h"
 	"include/hud.h"
 	"include/inscenetext.h"
-	"include/keyboard_event_handler.h"
+	"include/keyboardeventhandler.h"
 	"include/map.h"
 	"include/menubutton.h"
-	"include/model_data.h"
-	"include/mouse_event_handler.h"
+	"include/modeldata.h"
+	"include/mouseeventhandler.h"
 	"include/player.h"
 	"include/projectile.h"
 	"include/projectileattributes.h"
@@ -88,7 +88,7 @@ set(sources
 	"include/tower.h"
 	"include/updatablenode.h"
 	"include/updatecallback.h"
-	"include/user_interaction_handler.h"
+	"include/userinteractionhandler.h"
 	"include/wave.h"
 	"include/world.h"
 )
@@ -97,25 +97,25 @@ set(sources
 # -------------------
 source_group("Source Files\\Handlers and Callbacks" FILES
 	"src/updatecallback.cpp"
-	"src/user_interaction_handler.cpp"
+	"src/userinteractionhandler.cpp"
 )
 
 source_group("Header Files\\Handlers and Callbacks" FILES
-	"include/keyboard_event_handler.h"
-	"include/mouse_event_handler.h"
+	"include/keyboardeventhandler.h"
+	"include/mouseeventhandler.h"
 	"include/updatecallback.h"
-	"include/user_interaction_handler.h"
+	"include/userinteractionhandler.h"
 )
 
 # Creeps and Waves
 # -------------------
-source_group("Source Files\\Creeps" FILES
+source_group("Source Files\\Creeps and Waves" FILES
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/wave.cpp"
 )
 
-source_group("Header Files\\Creeps" FILES
+source_group("Header Files\\Creeps and Waves" FILES
 	"include/creep.h"
 	"include/creepattributes.h"
 	"include/creepsteering.h"

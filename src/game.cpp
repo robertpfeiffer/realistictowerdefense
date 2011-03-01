@@ -4,7 +4,7 @@
 #include <world.h>
 #include <hud.h>
 #include <graveyard.h>
-#include <user_interaction_handler.h>
+#include <userinteractionhandler.h>
 #include <osgGA/TerrainManipulator>
 #include <osgViewer/ViewerEventHandlers>
 

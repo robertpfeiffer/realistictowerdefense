@@ -1,7 +1,7 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <creep.h>
 #include <creepattributes.h>
-#include <game_timer.h>
+#include <gametimer.h>
 #include <inscenetext.h>
 #include <projectileattributes.h>
 #include <world.h>

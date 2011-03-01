@@ -1,6 +1,6 @@
 #pragma once
-#include <field_type.h>
-#include <mouse_event_handler.h>
+#include <fieldtype.h>
+#include <mouseeventhandler.h>
 #include <string>
 #include <menubutton.h>
 #include <osg/Geode>
