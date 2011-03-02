@@ -190,8 +190,8 @@ void Map::_load(const std::string& filename)
 
 void Map::_loadPlayer(xml_node<> *node)
 {
-	_player.setLifes(_attrToLong(node->first_attribute("life", 0, false), 1));
-	_player.setMoney(_attrToLong(node->first_attribute("money", 0, false), 0));
+	_player.setLives(_attrToLong(node->first_attribute("lives", 0, false), 1));
+	_player.setMoney(_attrToLong(node->first_attribute("money", 0, false), 50));
 }
 
 void Map::_loadWaves(xml_node<> *node)

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Map>
-	<Player money="1000" life="50"/>
+	<Player money="1000" lives="50"/>
 	<Waves>
 		<Wave spawnoffset="5">
 			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" bounty="10" count="10" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
