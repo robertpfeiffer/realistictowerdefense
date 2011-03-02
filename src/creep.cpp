@@ -1,9 +1,7 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
-#include <convert.h>
 #include <creep.h>
 #include <creepattributes.h>
 #include <gametimer.h>
-#include <inscenetext.h>
 #include <projectileattributes.h>
 #include <world.h>
 
@@ -32,11 +30,7 @@ void Creep::onUpdate()
 
 void Creep::OnHit(ProjectileAttributes* hitter)
 {
-	int damage = computeDamageReceived(hitter);
-	_health -= damage;
-
-	InSceneText* damageText = new InSceneText(osgText::String(Convert::toString(damage)), this->getPosition());
-	World::instance()->addUpdatableNode(damageText);
+	_health -= computeDamageReceived(hitter);
 
 	if(_health <= 0)
 	{

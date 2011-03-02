@@ -5,7 +5,7 @@
 #include <osg/Geode>
 #include <osg/PositionAttitudeTransform>
 
-class Field : public osg::Group, public MouseEventHandler
+class Field : public osg::PositionAttitudeTransform, public MouseEventHandler
 {
 public:
 	Field(FieldType* fieldType);

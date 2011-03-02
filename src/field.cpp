@@ -2,6 +2,7 @@
 #include <field.h>
 #include <modeldata.h>
 #include <tower.h>
+#include <world.h>
 #include <iostream>
 #include <stdlib.h>
 
@@ -89,9 +90,9 @@ bool Field::setBuilding()
 	{
 	  	return false;
 	}
-	osg::ref_ptr<osg::Node> n = osgDB::readNodeFile("models/towers/tower5.3ds"); //FIXME
-	this->addChild(n);
-	//TODO: now add building
+	Tower* t = new Tower(this->getPosition(), World::instance()->getMap()->getTowerAttributes()->front());
+	this->addChild(t);
+	World::instance()->registerForUpdates(t);
 
 	return true;
 }

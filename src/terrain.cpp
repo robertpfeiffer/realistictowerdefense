@@ -22,13 +22,10 @@ Terrain::Terrain(Map* map) : osg::Group()
 
 osg::Node* Terrain::createTerrainBlock(int x, int y)
 {
-	osg::PositionAttitudeTransform* terrainBlockTransform = new osg::PositionAttitudeTransform();
-	terrainBlockTransform->addChild(_map->getField(x, y));
-
 	osg::Vec3 terrainBlockTranslation(x, -y, 0);
-	terrainBlockTransform->setPosition(terrainBlockTranslation);
+	_map->getField(x, y)->setPosition(terrainBlockTranslation);
 
-	return terrainBlockTransform;
+	return _map->getField(x, y);
 }
 
 osg::Node* Terrain::createStrata()

@@ -4,6 +4,7 @@
 #include <world.h>
 #include <hud.h>
 #include <graveyard.h>
+#include <hatchery.h>
 #include <userinteractionhandler.h>
 #include <osgGA/TerrainManipulator>
 #include <osgViewer/ViewerEventHandlers>
@@ -114,5 +115,6 @@ void Game::run()
 		limitCamera((osgGA::TerrainManipulator*) _viewer.getCameraManipulator());
 		_viewer.frame(_gameTimer->nextFrame());
 		Graveyard::instance()->burryAll();
+		Hatchery::instance()->releaseAll();
     }
 }
