@@ -40,23 +40,35 @@
 					<Rotation min="0" max="360" />
 				</Model>
 			</Field>
+			<Field texture="gras.jpg" symbol="M" buildable="true">
+				<Model path="firtree/mushroom.3ds" probability="0.2">
+					<Scale min="0.2" max="0.4" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
+			<Field texture="gras.jpg" symbol="B" buildable="true">
+				<Model path="firtree/baum.3ds" probability="0.2">
+					<Scale min="0.8" max="1.2" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
 		</Fields>
 		<Grid>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
 			<Row>TTGGG+++++++++GGGGGGGTT</Row>
-			<Row>TTGGG+GGGGGGGGGGGGGGGTT</Row>
-			<Row>TTGGG+GGGGGGGGGGGGGGGTT</Row>
+			<Row>TTGBG+GGGGGGGGGGGGGGGTT</Row>
+			<Row>TTGGG+GGGGGGGGGGGGMGGTT</Row>
 			<Row>TTGGG+++++++++GGGGGGGTT</Row>
-			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
-			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
+			<Row>TTGGMGGGGMGGG+GGGMGGGTT</Row>
+			<Row>TTGGGGGMGGGGG+GGGGGGGTT</Row>
 			<Row>TTGGG+++++++++GGGGGGGTT</Row>
-			<Row>TTGGG+GGGGGGGGGGGGGGGTT</Row>
-			<Row>TTGGG+GGGGGGGGGGGGGGGTT</Row>
-			<Row>TTGGG+++++++++GGGGGGGTT</Row>
-      <Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
-      <Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
+			<Row>TTGGG+GGGGGGGGGGGMGGGTT</Row>
+			<Row>TTGGG+GGGGGGMGGGGGGGGTT</Row>
+			<Row>TTGGG+++++++++GGMGGGGTT</Row>
+                        <Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
+                        <Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 		</Grid>
 	</Terrain>	
