@@ -14,6 +14,7 @@
 #include <convert.h>
 #include <graveyard.h>
 #include <hatchery.h>
+#include <hud.h>
 #include <inscenetext.h>
 #include <map.h>
 #include <terrain.h>
@@ -92,7 +93,7 @@ void World::onDeath(Creep* creep)
 {
 	int bounty = creep->bounty();
 	_map->getPlayer()->addMoney(bounty);
-	//TODO: update a HUD-element, displaying the money
+	Hud::instance()->onPlayerUpdate();
 
 	InSceneText* bountyText = new InSceneText(osgText::String(Convert::toString(bounty)), creep->getPosition());
 	bountyText->setColor(osg::Vec3(1.0, 1.0, 0.0));
@@ -103,7 +104,7 @@ void World::onDeath(Creep* creep)
 void World::onLeak(Creep* creep)
 {
 	_map->getPlayer()->takeLife();
-	//TODO: update a HUD-element, displaying the lives
+	Hud::instance()->onPlayerUpdate();
 
 	InSceneText* lifeLostText = new InSceneText(osgText::String("-1"), creep->getPosition());
 	lifeLostText->setColor(osg::Vec3(1.0, 0.0, 0.0));
@@ -151,6 +152,8 @@ void World::loadMap(const std::string mapFilename)
 	_map = new Map(mapFilename);
 	this->addChild(new Terrain(_map));
 	this->addChild(new SkyBox());
+
+	Hud::instance()->setPlayer(_map->getPlayer());
 
 	_waveDone = true;
 	_proximities = new ProximityDatabase();

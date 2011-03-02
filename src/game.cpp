@@ -80,7 +80,7 @@ void Game::run()
 	osg::Group* root = new osg::Group();
 	World::instance()->loadMap("maps/snake.map");
 	root->addChild(World::instance());
-	root->addChild(new Hud());
+	root->addChild(Hud::instance());
 
 	if (getenv("NETBOOK") == NULL)
 	{
