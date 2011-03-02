@@ -55,12 +55,12 @@ void World::spawnCreep(Creep* creep)
 	_creeps.insert(creep);
 }
 
-std::set<osg::ref_ptr<Creep>>::iterator World::getCreepsIterator()
+std::set< osg::ref_ptr<Creep> >::iterator World::getCreepsIterator()
 {
 	return _creeps.begin();
 }
 
-std::set<osg::ref_ptr<Creep>>::iterator World::getCreepsIteratorEnd()
+std::set< osg::ref_ptr<Creep> >::iterator World::getCreepsIteratorEnd()
 {
 	return _creeps.end();
 }

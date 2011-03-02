@@ -33,7 +33,7 @@ public:
 	osg::Texture2D* getStrataTexture();
 	inline Player* getPlayer() { return &_player; };
 	inline std::queue< osg::ref_ptr<Wave> >* getWaves() { return &_waves; };
-	inline std::vector<osg::ref_ptr<TowerAttributes>>* getTowerAttributes() { return &_towers; };
+	inline std::vector< osg::ref_ptr<TowerAttributes> >* getTowerAttributes() { return &_towers; };
 
 	template<class T>
 	struct _cache{
@@ -77,5 +77,5 @@ private:
 	std::queue< osg::ref_ptr<Wave> > _waves;
 	std::vector< std::vector< osg::ref_ptr<Field> > > _fields;
 
-	std::vector<osg::ref_ptr<TowerAttributes>> _towers;
+	std::vector< osg::ref_ptr<TowerAttributes> > _towers;
 };
