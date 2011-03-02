@@ -1,0 +1,109 @@
+// -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
+
+#include <lifebar.h>
+#include <osg/BlendFunc>
+#include <osg/Geometry>
+#include <osg/AlphaFunc>
+#include <osg/Texture2D>
+#include <osgDB/ReadFile>
+
+LifeBar::LifeBar()
+{
+	this->setMode(osg::Billboard::POINT_ROT_EYE);
+	this->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
+	this->setHealth(1.0);
+}
+
+osg::Drawable* LifeBar::createGeometry(osg::StateSet* bbState)
+{
+	// Standard size shrub
+	float width = 1.0f;
+	float height = 1.0f;
+	
+	// Declare and initialize geometry
+    osg::Geometry* geometry = new osg::Geometry();
+	
+	// Declare an array of vertices, assign values so we can create a
+	// quadrilateral centered relative to the Z axis
+	osg::Vec3Array* verts = new osg::Vec3Array(4);
+	
+	float x = 0;
+	float y = 2;
+	
+	(*verts)[0] = osg::Vec3( x - width/2, 0, y - height/2);
+	(*verts)[1] = osg::Vec3( x + width/2, 0, y - height/2);
+	(*verts)[2] = osg::Vec3( x + width/2, 0, y + height/2);
+	(*verts)[3] = osg::Vec3( x - width/2, 0, y + height/2);
+	geometry->setVertexArray(verts);
+	
+	// Declare and assign texture coordinates.
+	osg::Vec2Array* texCoords = new osg::Vec2Array(4);
+	(*texCoords)[0].set(0.0f,0.0f);
+	(*texCoords)[1].set(1.0f,0.0f);
+	(*texCoords)[2].set(1.0f,1.0f);
+	(*texCoords)[3].set(0.0f,1.0f);
+	geometry->setTexCoordArray(0,texCoords);
+	
+	// Add a primitive set (QUADS) to the geometry
+	geometry->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS,0,4));
+	
+	// Make sure the geometry has the correct state
+	geometry->setStateSet(bbState);
+	
+	osg::Vec4Array* colors = new osg::Vec4Array;
+	colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	geometry->setColorArray(colors);
+	geometry->setColorBinding(osg::Geometry::BIND_OVERALL);
+	
+	return geometry;
+}
+
+void LifeBar::setHealth(float health)
+{
+	osg::Texture2D *texture = new osg::Texture2D;
+
+	//FIXME
+    if (health > 0.96){
+		texture->setImage(osgDB::readImageFile("textures/lifebar/9.png"));
+	} else if (health > 0.84){
+		texture->setImage(osgDB::readImageFile("textures/lifebar/8.png"));
+	} else if (health > 0.72){
+		texture->setImage(osgDB::readImageFile("textures/lifebar/7.png"));
+	} else if (health > 0.60){
+		texture->setImage(osgDB::readImageFile("textures/lifebar/6.png"));
+	} else if (health > 0.48){
+		texture->setImage(osgDB::readImageFile("textures/lifebar/5.png"));
+	} else if (health > 0.36){
+		texture->setImage(osgDB::readImageFile("textures/lifebar/4.png"));
+	} else if (health > 0.24){
+		texture->setImage(osgDB::readImageFile("textures/lifebar/3.png"));
+	} else if (health > 0.12){
+		texture->setImage(osgDB::readImageFile("textures/lifebar/2.png"));
+	} else {
+		texture->setImage(osgDB::readImageFile("textures/lifebar/1.png"));
+	}
+	
+	osg::BlendFunc *blendFunc = new osg::BlendFunc;
+	osg::StateSet* billBoardStateSet = new osg::StateSet;
+	
+	billBoardStateSet->setTextureAttributeAndModes
+		(0, texture, osg::StateAttribute::ON);
+	billBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
+	billBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
+	billBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+	
+	osg::Drawable* drawable = createGeometry(billBoardStateSet);
+
+	if(this->_lifeDrawable != NULL)
+		this->removeDrawable(this->_lifeDrawable);
+	
+	this->_lifeDrawable = drawable;
+	this->addDrawable(drawable);
+}
+
+
+
+
+
+
+

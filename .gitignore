@@ -3,10 +3,12 @@
 /OSGBullet
 /Bullet
 
+TAGS
+core
 *.o
 *.exe
 *.dll
-#*
+#*#
 .*
 *~
 *orig
