@@ -17,6 +17,7 @@ public:
 private:
 	void hitTarget();
 	void approachToTarget();
+	void turnToTarget();
 
 	ProjectileAttributes* _attributes;
 	osg::ref_ptr<Creep> _target;

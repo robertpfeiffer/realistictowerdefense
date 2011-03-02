@@ -46,4 +46,14 @@ void Projectile::approachToTarget()
 	travelDistance = std::min(maxDistance, travelDistance);
 
 	this->setPosition(this->getPosition()+(targetVector*travelDistance));
+	turnToTarget();
+}
+
+void Projectile::turnToTarget()
+{
+	osg::Quat quad; 
+    osg::Matrix matrix; 
+	matrix.makeLookAt(this->getPosition(), _target->getPosition(), osg::Z_AXIS); //FIXME: projectile flies reversed
+    matrix.get(quad);
+	this->setAttitude(quad.inverse());
 }
