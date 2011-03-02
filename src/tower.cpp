@@ -27,7 +27,7 @@ void Tower::onUpdate()
 
 	_currentCooldown = _attributes->cooldown;
 
-	if(_target.get() == NULL || _target->health() <= 0 || !isInRange(_target))
+	if(_target.get() == NULL || !_target->isAlive() || _target->isLeaked() || !isInRange(_target))
 	{
 		if(!findNewTarget())
 		{
