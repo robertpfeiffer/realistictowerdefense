@@ -22,8 +22,8 @@ public:
 	void onDeath(Creep* creep);
 	void onLeak(Creep* creep);
 
-	std::set<osg::ref_ptr<Creep>>::iterator getCreepsIterator();
-	std::set<osg::ref_ptr<Creep>>::iterator getCreepsIteratorEnd();
+	std::set< osg::ref_ptr<Creep> >::iterator getCreepsIterator();
+	std::set< osg::ref_ptr<Creep> >::iterator getCreepsIteratorEnd();
 
 	void spawnCreep(Creep* creep);
 	void dropCreep(Creep* creep);
@@ -43,7 +43,7 @@ private:
 
 	osg::ref_ptr<Wave> _currentWave;
 	bool _waveDone;
-	std::set<osg::ref_ptr<Creep>> _creeps;
+	std::set<osg::ref_ptr<Creep> > _creeps;
 
 	osg::ref_ptr<Map> _map;
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* _path;
