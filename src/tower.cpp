@@ -27,7 +27,7 @@ void Tower::onUpdate()
 
 	_currentCooldown = _attributes->cooldown;
 
-	if(_target.get() == NULL || _target->health() <= 0)
+	if(_target.get() == NULL || _target->health() <= 0 || !isInRange(_target))
 	{
 		if(!findNewTarget())
 		{
@@ -44,7 +44,7 @@ bool Tower::findNewTarget()
 	std::set<osg::ref_ptr<Creep>>::iterator it;
 	for(it = World::instance()->getCreepsIterator(); it != World::instance()->getCreepsIteratorEnd(); it++)
 	{
-		if((_position - (*it)->getPosition()).length2() <= range)
+		if(isInRange(*it))
 		{
 			_target = it->get();
 			return true;
@@ -52,6 +52,11 @@ bool Tower::findNewTarget()
 	}
 	_target = NULL;
 	return false;
+}
+
+bool Tower::isInRange(Creep* creep)
+{
+	return (_position - creep->getPosition()).length() <= _attributes->range;
 }
 
 void Tower::shootAtTarget()

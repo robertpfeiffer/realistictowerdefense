@@ -13,6 +13,7 @@ public:
 	void onUpdate();
 private:
 	bool findNewTarget();
+	bool isInRange(Creep* creep);
 	void shootAtTarget();
 
 	float _currentCooldown;
