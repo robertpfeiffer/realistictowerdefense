@@ -120,13 +120,16 @@ void CreepSteering::update (const float elapsedTime)
 
 	if(path->mapPointToPathDistance(position()) >= path->length())
 	{
-		_leaked = true;
 		RaiseLeakEvent();
 	}
 }
 
 void CreepSteering::RaiseLeakEvent()
 {
+	if(_leaked) // just to be save from any update-anormalies
+		return; // makes sure we do never raise that event twice
+
+	_leaked = true;
 	World::instance()->onLeak(_creep);
 }
 
