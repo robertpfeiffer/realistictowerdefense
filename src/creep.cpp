@@ -12,6 +12,9 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegme
 
 	_gameTimer = GameTimer::instance();
 
+	this->_lifebar = new LifeBar();
+	this->addChild(this->_lifebar);
+
 	updateRealPosition();
 	updateRealHeading();
 }
@@ -31,6 +34,7 @@ void Creep::onUpdate()
 void Creep::OnHit(ProjectileAttributes* hitter)
 {
 	_health -= computeDamageReceived(hitter);
+    _lifebar->setHealth((float)_health/(float)maxHealth());
 
 	if(_health <= 0)
 	{

@@ -4,6 +4,7 @@
 #include <osg/Geometry>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Timer>
+#include <lifebar.h>
 
 class CreepAttributes;
 class GameTimer;
@@ -32,6 +33,7 @@ private:
 	CreepSteering* _steering;
 	GameTimer* _gameTimer;
 
+        osg::ref_ptr<LifeBar> _lifebar;
 	int _health;
 	CreepAttributes* _attributes;
 
