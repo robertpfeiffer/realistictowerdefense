@@ -40,8 +40,8 @@ void Tower::onUpdate()
 
 bool Tower::findNewTarget()
 {
-	float range = _attributes->range * _attributes->range; //we will do comparison on range²
-	std::set<osg::ref_ptr<Creep>>::iterator it;
+	float range = _attributes->range * _attributes->range; //we will do comparison on range 
+	std::set< osg::ref_ptr<Creep> >::iterator it;
 	for(it = World::instance()->getCreepsIterator(); it != World::instance()->getCreepsIteratorEnd(); it++)
 	{
 		if(isInRange(*it))
