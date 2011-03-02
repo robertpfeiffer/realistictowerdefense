@@ -4,7 +4,8 @@
 #include <osg/BlendFunc>
 #include <osg/AlphaFunc>
 #include <osg/Texture2D>
-#include <osgDB/ReadFile>
+#include <assetlibrary.h>
+
 
 Contextmenu::Contextmenu()
 {
@@ -69,9 +70,9 @@ MenuButton* Contextmenu::createMenuItem(osg::StateSet* bbState, int offset)
 void Contextmenu::addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
 						   const std::string texturepath)
 {
-	osg::Texture2D *texture = new osg::Texture2D;
-	texture->setImage(osgDB::readImageFile(texturepath));
-	texture->setMaxAnisotropy(AF_LEVEL);
+	AssetLibrary *lib = AssetLibrary::instance();
+	osg::Texture2D *texture;
+	texture = lib->_getTexture(texturepath);
  
 	osg::BlendFunc *blendFunc = new osg::BlendFunc;
 	osg::StateSet* billBoardStateSet = new osg::StateSet;

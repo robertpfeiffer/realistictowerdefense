@@ -12,7 +12,7 @@
 class AssetLibrary {
 public:
 
-	AssetLibrary* instance();
+	static AssetLibrary* instance();
 
 	osg::Texture2D* _getTexture(const std::string filename);
 	osg::Node* _getModel(const std::string filename);

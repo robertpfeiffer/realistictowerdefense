@@ -1,11 +1,12 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 
 #include <lifebar.h>
+#include <stdio.h>
 #include <osg/BlendFunc>
 #include <osg/Geometry>
 #include <osg/AlphaFunc>
 #include <osg/Texture2D>
-#include <osgDB/ReadFile>
+#include <assetlibrary.h>
 
 LifeBar::LifeBar()
 {
@@ -60,28 +61,19 @@ osg::Drawable* LifeBar::createGeometry(osg::StateSet* bbState)
 
 void LifeBar::setHealth(float health)
 {
-	osg::Texture2D *texture = new osg::Texture2D;
 
-	//FIXME
-    if (health > 0.96){
-		texture->setImage(osgDB::readImageFile("textures/lifebar/9.png"));
-	} else if (health > 0.84){
-		texture->setImage(osgDB::readImageFile("textures/lifebar/8.png"));
-	} else if (health > 0.72){
-		texture->setImage(osgDB::readImageFile("textures/lifebar/7.png"));
-	} else if (health > 0.60){
-		texture->setImage(osgDB::readImageFile("textures/lifebar/6.png"));
-	} else if (health > 0.48){
-		texture->setImage(osgDB::readImageFile("textures/lifebar/5.png"));
-	} else if (health > 0.36){
-		texture->setImage(osgDB::readImageFile("textures/lifebar/4.png"));
-	} else if (health > 0.24){
-		texture->setImage(osgDB::readImageFile("textures/lifebar/3.png"));
-	} else if (health > 0.12){
-		texture->setImage(osgDB::readImageFile("textures/lifebar/2.png"));
-	} else {
-		texture->setImage(osgDB::readImageFile("textures/lifebar/1.png"));
+	char path[25];
+
+    int barstate = 0;
+	while(health>=0) {
+		barstate++;
+		health -= 0.12;
 	}
+	sprintf(path,"textures/lifebar/%d.png",barstate);
+
+	AssetLibrary *lib = AssetLibrary::instance();
+	osg::Texture2D *texture;
+	texture = lib->_getTexture(path);
 	
 	osg::BlendFunc *blendFunc = new osg::BlendFunc;
 	osg::StateSet* billBoardStateSet = new osg::StateSet;
