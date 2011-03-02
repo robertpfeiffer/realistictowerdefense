@@ -85,8 +85,10 @@ void Game::run()
 	if (getenv("NETBOOK") == NULL)
 	{
 		activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
+		_viewer.setUpViewInWindow(100, 100, 1024, 768);
+	} else {
+		_viewer.setUpViewInWindow(100, 100, 600, 450); //maybe improve with osgViewer::WindowSizeHandler
 	}
-	_viewer.setUpViewInWindow(100, 100, 600, 450); //maybe improve with osgViewer::WindowSizeHandler
 	
 	setCameraManipulator();
 	setGlobalLight();

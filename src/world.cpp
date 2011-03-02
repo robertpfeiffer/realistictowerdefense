@@ -135,7 +135,7 @@ void World::addUpdatableNode(osg::Node* node)
 	registerForUpdates(node);
 }
 
-inline void World::registerForUpdates(osg::Node* node)
+/*inline*/ void World::registerForUpdates(osg::Node* node)
 {
 	node->addUpdateCallback(_updateCallback.get());
 }
