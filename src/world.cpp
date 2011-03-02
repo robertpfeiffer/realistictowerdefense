@@ -19,6 +19,7 @@
 #include <terrain.h>
 #include <wave.h>
 #include <world.h>
+#include <skybox.h>
 
 World* World::instance()
 {
@@ -140,6 +141,7 @@ void World::loadMap(const std::string mapFilename)
 {
 	_map = new Map(mapFilename);
 	this->addChild(new Terrain(_map));
+	this->addChild(new SkyBox());
 
 	_waveDone = true;
 	_proximities = new ProximityDatabase();
