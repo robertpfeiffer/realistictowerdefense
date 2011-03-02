@@ -102,10 +102,14 @@ public:
     // compute combined steering force: move forward, avoid obstacles
     // or neighbors if needed, otherwise follow the path and wander
     OpenSteer::Vec3 determineCombinedSteering (const float elapsedTime);
+
+	bool isLeaked();
 private:
 	void RaiseLeakEvent();
 
 	Creep* _creep;
+	bool _leaked;
+
 
 	static float _followPathWeight;
 	static float _avoidCollisionWeight;

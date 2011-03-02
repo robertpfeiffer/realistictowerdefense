@@ -56,6 +56,7 @@ CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPositio
 {
     proximityToken = pd.allocateToken (this);        
 	_creep = creep;
+	_leaked = false;
 
     init (startPosition, runPath);
 }
@@ -119,6 +120,7 @@ void CreepSteering::update (const float elapsedTime)
 
 	if(path->mapPointToPathDistance(position()) >= path->length())
 	{
+		_leaked = true;
 		RaiseLeakEvent();
 	}
 }
@@ -167,4 +169,10 @@ OpenSteer::Vec3 CreepSteering::determineCombinedSteering (const float elapsedTim
 
     // return steering constrained to global XZ "ground" plane
     return steeringForce.setYtoZero ();
+}
+
+
+bool CreepSteering::isLeaked()
+{
+	return _leaked;
 }

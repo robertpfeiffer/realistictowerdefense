@@ -58,6 +58,16 @@ void Creep::setCreepStats(CreepAttributes* attributes)
 	_steering->setMaxSpeed((float)_attributes->speed/100.0f);
 }
 
+bool Creep::isAlive()
+{
+	return _health > 0;
+}
+
+bool Creep::isLeaked()
+{
+	return _steering->isLeaked();
+}
+
 int Creep::health()
 {
 	return _health;

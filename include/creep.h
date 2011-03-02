@@ -17,6 +17,9 @@ public:
 	void OnHit(ProjectileAttributes* hitter);
 	void setCreepStats(CreepAttributes* attributes);
 
+	bool isAlive();
+	bool isLeaked();
+
 	int health();
 	int maxHealth();
 	int armor();
