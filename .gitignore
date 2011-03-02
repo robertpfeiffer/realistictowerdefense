@@ -1,4 +1,3 @@
-
 /build
 /OSG
 /OSGBullet
@@ -7,7 +6,10 @@
 *.o
 *.exe
 *.dll
-
+#*
+.*
+*~
+*orig
 
 CMakeCache.txt
 /bin
