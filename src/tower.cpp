@@ -1,4 +1,4 @@
-// -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
+// -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 #include <tower.h>
 
 #include <creep.h>
@@ -17,6 +17,10 @@ Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
 	this->addChild(_attributes->model);
 }
 
+float Tower::height()
+{
+	return _attributes->height;
+}
 void Tower::onUpdate()
 {
 	_currentCooldown -= GameTimer::instance()->elapsedTime();

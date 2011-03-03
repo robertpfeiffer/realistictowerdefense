@@ -11,6 +11,8 @@ class Tower : public osg::Group, public UpdatableNode
 public:
 	Tower(osg::Vec3 position, TowerAttributes* attributes);
 	void onUpdate();
+        float height();
+
 private:
 	bool findNewTarget();
 	bool isInRange(Creep* creep);

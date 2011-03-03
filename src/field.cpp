@@ -7,11 +7,8 @@
 #include <stdlib.h>
 
 #include <osg/Node>
-#include <osg/Geode>
 #include <osg/Group>
-#include <osgDB/ReadFile>
 
-#include <osgDB/Registry>
 #include <constants.h>
 #include <contextmenu.h>
 
@@ -21,7 +18,7 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 
 	ModelData* modelData = fieldType->getModelData();
 
-	_model = NULL;
+	_content = NULL;
 	if (modelData != NULL)
 	{
 		if (modelData->probability >= (float) rand() / RAND_MAX)
@@ -40,6 +37,8 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 			transform->setAttitude(osg::Quat(osg::DegreesToRadians(rotation), osg::Vec3d(0.0, 0.0, 1.0)));
 
 			this->addChild(transform);
+			_content = transform;
+			_isBuildable = false;
 		}
 	}
 }
@@ -47,8 +46,6 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 void build_tower(osg::ref_ptr<MenuButton> button)
 {
 	Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
-
-	std::cout << "build tower" << std::endl;
 	
 	if(f != NULL){
 		f->setBuilding();
@@ -59,16 +56,21 @@ void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
 	Contextmenu* aMenu= new Contextmenu();
 
-	aMenu->addEntry(build_tower,
+	if (isBuildable()){
+		aMenu->addEntry(build_tower,
 					"textures/tower.png");
+	}
+
+	//if (hasTower()){
+	//aMenu->addEntry(fire_powerup,
+	//				"textures/fire.png");
+	//}
 
 	aMenu->addEntry(NULL,
 					"textures/x.png");
 
 	this->addChild(aMenu);
 	this->_menu=aMenu;
-	std::cout << "open menu" << std::endl;
-
 }
 
 void Field::onClick(osgGA::GUIActionAdapter& aa)
@@ -78,21 +80,37 @@ void Field::onClick(osgGA::GUIActionAdapter& aa)
 
 void Field::onBlur()
 {
-	std::cout << "close menu" << std::endl;
 	if(this->_menu != NULL)
 		this->removeChild(this->_menu);
 	this->_menu = NULL;
 }
 
+bool Field::isBuildable()
+{
+	return _fieldType->isBuildable() && this->_content.get() == NULL;
+}
+
+bool Field::hasTower()
+{
+	return _fieldType->isBuildable() && (dynamic_cast<Tower*>(_content.get()) != NULL);
+}
+
+osg::Node* Field::getContent()
+{
+	return _content;
+}
+
 bool Field::setBuilding()
 {
-	if (!_fieldType->isBuildable())
-	{
+	if (!this->isBuildable())
 	  	return false;
-	}
-	Tower* t = new Tower(this->getPosition(), World::instance()->getMap()->getTowerAttributes()->front());
+
+	osg::ref_ptr<Tower> t = new Tower(this->getPosition(), World::instance()->getMap()->getTowerAttributes()->front());
+	_content = t;
+
 	this->addChild(t);
 	World::instance()->registerForUpdates(t);
+	_isBuildable = false;
 
 	return true;
 }
