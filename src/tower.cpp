@@ -38,6 +38,11 @@ void Tower::onUpdate()
 	shootAtTarget();
 }
 
+TowerAttributes* Tower::getAttributes()
+{
+	return _attributes;
+}
+
 void Tower::upgradeTo(TowerAttributes* attributes)
 {
 	this->removeChild(_attributes->model);

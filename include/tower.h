@@ -13,6 +13,8 @@ public:
 	void onUpdate();
 	void upgradeTo(TowerAttributes* attributes);
 
+	TowerAttributes* getAttributes();
+
 private:
 	bool findNewTarget();
 	bool isInRange(Creep* creep);
