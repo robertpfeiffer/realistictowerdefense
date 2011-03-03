@@ -9,12 +9,10 @@ class ContextMenu : public osg::Billboard
 {
 public:
 	ContextMenu();
-	void addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
-				  const std::string texturepath);
+	void addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>), const std::string texturepath);
 
 private:
 	int _numberOfEntries;
 
-	osg::StateSet* createStateSetFromTexturePath(const std::string texturepath);
-	MenuButton* createMenuItem(osg::StateSet* state);
+	MenuButton* createMenuItem(const std::string texturepath);
 };

@@ -1,6 +1,9 @@
 #include <menubutton.h>
 
-MenuButton::MenuButton(osg::StateSet* ss)
+#include <assetlibrary.h>
+#include <osg/BlendFunc>
+
+MenuButton::MenuButton(const std::string texturepath)
 {
 	// Declare and assign texture coordinates.
 	osg::Vec2Array* texCoords = new osg::Vec2Array(4);
@@ -12,7 +15,7 @@ MenuButton::MenuButton(osg::StateSet* ss)
 	
 	this->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS,0,4));
 
-	this->setStateSet(ss);
+	this->setStateSet(createStateSetFromTexturePath(texturepath));
 
 	osg::Vec4Array* colors = new osg::Vec4Array();
     colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -24,4 +27,17 @@ void MenuButton::onClick(osgGA::GUIActionAdapter& aa)
 {
   if(this->_onClick != NULL)
       (this->_onClick)(this);
+}
+
+osg::StateSet* MenuButton::createStateSetFromTexturePath(const std::string texturepath)
+{
+	osg::StateSet* stateSet = new osg::StateSet;
+
+	stateSet->setTextureAttributeAndModes(0, AssetLibrary::instance()->getTexture(texturepath), osg::StateAttribute::ON);
+	stateSet->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
+	stateSet->setAttributeAndModes(new osg::BlendFunc(), osg::StateAttribute::ON);
+	stateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+	stateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF); //always on top
+
+	return stateSet;
 }

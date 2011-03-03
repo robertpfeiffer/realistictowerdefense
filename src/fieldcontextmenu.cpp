@@ -23,5 +23,8 @@ void FieldContextMenu::addAllItems()
 {
 	if (_field->isBuildable()){
 		this->addEntry(build_tower, "tower.png");
+		this->addEntry(build_tower, "tower.png");
+		this->addEntry(build_tower, "tower.png");
+		this->addEntry(build_tower, "tower.png");
 	}
 }

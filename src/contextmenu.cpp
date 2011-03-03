@@ -1,10 +1,8 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 
 #include <contextmenu.h>
-#include <osg/BlendFunc>
 #include <osg/AlphaFunc>
 #include <osg/Texture2D>
-#include <assetlibrary.h>
 
 
 ContextMenu::ContextMenu()
@@ -15,14 +13,14 @@ ContextMenu::ContextMenu()
 	this->addEntry(NULL,"select.png");
 }
 
-MenuButton* ContextMenu::createMenuItem(osg::StateSet* bbState)
+MenuButton* ContextMenu::createMenuItem(const std::string texturepath)
 {
     // Standard size shrub
 	float width = 1.0f;
 	float height = 1.0f;
 	
 	// Declare and initialize geometry
-	MenuButton* geometry = new MenuButton(bbState);
+	MenuButton* geometry = new MenuButton(texturepath);
 	
 	float x;
 	float y;
@@ -51,23 +49,9 @@ MenuButton* ContextMenu::createMenuItem(osg::StateSet* bbState)
 void ContextMenu::addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
 						   const std::string texturepath)
 {
-	osg::StateSet* stateSet = createStateSetFromTexturePath(texturepath);
-	MenuButton* drawable = createMenuItem(stateSet);
+	MenuButton* drawable = createMenuItem(texturepath);
 
 	drawable->_onClick = _onClick;
     this->_numberOfEntries++;
 	this->addDrawable(drawable);
-}
-
-osg::StateSet* ContextMenu::createStateSetFromTexturePath(const std::string texturepath)
-{
-	osg::StateSet* stateSet = new osg::StateSet;
-
-	stateSet->setTextureAttributeAndModes(0, AssetLibrary::instance()->getTexture(texturepath), osg::StateAttribute::ON);
-	stateSet->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
-	stateSet->setAttributeAndModes(new osg::BlendFunc(), osg::StateAttribute::ON);
-	stateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-	stateSet->setMode(GL_DEPTH_TEST, osg::StateAttribute::OFF); //always on top
-
-	return stateSet;
 }
