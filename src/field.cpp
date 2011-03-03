@@ -10,7 +10,7 @@
 #include <osg/Group>
 
 #include <constants.h>
-#include <contextmenu.h>
+#include <fieldcontextmenu.h>
 
 #include <osg/Geode>
 #include <osg/ShapeDrawable>
@@ -46,49 +46,10 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 	}
 }
 
-void build_tower(osg::ref_ptr<MenuButton> button)
-{
-	Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
-	
-	if(f != NULL){
-		f->setBuilding();
-	}
-}
-
-void fire_powerup(osg::ref_ptr<MenuButton> button)
-{
-	Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
-	Tower* t = (dynamic_cast<Tower*> (f->getContent()));
-
-	if(f != NULL){
-
-/*
-        osgParticle::SmokeEffect* fire = new osgParticle::SmokeEffect(osg::Vec3(20.0f,20.0f,20.0f), 5.0f, 5.0f);
-		fire->setWind(osg::Vec3(1.0f,1.0f,0.0f));
-		f->addChild(fire);
-
-        osg::Geode* geode = new osg::Geode;
-        geode->addDrawable(fire->getParticleSystem());
-		f->addChild(geode);*/
-	}
-}
-
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
-	ContextMenu* aMenu= new ContextMenu();
-
-	if (isBuildable()){
-		aMenu->addEntry(build_tower, "tower.png");
-	}
-
-	if (hasTower()){
-	aMenu->addEntry(fire_powerup, "fire.png");
-	}
-
-	aMenu->addEntry(NULL, "x.png");
-
-	this->addChild(aMenu);
-	this->_menu=aMenu;
+	this->_menu = new FieldContextMenu(this);
+	this->addChild(_menu);
 }
 
 void Field::onClick(osgGA::GUIActionAdapter& aa)

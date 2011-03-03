@@ -9,5 +9,7 @@ public:
 	FieldContextMenu(Field* field);
 
 private:
+	void addAllItems();
+
 	osg::ref_ptr<Field> _field;
 };
