@@ -50,6 +50,7 @@ set(sources
 	"src/creepsteering.cpp"
 	"src/field.cpp"
 	"src/fieldcontextmenu.cpp"
+	"src/fieldmenubutton.cpp"
 	"src/fieldtype.cpp"
 	"src/game.cpp"
 	"src/gametimer.cpp"
@@ -82,6 +83,7 @@ set(sources
 	"include/creepsteering.h"	
 	"include/field.h"
 	"include/fieldcontextmenu.h"
+	"include/fieldmenubutton.h"
 	"include/fieldtype.h"
 	"include/game.h"
 	"include/gametimer.h"
@@ -172,6 +174,7 @@ source_group("Header Files\\Resources managment" FILES
 source_group("Source Files\\User Interface" FILES
 	"src/contextmenu.cpp"
 	"src/fieldcontextmenu.cpp"
+	"src/fieldmenubutton.cpp"
 	"src/healthbar.cpp"
 	"src/hud.cpp"
 	"src/inscenetext.cpp"
@@ -181,6 +184,7 @@ source_group("Source Files\\User Interface" FILES
 source_group("Header Files\\User Interface" FILES
 	"include/contextmenu.h"
 	"include/fieldcontextmenu.h"
+	"include/fieldmenubutton.h"
 	"include/healthbar.h"
 	"include/hud.h"
 	"include/inscenetext.h"
