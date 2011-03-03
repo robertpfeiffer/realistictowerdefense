@@ -1,6 +1,8 @@
 #include <fieldcontextmenu.h>
 
 #include <field.h>
+#include <tower.h>
+#include <world.h>
 
 FieldContextMenu::FieldContextMenu(Field* field)
 {
@@ -15,7 +17,7 @@ void build_tower(osg::ref_ptr<MenuButton> button)
 	Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
 	
 	if(f != NULL){
-		f->setBuilding();
+		f->setBuilding(new Tower(f->getPosition(), World::instance()->getMap()->getTowerAttributes()->front()));
 	}
 }
 

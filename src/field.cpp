@@ -79,16 +79,14 @@ osg::Node* Field::getContent()
 	return _content;
 }
 
-bool Field::setBuilding()
+bool Field::setBuilding(Tower* tower)
 {
 	if (!this->isBuildable())
 	  	return false;
 
-	osg::ref_ptr<Tower> t = new Tower(this->getPosition(), World::instance()->getMap()->getTowerAttributes()->front());
-	_content = t;
-
-	this->addChild(t);
-	World::instance()->registerForUpdates(t);
+	_content = tower;
+	this->addChild(tower);
+	World::instance()->registerForUpdates(tower);
 	_isBuildable = false;
 
 	return true;
