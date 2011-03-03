@@ -5,14 +5,16 @@
 #include <osg/Geode>
 #include <osg/PositionAttitudeTransform>
 
+class Tower;
+
 class Field : public osg::PositionAttitudeTransform, public MouseEventHandler
 {
 public:
 	Field(FieldType* fieldType);
-	bool setBuilding();
-        bool isBuildable();
-        bool hasTower();
-        osg::Node* getContent();
+	bool setBuilding(Tower* tower);
+	bool isBuildable();
+	bool hasTower();
+	osg::Node* getContent();
 
 private:
 	bool _isBuildable;

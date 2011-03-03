@@ -5,6 +5,16 @@
 
 MenuButton::MenuButton(const std::string texturepath)
 {
+	init(AssetLibrary::instance()->getTexture(texturepath));
+}
+
+MenuButton::MenuButton(osg::Texture2D* texture)
+{
+	init(texture);
+}
+
+void MenuButton::init(osg::Texture2D* texture)
+{
 	this->setPosition(osg::Vec2(0.0, 0.0));
 
 	// Declare and assign texture coordinates.
@@ -17,7 +27,7 @@ MenuButton::MenuButton(const std::string texturepath)
 	
 	this->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS,0,4));
 
-	this->setStateSet(createStateSetFromTexturePath(texturepath));
+	this->setStateSet(createStateSetFromTexture(texture));
 
 	osg::Vec4Array* colors = new osg::Vec4Array();
     colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -46,11 +56,11 @@ void MenuButton::onClick(osgGA::GUIActionAdapter& aa)
       (this->_onClick)(this);
 }
 
-osg::StateSet* MenuButton::createStateSetFromTexturePath(const std::string texturepath)
+osg::StateSet* MenuButton::createStateSetFromTexture(osg::Texture2D* texture)
 {
 	osg::StateSet* stateSet = new osg::StateSet;
 
-	stateSet->setTextureAttributeAndModes(0, AssetLibrary::instance()->getTexture(texturepath), osg::StateAttribute::ON);
+	stateSet->setTextureAttributeAndModes(0, texture, osg::StateAttribute::ON);
 	stateSet->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
 	stateSet->setAttributeAndModes(new osg::BlendFunc(), osg::StateAttribute::ON);
 	stateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
