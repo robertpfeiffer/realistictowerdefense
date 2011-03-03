@@ -2,6 +2,7 @@
 
 #include <lifebar.h>
 #include <stdio.h>
+#include <iostream>
 #include <osg/BlendFunc>
 #include <osg/Geometry>
 #include <osg/AlphaFunc>
@@ -63,12 +64,13 @@ void LifeBar::setHealth(float health)
 {
 
 	char path[25];
+	float h = health;
 
     int barstate = 0;
-	while(health>=0) {
+	do {
 		barstate++;
-		health -= 0.12;
-	}
+		h -= 0.12;
+	} while (h>=0);
 	sprintf(path,"textures/lifebar/%d.png",barstate);
 
 	AssetLibrary *lib = AssetLibrary::instance();
