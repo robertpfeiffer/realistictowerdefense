@@ -11,7 +11,7 @@ class Tower : public osg::Group, public UpdatableNode
 public:
 	Tower(osg::Vec3 position, TowerAttributes* attributes);
 	void onUpdate();
-        float height();
+	void upgradeTo(TowerAttributes* attributes);
 
 private:
 	bool findNewTarget();

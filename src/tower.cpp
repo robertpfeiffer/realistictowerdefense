@@ -17,10 +17,6 @@ Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
 	this->addChild(_attributes->model);
 }
 
-float Tower::height()
-{
-	return _attributes->height;
-}
 void Tower::onUpdate()
 {
 	_currentCooldown -= GameTimer::instance()->elapsedTime();
@@ -40,6 +36,13 @@ void Tower::onUpdate()
 	}
 
 	shootAtTarget();
+}
+
+void Tower::upgradeTo(TowerAttributes* attributes)
+{
+	this->removeChild(_attributes->model);
+	this->addChild(attributes->model);
+	_attributes = attributes;
 }
 
 bool Tower::findNewTarget()

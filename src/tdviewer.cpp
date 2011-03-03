@@ -22,8 +22,7 @@ void TDViewer::limitCamera(osgGA::TerrainManipulator* manipulator)
 void TDViewer::frame(double time)
 {
 	//ViewerBase::frame(time);
-	Viewer::frame(time);
-	GameTimer::instance()->nextFrame();
+	Viewer::frame(GameTimer::instance()->nextFrame());
     limitCamera((osgGA::TerrainManipulator*) getCameraManipulator());
     Graveyard::instance()->burryAll();
     Hatchery::instance()->releaseAll();
