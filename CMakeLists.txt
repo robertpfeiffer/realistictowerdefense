@@ -155,11 +155,13 @@ source_group("Header Files\\Towers and Projectiles" FILES
 # -------------------
 source_group("Source Files\\Resources managment" FILES
 	"src/assetlibrary.cpp"
+	"src/hatchery.cpp"
 	"src/graveyard.cpp"
 )
 
 source_group("Header Files\\Resources managment" FILES
 	"include/assetlibrary.h"
+	"include/hatchery.h"
 	"include/graveyard.h"
 )
 
