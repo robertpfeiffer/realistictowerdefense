@@ -78,9 +78,6 @@ void Game::run()
 	root->addChild(World::instance());
 	root->addChild(Hud::instance());
 
-	osgParticle::FireEffect* fire = new osgParticle::FireEffect(osg::Vec3(3.0f,0.0f,3.0f), 5.0f, 10.0f);
-	root->addChild(fire);
-
 	if (getenv("NETBOOK") == NULL)
 	{
 		activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
