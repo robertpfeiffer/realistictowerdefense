@@ -1,8 +1,7 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 
 #include <healthbar.h>
-#include <stdio.h>
-#include <iostream>
+#include <sstream>
 #include <osg/BlendFunc>
 #include <osg/Geometry>
 #include <osg/AlphaFunc>
@@ -62,20 +61,13 @@ osg::Drawable* HealthBar::createGeometry(osg::StateSet* bbState)
 
 void HealthBar::setHealth(float health)
 {
-
-	char path[25];
-	float h = health;
-
-    int barstate = 0;
-	do {
-		barstate++;
-		h -= 0.12;
-	} while (h>=0);
-	sprintf(path,"lifebar/%d.png",barstate);
+    int barstate = std::max(1 + health / 0.12f, 1.0f);
+	std::stringstream path;
+	path << "healthbar/" << barstate << ".png";
 
 	AssetLibrary *lib = AssetLibrary::instance();
 	osg::Texture2D *texture;
-	texture = lib->getTexture(path);
+	texture = lib->getTexture(path.str());
 	
 	osg::BlendFunc *blendFunc = new osg::BlendFunc;
 	osg::StateSet* billBoardStateSet = new osg::StateSet;
