@@ -10,9 +10,9 @@ public:
 	MenuButton(osg::Texture2D* texture);
 	void init(osg::Texture2D* texture);
 	void setPosition(osg::Vec2 pos);
-	void setCallback(void (* callback)(osg::ref_ptr<MenuButton>));
+	virtual void setCallback(void (* callback)(osg::ref_ptr<MenuButton>));
 
-	void onClick(osgGA::GUIActionAdapter& aa);
+	virtual void onClick(osgGA::GUIActionAdapter& aa);
 
 private:
 	void (* _onClick)(osg::ref_ptr<MenuButton> );
