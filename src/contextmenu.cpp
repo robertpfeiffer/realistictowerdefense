@@ -13,11 +13,8 @@ ContextMenu::ContextMenu()
 	this->addEntry(NULL,"select.png");
 }
 
-MenuButton* ContextMenu::createMenuItem(const std::string texturepath)
-{
-	// Declare and initialize geometry
-	MenuButton* geometry = new MenuButton(texturepath);
-	
+osg::Vec2 ContextMenu::positionForNextButton()
+{	
 	float x;
 	float y;
 	
@@ -29,17 +26,21 @@ MenuButton* ContextMenu::createMenuItem(const std::string texturepath)
 		y = 1.5 * -cos(_numberOfEntries * PI/4);
 	}
 	
-	geometry->setPosition(osg::Vec2(x, y));
-	
-	return geometry;
+	this->_numberOfEntries++;
+	return osg::Vec2(x, y);
 }
 
 void ContextMenu::addEntry(void (* callback)(osg::ref_ptr<MenuButton>),
 						   const std::string texturepath)
 {
-	MenuButton* drawable = createMenuItem(texturepath);
+	MenuButton* button = new MenuButton(texturepath);
 
-	drawable->setCallback(callback);
-    this->_numberOfEntries++;
-	this->addDrawable(drawable);
+	button->setCallback(callback);
+	this->addEntry(button);
+}
+
+void ContextMenu::addEntry(MenuButton* button)
+{
+	button->setPosition(positionForNextButton());
+	this->addDrawable(button);
 }
