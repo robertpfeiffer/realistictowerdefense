@@ -6,6 +6,7 @@
 #include <hatchery.h>
 #include <projectile.h>
 #include <towerattributes.h>
+#include <towercontextmenu.h>
 #include <world.h>
 
 Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
@@ -76,4 +77,22 @@ void Tower::shootAtTarget()
 	osg::Vec3 origin = osg::Vec3(_position.x(), _position.y(), _attributes->height);
 	Projectile* p = new Projectile(origin, _target.get(), &(_attributes->projectile));
 	Hatchery::instance()->enqueueChild(p);
+}
+
+void Tower::onFocus(osgGA::GUIActionAdapter& aa)
+{
+	this->_menu = new TowerContextMenu(this);
+	this->addChild(_menu);
+}
+
+void Tower::onClick(osgGA::GUIActionAdapter& aa)
+{
+  //handled by menubutton
+}
+
+void Tower::onBlur()
+{
+	if(this->_menu != NULL)
+		this->removeChild(this->_menu);
+	this->_menu = NULL;
 }
