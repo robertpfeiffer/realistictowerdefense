@@ -12,23 +12,8 @@
 #include <constants.h>
 #include <contextmenu.h>
 
-#include <osgParticle/SmokeEffect>
-#include <osgParticle/FireEffect>
 #include <osg/Geode>
 #include <osg/ShapeDrawable>
-
-#include <osgParticle/Particle>
-#include <osgParticle/ParticleSystem>
-#include <osgParticle/ParticleSystemUpdater>
-#include <osgParticle/ModularEmitter>
-#include <osgParticle/ModularProgram>
-#include <osgParticle/RandomRateCounter>
-#include <osgParticle/SectorPlacer>
-#include <osgParticle/RadialShooter>
-#include <osgParticle/AccelOperator>
-#include <osgParticle/FluidFrictionOperator>
-
-
 
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround()), _fieldType(fieldType)
 {
