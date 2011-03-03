@@ -1,5 +1,6 @@
 #pragma once
 
+#include <osg/Texture2D>
 #include <osg/PositionAttitudeTransform>
 
 #include <projectileattributes.h>
@@ -17,4 +18,5 @@ public:
 
 	osg::ref_ptr<osg::PositionAttitudeTransform> model;
 	std::vector<osg::ref_ptr<TowerAttributes> > upgrades;
+	osg::ref_ptr<osg::Texture2D> icon;
 };
