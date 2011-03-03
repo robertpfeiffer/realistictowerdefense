@@ -111,8 +111,7 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 
 		MouseEventHandler* handler = findEventHandler(ea, aa);
 		if (handler != NULL) {
-			blurActiveMouseHandler();
-			setActiveMouseHandler(handler, aa);
+			handler->onClick(aa);
 			return false;
 		}
 
