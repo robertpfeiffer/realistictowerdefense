@@ -67,6 +67,8 @@ set(sources
 	"src/skybox.cpp"
 	"src/terrain.cpp"
 	"src/tower.cpp"
+	"src/towercontextmenu.cpp"
+	"src/towermenubutton.cpp"
 	"src/transformhelper.cpp"
 	"src/updatablenode.cpp"
 	"src/updatecallback.cpp"
@@ -106,6 +108,8 @@ set(sources
 	"include/terrain.h"
 	"include/tower.h"
 	"include/towerattributes.h"
+	"include/towercontextmenu.h"
+	"include/towermenubutton.h"
 	"include/transformhelper.h"
 	"include/updatablenode.h"
 	"include/updatecallback.h"
@@ -181,6 +185,8 @@ source_group("Source Files\\User Interface" FILES
 	"src/hud.cpp"
 	"src/inscenetext.cpp"
 	"src/menubutton.cpp"
+	"src/towercontextmenu.cpp"
+	"src/towermenubutton.cpp"
 )
 
 source_group("Header Files\\User Interface" FILES
@@ -191,6 +197,8 @@ source_group("Header Files\\User Interface" FILES
 	"include/hud.h"
 	"include/inscenetext.h"
 	"include/menubutton.h"
+	"include/towercontextmenu.h"
+	"include/towermenubutton.h"
 )
 
 add_executable(Towerdefense ${sources})
