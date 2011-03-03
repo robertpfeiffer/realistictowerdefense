@@ -7,7 +7,7 @@
 #include <assetlibrary.h>
 
 
-Contextmenu::Contextmenu()
+ContextMenu::ContextMenu()
 {
 	this->numberOfEntries = 0;
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
@@ -15,7 +15,7 @@ Contextmenu::Contextmenu()
 	this->addEntry(NULL,"select.png");
 }
 
-MenuButton* Contextmenu::createMenuItem(osg::StateSet* bbState, int offset)
+MenuButton* ContextMenu::createMenuItem(osg::StateSet* bbState, int offset)
 {
     // Standard size shrub
 	float width = 1.0f;
@@ -67,7 +67,7 @@ MenuButton* Contextmenu::createMenuItem(osg::StateSet* bbState, int offset)
 	return geometry;
 }
 
-void Contextmenu::addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
+void ContextMenu::addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
 						   const std::string texturepath)
 {
 	AssetLibrary *lib = AssetLibrary::instance();

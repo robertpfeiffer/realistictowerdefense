@@ -75,7 +75,7 @@ void fire_powerup(osg::ref_ptr<MenuButton> button)
 
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
-	Contextmenu* aMenu= new Contextmenu();
+	ContextMenu* aMenu= new ContextMenu();
 
 	if (isBuildable()){
 		aMenu->addEntry(build_tower, "tower.png");

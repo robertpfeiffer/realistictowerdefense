@@ -5,10 +5,10 @@
 #include <menubutton.h>
 #include <constants.h>
 
-class Contextmenu : public osg::Billboard
+class ContextMenu : public osg::Billboard
 {
 public:
-	Contextmenu();
+	ContextMenu();
 	void addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
 				  const std::string texturepath);
 
