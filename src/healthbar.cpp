@@ -1,6 +1,6 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 
-#include <lifebar.h>
+#include <healthbar.h>
 #include <stdio.h>
 #include <iostream>
 #include <osg/BlendFunc>
@@ -9,14 +9,14 @@
 #include <osg/Texture2D>
 #include <assetlibrary.h>
 
-LifeBar::LifeBar()
+HealthBar::HealthBar()
 {
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
 	this->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 	this->setHealth(1.0);
 }
 
-osg::Drawable* LifeBar::createGeometry(osg::StateSet* bbState)
+osg::Drawable* HealthBar::createGeometry(osg::StateSet* bbState)
 {
 	// Standard size shrub
 	float width = 1.0f;
@@ -60,7 +60,7 @@ osg::Drawable* LifeBar::createGeometry(osg::StateSet* bbState)
 	return geometry;
 }
 
-void LifeBar::setHealth(float health)
+void HealthBar::setHealth(float health)
 {
 
 	char path[25];

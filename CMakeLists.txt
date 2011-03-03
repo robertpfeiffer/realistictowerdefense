@@ -43,22 +43,22 @@ include_directories("include")
 # -----------
 set(sources
 	#source files
+	"src/assetlibrary.cpp"
+	"src/contextmenu.cpp"
 	"src/convert.cpp"
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
 	"src/fieldtype.cpp"
-	"src/game.cpp"	
-        "src/lifebar.cpp"
+	"src/game.cpp"
 	"src/gametimer.cpp"
 	"src/graveyard.cpp"
 	"src/hatchery.cpp"
+	"src/healthbar.cpp"
 	"src/hud.cpp"
 	"src/inscenetext.cpp"
 	"src/main.cpp"
 	"src/map.cpp"
-        "src/assetlibrary.cpp"
-        "src/contextmenu.cpp"
 	"src/menubutton.cpp"
 	"src/projectile.cpp"
 	"src/skybox.cpp"
@@ -71,7 +71,9 @@ set(sources
 	"src/world.cpp"
 	
 	#header files
+	"include/assetlibrary.h"
 	"include/constants.h"
+	"include/contextmenu.h"
 	"include/convert.h"
 	"include/creep.h"
 	"include/creepattributes.h"
@@ -82,13 +84,11 @@ set(sources
 	"include/gametimer.h"
 	"include/graveyard.h"
 	"include/hatchery.h"
+	"include/healthbar.h"
 	"include/hud.h"
 	"include/inscenetext.h"
 	"include/keyboardeventhandler.h"
 	"include/map.h"
-        "include/assetlibrary.h"
-	"include/lifebar.h"
-        "include/contextmenu.h"
 	"include/menubutton.h"
 	"include/modeldata.h"
 	"include/mouseeventhandler.h"
@@ -152,11 +152,13 @@ source_group("Header Files\\Towers and Projectiles" FILES
 # User Interface
 # -------------------
 source_group("Source Files\\User Interface" FILES
+	"src/healthbar.cpp"
 	"src/inscenetext.cpp"
 	"src/menubutton.cpp"
 )
 
 source_group("Header Files\\User Interface" FILES
+	"include/healthbar.h"
 	"include/inscenetext.h"
 	"include/menubutton.h"
 )
