@@ -1,5 +1,4 @@
 #include <fieldcontextmenu.h>
-
 #include <field.h>
 
 FieldContextMenu::FieldContextMenu(Field* field)
@@ -21,7 +20,7 @@ void build_tower(osg::ref_ptr<MenuButton> button)
 
 void FieldContextMenu::addAllItems()
 {
-	if (_field->isBuildable()){
+	if (_field->isBuildable()) {
 		this->addEntry(build_tower, "tower.png");
 		this->addEntry(build_tower, "tower.png");
 		this->addEntry(build_tower, "tower.png");
