@@ -14,11 +14,11 @@
 		</Wave>
 	</Waves>
 	<Towers>
-		<Tower name="Base tower" model="towers/tower5.3ds" cost="100" cooldown="1.25" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
-			<Tower name="Upgrade from base tower" model="towers/tower2.3ds" cost="500" cooldown="1.75" scale="0.4" minwave="2" projectile="towers/bomb.3ds" physicaldamage="50" magicalDamage="25" projectilespeed="4.0" range="3.5" projectilescale="0.1" />
-			<Tower name="Another upgrade from base tower" model="towers/tower3.3ds" cost="450" cooldown="1.9" scale="0.4" minwave="2" projectile="towers/bomb.3ds" physicaldamage="40" magicalDamage="35" projectilespeed="4.0" range="4.0" projectilescale="0.1" />
+		<Tower name="Base tower" model="towers/tower5.3ds" icon="tower.png" cost="100" cooldown="1.25" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
+			<Tower name="Upgrade from base tower" model="towers/tower2.3ds" icon="tower.png" cost="500" cooldown="1.75" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="50" magicalDamage="25" projectilespeed="4.0" range="3.5" projectilescale="0.1" />
+			<Tower name="Another upgrade from base tower" model="towers/tower3.3ds" icon="tower.png" cost="450" cooldown="1.9" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="40" magicalDamage="35" projectilespeed="4.0" range="4.0" projectilescale="0.1" />
 		</Tower>
-		<Tower name="Second base tower" model="towers/tower5.3ds" cost="125" cooldown="1.1" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="15" magicalDamage="15" projectilespeed="4.0" range="3.5" projectilescale="0.1" />
+		<Tower name="Second base tower" model="towers/tower5.3ds" icon="tower.png" cost="125" cooldown="1.1" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="15" magicalDamage="15" projectilespeed="4.0" range="3.5" projectilescale="0.1" />
 	</Towers>
 	<Checkpoints>
 		<Checkpoint x="13" y= "0" />

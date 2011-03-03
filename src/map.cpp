@@ -228,6 +228,13 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 		tower->name = nameAttr->value();
 	}
 
+	xml_attribute<>* iconAttr = node->first_attribute("icon", 0, false);
+	tower->icon = NULL;
+	if (iconAttr != NULL)
+	{
+		tower->icon = AssetLibrary::instance()->getTexture(iconAttr->value());
+	}
+
 	xml_attribute<>* modelAttr = node->first_attribute("model", 0, false);
 	tower->model = NULL;
 	if (modelAttr != NULL)
