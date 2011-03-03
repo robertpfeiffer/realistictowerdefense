@@ -13,6 +13,8 @@ public:
 				  const std::string texturepath);
 
 private:
-	int numberOfEntries;
-	MenuButton* createMenuItem(osg::StateSet* state, int offset);
+	int _numberOfEntries;
+
+	osg::StateSet* createStateSetFromTexturePath(const std::string texturepath);
+	MenuButton* createMenuItem(osg::StateSet* state);
 };

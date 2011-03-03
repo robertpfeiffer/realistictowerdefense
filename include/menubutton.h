@@ -4,7 +4,9 @@
 
 class MenuButton : public osg::Geometry
 {
-public: 
+public:
+	MenuButton(osg::StateSet* ss);
+
 	void (* _onClick)(osg::ref_ptr<MenuButton> );
 	void onClick(osgGA::GUIActionAdapter& aa);
 };
