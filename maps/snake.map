@@ -9,8 +9,8 @@
 			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" count="10" bounty="50" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
 			<Creep model="creeps/bot3.3ds" name="Master Bot" health="100" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
 		</Wave>
-                <Wave>
-	          <Creep model="creeps/bot3.3ds" name="Master Bot" health="1000" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
+    <Wave>
+      <Creep model="creeps/bot3.3ds" name="Master Bot" health="1000" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
 		</Wave>
 	</Waves>
 	<Towers>
