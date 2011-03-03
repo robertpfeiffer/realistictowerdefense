@@ -72,7 +72,7 @@ void Contextmenu::addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
 {
 	AssetLibrary *lib = AssetLibrary::instance();
 	osg::Texture2D *texture;
-	texture = lib->_getTexture(texturepath);
+	texture = lib->getTexture(texturepath);
  
 	osg::BlendFunc *blendFunc = new osg::BlendFunc;
 	osg::StateSet* billBoardStateSet = new osg::StateSet;

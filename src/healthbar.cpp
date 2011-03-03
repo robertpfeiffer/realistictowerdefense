@@ -75,7 +75,7 @@ void HealthBar::setHealth(float health)
 
 	AssetLibrary *lib = AssetLibrary::instance();
 	osg::Texture2D *texture;
-	texture = lib->_getTexture(path);
+	texture = lib->getTexture(path);
 	
 	osg::BlendFunc *blendFunc = new osg::BlendFunc;
 	osg::StateSet* billBoardStateSet = new osg::StateSet;

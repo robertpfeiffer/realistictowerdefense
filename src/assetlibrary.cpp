@@ -16,17 +16,9 @@ AssetLibrary* AssetLibrary::instance()
 	return _ptr;
 }
 
-bool isTextureUnused(AssetLibrary::_cache<osg::ref_ptr<osg::Texture2D> > item) {
-    return !item.used;
-}
-
-bool isModelUnused(AssetLibrary::_cache<osg::ref_ptr<osg::Node> > item) {
-    return !item.used;
-}
-
-osg::Texture2D* AssetLibrary::_getTexture(const std::string filename)
+osg::Texture2D* AssetLibrary::getTexture(const std::string filename)
 {
-	std::list< _cache< osg::ref_ptr<osg::Texture2D> > >::iterator it;
+	std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > >::iterator it;
 	for(it = _textureCache.begin(); it != _textureCache.end(); it++)
 	{
 		if (it->filename.compare(filename) == 0)
@@ -47,7 +39,7 @@ osg::Texture2D* AssetLibrary::_getTexture(const std::string filename)
 		//texture->setMaxAnisotropy(AF_LEVEL);
 
 		
-		_cache< osg::ref_ptr<osg::Texture2D> > newElement;
+		CacheElement< osg::ref_ptr<osg::Texture2D> > newElement;
 
 		newElement.filename = filename;
 		newElement.item = texture;
@@ -58,9 +50,9 @@ osg::Texture2D* AssetLibrary::_getTexture(const std::string filename)
 	return NULL;
 }
 
-osg::Node* AssetLibrary::_getModel(const std::string filename)
+osg::Node* AssetLibrary::getModel(const std::string filename)
 {
-	std::list< _cache< osg::ref_ptr<osg::Node> > >::iterator it;
+	std::list< CacheElement< osg::ref_ptr<osg::Node> > >::iterator it;
 	for(it = _modelCache.begin(); it != _modelCache.end(); it++)
 	{
 		if (it->filename.compare(filename) == 0)
@@ -70,13 +62,23 @@ osg::Node* AssetLibrary::_getModel(const std::string filename)
 		}
 	}
 
-	_cache< osg::ref_ptr<osg::Node> > newElement;
+	CacheElement< osg::ref_ptr<osg::Node> > newElement;
 
 	newElement.filename = filename;
 	newElement.item = osgDB::readNodeFile(filename);
 	newElement.used = true;
 	_modelCache.push_back(newElement);
 	return newElement.item;
+}
+
+//callback for remove_if
+bool isTextureUnused(AssetLibrary::CacheElement<osg::ref_ptr<osg::Texture2D> > item) {
+    return !item.used;
+}
+
+//callback for remove_if
+bool isModelUnused(AssetLibrary::CacheElement<osg::ref_ptr<osg::Node> > item) {
+    return !item.used;
 }
 
 void AssetLibrary::_sweep()
@@ -89,7 +91,7 @@ void AssetLibrary::_unmark()
 {
 	//mark all textures as not used on current map
 	{
-		std::list< _cache< osg::ref_ptr<osg::Texture2D> > >::iterator it;
+		std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > >::iterator it;
 		for(it = _textureCache.begin(); it != _textureCache.end(); it++)
 		{
 			it->used = false;
@@ -98,7 +100,7 @@ void AssetLibrary::_unmark()
 
 	//mark all models as not used on current map
 	{
-		std::list< _cache< osg::ref_ptr<osg::Node> > >::iterator it;
+		std::list< CacheElement< osg::ref_ptr<osg::Node> > >::iterator it;
 		for(it = _modelCache.begin(); it != _modelCache.end(); it++)
 		{
 			it->used = false;
