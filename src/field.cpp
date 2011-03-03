@@ -93,17 +93,14 @@ void Field::onFocus(osgGA::GUIActionAdapter& aa)
 	Contextmenu* aMenu= new Contextmenu();
 
 	if (isBuildable()){
-		aMenu->addEntry(build_tower,
-					"textures/tower.png");
+		aMenu->addEntry(build_tower, "tower.png");
 	}
 
 	if (hasTower()){
-	aMenu->addEntry(fire_powerup,
-					"textures/fire.png");
+	aMenu->addEntry(fire_powerup, "fire.png");
 	}
 
-	aMenu->addEntry(NULL,
-					"textures/x.png");
+	aMenu->addEntry(NULL, "x.png");
 
 	this->addChild(aMenu);
 	this->_menu=aMenu;

@@ -12,7 +12,7 @@ Contextmenu::Contextmenu()
 	this->numberOfEntries = 0;
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
 	this->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
-	this->addEntry(NULL,"textures/select.png");
+	this->addEntry(NULL,"select.png");
 }
 
 MenuButton* Contextmenu::createMenuItem(osg::StateSet* bbState, int offset)

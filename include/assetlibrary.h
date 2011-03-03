@@ -16,6 +16,8 @@ public:
 
 	osg::Texture2D* getTexture(const std::string filename);
 	osg::Node* getModel(const std::string filename);
+	void sweep();
+	void unmark();
 
 	template<class T>
     struct CacheElement{
@@ -25,9 +27,6 @@ public:
 	};
 
 private:
-	void _sweep();
-	void _unmark();
-
 	std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > > _textureCache;
 	std::list< CacheElement< osg::ref_ptr<osg::Node> > > _modelCache;
 
