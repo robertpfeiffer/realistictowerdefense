@@ -168,6 +168,7 @@ add_executable(Towerdefense ${sources})
 
 # Release
 target_link_libraries(Towerdefense optimized osg)
+target_link_libraries(Towerdefense optimized osgParticle)
 target_link_libraries(Towerdefense optimized osgViewer)
 target_link_libraries(Towerdefense optimized osgGA)
 target_link_libraries(Towerdefense optimized osgDB)
@@ -177,6 +178,7 @@ target_link_libraries(Towerdefense optimized opensteer)
 
 # Debug
 target_link_libraries(Towerdefense debug osgd)
+target_link_libraries(Towerdefense debug osgParticled)
 target_link_libraries(Towerdefense debug osgViewerd)
 target_link_libraries(Towerdefense debug osgGAd)
 target_link_libraries(Towerdefense debug osgDBd)
