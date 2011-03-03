@@ -49,6 +49,7 @@ set(sources
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
+	"src/fieldcontextmenu.cpp"
 	"src/fieldtype.cpp"
 	"src/game.cpp"
 	"src/gametimer.cpp"
@@ -80,6 +81,7 @@ set(sources
 	"include/creepattributes.h"
 	"include/creepsteering.h"	
 	"include/field.h"
+	"include/fieldcontextmenu.h"
 	"include/fieldtype.h"
 	"include/game.h"
 	"include/gametimer.h"
@@ -168,6 +170,8 @@ source_group("Header Files\\Resources managment" FILES
 # User Interface
 # -------------------
 source_group("Source Files\\User Interface" FILES
+	"src/contextmenu.cpp"
+	"src/fieldcontextmenu.cpp"
 	"src/healthbar.cpp"
 	"src/hud.cpp"
 	"src/inscenetext.cpp"
@@ -175,6 +179,8 @@ source_group("Source Files\\User Interface" FILES
 )
 
 source_group("Header Files\\User Interface" FILES
+	"include/contextmenu.h"
+	"include/fieldcontextmenu.h"
 	"include/healthbar.h"
 	"include/hud.h"
 	"include/inscenetext.h"
