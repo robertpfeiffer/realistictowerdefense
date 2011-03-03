@@ -3,6 +3,7 @@
 #include <field.h>
 #include <tower.h>
 #include <towerattributes.h>
+#include <world.h>
 
 FieldMenuButton::FieldMenuButton(Field* field, TowerAttributes* attributes) : MenuButton(attributes->icon)
 {
@@ -12,5 +13,15 @@ FieldMenuButton::FieldMenuButton(Field* field, TowerAttributes* attributes) : Me
 
 void FieldMenuButton::onClick(osgGA::GUIActionAdapter& aa)
 {
-	_field->setBuilding(new Tower(_field->getPosition(), _towerattributes));
+	if(World::instance()->getMap()->getPlayer()->getMoney() < _towerattributes->cost)
+	{
+		return;
+	}
+
+	bool wasBuilt = _field->setBuilding(new Tower(_field->getPosition(), _towerattributes));
+
+	if(wasBuilt)
+	{
+		World::instance()->getMap()->getPlayer()->decreaseMoney(_towerattributes->cost);
+	}
 }
