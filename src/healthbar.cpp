@@ -71,7 +71,7 @@ void HealthBar::setHealth(float health)
 		barstate++;
 		h -= 0.12;
 	} while (h>=0);
-	sprintf(path,"textures/lifebar/%d.png",barstate);
+	sprintf(path,"lifebar/%d.png",barstate);
 
 	AssetLibrary *lib = AssetLibrary::instance();
 	osg::Texture2D *texture;

@@ -106,20 +106,6 @@ set(sources
 	"include/world.h"
 )
 
-# Handlers and Callbacks
-# -------------------
-source_group("Source Files\\Handlers and Callbacks" FILES
-	"src/updatecallback.cpp"
-	"src/userinteractionhandler.cpp"
-)
-
-source_group("Header Files\\Handlers and Callbacks" FILES
-	"include/keyboardeventhandler.h"
-	"include/mouseeventhandler.h"
-	"include/updatecallback.h"
-	"include/userinteractionhandler.h"
-)
-
 # Creeps and Waves
 # -------------------
 source_group("Source Files\\Creeps and Waves" FILES
@@ -135,6 +121,20 @@ source_group("Header Files\\Creeps and Waves" FILES
 	"include/wave.h"
 )
 
+# Handlers and Callbacks
+# -------------------
+source_group("Source Files\\Handlers and Callbacks" FILES
+	"src/updatecallback.cpp"
+	"src/userinteractionhandler.cpp"
+)
+
+source_group("Header Files\\Handlers and Callbacks" FILES
+	"include/keyboardeventhandler.h"
+	"include/mouseeventhandler.h"
+	"include/updatecallback.h"
+	"include/userinteractionhandler.h"
+)
+
 # Towers and Projectiles
 # -------------------
 source_group("Source Files\\Towers and Projectiles" FILES
@@ -147,6 +147,18 @@ source_group("Header Files\\Towers and Projectiles" FILES
 	"include/projectileattributes.h"
 	"include/tower.h"
 	"include/towerattributes.h"
+)
+
+# Resources managment
+# -------------------
+source_group("Source Files\\Resources managment" FILES
+	"src/assetlibrary.cpp"
+	"src/graveyard.cpp"
+)
+
+source_group("Header Files\\Resources managment" FILES
+	"include/assetlibrary.h"
+	"include/graveyard.h"
 )
 
 # User Interface
