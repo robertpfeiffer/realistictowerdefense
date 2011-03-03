@@ -5,6 +5,8 @@
 
 MenuButton::MenuButton(const std::string texturepath)
 {
+	this->setPosition(osg::Vec2(0.0, 0.0));
+
 	// Declare and assign texture coordinates.
 	osg::Vec2Array* texCoords = new osg::Vec2Array(4);
 	(*texCoords)[0].set(0.0f,0.0f);
@@ -21,6 +23,16 @@ MenuButton::MenuButton(const std::string texturepath)
     colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f));
 	this->setColorArray(colors);
 	this->setColorBinding(osg::Geometry::BIND_OVERALL);
+}
+
+void MenuButton::setPosition(osg::Vec2 pos)
+{
+	osg::Vec3Array* verts = new osg::Vec3Array(4);
+	(*verts)[0] = osg::Vec3( pos.x() - 0.5, 0, pos.y() - 0.5);
+	(*verts)[1] = osg::Vec3( pos.x() + 0.5, 0, pos.y() - 0.5);
+	(*verts)[2] = osg::Vec3( pos.x() + 0.5, 0, pos.y() + 0.5);
+	(*verts)[3] = osg::Vec3( pos.x() - 0.5, 0, pos.y() + 0.5);
+	this->setVertexArray(verts);
 }
 
 void MenuButton::onClick(osgGA::GUIActionAdapter& aa)

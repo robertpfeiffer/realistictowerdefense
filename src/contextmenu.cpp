@@ -15,10 +15,6 @@ ContextMenu::ContextMenu()
 
 MenuButton* ContextMenu::createMenuItem(const std::string texturepath)
 {
-    // Standard size shrub
-	float width = 1.0f;
-	float height = 1.0f;
-	
 	// Declare and initialize geometry
 	MenuButton* geometry = new MenuButton(texturepath);
 	
@@ -33,15 +29,7 @@ MenuButton* ContextMenu::createMenuItem(const std::string texturepath)
 		y = 1.5 * -cos(_numberOfEntries * PI/4);
 	}
 	
-	// Declare an array of vertices, assign values so we can create a
-	// quadrilateral centered relative to the Z axis
-	osg::Vec3Array* verts = new osg::Vec3Array(4);
-
-	(*verts)[0] = osg::Vec3( x - width/2, 0, y - height/2);
-	(*verts)[1] = osg::Vec3( x + width/2, 0, y - height/2);
-	(*verts)[2] = osg::Vec3( x + width/2, 0, y + height/2);
-	(*verts)[3] = osg::Vec3( x - width/2, 0, y + height/2);
-	geometry->setVertexArray(verts);
+	geometry->setPosition(osg::Vec2(x, y));
 	
 	return geometry;
 }
