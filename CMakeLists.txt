@@ -169,12 +169,14 @@ source_group("Header Files\\Resources managment" FILES
 # -------------------
 source_group("Source Files\\User Interface" FILES
 	"src/healthbar.cpp"
+	"src/hud.cpp"
 	"src/inscenetext.cpp"
 	"src/menubutton.cpp"
 )
 
 source_group("Header Files\\User Interface" FILES
 	"include/healthbar.h"
+	"include/hud.h"
 	"include/inscenetext.h"
 	"include/menubutton.h"
 )
