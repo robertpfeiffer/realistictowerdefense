@@ -5,12 +5,15 @@
 #include <menubutton.h>
 #include <constants.h>
 
-class Contextmenu : public osg::Billboard
+class ContextMenu : public osg::Billboard
 {
 public:
-	Contextmenu();
-	int numberOfEntries;
-	void addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
-				  const std::string texturepath);
-	MenuButton* createMenuItem(osg::StateSet* state, int offset);
+	ContextMenu();
+	void addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>), const std::string texturepath);
+	void addEntry(MenuButton* button);
+
+private:
+	int _numberOfEntries;
+
+	osg::Vec2 positionForNextButton();
 };

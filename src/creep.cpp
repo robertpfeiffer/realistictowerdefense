@@ -3,6 +3,7 @@
 #include <creepattributes.h>
 #include <gametimer.h>
 #include <projectileattributes.h>
+#include <transformhelper.h>
 #include <world.h>
 
 Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path)
@@ -12,8 +13,8 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegme
 
 	_gameTimer = GameTimer::instance();
 
-	this->_lifebar = new LifeBar();
-	this->addChild(this->_lifebar);
+	this->_healthBar = new HealthBar();
+	this->addChild(this->_healthBar);
 
 	updateRealPosition();
 	updateRealHeading();
@@ -34,7 +35,7 @@ void Creep::onUpdate()
 void Creep::OnHit(ProjectileAttributes* hitter)
 {
 	_health -= computeDamageReceived(hitter);
-    _lifebar->setHealth((float)_health/(float)maxHealth());
+    _healthBar->setHealth((float)_health/(float)maxHealth());
 
 	if(_health <= 0)
 	{
@@ -112,9 +113,5 @@ void Creep::updateRealHeading()
 {
 	osg::Vec3 directionVector = osg::Vec3(_steering->forward().x, _steering->forward().z, 0);
 	directionVector.normalize();
-	osg::Quat quad; 
-    osg::Matrix matrix; 
-	matrix.makeLookAt(osg::Vec3d(0.0,0.0,0.0), directionVector, osg::Z_AXIS); 
-    matrix.get(quad);
-	this->setAttitude(quad.inverse());
+	this->setAttitude(TransformHelper::lookAt(directionVector));
 }

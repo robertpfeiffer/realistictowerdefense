@@ -1,22 +1,21 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 
-#include <lifebar.h>
-#include <stdio.h>
-#include <iostream>
+#include <healthbar.h>
+#include <sstream>
 #include <osg/BlendFunc>
 #include <osg/Geometry>
 #include <osg/AlphaFunc>
 #include <osg/Texture2D>
 #include <assetlibrary.h>
 
-LifeBar::LifeBar()
+HealthBar::HealthBar()
 {
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
 	this->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 	this->setHealth(1.0);
 }
 
-osg::Drawable* LifeBar::createGeometry(osg::StateSet* bbState)
+osg::Drawable* HealthBar::createGeometry(osg::StateSet* bbState)
 {
 	// Standard size shrub
 	float width = 1.0f;
@@ -60,22 +59,15 @@ osg::Drawable* LifeBar::createGeometry(osg::StateSet* bbState)
 	return geometry;
 }
 
-void LifeBar::setHealth(float health)
+void HealthBar::setHealth(float health)
 {
-
-	char path[25];
-	float h = health;
-
-    int barstate = 0;
-	do {
-		barstate++;
-		h -= 0.12;
-	} while (h>=0);
-	sprintf(path,"textures/lifebar/%d.png",barstate);
+    int barstate = std::max(1 + health / 0.12f, 1.0f);
+	std::stringstream path;
+	path << "healthbar/" << barstate << ".png";
 
 	AssetLibrary *lib = AssetLibrary::instance();
 	osg::Texture2D *texture;
-	texture = lib->_getTexture(path);
+	texture = lib->getTexture(path.str());
 	
 	osg::BlendFunc *blendFunc = new osg::BlendFunc;
 	osg::StateSet* billBoardStateSet = new osg::StateSet;

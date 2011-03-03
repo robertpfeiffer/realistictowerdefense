@@ -5,28 +5,17 @@
 #include <osg/Node>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile>
+#include <constants.h>
 
 AssetLibrary* AssetLibrary::instance()
 {
-	static AssetLibrary* _ptr;
-	if(_ptr == NULL)
-	{
-		_ptr = new AssetLibrary();
-	}
-	return _ptr;
+	static AssetLibrary s_library;
+	return &s_library;
 }
 
-bool isTextureUnused(AssetLibrary::_cache<osg::ref_ptr<osg::Texture2D> > item) {
-    return !item.used;
-}
-
-bool isModelUnused(AssetLibrary::_cache<osg::ref_ptr<osg::Node> > item) {
-    return !item.used;
-}
-
-osg::Texture2D* AssetLibrary::_getTexture(const std::string filename)
+osg::Texture2D* AssetLibrary::getTexture(const std::string filename)
 {
-	std::list< _cache< osg::ref_ptr<osg::Texture2D> > >::iterator it;
+	std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > >::iterator it;
 	for(it = _textureCache.begin(); it != _textureCache.end(); it++)
 	{
 		if (it->filename.compare(filename) == 0)
@@ -36,18 +25,24 @@ osg::Texture2D* AssetLibrary::_getTexture(const std::string filename)
 		}
 	}
 
+	std::string textureFilename = MAP_DIRECTORY_TEXTURES;
+	textureFilename.append(filename);
 
-	osg::Image* image = osgDB::readImageFile(filename);
+	osg::Image* image = osgDB::readImageFile(textureFilename);
 	if (image != NULL)
 	{
 		osg::Texture2D* texture = new osg::Texture2D(image);
 		texture->setWrap(osg::Texture::WRAP_S, osg::Texture::REPEAT);
 		texture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
 		texture->setDataVariance(osg::Object::STATIC);
-		//texture->setMaxAnisotropy(AF_LEVEL);
+
+		if (getenv("NETBOOK") == NULL)
+		{
+			texture->setMaxAnisotropy(AF_LEVEL);
+		}
 
 		
-		_cache< osg::ref_ptr<osg::Texture2D> > newElement;
+		CacheElement< osg::ref_ptr<osg::Texture2D> > newElement;
 
 		newElement.filename = filename;
 		newElement.item = texture;
@@ -58,9 +53,9 @@ osg::Texture2D* AssetLibrary::_getTexture(const std::string filename)
 	return NULL;
 }
 
-osg::Node* AssetLibrary::_getModel(const std::string filename)
+osg::Node* AssetLibrary::getModel(const std::string filename)
 {
-	std::list< _cache< osg::ref_ptr<osg::Node> > >::iterator it;
+	std::list< CacheElement< osg::ref_ptr<osg::Node> > >::iterator it;
 	for(it = _modelCache.begin(); it != _modelCache.end(); it++)
 	{
 		if (it->filename.compare(filename) == 0)
@@ -70,26 +65,39 @@ osg::Node* AssetLibrary::_getModel(const std::string filename)
 		}
 	}
 
-	_cache< osg::ref_ptr<osg::Node> > newElement;
+	std::string modelFilename = MAP_DIRECTORY_MODELS;
+	modelFilename.append(filename);
+
+	CacheElement< osg::ref_ptr<osg::Node> > newElement;
 
 	newElement.filename = filename;
-	newElement.item = osgDB::readNodeFile(filename);
+	newElement.item = osgDB::readNodeFile(modelFilename);
 	newElement.used = true;
 	_modelCache.push_back(newElement);
 	return newElement.item;
 }
 
-void AssetLibrary::_sweep()
+//callback for remove_if
+bool isTextureUnused(AssetLibrary::CacheElement<osg::ref_ptr<osg::Texture2D> > item) {
+    return !item.used;
+}
+
+//callback for remove_if
+bool isModelUnused(AssetLibrary::CacheElement<osg::ref_ptr<osg::Node> > item) {
+    return !item.used;
+}
+
+void AssetLibrary::sweep()
 {
 	_textureCache.remove_if(isTextureUnused);
 	_modelCache.remove_if(isModelUnused);
 }
 
-void AssetLibrary::_unmark()
+void AssetLibrary::unmark()
 {
 	//mark all textures as not used on current map
 	{
-		std::list< _cache< osg::ref_ptr<osg::Texture2D> > >::iterator it;
+		std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > >::iterator it;
 		for(it = _textureCache.begin(); it != _textureCache.end(); it++)
 		{
 			it->used = false;
@@ -98,7 +106,7 @@ void AssetLibrary::_unmark()
 
 	//mark all models as not used on current map
 	{
-		std::list< _cache< osg::ref_ptr<osg::Node> > >::iterator it;
+		std::list< CacheElement< osg::ref_ptr<osg::Node> > >::iterator it;
 		for(it = _modelCache.begin(); it != _modelCache.end(); it++)
 		{
 			it->used = false;

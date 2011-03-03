@@ -6,6 +6,7 @@
 #include <gametimer.h>
 #include <graveyard.h>
 #include <projectileattributes.h>
+#include <transformhelper.h>
 
 Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* attributes)
 {
@@ -51,9 +52,5 @@ void Projectile::approachToTarget()
 
 void Projectile::turnToTarget()
 {
-	osg::Quat quad; 
-    osg::Matrix matrix; 
-	matrix.makeLookAt(this->getPosition(), _target->getPosition(), osg::Z_AXIS); //FIXME: projectile flies reversed
-    matrix.get(quad);
-	this->setAttitude(quad.inverse());
+	this->setAttitude(TransformHelper::lookAt(this->getPosition(), _target->getPosition()));
 }

@@ -34,13 +34,6 @@ public:
 	inline Player* getPlayer() { return &_player; };
 	inline std::queue< osg::ref_ptr<Wave> >* getWaves() { return &_waves; };
 	inline std::vector< osg::ref_ptr<TowerAttributes> >* getTowerAttributes() { return &_towers; };
-
-	template<class T>
-	struct _cache{
-		std::string filename;
-		T item;
-		bool used;
-	};
 private:
 	bool _attrToBool(xml_attribute<>* attr, bool defaultValue) const;
 	long _attrToLong(xml_attribute<>* attr, long defaultValue) const;
@@ -63,9 +56,6 @@ private:
 	osg::Node* _getModel(const char* filename);
 
 	osg::ref_ptr<osg::Texture2D> _strata;
-
-	std::list< _cache< osg::ref_ptr<osg::Texture2D> > > _textureCache;
-	std::list< _cache< osg::ref_ptr<osg::Node> > > _modelCache;
 
 	xml_document<> _xml;
 	std::vector<MapPoint> _checkpoints;

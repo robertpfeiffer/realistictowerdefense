@@ -43,28 +43,30 @@ include_directories("include")
 # -----------
 set(sources
 	#source files
+	"src/assetlibrary.cpp"
+	"src/contextmenu.cpp"
 	"src/convert.cpp"
 	"src/creep.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
+	"src/fieldcontextmenu.cpp"
 	"src/fieldtype.cpp"
-	"src/game.cpp"	
-        "src/lifebar.cpp"
+	"src/game.cpp"
 	"src/gametimer.cpp"
 	"src/graveyard.cpp"
 	"src/hatchery.cpp"
+	"src/healthbar.cpp"
 	"src/hud.cpp"
 	"src/inscenetext.cpp"
 	"src/main.cpp"
 	"src/tdviewer.cpp"
 	"src/map.cpp"
-        "src/assetlibrary.cpp"
-        "src/contextmenu.cpp"
 	"src/menubutton.cpp"
 	"src/projectile.cpp"
 	"src/skybox.cpp"
 	"src/terrain.cpp"
 	"src/tower.cpp"
+	"src/transformhelper.cpp"
 	"src/updatablenode.cpp"
 	"src/updatecallback.cpp"
 	"src/userinteractionhandler.cpp"
@@ -72,25 +74,26 @@ set(sources
 	"src/world.cpp"
 	
 	#header files
+	"include/assetlibrary.h"
 	"include/constants.h"
+	"include/contextmenu.h"
 	"include/convert.h"
 	"include/creep.h"
 	"include/creepattributes.h"
 	"include/creepsteering.h"	
 	"include/field.h"
+	"include/fieldcontextmenu.h"
 	"include/fieldtype.h"
 	"include/game.h"
 	"include/tdviewer.h"
 	"include/gametimer.h"
 	"include/graveyard.h"
 	"include/hatchery.h"
+	"include/healthbar.h"
 	"include/hud.h"
 	"include/inscenetext.h"
 	"include/keyboardeventhandler.h"
 	"include/map.h"
-        "include/assetlibrary.h"
-	"include/lifebar.h"
-        "include/contextmenu.h"
 	"include/menubutton.h"
 	"include/modeldata.h"
 	"include/mouseeventhandler.h"
@@ -101,25 +104,12 @@ set(sources
 	"include/terrain.h"
 	"include/tower.h"
 	"include/towerattributes.h"
+	"include/transformhelper.h"
 	"include/updatablenode.h"
 	"include/updatecallback.h"
 	"include/userinteractionhandler.h"
 	"include/wave.h"
 	"include/world.h"
-)
-
-# Handlers and Callbacks
-# -------------------
-source_group("Source Files\\Handlers and Callbacks" FILES
-	"src/updatecallback.cpp"
-	"src/userinteractionhandler.cpp"
-)
-
-source_group("Header Files\\Handlers and Callbacks" FILES
-	"include/keyboardeventhandler.h"
-	"include/mouseeventhandler.h"
-	"include/updatecallback.h"
-	"include/userinteractionhandler.h"
 )
 
 # Creeps and Waves
@@ -137,6 +127,20 @@ source_group("Header Files\\Creeps and Waves" FILES
 	"include/wave.h"
 )
 
+# Handlers and Callbacks
+# -------------------
+source_group("Source Files\\Handlers and Callbacks" FILES
+	"src/updatecallback.cpp"
+	"src/userinteractionhandler.cpp"
+)
+
+source_group("Header Files\\Handlers and Callbacks" FILES
+	"include/keyboardeventhandler.h"
+	"include/mouseeventhandler.h"
+	"include/updatecallback.h"
+	"include/userinteractionhandler.h"
+)
+
 # Towers and Projectiles
 # -------------------
 source_group("Source Files\\Towers and Projectiles" FILES
@@ -151,14 +155,36 @@ source_group("Header Files\\Towers and Projectiles" FILES
 	"include/towerattributes.h"
 )
 
+# Resources managment
+# -------------------
+source_group("Source Files\\Resources managment" FILES
+	"src/assetlibrary.cpp"
+	"src/hatchery.cpp"
+	"src/graveyard.cpp"
+)
+
+source_group("Header Files\\Resources managment" FILES
+	"include/assetlibrary.h"
+	"include/hatchery.h"
+	"include/graveyard.h"
+)
+
 # User Interface
 # -------------------
 source_group("Source Files\\User Interface" FILES
+	"src/contextmenu.cpp"
+	"src/fieldcontextmenu.cpp"
+	"src/healthbar.cpp"
+	"src/hud.cpp"
 	"src/inscenetext.cpp"
 	"src/menubutton.cpp"
 )
 
 source_group("Header Files\\User Interface" FILES
+	"include/contextmenu.h"
+	"include/fieldcontextmenu.h"
+	"include/healthbar.h"
+	"include/hud.h"
 	"include/inscenetext.h"
 	"include/menubutton.h"
 )

@@ -5,10 +5,10 @@
 #include <osg/Drawable>
 #include <constants.h>
 
-class LifeBar : public osg::Billboard
+class HealthBar : public osg::Billboard
 {
 public:
-	LifeBar();
+	HealthBar();
 	osg::Drawable* createGeometry(osg::StateSet* state);
 	osg::Drawable* _lifeDrawable;
 	void setHealth(float health);

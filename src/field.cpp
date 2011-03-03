@@ -10,25 +10,10 @@
 #include <osg/Group>
 
 #include <constants.h>
-#include <contextmenu.h>
+#include <fieldcontextmenu.h>
 
-#include <osgParticle/SmokeEffect>
-#include <osgParticle/FireEffect>
 #include <osg/Geode>
 #include <osg/ShapeDrawable>
-
-#include <osgParticle/Particle>
-#include <osgParticle/ParticleSystem>
-#include <osgParticle/ParticleSystemUpdater>
-#include <osgParticle/ModularEmitter>
-#include <osgParticle/ModularProgram>
-#include <osgParticle/RandomRateCounter>
-#include <osgParticle/SectorPlacer>
-#include <osgParticle/RadialShooter>
-#include <osgParticle/AccelOperator>
-#include <osgParticle/FluidFrictionOperator>
-
-
 
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround()), _fieldType(fieldType)
 {
@@ -61,52 +46,10 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 	}
 }
 
-void build_tower(osg::ref_ptr<MenuButton> button)
-{
-	Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
-	
-	if(f != NULL){
-		f->setBuilding();
-	}
-}
-
-void fire_powerup(osg::ref_ptr<MenuButton> button)
-{
-	Field* f = (dynamic_cast<Field*> (button->getParent(0)->getParent(0)));
-	Tower* t = (dynamic_cast<Tower*> (f->getContent()));
-
-	if(f != NULL){
-
-/*
-        osgParticle::SmokeEffect* fire = new osgParticle::SmokeEffect(osg::Vec3(20.0f,20.0f,20.0f), 5.0f, 5.0f);
-		fire->setWind(osg::Vec3(1.0f,1.0f,0.0f));
-		f->addChild(fire);
-
-        osg::Geode* geode = new osg::Geode;
-        geode->addDrawable(fire->getParticleSystem());
-		f->addChild(geode);*/
-	}
-}
-
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
-	Contextmenu* aMenu= new Contextmenu();
-
-	if (isBuildable()){
-		aMenu->addEntry(build_tower,
-					"textures/tower.png");
-	}
-
-	if (hasTower()){
-	aMenu->addEntry(fire_powerup,
-					"textures/fire.png");
-	}
-
-	aMenu->addEntry(NULL,
-					"textures/x.png");
-
-	this->addChild(aMenu);
-	this->_menu=aMenu;
+	this->_menu = new FieldContextMenu(this);
+	this->addChild(_menu);
 }
 
 void Field::onClick(osgGA::GUIActionAdapter& aa)

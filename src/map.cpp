@@ -1,7 +1,8 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
-#include "map.h"
-#include "constants.h"
-#include "modeldata.h"
+#include <assetlibrary.h>
+#include <map.h>
+#include <constants.h>
+#include <modeldata.h>
 #include <string.h>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Texture2D>
@@ -98,24 +99,6 @@ float Map::_attrToFloat(xml_attribute<>* attr, float defaultValue) const
 
 void Map::_reset()
 {
-	//mark all textures as not used on current map
-	{
-		std::list< _cache< osg::ref_ptr<osg::Texture2D> > >::iterator it;
-		for(it = _textureCache.begin(); it != _textureCache.end(); it++)
-		{
-			it->used = false;
-		}
-	}
-
-	//mark all models as not used on current map
-	{
-		std::list< _cache< osg::ref_ptr<osg::Node> > >::iterator it;
-		for(it = _modelCache.begin(); it != _modelCache.end(); it++)
-		{
-			it->used = false;
-		}
-	}
-
 	_checkpoints.clear();
 
 	for (int i = 0; i <= 255; i++)
@@ -127,19 +110,8 @@ void Map::_reset()
 	_height = 0;
 }
 
-bool isTextureUnused(Map::_cache<osg::ref_ptr<osg::Texture2D> > item) {
-    return !item.used;
-}
-
-bool isModelUnused(Map::_cache<osg::ref_ptr<osg::Node> > item) {
-    return !item.used;
-}
-
 void Map::_cleanup()
 {
-      _textureCache.remove_if(isTextureUnused);
-      _modelCache.remove_if(isModelUnused);
-
 	for (int i = 0; i <= 255; i++)
 	{
 		_fieldTypes[i] = NULL;
@@ -221,7 +193,7 @@ void Map::_loadWaves(xml_node<> *node)
 			if (modelAttr != NULL)
 			{
 				attributes->model = new osg::PositionAttitudeTransform();
-				attributes->model->addChild(_getModel(modelAttr->value()));
+				attributes->model->addChild(AssetLibrary::instance()->getModel(modelAttr->value()));
 
 				float scale = _attrToFloat(creep->first_attribute("scale", 0, false), 1);
 				attributes->model->setScale(osg::Vec3d(scale, scale, scale));
@@ -256,12 +228,19 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 		tower->name = nameAttr->value();
 	}
 
+	xml_attribute<>* iconAttr = node->first_attribute("icon", 0, false);
+	tower->icon = NULL;
+	if (iconAttr != NULL)
+	{
+		tower->icon = AssetLibrary::instance()->getTexture(iconAttr->value());
+	}
+
 	xml_attribute<>* modelAttr = node->first_attribute("model", 0, false);
 	tower->model = NULL;
 	if (modelAttr != NULL)
 	{
 		tower->model = new osg::PositionAttitudeTransform();
-		tower->model->addChild(_getModel(modelAttr->value()));
+		tower->model->addChild(AssetLibrary::instance()->getModel(modelAttr->value()));
 
 		float scale = _attrToFloat(node->first_attribute("scale", 0, false), 1);
 		tower->model->setScale(osg::Vec3d(scale, scale, scale));
@@ -273,7 +252,7 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 	if (modelAttr != NULL)
 	{
 		tower->projectile.model = new osg::PositionAttitudeTransform();
-		tower->projectile.model->addChild(_getModel(modelAttr->value()));
+		tower->projectile.model->addChild(AssetLibrary::instance()->getModel(modelAttr->value()));
 
 		float scale = _attrToFloat(node->first_attribute("projectilescale", 0, false), 1);
 		tower->projectile.model->setScale(osg::Vec3d(scale, scale, scale));
@@ -317,7 +296,7 @@ void Map::_loadStrata(xml_node<> *node)
 	xml_attribute<> *attr = node->first_attribute("texture", 0, false);
 	if (attr != NULL)
 	{
-		_strata = _getTexture(attr->value());
+		_strata = AssetLibrary::instance()->getTexture(attr->value());
 	}
 }
 
@@ -329,7 +308,7 @@ void Map::_loadFieldTypes(xml_node<> *node)
 		xml_attribute<> *attr = child->first_attribute("texture", 0, false);
 		if (attr != NULL)
 		{
-			texture = _getTexture(attr->value());
+			texture = AssetLibrary::instance()->getTexture(attr->value());
 		}
 
 		char symbol = 0;
@@ -365,7 +344,7 @@ ModelData* Map::_readModel(xml_node<> *node)
 	xml_attribute<> *attr = node->first_attribute("path", 0, false);
 	if (attr != NULL)
 	{
-		modelData->model = _getModel(attr->value());
+		modelData->model = AssetLibrary::instance()->getModel(attr->value());
 	}
 
 	//scale model
@@ -424,62 +403,4 @@ void Map::_loadCheckPoints(xml_node<> *node)
 	}
 
 	std::vector<MapPoint>(_checkpoints).swap(_checkpoints);
-}
-
-osg::Texture2D* Map::_getTexture(const char* filename)
-{
-	std::list< _cache< osg::ref_ptr<osg::Texture2D> > >::iterator it;
-	for(it = _textureCache.begin(); it != _textureCache.end(); it++)
-	{
-		if (it->filename.compare(filename) == 0)
-		{
-			it->used = true;
-			return it->item;
-		}
-	}
-
-	std::string textureFilename = MAP_DIRECTORY_TEXTURES;
-	textureFilename.append(filename);
-
-	osg::Image* image = osgDB::readImageFile(textureFilename.c_str());
-	if (image != NULL)
-	{
-		osg::Texture2D* texture = new osg::Texture2D(image);
-		texture->setMaxAnisotropy(AF_LEVEL);
-		texture->setWrap(osg::Texture::WRAP_S, osg::Texture::REPEAT);
-		texture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
-		texture->setDataVariance(osg::Object::STATIC);
-
-		_cache< osg::ref_ptr<osg::Texture2D> > newElement;
-
-		newElement.filename = filename;
-		newElement.item = texture;
-		newElement.used = true;
-		_textureCache.push_back(newElement);
-		return texture;
-	}
-	return NULL;
-}
-
-osg::Node* Map::_getModel(const char* filename)
-{
-	std::list< _cache< osg::ref_ptr<osg::Node> > >::iterator it;
-	for(it = _modelCache.begin(); it != _modelCache.end(); it++)
-	{
-		if (it->filename.compare(filename) == 0)
-		{
-			it->used = true;
-			return it->item;
-		}
-	}
-	std::string modelFilename = MAP_DIRECTORY_MODELS;
-	modelFilename.append(filename);
-
-	_cache< osg::ref_ptr<osg::Node> > newElement;
-
-	newElement.filename = filename;
-	newElement.item = osgDB::readNodeFile(modelFilename);
-	newElement.used = true;
-	_modelCache.push_back(newElement);
-	return newElement.item;
 }

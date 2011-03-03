@@ -1,4 +1,5 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
+#include <assetlibrary.h>
 #include <constants.h>
 #include <game.h>
 #include <world.h>
@@ -68,6 +69,7 @@ void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 
 void Game::run()
 {
+	AssetLibrary::instance()->unmark();
 	osg::Group* root = new osg::Group();
 
 	_viewer = new TDViewer();
@@ -103,7 +105,9 @@ void Game::run()
 	_interactionHandler->registerKeyEvent(0, 'p', this, EVENT_PAUSE);
 	_interactionHandler->registerKeyEvent(0, '-', this, EVENT_DECREASE_SPEED);
 	_interactionHandler->registerKeyEvent(0, '+', this, EVENT_INCREASE_SPEED);
+
 	//_viewer.addEventHandler( new osgViewer::StatsHandler());
 
 	_viewer->run();
+	AssetLibrary::instance()->sweep();
 }

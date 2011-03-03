@@ -14,21 +14,21 @@ public:
 
 	static AssetLibrary* instance();
 
-	osg::Texture2D* _getTexture(const std::string filename);
-	osg::Node* _getModel(const std::string filename);
-
-	void _sweep();
-	void _unmark();
+	osg::Texture2D* getTexture(const std::string filename);
+	osg::Node* getModel(const std::string filename);
+	void sweep();
+	void unmark();
 
 	template<class T>
-    struct _cache{
+    struct CacheElement{
 		std::string filename;
 		T item;
 		bool used;
 	};
 
-	std::list< _cache< osg::ref_ptr<osg::Texture2D> > > _textureCache;
-	std::list< _cache< osg::ref_ptr<osg::Node> > > _modelCache;
+private:
+	std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > > _textureCache;
+	std::list< CacheElement< osg::ref_ptr<osg::Node> > > _modelCache;
 
 
 };
