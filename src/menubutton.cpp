@@ -35,6 +35,11 @@ void MenuButton::setPosition(osg::Vec2 pos)
 	this->setVertexArray(verts);
 }
 
+void MenuButton::setCallback(void (* callback)(osg::ref_ptr<MenuButton>))
+{
+	this->_onClick = callback;
+}
+
 void MenuButton::onClick(osgGA::GUIActionAdapter& aa)
 {
   if(this->_onClick != NULL)

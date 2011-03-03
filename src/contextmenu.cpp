@@ -34,12 +34,12 @@ MenuButton* ContextMenu::createMenuItem(const std::string texturepath)
 	return geometry;
 }
 
-void ContextMenu::addEntry(void (* _onClick)(osg::ref_ptr<MenuButton>),
+void ContextMenu::addEntry(void (* callback)(osg::ref_ptr<MenuButton>),
 						   const std::string texturepath)
 {
 	MenuButton* drawable = createMenuItem(texturepath);
 
-	drawable->_onClick = _onClick;
+	drawable->setCallback(callback);
     this->_numberOfEntries++;
 	this->addDrawable(drawable);
 }
