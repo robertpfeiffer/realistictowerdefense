@@ -1,7 +1,7 @@
 #include <fieldcontextmenu.h>
 
 #include <field.h>
-#include <fieldmenubutton.h>
+#include <towerbuildbutton.h>
 #include <tower.h>
 #include <world.h>
 
@@ -20,7 +20,7 @@ void FieldContextMenu::addAllItems()
 			it != World::instance()->getMap()->getTowerAttributes()->end();
 			it++)
 		{
-			this->addEntry(new FieldMenuButton(_field, it->get()));
+			this->addEntry(new TowerBuildButton(_field, it->get()));
 		}
 	}
 }

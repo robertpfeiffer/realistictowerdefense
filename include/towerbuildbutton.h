@@ -3,10 +3,10 @@
 class Field;
 class TowerAttributes;
 
-class FieldMenuButton : public MenuButton
+class TowerBuildButton : public MenuButton
 {
 public:
-	FieldMenuButton(Field* f, TowerAttributes* ta);
+	TowerBuildButton(Field* f, TowerAttributes* ta);
 
 	virtual void onClick(osgGA::GUIActionAdapter& aa);
 
