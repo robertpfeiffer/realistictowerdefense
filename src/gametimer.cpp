@@ -3,8 +3,12 @@
 
 GameTimer* GameTimer::instance()
 {
-	static GameTimer s_Timer;
-	return &s_Timer;
+	static GameTimer* _ptr;
+	if(_ptr == NULL)
+	{
+		_ptr = new GameTimer();
+	}
+	return _ptr;
 }
 
 GameTimer::GameTimer()
