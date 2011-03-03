@@ -1,17 +1,17 @@
-#include <fieldmenubutton.h>
+#include <towerbuildbutton.h>
 
 #include <field.h>
 #include <tower.h>
 #include <towerattributes.h>
 #include <world.h>
 
-FieldMenuButton::FieldMenuButton(Field* field, TowerAttributes* attributes) : MenuButton(attributes->icon)
+TowerBuildButton::TowerBuildButton(Field* field, TowerAttributes* attributes) : MenuButton(attributes->icon)
 {
 	_field = field;
 	_towerattributes = attributes;
 }
 
-void FieldMenuButton::onClick(osgGA::GUIActionAdapter& aa)
+void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
 {
 	if(World::instance()->getMap()->getPlayer()->getMoney() < _towerattributes->cost)
 	{

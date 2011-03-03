@@ -1,16 +1,16 @@
 #include <menubutton.h>
 
-class Field;
+class Tower;
 class TowerAttributes;
 
-class FieldMenuButton : public MenuButton
+class TowerUpgradeButton : public MenuButton
 {
 public:
-	FieldMenuButton(Field* f, TowerAttributes* ta);
+	TowerUpgradeButton(Tower* t, TowerAttributes* ta);
 
 	virtual void onClick(osgGA::GUIActionAdapter& aa);
 
 private:
-	Field* _field;
+	Tower* _tower;
 	TowerAttributes* _towerattributes;
 };
