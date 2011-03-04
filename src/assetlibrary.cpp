@@ -8,6 +8,9 @@
 #include <osgDB/ReadFile>
 #include <constants.h>
 
+#include <osgParticle/ParticleSystemUpdater>
+#include <osgParticle/ParticleSystem>
+
 AssetLibrary* AssetLibrary::instance()
 {
 	static AssetLibrary s_library;
@@ -54,24 +57,15 @@ osg::Texture2D* AssetLibrary::getTexture(const std::string filename)
 	return NULL;
 }
 
-#include <osgParticle/ParticleSystemUpdater>
-#include <osgParticle/ParticleSystem>
-
-
-void findParticleEffects(osg::Node* currNode)
+void AssetLibrary::_addParticleEffects(osg::Node* currNode)
 {
+	if (!currNode)	return;
+
 	osg::Group* currGroup;
 	
-	// check to see if we have a valid (non-NULL) node.
-	// if we do have a null node, return NULL.
-	if ( !currNode )
-		return;
-	
 	// We have a valid node, check to see if this is the node we 
-	// are looking for. If so, return the current node.
-	
-	osgParticle::ParticleEffect *pe = 
-		dynamic_cast<osgParticle::ParticleEffect*>(currNode);
+	// are looking for. If so, return the current node.	
+	osgParticle::ParticleEffect *pe = dynamic_cast<osgParticle::ParticleEffect*>(currNode);
 	if ( pe != NULL ) {
 		pe->getParticleSystem()->setParticleScaleReferenceFrame(osgParticle::ParticleSystem::LOCAL_COORDINATES);
 		if (!pe->getUseLocalParticleSystem()) {
@@ -81,7 +75,9 @@ void findParticleEffects(osg::Node* currNode)
 
 			for (unsigned int i = 0 ; i < pe->getNumParents(); i ++) {
 				if(pe->getParent(i))
+				{
 					pe->getParent(i)->addChild(geode);
+				}
 			}
 		}
 		return;
@@ -89,11 +85,11 @@ void findParticleEffects(osg::Node* currNode)
 
 
 	currGroup = currNode->asGroup(); // returns NULL if not a group.
-	if ( currGroup )
+	if (currGroup)
 	{
-		for (unsigned int i = 0 ; i < currGroup->getNumChildren(); i ++)
+		for (unsigned int i = 0; i < currGroup->getNumChildren(); i++)
 		{ 
-			findParticleEffects(currGroup->getChild(i));
+			_addParticleEffects(currGroup->getChild(i));
 		}
 	}
 }
@@ -118,8 +114,9 @@ osg::Node* AssetLibrary::getModel(const std::string filename)
 	newElement.filename = filename;
 	newElement.item = osgDB::readNodeFile(modelFilename);
 	newElement.used = true;
+	_addParticleEffects(newElement.item);
+
 	_modelCache.push_back(newElement);
-	findParticleEffects(newElement.item);
 	return newElement.item;
 }
 

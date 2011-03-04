@@ -153,7 +153,7 @@ void World::loadMap(const std::string mapFilename)
 	this->addChild(_psu);
 	_map = new Map(mapFilename);
 	this->addChild(new Terrain(_map));
-	this->addChild(new SkyBox());
+	this->addChild(new SkyBox(_map->getSkyBoxAttributes()));
 
 	Hud::instance()->setPlayer(_map->getPlayer());
 
