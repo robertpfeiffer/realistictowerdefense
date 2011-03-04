@@ -9,5 +9,13 @@ public:
 	void setText(const std::string text);
 
 private:
+	void updateBackgroundBounds();
+
+	void setupText(osg::Vec2);
+	void setupBackground();
+
 	osg::ref_ptr<osgText::Text> _text;
+	osg::ref_ptr<osg::Geometry> _background;
+
+	static double _backgroundPadding;
 };
