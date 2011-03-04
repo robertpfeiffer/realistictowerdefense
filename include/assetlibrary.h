@@ -29,5 +29,6 @@ private:
 	std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > > _textureCache;
 	std::list< CacheElement< osg::ref_ptr<osg::Node> > > _modelCache;
 
-	void _addParticleEffects(osg::Node*);
+	static void _addParticleEffects(osg::Node*);
+	static void _addAnimations(osg::Node*);
 };

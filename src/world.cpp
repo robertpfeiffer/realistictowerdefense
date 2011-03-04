@@ -136,7 +136,7 @@ void World::addUpdatableNode(osg::Node* node)
 	registerForUpdates(node);
 }
 
-/*inline*/ void World::registerForUpdates(osg::Node* node)
+void World::registerForUpdates(osg::Node* node)
 {
 	node->addUpdateCallback(_updateCallback.get());
 }
@@ -151,6 +151,10 @@ void World::loadMap(const std::string mapFilename)
 {
 	_psu = new osgParticle::ParticleSystemUpdater;
 	this->addChild(_psu);
+	_mng = new osgAnimation::BasicAnimationManager();
+    osg::Group* grp = new osg::Group;
+	this->setUpdateCallback(_mng);
+	this->addChild(grp);
 	_map = new Map(mapFilename);
 	this->addChild(new Terrain(_map));
 	this->addChild(new SkyBox(_map->getSkyBoxAttributes()));
@@ -169,6 +173,12 @@ void World::loadMap(const std::string mapFilename)
 void World::addParticleEffect(osgParticle::ParticleSystem* ps)
 {
 	_psu->addParticleSystem(ps);
+}
+
+void World::addAnimation(osgAnimation::Animation* anim)
+{
+	_mng->registerAnimation(anim);
+	_mng->playAnimation(anim);
 }
 
 World::~World()

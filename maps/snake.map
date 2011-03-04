@@ -56,8 +56,8 @@
 				</Model>
 			</Field>
                         <Field texture="way.jpg" symbol="F" buildable="false">
-                                <Model path="towers/fireball.osg" probability="1">
-                                        <Scale min="0.1" max="0.6" />
+                                <Model path="towers/ventilatower.osg" probability="1">
+                                        <Scale min="1" max="1" />
                                         <Rotation min="0" max="360" />
                                 </Model>
                         </Field>
@@ -68,7 +68,7 @@
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
 			<Row>TTGGG+++++++++GGGGGGMTT</Row>
-			<Row>TTGBG+GGGGGGGGGGGGGGGTT</Row>
+			<Row>TTGBG+GGGGGGGGGGGFGGGTT</Row>
 			<Row>TTGGG+GGGGGGGGGGGGMGGTT</Row>
 			<Row>TTMGG+++++++++GGGGGGGTT</Row>
 			<Row>TTGGMGGGGMGGG+GGGMGGGTT</Row>
