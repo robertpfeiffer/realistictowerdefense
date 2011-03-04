@@ -15,9 +15,9 @@
 	</Waves>
 	<Towers>
 		<Tower name="Base tower" model="towers/tower5.3ds" icon="tower.png" cost="100" cooldown="1.25" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
-      <Tower name="Upgraded Tower" model="towers/tower5.3ds" icon="tower.png" cost="100" cooldown="1.0" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="30" magicalDamage="15" projectilespeed="4.0" range="4.0" projectilescale="0.1" shotheight="1.5" />
+      <Tower name="Upgraded Tower" model="towers/burningtower.osg" icon="fire.png" cost="100" cooldown="1.0" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="30" magicalDamage="15" projectilespeed="4.0" range="4.0" projectilescale="0.1" shotheight="1.5" />
 		</Tower>
-		<Tower name="Second base tower" model="towers/tower5.3ds" icon="tower.png" cost="125" cooldown="0.2" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="4" magicalDamage="4" projectilespeed="6.0" range="3.5" projectilescale="0.1" />
+		<Tower name="Second base tower" model="towers/sauron.3ds" icon="tower.png" cost="125" cooldown="1" scale="0.2" projectile="towers/fireball.osg" physicaldamage="4" magicalDamage="40" projectilespeed="4" range="3.5" projectilescale="0.3" />
 	</Towers>
 	<Checkpoints>
 		<Checkpoint x="13" y= "0" />
@@ -49,22 +49,29 @@
 				</Model>
 			</Field>
 			<Field texture="gras.jpg" symbol="B" buildable="true">
-				<Model path="firtree/baum.3ds" probability="0.2">
+				<Model path="firtree/baum.3ds" probability="1">
 					<Scale min="0.8" max="1.2" />
 					<Rotation min="0" max="360" />
 				</Model>
 			</Field>
+                        <Field texture="way.jpg" symbol="F" buildable="false">
+                                <Model path="towers/fireball.osg" probability="1">
+                                        <Scale min="0.1" max="0.6" />
+                                        <Rotation min="0" max="360" />
+                                </Model>
+                        </Field>
+
 		</Fields>
 		<Grid>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
-			<Row>TTGGG+++++++++GGGGGGGTT</Row>
+			<Row>TTGGG+++++++++GGGGGGMTT</Row>
 			<Row>TTGBG+GGGGGGGGGGGGGGGTT</Row>
 			<Row>TTGGG+GGGGGGGGGGGGMGGTT</Row>
-			<Row>TTGGG+++++++++GGGGGGGTT</Row>
+			<Row>TTMGG+++++++++GGGGGGGTT</Row>
 			<Row>TTGGMGGGGMGGG+GGGMGGGTT</Row>
-			<Row>TTGGGGGMGGGGG+GGGGGGGTT</Row>
+			<Row>TTGGGMGMGGGGG+GGGGGGGTT</Row>
 			<Row>TTGGG+++++++++GGGGGGGTT</Row>
 			<Row>TTGGG+GGGGGGGGGGGMGGGTT</Row>
 			<Row>TTGGG+GGGGGGMGGGGGGGGTT</Row>
