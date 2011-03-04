@@ -7,9 +7,9 @@ public:
 	int maxHealth;
 	int armor;
 	int magicResistance;
-	float speed;
+	double speed;
 	int bounty;
 	std::string name;
 	osg::ref_ptr<osg::PositionAttitudeTransform> model;
-	float spawnOffset;
+	double spawnOffset;
 };
