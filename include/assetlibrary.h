@@ -11,7 +11,6 @@
 
 class AssetLibrary {
 public:
-
 	static AssetLibrary* instance();
 
 	osg::Texture2D* getTexture(const std::string filename);
@@ -30,5 +29,5 @@ private:
 	std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > > _textureCache;
 	std::list< CacheElement< osg::ref_ptr<osg::Node> > > _modelCache;
 
-
+	void _addParticleEffects(osg::Node*);
 };

@@ -31,6 +31,7 @@
 		<Checkpoint x="13" y= "12" />
 		<Checkpoint x="13" y="15" />
 	</Checkpoints>
+	<Skybox posX="Cubemap_snow/posx.jpg" negX="Cubemap_snow/negx.jpg" posY="Cubemap_snow/posy.jpg" negY="Cubemap_snow/negy.jpg" posZ="Cubemap_snow/posz.jpg" negZ="Cubemap_snow/negz.jpg" />
 	<Terrain>
 		<Strata texture="sediment.jpg" />
 		<Fields>

@@ -1,5 +1,6 @@
 #include <towerupgradebutton.h>
 
+#include <hud.h>
 #include <tower.h>
 #include <towerattributes.h>
 #include <world.h>
@@ -19,4 +20,5 @@ void TowerUpgradeButton::onClick(osgGA::GUIActionAdapter& aa)
 
 	_tower->upgradeTo(_towerattributes);
 	World::instance()->getMap()->getPlayer()->decreaseMoney(_towerattributes->cost);
+	Hud::instance()->onPlayerUpdate();
 }
