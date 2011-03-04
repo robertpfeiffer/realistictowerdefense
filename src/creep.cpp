@@ -6,6 +6,8 @@
 #include <transformhelper.h>
 #include <world.h>
 
+#include <osg/PositionAttitudeTransform>
+
 Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path)
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
@@ -14,7 +16,11 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegme
 	_gameTimer = GameTimer::instance();
 
 	this->_healthBar = new HealthBar();
-	this->addChild(this->_healthBar);
+
+	osg::PositionAttitudeTransform* healthBarTransform = new PositionAttitudeTransform();
+	healthBarTransform->addChild(this->_healthBar);
+	healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, 2.0));
+	this->addChild(healthBarTransform);
 
 	updateRealPosition();
 	updateRealHeading();

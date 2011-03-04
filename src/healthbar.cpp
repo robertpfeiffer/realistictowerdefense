@@ -11,7 +11,6 @@
 HealthBar::HealthBar()
 {
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
-	this->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 
 	_health = 1;
 	_maxHealth = 1;
@@ -55,7 +54,7 @@ void HealthBar::_updateHealthBar()
 	// Standard size shrub
 	float width = 0.75f;
 	float height = 0.1f;
-	float y = 2.0;
+	float y = 0.0;
 
 	float healthWidth = width * static_cast<float>(_health) / static_cast<float>(_maxHealth);
 
