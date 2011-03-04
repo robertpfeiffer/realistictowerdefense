@@ -7,6 +7,9 @@
 #include <OpenSteer/PolylineSegmentedPathwaySingleRadius.h>
 #include <creep.h>
 #include <updatecallback.h>
+#include <osgParticle/ParticleSystemUpdater>
+#include <osgParticle/ParticleSystem>
+
 
 class UpdatableNode;
 
@@ -36,6 +39,8 @@ public:
 
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
 	ProximityDatabase* getProximities();
+        void addParticleEffect(osgParticle::ParticleSystem* ps);
+
 
 private:
 	void createPath();
@@ -46,6 +51,7 @@ private:
 	std::set<osg::ref_ptr<Creep> > _creeps;
 
 	osg::ref_ptr<Map> _map;
+	osg::ref_ptr<osgParticle::ParticleSystemUpdater> _psu;
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* _path;
 
 	osg::ref_ptr<UpdateCallback> _updateCallback;

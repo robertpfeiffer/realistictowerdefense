@@ -152,6 +152,8 @@ void World::loadMap(const std::string mapFilename)
 	_map = new Map(mapFilename);
 	this->addChild(new Terrain(_map));
 	this->addChild(new SkyBox());
+	_psu = new osgParticle::ParticleSystemUpdater;
+	this->addChild(_psu);
 
 	Hud::instance()->setPlayer(_map->getPlayer());
 
@@ -162,6 +164,12 @@ void World::loadMap(const std::string mapFilename)
 	createPath();
 
 	startNextWave();
+}
+
+void World::addParticleEffect(osgParticle::ParticleSystem* ps)
+{
+	_psu->addParticleSystem(ps);
+	
 }
 
 World::~World()
