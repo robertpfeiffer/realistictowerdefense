@@ -17,7 +17,7 @@
 		<Tower name="Base tower" model="towers/tower5.3ds" icon="tower.png" cost="100" cooldown="1.25" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
       <Tower name="Upgraded Tower" model="towers/burningtower.osg" icon="fire.png" cost="100" cooldown="1.0" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="30" magicalDamage="15" projectilespeed="4.0" range="4.0" projectilescale="0.1" shotheight="1.5" />
 		</Tower>
-		<Tower name="Second base tower" model="towers/sauron.3ds" icon="tower.png" cost="125" cooldown="1" scale="0.2" projectile="towers/fireball.osg" physicaldamage="4" magicalDamage="40" projectilespeed="4" range="3.5" projectilescale="0.3" />
+		<Tower name="Second base tower" model="towers/sauron.3ds" icon="tower.png" cost="125" cooldown="0.3" scale="0.2" projectile="towers/fireball.osg" physicaldamage="4" magicalDamage="10" projectilespeed="4" range="3.5" shotheight="3" projectilescale="1" />
 	</Towers>
 	<Checkpoints>
 		<Checkpoint x="13" y= "0" />
@@ -43,7 +43,7 @@
 				</Model>
 			</Field>
 			<Field texture="gras.jpg" symbol="M" buildable="true">
-				<Model path="firtree/mushroom.3ds" probability="0.2">
+				<Model path="firtree/mushrooms3.3ds" probability="0.2">
 					<Scale min="0.15" max="0.25" />
 					<Rotation min="0" max="360" />
 				</Model>
@@ -55,7 +55,7 @@
 				</Model>
 			</Field>
                         <Field texture="way.jpg" symbol="F" buildable="false">
-                                <Model path="towers/fireball.osg" probability="1">
+                                <Model path="firtree/fire.osg" probability="1">
                                         <Scale min="0.1" max="0.6" />
                                         <Rotation min="0" max="360" />
                                 </Model>
@@ -66,7 +66,7 @@
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
-			<Row>TTGGG+++++++++GGGGGGMTT</Row>
+			<Row>TTGGG+++++++++GGFGGGMTT</Row>
 			<Row>TTGBG+GGGGGGGGGGGGGGGTT</Row>
 			<Row>TTGGG+GGGGGGGGGGGGMGGTT</Row>
 			<Row>TTMGG+++++++++GGGGGGGTT</Row>
