@@ -1,3 +1,4 @@
+// -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 #include <hud.h>
 
 #include <sstream>
@@ -19,9 +20,9 @@ Hud* Hud::instance()
 Hud::Hud()
 {
 	this->setProjectionMatrix(osg::Matrix::ortho2D(0,160,0,100));
-    this->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
-    this->setViewMatrix(osg::Matrix::identity());
-    this->setClearMask(GL_DEPTH_BUFFER_BIT);
+	this->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
+	this->setViewMatrix(osg::Matrix::identity());
+	this->setClearMask(GL_DEPTH_BUFFER_BIT);
 	this->setRenderOrder(osg::Camera::POST_RENDER);
 	this->setAllowEventFocus(false);
 
@@ -38,13 +39,13 @@ void Hud::setPlayer(Player* player)
 	onPlayerUpdate();
 }
 
-void Hud::onPlayerUpdate()
+void Hud::onPlayerUpdate() 
 {
-	std::stringstream text;
-	text << _player->getMoney() << " Gold";
-	_goldDisplay->setText(text.str());
+	std::stringstream moneytext; 
+	moneytext << _player->getMoney() << " Gold"; 
+	_goldDisplay->setText(moneytext.str()); 
 
-	text = std::stringstream();
-	text << _player->getLives() << " Lives";
-	_lifeDisplay->setText(text.str());
+	std::stringstream livestext; 
+	livestext << _player->getLives() << " Lives"; 
+	_lifeDisplay->setText(livestext.str()); 
 }
