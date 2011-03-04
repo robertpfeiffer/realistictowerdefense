@@ -17,4 +17,5 @@ private:
 	Player* _player;
 
 	osg::ref_ptr<HudElement> _goldDisplay;
+	osg::ref_ptr<HudElement> _lifeDisplay;
 };

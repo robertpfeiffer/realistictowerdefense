@@ -1,17 +1,23 @@
 #include <hudelement.h>
 
-HudElement::HudElement()
+HudElement::HudElement(osg::Vec2 position, std::string text)
 {
+	_text = new osgText::Text();
 	osg::StateSet* ss = this->getOrCreateStateSet();
 	ss->setMode(GL_LIGHTING,osg::StateAttribute::OFF);
+	this->addDrawable(_text);
 
-	osgText::Text* textOne = new osgText::Text();
-	this->addDrawable( textOne );
-	textOne->setCharacterSize(4);
-	textOne->setFont("fonts/DejaVuSans.ttf");
-	textOne->setText("Gold: 500");
-	textOne->setAxisAlignment(osgText::Text::SCREEN);
-	textOne->setAlignment(osgText::Text::RIGHT_TOP);
-	textOne->setPosition( osg::Vec3(155.0, 98.0, 0.0) );
-	textOne->setColor( osg::Vec4(1.0, 1.0, 1.0, 1.0) );
+	_text->setCharacterSize(4);
+	_text->setFont("fonts/DejaVuSans.ttf");
+	_text->setAxisAlignment(osgText::Text::SCREEN);
+	_text->setAlignment(osgText::Text::RIGHT_TOP);
+	_text->setPosition(osg::Vec3(position.x(), position.y(), 0.0));
+	_text->setColor(osg::Vec4(1.0, 1.0, 1.0, 1.0));
+
+	this->setText(text);
+}
+
+void HudElement::setText(const std::string text)
+{
+	_text->setText(osgText::String(text));
 }

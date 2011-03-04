@@ -1,5 +1,7 @@
 #include <hud.h>
 
+#include <sstream>
+
 #include <osg/Geode>
 #include <osg/MatrixTransform>
 #include <osgText/Text>
@@ -23,17 +25,26 @@ Hud::Hud()
 	this->setRenderOrder(osg::Camera::POST_RENDER);
 	this->setAllowEventFocus(false);
 
-	_goldDisplay = new HudElement();
+	_goldDisplay = new HudElement(osg::Vec2(155.0, 95.0), "---");
+	_lifeDisplay = new HudElement(osg::Vec2(155.0, 90.0), "---");
 
 	this->addChild(_goldDisplay);
+	this->addChild(_lifeDisplay);
 }
 
 void Hud::setPlayer(Player* player)
 {
 	_player = player;
+	onPlayerUpdate();
 }
 
 void Hud::onPlayerUpdate()
 {
+	std::stringstream text;
+	text << _player->getMoney() << " Gold";
+	_goldDisplay->setText(text.str());
 
+	text = std::stringstream();
+	text << _player->getLives() << " Lives";
+	_lifeDisplay->setText(text.str());
 }
