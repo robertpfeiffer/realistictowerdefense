@@ -149,6 +149,8 @@ World::World() : osg::Group()
 //TODO: this is not intended to be called twice
 void World::loadMap(const std::string mapFilename)
 {
+	_psu = new osgParticle::ParticleSystemUpdater;
+	this->addChild(_psu);
 	_map = new Map(mapFilename);
 	this->addChild(new Terrain(_map));
 	this->addChild(new SkyBox(_map->getSkyBoxAttributes()));
@@ -162,6 +164,11 @@ void World::loadMap(const std::string mapFilename)
 	createPath();
 
 	startNextWave();
+}
+
+void World::addParticleEffect(osgParticle::ParticleSystem* ps)
+{
+	_psu->addParticleSystem(ps);
 }
 
 World::~World()

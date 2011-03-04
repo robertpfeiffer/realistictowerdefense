@@ -2,6 +2,12 @@
 
 using namespace rapidxml;
 
+#ifndef WIN32
+	#include <strings.h>
+	#include <string.h>
+	#define _strcmpi strcasecmp
+#endif
+
 std::string Convert::toString(int i)
 {
 	std::stringstream out;

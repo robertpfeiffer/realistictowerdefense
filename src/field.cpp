@@ -12,9 +12,6 @@
 #include <constants.h>
 #include <fieldcontextmenu.h>
 
-#include <osg/Geode>
-#include <osg/ShapeDrawable>
-
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround()), _fieldType(fieldType)
 {
 	this->addChild(_ground.get());

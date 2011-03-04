@@ -26,7 +26,6 @@ osg::Vec2 ContextMenu::positionForNextButton()
 		y = 1.5 * -cos(_numberOfEntries * PI/4);
 	}
 	
-	this->_numberOfEntries++;
 	return osg::Vec2(x, y);
 }
 
@@ -42,5 +41,6 @@ void ContextMenu::addEntry(void (* callback)(osg::ref_ptr<MenuButton>),
 void ContextMenu::addEntry(MenuButton* button)
 {
 	button->setPosition(positionForNextButton());
+	this->_numberOfEntries++;
 	this->addDrawable(button);
 }
