@@ -12,10 +12,10 @@ osgParticle::FireEffect {
   startTime 0
   emitterDuration 600
   particleDuration 0.6
-  particleSizeRange 0.75 1
+  particleSizeRange 0.75 3
   particleAlphaRange 0.1 1
-  particleColorRange 0.2 0.8 1 1 0.2 0.3 1 0
-  wind 0 0 1
+  particleColorRange 1 0.8 0.2 1 1 0.3 0.2 0
+  wind 0 0.3 0
   useLocalParticleSystem FALSE
 }
 }

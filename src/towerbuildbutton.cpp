@@ -1,6 +1,7 @@
 #include <towerbuildbutton.h>
 
 #include <field.h>
+#include <hud.h>
 #include <tower.h>
 #include <towerattributes.h>
 #include <world.h>
@@ -23,5 +24,6 @@ void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
 	if(wasBuilt)
 	{
 		World::instance()->getMap()->getPlayer()->decreaseMoney(_towerattributes->cost);
+		Hud::instance()->onPlayerUpdate();
 	}
 }

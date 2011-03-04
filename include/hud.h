@@ -1,10 +1,12 @@
 #pragma once
-#include <osg/Projection>
+#include <osg/Camera>
+#include <hudelement.h>
 #include <player.h>
 
-class Hud : public osg::Projection
+class Hud : public osg::Camera
 {
 public:
+	Hud();
 	static Hud* instance();
 
 	void setPlayer(Player* player);
@@ -13,4 +15,7 @@ public:
 
 private:
 	Player* _player;
+
+	osg::ref_ptr<HudElement> _goldDisplay;
+	osg::ref_ptr<HudElement> _lifeDisplay;
 };
