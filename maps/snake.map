@@ -9,13 +9,13 @@
 			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" count="10" bounty="50" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
 			<Creep model="creeps/bot3.3ds" name="Master Bot" health="100" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
 		</Wave>
-    <Wave>
-      <Creep model="creeps/bot3.3ds" name="Master Bot" health="1000" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
+		<Wave>
+			<Creep model="creeps/bot3.3ds" name="Master Bot" health="1000" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
 		</Wave>
 	</Waves>
 	<Towers>
 		<Tower name="Base tower" model="towers/tower5.3ds" icon="tower.png" cost="100" cooldown="1.25" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
-      <Tower name="Upgraded Tower" model="towers/burningtower.osg" icon="fire.png" cost="100" cooldown="1.0" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="30" magicalDamage="15" projectilespeed="4.0" range="4.0" projectilescale="0.1" shotheight="1.5" />
+			<Tower name="Upgraded Tower" model="towers/burningtower.osg" icon="fire.png" cost="100" cooldown="1.0" scale="0.4" projectile="towers/bomb.3ds" physicaldamage="30" magicalDamage="15" projectilespeed="4.0" range="4.0" projectilescale="0.1" shotheight="1.5" />
 		</Tower>
 		<Tower name="Second base tower" model="towers/sauron.3ds" icon="tower.png" cost="125" cooldown="0.3" scale="0.2" projectile="towers/fireball.osg" physicaldamage="4" magicalDamage="10" projectilespeed="4" range="3.5" shotheight="3" projectilescale="1" />
 	</Towers>
@@ -35,8 +35,8 @@
 	<Terrain>
 		<Strata texture="sediment.jpg" />
 		<Fields>
-			<Field texture="gras.jpg" symbol="G" buildable="true"  />
-			<Field texture="way.jpg"  symbol="+" buildable="false" />
+			<Field texture="gras.jpg" symbol="G" buildable="true"	/>
+			<Field texture="way.jpg"	symbol="+" buildable="false" />
 			<Field texture="gras.jpg" symbol="T" buildable="true">
 				<Model path="firtree/tanne.3ds" probability="0.2">
 					<Scale min="0.3" max="0.5" />
@@ -55,13 +55,12 @@
 					<Rotation min="0" max="360" />
 				</Model>
 			</Field>
-                        <Field texture="way.jpg" symbol="F" buildable="false">
-                                <Model path="firtree/fire.osg" probability="1">
-                                        <Scale min="0.1" max="0.6" />
-                                        <Rotation min="0" max="360" />
-                                </Model>
-                        </Field>
-
+			<Field texture="way.jpg" symbol="F" buildable="false">
+				<Model path="firtree/fire.osg" probability="1">
+					<Scale min="0.1" max="0.6" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
 		</Fields>
 		<Grid>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
@@ -77,8 +76,8 @@
 			<Row>TTGGG+GGGGGGGGGGGMGGGTT</Row>
 			<Row>TTGGG+GGGGGGMGGGGGGGGTT</Row>
 			<Row>TTGGG+++++++++GGMGGGGTT</Row>
-                        <Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
-                        <Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
+			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
+			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 		</Grid>
 	</Terrain>	
