@@ -8,7 +8,7 @@ class Convert
 {
 public:
 	static std::string toString(int i);
-	static bool Convert::attrToBool(xml_attribute<>* attr, bool defaultValue);
-	static long Convert::attrToLong(xml_attribute<>* attr, long defaultValue);
-	static double Convert::attrToDouble(xml_attribute<>* attr, double defaultValue);
+	static bool attrToBool(xml_attribute<>* attr, bool defaultValue);
+	static long attrToLong(xml_attribute<>* attr, long defaultValue);
+	static double attrToDouble(xml_attribute<>* attr, double defaultValue);
 };
