@@ -9,6 +9,7 @@
 #include <updatecallback.h>
 #include <osgParticle/ParticleSystemUpdater>
 #include <osgParticle/ParticleSystem>
+#include <osgParticle/ParticleEffect>
 
 
 class UpdatableNode;

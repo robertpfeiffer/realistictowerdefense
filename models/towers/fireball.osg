@@ -1,3 +1,7 @@
+Group {
+    nodeMask 0xffffffff
+    cullingActive TRUE
+    num_children 1
 osgParticle::FireEffect {
   nodeMask 0xffffffff
   cullingActive TRUE
@@ -12,5 +16,6 @@ osgParticle::FireEffect {
   particleAlphaRange 0.1 1
   particleColorRange 1 0.8 0.2 1 1 0.3 0.2 0
   wind 0 0.3 0
-  useLocalParticleSystem TRUE
+  useLocalParticleSystem FALSE
+}
 }
