@@ -8,10 +8,10 @@
 class TowerAttributes : public osg::Referenced
 {
 public:
-	float cooldown;
-	float range;
+	double cooldown;
+	double range;
 	long cost;
-	float height;
+	double height;
 	std::string name;
 
 	ProjectileAttributes projectile;
