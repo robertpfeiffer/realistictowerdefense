@@ -12,84 +12,79 @@ HealthBar::HealthBar()
 {
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
 	this->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
-	this->setHealth(1.0);
+
+	_health = 1;
+	_maxHealth = 1;
+	this->addDrawable(_createHealthGemoetry());
 }
 
-osg::Drawable* HealthBar::createGeometry(osg::StateSet* bbState)
+osg::Drawable* HealthBar::_createHealthGemoetry()
 {
-	// Standard size shrub
-	float width = 1.0f;
-	float height = 1.0f;
+	osg::Texture2D* healthTexture = AssetLibrary::instance()->getTexture("healthbar/hp.png");
+
+	osg::StateSet* billBoardStateSet = new osg::StateSet;	
+	billBoardStateSet->setTextureAttributeAndModes(0, healthTexture, osg::StateAttribute::ON);
+	billBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
+	billBoardStateSet->setAttributeAndModes( new osg::BlendFunc, osg::StateAttribute::ON );
+	billBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
 	
 	// Declare and initialize geometry
-    osg::Geometry* geometry = new osg::Geometry();
-	
-	// Declare an array of vertices, assign values so we can create a
-	// quadrilateral centered relative to the Z axis
-	osg::Vec3Array* verts = new osg::Vec3Array(4);
-	
-	float x = 0;
-	float y = 2;
-	
-	(*verts)[0] = osg::Vec3( x - width/2, 0, y - height/2);
-	(*verts)[1] = osg::Vec3( x + width/2, 0, y - height/2);
-	(*verts)[2] = osg::Vec3( x + width/2, 0, y + height/2);
-	(*verts)[3] = osg::Vec3( x - width/2, 0, y + height/2);
-	geometry->setVertexArray(verts);
-	
-	// Declare and assign texture coordinates.
-	osg::Vec2Array* texCoords = new osg::Vec2Array(4);
-	(*texCoords)[0].set(0.0f,0.0f);
-	(*texCoords)[1].set(1.0f,0.0f);
-	(*texCoords)[2].set(1.0f,1.0f);
-	(*texCoords)[3].set(0.0f,1.0f);
-	geometry->setTexCoordArray(0,texCoords);
-	
+    _healthGeometry = new osg::Geometry();
+
+	//add vertices and texture
+	_healthGeometry->setVertexArray(new osg::Vec3Array(4));	
+	_healthGeometry->setTexCoordArray(0, new osg::Vec2Array(4));
+	_updateHealthBar();
+
 	// Add a primitive set (QUADS) to the geometry
-	geometry->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS,0,4));
+	_healthGeometry->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS,0,4));
 	
 	// Make sure the geometry has the correct state
-	geometry->setStateSet(bbState);
+	_healthGeometry->setStateSet(billBoardStateSet);
 	
 	osg::Vec4Array* colors = new osg::Vec4Array;
 	colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	geometry->setColorArray(colors);
-	geometry->setColorBinding(osg::Geometry::BIND_OVERALL);
+	_healthGeometry->setColorArray(colors);
+	_healthGeometry->setColorBinding(osg::Geometry::BIND_OVERALL);
 	
-	return geometry;
+	return _healthGeometry;
 }
 
-void HealthBar::setHealth(float health)
+void HealthBar::_updateHealthBar()
 {
-    int barstate = std::max(1 + health / 0.12f, 1.0f);
-	std::stringstream path;
-	path << "healthbar/" << barstate << ".png";
+	// Standard size shrub
+	float width = 0.75f;
+	float height = 0.1f;
+	float y = 2.0;
 
-	AssetLibrary *lib = AssetLibrary::instance();
-	osg::Texture2D *texture;
-	texture = lib->getTexture(path.str());
-	
-	osg::BlendFunc *blendFunc = new osg::BlendFunc;
-	osg::StateSet* billBoardStateSet = new osg::StateSet;
-	
-	billBoardStateSet->setTextureAttributeAndModes
-		(0, texture, osg::StateAttribute::ON);
-	billBoardStateSet->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
-	billBoardStateSet->setAttributeAndModes( blendFunc, osg::StateAttribute::ON );
-	billBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-	
-	osg::Drawable* drawable = createGeometry(billBoardStateSet);
+	float healthWidth = width * static_cast<float>(_health) / static_cast<float>(_maxHealth);
 
-	if(this->_lifeDrawable != NULL)
-		this->removeDrawable(this->_lifeDrawable);
-	
-	this->_lifeDrawable = drawable;
-	this->addDrawable(drawable);
+	//update width of texture (reuse array)
+	osg::Vec3Array* verts = (osg::Vec3Array*) _healthGeometry->getVertexArray();
+	(*verts)[0] = osg::Vec3( -width/2, 0, y - height/2);
+	(*verts)[1] = osg::Vec3( -width/2 + healthWidth, 0, y - height/2);
+	(*verts)[2] = osg::Vec3( -width/2 + healthWidth, 0, y + height/2);
+	(*verts)[3] = osg::Vec3( -width/2, 0, y + height/2);
+	_healthGeometry->setVertexArray(verts);
+
+	//update Texture width (reuse array)
+	osg::Vec2Array* texCoords = (osg::Vec2Array*) _healthGeometry->getTexCoordArray(0);
+	(*texCoords)[0].set(0.0f, 0.0f);
+	(*texCoords)[1].set((float)_health / 100.0f, 0.0f);
+	(*texCoords)[2].set((float)_health / 100.0f, 1.0f);
+	(*texCoords)[3].set(0.0f, 1.0f);
+	_healthGeometry->setTexCoordArray(0, texCoords);
 }
 
+void HealthBar::setHealth(int health)
+{
+	_health = health;
+	_updateHealthBar();
+}
 
-
-
-
-
-
+void HealthBar::setMaxHealth(int health, int maxHealth)
+{
+	_health = health;
+	_maxHealth = maxHealth;
+	_updateHealthBar();
+}

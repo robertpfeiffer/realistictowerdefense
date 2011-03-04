@@ -9,7 +9,12 @@ class HealthBar : public osg::Billboard
 {
 public:
 	HealthBar();
-	osg::Drawable* createGeometry(osg::StateSet* state);
-	osg::Drawable* _lifeDrawable;
-	void setHealth(float health);
+	void setHealth(int health);
+	void setMaxHealth(int health, int maxHealth);
+private:
+	osg::Drawable* _createHealthGemoetry();
+	void _updateHealthBar();
+	int _maxHealth;
+	int _health;
+	osg::ref_ptr<osg::Geometry> _healthGeometry;
 };

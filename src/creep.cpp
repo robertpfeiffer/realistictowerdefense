@@ -35,7 +35,7 @@ void Creep::onUpdate()
 void Creep::OnHit(ProjectileAttributes* hitter)
 {
 	_health -= computeDamageReceived(hitter);
-    _healthBar->setHealth((float)_health/(float)maxHealth());
+	_healthBar->setHealth(_health);
 
 	if(_health <= 0)
 	{
@@ -60,6 +60,7 @@ void Creep::setCreepStats(CreepAttributes* attributes)
 {
 	_attributes = attributes;
 	_health = _attributes->maxHealth;
+	this->_healthBar->setMaxHealth(_health, _attributes->maxHealth);
 	_steering->setMaxSpeed((float)_attributes->speed/100.0f);
 }
 
