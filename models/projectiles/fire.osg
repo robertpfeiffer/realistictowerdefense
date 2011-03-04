@@ -1,0 +1,107 @@
+osgParticle::FireEffect {
+  nodeMask 0xffffffff
+  cullingActive TRUE
+  textFileName "Images/smoke.rgb"
+  position 0 0 0
+  scale 1
+  intensity 1
+  startTime 0
+  emitterDuration 60
+  particleDuration 0.6
+  particleSizeRange 0.75 3
+  particleAlphaRange 0.1 1
+  particleColorRange 1 0.8 0.2 1 1 0.3 0.2 0
+  wind 0 0.01 0
+  useLocalParticleSystem FALSE
+  osgParticle::ParticleSystem {
+    UniqueID ParticleSystem_0
+    DataVariance STATIC
+    StateSet {
+      DataVariance STATIC
+      rendering_hint TRANSPARENT_BIN
+      renderBinMode USE
+      binNumber 10
+      binName DepthSortedBin
+      GL_LIGHTING OFF
+      GL_BLEND ON
+      Material {
+        ColorMode OFF
+        ambientColor 0.2 0.2 0.2 1
+        diffuseColor 0.8 0.8 0.8 1
+        specularColor FRONT 0 0 0 1
+        specularColor BACK  0 0 0 1
+        emissionColor FRONT 0 0 0 1
+        emissionColor BACK  0 0 0 1
+        shininess 0
+      }
+      BlendFunc {
+        source SRC_ALPHA
+        destination ONE_MINUS_SRC_ALPHA
+      }
+      textureUnit 0 {
+        GL_TEXTURE_2D ON
+        Texture2D {
+          wrap_s MIRROR
+          wrap_t MIRROR
+          wrap_r CLAMP
+          min_filter LINEAR
+          mag_filter LINEAR
+          maxAnisotropy 1
+          borderColor 0 0 0 0
+          borderWidth 0
+          useHardwareMipMapGeneration TRUE
+          unRefImageDataAfterApply FALSE
+          internalFormatMode USE_IMAGE_DATA_FORMAT
+          resizeNonPowerOfTwo TRUE
+          shadowComparison FALSE
+          shadowCompareFunc GL_LEQUAL
+          shadowTextureMode GL_LUMINANCE
+        }
+        TexEnv {
+          mode MODULATE
+        }
+      }
+    }
+    supportsDisplayList FALSE
+    useDisplayList FALSE
+    useVertexBufferObjects FALSE
+    particleAlignment BILLBOARD
+    particleScaleReferenceFrame LOCAL_COORDINATES
+    alignVectorX 1 0 0
+    alignVectorY 0 1 0
+    useVertexArray FALSE
+    useShaders FALSE
+    doublePassRendering FALSE
+    frozen FALSE
+    freezeOnCull FALSE
+    defaultBoundingBox -10 -10 -10 10 10 10
+    sortMode NO_SORT
+    visibilityDistance -1
+    particleTemplate {
+      shape QUAD
+      lifeTime 0.6
+      sizeRange 0.1875 0.75
+      alphaRange 0.1 1
+      colorRange 1 0.8 0.2 1 1 0.3 0.2 0
+      position 0 0 0
+      velocity 0 0 0
+      angle 0 0 0
+      angularVelocity 0 0 0
+      radius 0.25
+      mass 0.0327249
+      textureTile 1 1 1
+      sizeInterpolator {
+        osgParticle::LinearInterpolator {
+        }
+      }
+      alphaInterpolator {
+        osgParticle::LinearInterpolator {
+        }
+      }
+      colorInterpolator {
+        osgParticle::LinearInterpolator {
+        }
+      }
+    }
+  }
+}
