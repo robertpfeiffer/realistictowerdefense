@@ -38,13 +38,13 @@
 			<Field texture="gras.jpg" symbol="G" buildable="true"	/>
 			<Field texture="way.jpg"	symbol="+" buildable="false" />
 			<Field texture="gras.jpg" symbol="T" buildable="true">
-				<Model path="Arbol 3.3ds" probability="0.2">
+				<Model path="firtree/tanne.3ds" probability="0.2">
 					<Scale min="0.3" max="0.5" />
 					<Rotation min="0" max="360" />
 				</Model>
 			</Field>
 			<Field texture="gras.jpg" symbol="M" buildable="true">
-				<Model path="Arbol 6.3ds" probability="0.2">
+				<Model path="firtree/mushroom.3ds" probability="0.2">
 					<Scale min="0.15" max="0.25" />
 					<Rotation min="0" max="360" />
 				</Model>
@@ -55,12 +55,13 @@
 					<Rotation min="0" max="360" />
 				</Model>
 			</Field>
-			<Field texture="way.jpg" symbol="F" buildable="false">
-				<Model path="firtree/fire.osg" probability="1">
-					<Scale min="0.1" max="0.6" />
-					<Rotation min="0" max="360" />
-				</Model>
-			</Field>
+                        <Field texture="way.jpg" symbol="F" buildable="false">
+                                <Model path="towers/ventilatower.osg" probability="1">
+                                        <Scale min="1" max="1" />
+                                        <Rotation min="0" max="360" />
+                                </Model>
+                        </Field>
+
 		</Fields>
 		<Grid>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>

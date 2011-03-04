@@ -94,6 +94,28 @@ void AssetLibrary::_addParticleEffects(osg::Node* currNode)
 	}
 }
 
+void AssetLibrary::_addAnimations(osg::Node* currNode)
+{
+	if (!currNode)	return;
+
+	osgAnimation::Animation* anim= dynamic_cast<osgAnimation::Animation*>(currNode->getUserData());
+
+	if (anim != NULL) {
+		World::instance()->addAnimation(anim);
+		return;
+	}
+
+	osg::Group* currGroup = currNode->asGroup();
+    // returns NULL if not a group.
+	if (currGroup)
+	{
+		for (unsigned int i = 0; i < currGroup->getNumChildren(); i++)
+		{ 
+			_addAnimations(currGroup->getChild(i));
+		}
+	}
+}
+
 osg::Node* AssetLibrary::getModel(const std::string filename)
 {
 	std::list< CacheElement< osg::ref_ptr<osg::Node> > >::iterator it;
@@ -115,7 +137,7 @@ osg::Node* AssetLibrary::getModel(const std::string filename)
 	newElement.item = osgDB::readNodeFile(modelFilename);
 	newElement.used = true;
 	_addParticleEffects(newElement.item);
-
+	_addAnimations(newElement.item);
 	_modelCache.push_back(newElement);
 	return newElement.item;
 }
