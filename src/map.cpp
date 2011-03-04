@@ -53,6 +53,13 @@ Field* Map::getField(unsigned int x, unsigned int y)
 	return _fields[y][x];
 }
 
+osg::Texture2D* Map::_getTexture(xml_attribute<> *attr)
+{
+	if (attr == NULL) return NULL;
+
+	return AssetLibrary::instance()->getTexture(attr->value());
+}
+
 void Map::_reset()
 {
 	_checkpoints.clear();
@@ -105,6 +112,12 @@ void Map::_load(const std::string& filename)
 	if (child != NULL)
 	{
 		_loadTerrain(child);
+	}
+
+	child = root->first_node("Skybox", 0, false);
+	if (child != NULL)
+	{
+		_loadSkyBox(child);
 	}
 
 	child = root->first_node("Checkpoints", 0, false);
@@ -184,12 +197,7 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 		tower->name = nameAttr->value();
 	}
 
-	xml_attribute<>* iconAttr = node->first_attribute("icon", 0, false);
-	tower->icon = NULL;
-	if (iconAttr != NULL)
-	{
-		tower->icon = AssetLibrary::instance()->getTexture(iconAttr->value());
-	}
+	tower->icon = _getTexture(node->first_attribute("icon", 0, false));
 
 	xml_attribute<>* modelAttr = node->first_attribute("model", 0, false);
 	tower->model = NULL;
@@ -226,6 +234,16 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 	return tower;
 }
 
+void Map::_loadSkyBox(xml_node<> *node)
+{
+	_skyBoxAttributes.texturePosX = _getTexture(node->first_attribute("posX", 0, false));
+	_skyBoxAttributes.textureNegX = _getTexture(node->first_attribute("negX", 0, false));
+	_skyBoxAttributes.texturePosY = _getTexture(node->first_attribute("posY", 0, false));
+	_skyBoxAttributes.textureNegY = _getTexture(node->first_attribute("negY", 0, false));
+	_skyBoxAttributes.texturePosZ = _getTexture(node->first_attribute("posZ", 0, false));
+	_skyBoxAttributes.textureNegZ = _getTexture(node->first_attribute("negZ", 0, false));
+}
+
 void Map::_loadTerrain(xml_node<> *node)
 {
 	xml_node<> *child = node->first_node("Strata", 0, false);
@@ -249,11 +267,7 @@ void Map::_loadTerrain(xml_node<> *node)
 
 void Map::_loadStrata(xml_node<> *node)
 {
-	xml_attribute<> *attr = node->first_attribute("texture", 0, false);
-	if (attr != NULL)
-	{
-		_strata = AssetLibrary::instance()->getTexture(attr->value());
-	}
+	_strata = _getTexture(node->first_attribute("texture", 0, false));
 }
 
 void Map::_loadFieldTypes(xml_node<> *node)
@@ -261,14 +275,10 @@ void Map::_loadFieldTypes(xml_node<> *node)
 	for(xml_node<> *child = node->first_node("Field", 0, false); child; child = child->next_sibling("Field", 0, false))
 	{
 		osg::Texture2D* texture = NULL;
-		xml_attribute<> *attr = child->first_attribute("texture", 0, false);
-		if (attr != NULL)
-		{
-			texture = AssetLibrary::instance()->getTexture(attr->value());
-		}
+		texture = _getTexture(child->first_attribute("texture", 0, false));
 
 		char symbol = 0;
-		attr = child->first_attribute("symbol", 0, false);
+		xml_attribute<>* attr = child->first_attribute("symbol", 0, false);
 		if (attr != NULL)
 		{
 			if (attr->value_size() > 0)

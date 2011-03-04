@@ -11,6 +11,7 @@ class Wave;
 #include <player.h>
 #include <modeldata.h>
 #include <field.h>
+#include <skyboxattributes.h>
 #include <towerattributes.h>
 
 using namespace rapidxml;
@@ -34,6 +35,7 @@ public:
 	inline Player* getPlayer() { return &_player; };
 	inline std::queue< osg::ref_ptr<Wave> >* getWaves() { return &_waves; };
 	inline std::vector< osg::ref_ptr<TowerAttributes> >* getTowerAttributes() { return &_towers; };
+	inline SkyBoxAttributes* getSkyBoxAttributes() { return &_skyBoxAttributes; } ;
 private:
 	bool _attrToBool(xml_attribute<>* attr, bool defaultValue) const;
 	long _attrToLong(xml_attribute<>* attr, long defaultValue) const;
@@ -45,12 +47,15 @@ private:
 	void _loadWaves(xml_node<> *node);						// - +
 	void _loadTowers(xml_node<> *node);						// - +
 	TowerAttributes* _getTowerAttributes(xml_node<> *node);	// - - *
+	void _loadSkyBox(xml_node<> *node);						// - 
 	void _loadTerrain(xml_node<> *node);					// - +
 	void _loadStrata(xml_node<> *node);						// - - +
 	void _loadFieldTypes(xml_node<> *node);					// - - +
 	ModelData* _readModel(xml_node<> *node);				// - - - +
 	void _loadGrid(xml_node<> *node);						// - - +		
 	void _loadCheckPoints(xml_node<> *node);				// +
+	
+	osg::Texture2D* _getTexture(xml_attribute<> *attr);
 
 	osg::Texture2D* _getTexture(const char* filename);
 	osg::Node* _getModel(const char* filename);
@@ -68,4 +73,6 @@ private:
 	std::vector< std::vector< osg::ref_ptr<Field> > > _fields;
 
 	std::vector< osg::ref_ptr<TowerAttributes> > _towers;
+
+	SkyBoxAttributes _skyBoxAttributes;
 };

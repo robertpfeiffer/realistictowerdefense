@@ -10,6 +10,7 @@
 #include <osgUtil/CullVisitor>
 
 #include <skybox.h>
+#include <skyboxattributes.h>
 
 // Update texture matrix for cubemaps
 struct TexMatCallback : public osg::NodeCallback
@@ -71,39 +72,28 @@ public:
     }
 };
 
-osg::TextureCubeMap* SkyBox::readCubeMap()
+osg::TextureCubeMap* SkyBox::readCubeMap(SkyBoxAttributes* attributes)
 {
     osg::TextureCubeMap* cubemap = new osg::TextureCubeMap;
-    #define CUBEMAP_FILENAME(face) "textures/Cubemap_snow/" #face ".jpg"
+	
+    cubemap->setImage(osg::TextureCubeMap::POSITIVE_X, attributes->texturePosX->getImage());
+    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_X, attributes->textureNegX->getImage());
+    cubemap->setImage(osg::TextureCubeMap::POSITIVE_Y, attributes->texturePosY->getImage());
+    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_Y, attributes->textureNegY->getImage());
+    cubemap->setImage(osg::TextureCubeMap::POSITIVE_Z, attributes->texturePosZ->getImage());
+    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_Z, attributes->textureNegZ->getImage());
 
-    osg::Image* imagePosX = osgDB::readImageFile(CUBEMAP_FILENAME(posx));
-    osg::Image* imageNegX = osgDB::readImageFile(CUBEMAP_FILENAME(negx));
-    osg::Image* imagePosY = osgDB::readImageFile(CUBEMAP_FILENAME(posy));
-    osg::Image* imageNegY = osgDB::readImageFile(CUBEMAP_FILENAME(negy));
-    osg::Image* imagePosZ = osgDB::readImageFile(CUBEMAP_FILENAME(posz));
-    osg::Image* imageNegZ = osgDB::readImageFile(CUBEMAP_FILENAME(negz));
+    cubemap->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
+    cubemap->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
+    cubemap->setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_EDGE);
 
-    if (imagePosX && imageNegX && imagePosY && imageNegY && imagePosZ && imageNegZ)
-    {
-        cubemap->setImage(osg::TextureCubeMap::POSITIVE_X, imagePosX);
-        cubemap->setImage(osg::TextureCubeMap::NEGATIVE_X, imageNegX);
-        cubemap->setImage(osg::TextureCubeMap::POSITIVE_Y, imagePosY);
-        cubemap->setImage(osg::TextureCubeMap::NEGATIVE_Y, imageNegY);
-        cubemap->setImage(osg::TextureCubeMap::POSITIVE_Z, imagePosZ);
-        cubemap->setImage(osg::TextureCubeMap::NEGATIVE_Z, imageNegZ);
-
-        cubemap->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
-        cubemap->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
-        cubemap->setWrap(osg::Texture::WRAP_R, osg::Texture::CLAMP_TO_EDGE);
-
-        cubemap->setFilter(osg::Texture::MIN_FILTER, osg::Texture::LINEAR_MIPMAP_LINEAR);
-        cubemap->setFilter(osg::Texture::MAG_FILTER, osg::Texture::LINEAR);
-    }
+    cubemap->setFilter(osg::Texture::MIN_FILTER, osg::Texture::LINEAR_MIPMAP_LINEAR);
+    cubemap->setFilter(osg::Texture::MAG_FILTER, osg::Texture::LINEAR);
 
     return cubemap;
 }
 
-SkyBox::SkyBox()
+SkyBox::SkyBox(SkyBoxAttributes* attributes)
 {
 	osg::StateSet* stateset = new osg::StateSet();
 
@@ -118,7 +108,7 @@ SkyBox::SkyBox()
     osg::TexMat *tm = new osg::TexMat;
     stateset->setTextureAttribute(0, tm);
 
-    osg::TextureCubeMap* skymap = readCubeMap();
+    osg::TextureCubeMap* skymap = readCubeMap(attributes);
     stateset->setTextureAttributeAndModes(0, skymap, osg::StateAttribute::ON);
 
     stateset->setMode( GL_LIGHTING, osg::StateAttribute::OFF );

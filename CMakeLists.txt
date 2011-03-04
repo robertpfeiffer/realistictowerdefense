@@ -104,6 +104,7 @@ set(sources
 	"include/projectile.h"
 	"include/projectileattributes.h"
 	"include/skybox.h"
+	"include/skyboxattributes.h"
 	"include/terrain.h"
 	"include/tower.h"
 	"include/towerattributes.h"
