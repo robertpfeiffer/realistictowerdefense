@@ -7,6 +7,7 @@
 #include <world.h>
 
 #include <osg/PositionAttitudeTransform>
+#include <osg/ComputeBoundsVisitor>
 
 Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path)
 {
@@ -14,13 +15,14 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegme
 	_steering = new CreepSteering(pd, steer_position, path, this);
 
 	_gameTimer = GameTimer::instance();
+	_model = NULL;
 
 	this->_healthBar = new HealthBar();
 
-	osg::PositionAttitudeTransform* healthBarTransform = new PositionAttitudeTransform();
-	healthBarTransform->addChild(this->_healthBar);
-	healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, 2.0));
-	this->addChild(healthBarTransform);
+	_healthBarTransform = new PositionAttitudeTransform();
+	_healthBarTransform->addChild(this->_healthBar);
+	_healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, 1.0));
+	this->addChild(_healthBarTransform);
 
 	updateRealPosition();
 	updateRealHeading();
@@ -68,6 +70,38 @@ void Creep::setCreepStats(CreepAttributes* attributes)
 	_health = _attributes->maxHealth;
 	this->_healthBar->setMaxHealth(_health, _attributes->maxHealth);
 	_steering->setMaxSpeed((float)_attributes->speed/100.0f);
+}
+
+void Creep::setModel(osg::Node* model)
+{
+	//replace model
+	this->removeChild(_model);
+	_model = model;
+	this->addChild(model);
+
+	//calculate new zPosition of healtbar
+	float zMax;
+	osg::PositionAttitudeTransform* pat = dynamic_cast<osg::PositionAttitudeTransform*>(model);
+	if (pat)
+	{
+		osg::Vec3d scaleVec = pat->getScale();
+	}
+
+	osg::ComputeBoundsVisitor boundsVisitor;
+	boundsVisitor.apply(*model);
+	osg::BoundingBox boundingBox = boundsVisitor.getBoundingBox();
+	if (pat)
+	{
+		osg::Vec3d scaleVec = pat->getScale();
+		zMax = boundingBox.zMax()*scaleVec.z();
+	}
+	else
+	{
+		zMax = boundingBox.zMax();
+	}
+
+	//applay calculated position
+	_healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, zMax + 0.1));
 }
 
 bool Creep::isAlive()

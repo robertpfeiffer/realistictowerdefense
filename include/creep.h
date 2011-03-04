@@ -17,6 +17,7 @@ public:
 	void onUpdate();
 	void OnHit(ProjectileAttributes* hitter);
 	void setCreepStats(CreepAttributes* attributes);
+	void setModel(osg::Node* model);
 
 	bool isAlive();
 	bool isLeaked();
@@ -41,4 +42,7 @@ private:
 
 	void updateRealPosition();
 	void updateRealHeading();
+	
+	osg::ref_ptr<osg::Node> _model;
+	osg::ref_ptr<osg::PositionAttitudeTransform> _healthBarTransform;
 };
