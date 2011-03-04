@@ -3,14 +3,14 @@
 	<Player money="500" lives="50"/>
 	<Waves>
 		<Wave spawnoffset="5">
-			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" bounty="10" count="10" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
+			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="350" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
 		</Wave>
 		<Wave spawnoffset="5">
-			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="100" count="10" bounty="50" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
-			<Creep model="creeps/bot3.3ds" name="Master Bot" health="100" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
+			<Creep model="creeps/bot3.3ds" name="Simple Bots" health="500" count="25" bounty="50" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
+			<Creep model="creeps/bot3.3ds" name="Master Bot" health="750" count="1" bounty="250" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
 		</Wave>
 		<Wave>
-			<Creep model="creeps/bot3.3ds" name="Master Bot" health="1000" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
+			<Creep model="creeps/bot3.3ds" name="Master Bot" health="2000" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
 		</Wave>
 	</Waves>
 	<Towers>
