@@ -41,7 +41,7 @@ void Game::setGlobalLight()
 
 void Game::setWindowTitle(const std::string& title)
 {
-	osgViewer::Viewer::Windows windows;	
+	osgViewer::Viewer::Windows windows;
 	_viewer->getWindows(windows);
 	for (osgViewer::Viewer::Windows::iterator window = windows.begin(); window != windows.end(); ++window)
 	{
@@ -73,7 +73,7 @@ void Game::run()
 	osg::Group* root = new osg::Group();
 
 	_viewer = new TDViewer();
-    
+
 	World::instance()->loadMap("maps/snake.map");
 	root->addChild(World::instance());
 	root->addChild(Hud::instance());
@@ -85,7 +85,7 @@ void Game::run()
 	} else {
 		_viewer->setUpViewInWindow(100, 100, 600, 450); //maybe improve with osgViewer::WindowSizeHandler
 	}
-	
+
 	setCameraManipulator();
 	setGlobalLight();
 

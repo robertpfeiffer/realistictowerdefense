@@ -1,5 +1,4 @@
 #include <fieldcontextmenu.h>
-
 #include <field.h>
 #include <towerbuildbutton.h>
 #include <tower.h>
