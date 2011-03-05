@@ -25,4 +25,6 @@ private:
 	osg::Timer_t _offsetTicks;
 
 	int _speed;
+
+	static double _hardLimit;
 };
