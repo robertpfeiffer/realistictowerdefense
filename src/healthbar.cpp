@@ -79,10 +79,10 @@ osg::Geometry* HealthBar::_createBackgroundGemoetry() const
 
 	//add vertices and texture
 	osg::Vec3Array* verts = new osg::Vec3Array(4);	
-	(*verts)[0] = osg::Vec3( -width/2, 0.1, -height/2);
-	(*verts)[1] = osg::Vec3( +width/2, 0.1, -height/2);
-	(*verts)[2] = osg::Vec3( +width/2, 0.1, +height/2);
-	(*verts)[3] = osg::Vec3( -width/2, 0.1, +height/2);
+	(*verts)[0] = osg::Vec3( -width/2, 0.01f, -height/2);
+	(*verts)[1] = osg::Vec3( +width/2, 0.01f, -height/2);
+	(*verts)[2] = osg::Vec3( +width/2, 0.01f, +height/2);
+	(*verts)[3] = osg::Vec3( -width/2, 0.01f, +height/2);
 	geometry->setVertexArray(verts);
 
 	
