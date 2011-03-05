@@ -106,32 +106,49 @@ void HealthBar::_updateHealthBar()
 	float height = 0.1f;
 
 	float healthWidth = width * static_cast<float>(_health) / static_cast<float>(_maxHealth);
+	float halfWidth = width/2;	
 
-	//update width of texture (reuse array)
-	osg::Vec3Array* verts = (osg::Vec3Array*) _healthGeometry->getVertexArray();
-	(*verts)[0] = osg::Vec3( -width/2, 0, -height/2);
-	(*verts)[1] = osg::Vec3( -width/2 + healthWidth, 0, -height/2);
-	(*verts)[2] = osg::Vec3( -width/2 + healthWidth, 0, height/2);
-	(*verts)[3] = osg::Vec3( -width/2, 0, height/2);
+	_updateGeometrySize(_healthGeometry, -halfWidth, healthWidth, height);
+	_updateTextureSize(_healthGeometry, _health);	
+}
+
+void HealthBar::_updateGeometrySize(osg::Geometry* geometry, float offset, float length, float height) const
+{
+	float halfHeight = height/2;
+
+	//update width of texture (reuse array, because we know how much vertices it has)
+	osg::Vec3Array* verts = (osg::Vec3Array*) geometry->getVertexArray();	
+	(*verts)[0] = osg::Vec3( offset + length, 0, -halfHeight);
+	(*verts)[1] = osg::Vec3( offset + length, 0,  halfHeight);
+	(*verts)[2] = osg::Vec3( offset, 0,  halfHeight);
+	(*verts)[3] = osg::Vec3( offset, 0, -halfHeight);
 	_healthGeometry->setVertexArray(verts);
+}
 
-	//update Texture width (reuse array)
-	osg::Vec2Array* texCoords = (osg::Vec2Array*) _healthGeometry->getTexCoordArray(0);
-	(*texCoords)[0].set(0.0f, 0.0f);
-	(*texCoords)[1].set((float)_health / 100.0f, 0.0f);
-	(*texCoords)[2].set((float)_health / 100.0f, 1.0f);
-	(*texCoords)[3].set(0.0f, 1.0f);
-	_healthGeometry->setTexCoordArray(0, texCoords);
+void HealthBar::_updateTextureSize(osg::Geometry* geometry, int health) const
+{
+	//update Texture width (reuse array, because we know how much vertices it has)
+	osg::Vec2Array* texCoords = (osg::Vec2Array*) geometry->getTexCoordArray(0);	
+	(*texCoords)[0].set((float)health / 100.0f, 0.0f);
+	(*texCoords)[1].set((float)health / 100.0f, 1.0f);
+	(*texCoords)[2].set(0.0f, 1.0f);
+	(*texCoords)[3].set(0.0f, 0.0f);
+	geometry->setTexCoordArray(0, texCoords);
 }
 
 void HealthBar::setHealth(int health)
 {
+	if (health < _health)
+	{
+		_damage += _health - health;
+	}
 	_health = health;
 	_updateHealthBar();
 }
 
 void HealthBar::setMaxHealth(int health, int maxHealth)
 {
+	_damage = 0;
 	_health = health;
 	_maxHealth = maxHealth;
 	_updateHealthBar();

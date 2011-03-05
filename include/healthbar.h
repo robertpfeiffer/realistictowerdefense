@@ -16,7 +16,10 @@ private:
 	osg::Drawable* _createHealthGemoetry();
 	osg::Drawable* _createBackgroundGemoetry();
 	void _updateHealthBar();
+	void _updateTextureSize(osg::Geometry* geometry, int health) const;
+	void _updateGeometrySize(osg::Geometry* geometry, float offset, float length, float height) const;
 	int _maxHealth;
 	int _health;
+	int _damage;
 	osg::ref_ptr<osg::Geometry> _healthGeometry;
 };
