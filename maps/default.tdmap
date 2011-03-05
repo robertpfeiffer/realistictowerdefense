@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<Map>
+	<Player money="1000" lives="50"/>
+	<Waves>
+		<Wave spawnoffset="5">
+			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="10" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
+		</Wave>
+	</Waves>
+	<Towers>
+		<Tower name="Base tower" model="towers/basictower.osg"
+                       icon="tower.png" cost="100" cooldown="1.25"
+                       scale="0.4"
+                       projectile="projectiles/cannonball.osg"
+                       physicaldamage="20" magicalDamage="10"
+                       projectilespeed="4.0" range="3.0"
+                       projectilescale="0.1" shotheight="1.5">
+
+		  <Tower name="Upgrade from base tower" model="towers/redtower.osg"
+                         icon="fire.png" cost="70" cooldown="1"
+                         scale="0.45"
+                         projectile="projectiles/bolt.osg"
+                         physicaldamage="25" magicalDamage="10"
+                         projectilespeed="4.5" range="4.0"
+                         projectilescale="0.7" shotheight="1.5">
+
+		  <Tower name="Upgrade from base tower" model="towers/bluetower.osg"
+                         icon="arrow.png" cost="70" cooldown="0.7"
+                         scale="0.45"
+                         projectile="projectiles/star.osg"
+                         physicaldamage="25" magicalDamage="10"
+                         projectilespeed="4.5" range="4.0"
+                         projectilescale="0.1" shotheight="1.5">
+
+                  </Tower>
+                  </Tower>
+                  </Tower>
+
+
+
+	
+
+	</Towers>
+	<Checkpoints>
+		<Checkpoint x="32" y= "0" />
+		<Checkpoint x="32" y="10" />
+		<Checkpoint x="52" y="10" />
+		<Checkpoint x="52" y="17" />
+		<Checkpoint x="32" y="17" />
+		<Checkpoint x="32" y="24" />
+		<Checkpoint x="26" y="24" />
+		<Checkpoint x="26" y="15" />
+		<Checkpoint x="50" y="15" />
+		<Checkpoint x="50" y="12" />
+		<Checkpoint x= "8" y="12" />
+		<Checkpoint x= "8" y="29" />
+		<Checkpoint x="32" y="29" />
+		<Checkpoint x="32" y="39" />
+	</Checkpoints>
+	<Skybox posX="Cubemap_snow/posx.jpg" negX="Cubemap_snow/negx.jpg" posY="Cubemap_snow/posy.jpg" negY="Cubemap_snow/negy.jpg" posZ="Cubemap_snow/posz.jpg" negZ="Cubemap_snow/negz.jpg" />
+	<Terrain>
+		<Strata texture="sediment.jpg" />
+		<Fields>
+			<Field texture="gras.jpg" symbol="G" buildable="true"  />
+			<Field texture="way.jpg"  symbol="+" buildable="false" />
+			<Field texture="gras.jpg" symbol="T" buildable="true">
+				<Model path="trees/tanne.osg" probability="0.9">
+					<Scale min="0.8" max="0.9" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
+		</Fields>
+		<Grid>
+			<Row>TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+++++++++++++++++++++GGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+++++++++++++++++++++++++++++++++++++++++++G+GGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+G+GGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+G+GGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+++++++++++++++++++++++++G+GGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+GGGGG+++++++++++++++++++++GGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+GGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+GGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+GGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+GGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+GGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+GGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGG+++++++GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGG+++++++++++++++++++++++++GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG+GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGT</Row>
+			<Row>TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</Row>
+		</Grid>
+	</Terrain>	
+</Map>
