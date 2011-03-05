@@ -20,7 +20,7 @@ HealthBar::HealthBar()
 	_maxHealth = 1;
 	this->_setBillBoardStateSet();
 
-	//this->addDrawable(_createBackgroundGemoetry());
+	this->addDrawable(_createBackgroundGemoetry());
 
 	_healthGeometry = _createHealthGemoetry(AssetLibrary::instance()->getTexture("healthbar/hp.png"));
 	this->addDrawable(_healthGeometry);
@@ -79,10 +79,10 @@ osg::Geometry* HealthBar::_createBackgroundGemoetry() const
 
 	//add vertices and texture
 	osg::Vec3Array* verts = new osg::Vec3Array(4);	
-	(*verts)[0] = osg::Vec3( -width/2, 0, -height/2);
-	(*verts)[1] = osg::Vec3( +width/2, 0, -height/2);
-	(*verts)[2] = osg::Vec3( +width/2, 0, +height/2);
-	(*verts)[3] = osg::Vec3( -width/2, 0, +height/2);
+	(*verts)[0] = osg::Vec3( -width/2, 0.01f, -height/2);
+	(*verts)[1] = osg::Vec3( +width/2, 0.01f, -height/2);
+	(*verts)[2] = osg::Vec3( +width/2, 0.01f, +height/2);
+	(*verts)[3] = osg::Vec3( -width/2, 0.01f, +height/2);
 	geometry->setVertexArray(verts);
 
 	
