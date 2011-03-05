@@ -7,7 +7,7 @@
 		</Wave>
 
 		<Wave spawnoffset="10">
-			<Creep model="creeps/flat-king.osg" name="Simple Pins" health="150" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="0.1" scale="0.2" />
+			<Creep model="creeps/flat-kingpin.osg" name="Simple Pins" health="150" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="0.1" scale="0.2" />
 		</Wave>
 
 		<Wave spawnoffset="5">
