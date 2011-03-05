@@ -74,7 +74,7 @@ void Game::run()
 
 	_viewer = new TDViewer();
 
-	World::instance()->loadMap("maps/snake.map");
+	World::instance()->loadMap(this->mapFile);
 	root->addChild(World::instance());
 	root->addChild(Hud::instance());
 

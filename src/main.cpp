@@ -7,8 +7,9 @@
 #endif
 
 #include <game.h>
+#include <iostream>
 
-int main()
+int main(int argc, const char *argv[])
 {
 	#ifdef _MSC_VER
 		_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
@@ -16,8 +17,13 @@ int main()
 
 	srand(time(NULL));
 
-	Game game;
-	game.run();
-
-    return 0;
+	if(argc==2) {
+		Game game;
+		game.mapFile = argv[1];
+		game.run();
+		return 0;
+	} else {
+		std::cout << "missing map parameter" << std::endl;
+	}
+	return -1;
 }
