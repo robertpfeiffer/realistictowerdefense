@@ -17,13 +17,11 @@ int main(int argc, const char *argv[])
 
 	srand(time(NULL));
 
-	if(argc==2) {
-		Game game;
-		game.mapFile = argv[1];
-		game.run();
-		return 0;
-	} else {
-		std::cout << "missing map parameter" << std::endl;
-	}
-	return -1;
+	Game game;
+	
+	game.mapFile = argc == 2 ? argv[1] : "maps/snake.tdmap";
+
+	game.run();
+
+	return 0;
 }
