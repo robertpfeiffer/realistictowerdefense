@@ -14,12 +14,12 @@
 		</Wave>
 	</Waves>
 	<Towers>
-		<Tower name="Base tower" model="towers/basictower.osg" icon="tower.png" cost="100" cooldown="1.25" scale="0.4" projectile="projectiles/cannonball.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
+		<Tower name="Base tower" model="towers/basictower.osg" icon="comictower.png" cost="100" cooldown="1.25" scale="0.4" projectile="projectiles/cannonball.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
 			<Tower name="Upgraded Tower" model="towers/burningtower.osg" icon="fire.png" cost="100" cooldown="1.0" scale="0.4" projectile="projectiles/fire.osg" physicaldamage="30" magicalDamage="15" projectilespeed="4.0" range="4.0" projectilescale="0.1" shotheight="1.5" />
 		</Tower>
-		<Tower name="Ventilatower" model="towers/ventilatower.osg" icon="tower.png" cost="100" cooldown="1.25" scale="0.4" projectile="pojectiles/bomb.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
+		<Tower name="Ventilatower" model="towers/ventilatower.osg" icon="tornado.png" cost="100" cooldown="1.25" scale="0.4" projectile="pojectiles/bomb.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
 		</Tower>
-		<Tower name="Second base tower" model="towers/sauron.osg" icon="tower.png" cost="125" cooldown="0.3" scale="0.2" projectile="projectiles/fireball.osg" physicaldamage="4" magicalDamage="10" projectilespeed="4" range="3.5" shotheight="3" projectilescale="1" />
+		<Tower name="Second base tower" model="towers/sauron.osg" icon="sauron.png" cost="125" cooldown="0.3" scale="0.2" projectile="projectiles/fireball.osg" physicaldamage="4" magicalDamage="10" projectilespeed="4" range="3.5" shotheight="3" projectilescale="1" />
 	</Towers>
 	<Checkpoints>
 		<Checkpoint x="13" y= "0" />
