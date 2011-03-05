@@ -3,6 +3,7 @@
 #include <algorithm>
 
 double GameTimer::_hardLimit = 0.5;
+int GameTimer::_defaultSpeed = 2;
 
 GameTimer* GameTimer::instance()
 {
@@ -16,7 +17,7 @@ GameTimer::GameTimer()
 	_elapsedTime = 0;
 	_offsetTicks = _timer->tick();
 	_paused = false;
-	_speed = 2;
+	_speed = _defaultSpeed;
 	_timer->time_s();
 }
 
@@ -42,6 +43,11 @@ double GameTimer::elapsedTime()
 void GameTimer::increaseSpeed()
 {
 	_speed *= 2;
+}
+
+void GameTimer::normalizeSpeed()
+{
+	_speed = _defaultSpeed;
 }
 
 void GameTimer::decreaseSpeed()

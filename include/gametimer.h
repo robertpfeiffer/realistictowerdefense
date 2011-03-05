@@ -17,6 +17,7 @@ public:
 	inline bool isPaused() { return _paused; };
 
 	void increaseSpeed();
+	void normalizeSpeed();
 	void decreaseSpeed();
 private:
 	osg::Timer* _timer;
@@ -27,4 +28,5 @@ private:
 	int _speed;
 
 	static double _hardLimit;
+	static int _defaultSpeed;
 };

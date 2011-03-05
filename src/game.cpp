@@ -59,6 +59,9 @@ void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 		case EVENT_INCREASE_SPEED:
 			_gameTimer->increaseSpeed();
 			break;
+		case EVENT_NORMALIZE_SPEED:
+			_gameTimer->normalizeSpeed();
+			break;
 		case EVENT_DECREASE_SPEED:
 			_gameTimer->decreaseSpeed();
 			break;
@@ -104,6 +107,7 @@ void Game::run()
 	//_eventHandler->registerKeyDownEvent(osgGA::GUIEventAdapter::MODKEY_LEFT_ALT, osgGA::GUIEventAdapter::KEY_Return, this, EVENT_FULLSCREEN);
 	_interactionHandler->registerKeyEvent(0, 'p', this, EVENT_PAUSE);
 	_interactionHandler->registerKeyEvent(0, '-', this, EVENT_DECREASE_SPEED);
+	_interactionHandler->registerKeyEvent(0, 'n', this, EVENT_NORMALIZE_SPEED);
 	_interactionHandler->registerKeyEvent(0, '+', this, EVENT_INCREASE_SPEED);
 
 	//_viewer.addEventHandler( new osgViewer::StatsHandler());
