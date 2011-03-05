@@ -3,8 +3,13 @@
 	<Player money="500" lives="50"/>
 	<Waves>
 		<Wave spawnoffset="10">
-			<Creep model="creeps/pin.osg" name="Simple Pins" health="150" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="0.1" scale="0.2" />
+			<Creep model="creeps/cartoonbot.osg" name="Simple Bots" health="150" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="0.1" scale="0.2" />
 		</Wave>
+
+		<Wave spawnoffset="10">
+			<Creep model="creeps/flat-king.osg" name="Simple Pins" health="150" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="0.1" scale="0.2" />
+		</Wave>
+
 		<Wave spawnoffset="5">
 			<Creep model="creeps/bot.osg" name="Simple Bots" health="500" count="25" bounty="50" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
 			<Creep model="creeps/bot.osg" name="Master Bot" health="750" count="1" bounty="250" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
@@ -12,6 +17,13 @@
 		<Wave>
 			<Creep model="creeps/bot.osg" name="Master Bot" health="2000" count="1" bounty="500" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
 		</Wave>
+
+		<Wave spawnoffset="5">
+			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="10" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
+		</Wave>
+
+
+
 	</Waves>
 	<Towers>
 		<Tower name="Base tower" model="towers/basictower.osg" icon="comictower.png" cost="100" cooldown="1.25" scale="0.4" projectile="projectiles/cannonball.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
