@@ -18,15 +18,15 @@
 		  <Tower name="Upgrade from base tower" model="towers/redtower.osg"
                          icon="fire.png" cost="70" cooldown="1"
                          scale="0.45"
-                         projectile="projectiles/cannonball.osg"
+                         projectile="projectiles/bolt.osg"
                          physicaldamage="25" magicalDamage="10"
                          projectilespeed="4.5" range="4.0"
-                         projectilescale="0.1" shotheight="1.5">
+                         projectilescale="0.7" shotheight="1.5">
 
 		  <Tower name="Upgrade from base tower" model="towers/bluetower.osg"
                          icon="arrow.png" cost="70" cooldown="0.7"
                          scale="0.45"
-                         projectile="projectiles/cannonball.osg"
+                         projectile="projectiles/star.osg"
                          physicaldamage="25" magicalDamage="10"
                          projectilespeed="4.5" range="4.0"
                          projectilescale="0.1" shotheight="1.5">
