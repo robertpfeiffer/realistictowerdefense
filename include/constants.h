@@ -17,4 +17,5 @@ double const PI = 2 * acos(0.0);
 
 #define EVENT_PAUSE 1
 #define EVENT_INCREASE_SPEED 2
-#define EVENT_DECREASE_SPEED 3
+#define EVENT_NORMALIZE_SPEED 3
+#define EVENT_DECREASE_SPEED 4

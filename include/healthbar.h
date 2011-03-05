@@ -12,7 +12,9 @@ public:
 	void setHealth(int health);
 	void setMaxHealth(int health, int maxHealth);
 private:
+	void _setBillBoardStateSet();
 	osg::Drawable* _createHealthGemoetry();
+	osg::Drawable* _createBackgroundGemoetry();
 	void _updateHealthBar();
 	int _maxHealth;
 	int _health;

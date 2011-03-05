@@ -1,5 +1,9 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <gametimer.h>
+#include <algorithm>
+
+double GameTimer::_hardLimit = 0.5;
+int GameTimer::_defaultSpeed = 2;
 
 GameTimer* GameTimer::instance()
 {
@@ -13,7 +17,7 @@ GameTimer::GameTimer()
 	_elapsedTime = 0;
 	_offsetTicks = _timer->tick();
 	_paused = false;
-	_speed = 2;
+	_speed = _defaultSpeed;
 	_timer->time_s();
 }
 
@@ -32,12 +36,18 @@ double GameTimer::elapsedTime()
 	{
 		return 0;
 	}
-	return _speed * _elapsedTime;
+
+	return std::min(_speed * _elapsedTime, _hardLimit);
 }
 
 void GameTimer::increaseSpeed()
 {
 	_speed *= 2;
+}
+
+void GameTimer::normalizeSpeed()
+{
+	_speed = _defaultSpeed;
 }
 
 void GameTimer::decreaseSpeed()
