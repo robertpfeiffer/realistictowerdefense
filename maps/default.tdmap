@@ -3,7 +3,7 @@
 	<Player money="1000" lives="50"/>
 	<Waves>
 		<Wave spawnoffset="5">
-			<Creep model="creeps/bot.osg" name="Simple Bots" health="100" bounty="10" count="10" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
+			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="10" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
 		</Wave>
 	</Waves>
 	<Towers>
