@@ -4,6 +4,7 @@
 #include <map.h>
 #include <keyboardeventhandler.h>
 #include <userinteractionhandler.h>
+#include <string>
 
 #include <osg/Node>
 #include <osgGA/TerrainManipulator>
@@ -14,6 +15,7 @@ class Game : KeyboardEventHandler
 {
 public:
 	void run();
+        std::string mapFile;
 
 	inline UserInteractionHandler* getInteractiontHandler() { return _interactionHandler.get(); };
 private:

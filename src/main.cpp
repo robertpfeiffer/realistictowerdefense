@@ -7,8 +7,9 @@
 #endif
 
 #include <game.h>
+#include <iostream>
 
-int main()
+int main(int argc, const char *argv[])
 {
 	#ifdef _MSC_VER
 		_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
@@ -17,7 +18,10 @@ int main()
 	srand(time(NULL));
 
 	Game game;
+	
+	game.mapFile = argc == 2 ? argv[1] : "maps/snake.tdmap";
+
 	game.run();
 
-    return 0;
+	return 0;
 }
