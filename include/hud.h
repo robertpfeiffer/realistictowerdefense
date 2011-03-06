@@ -2,8 +2,9 @@
 #include <osg/Camera>
 #include <hudelement.h>
 #include <player.h>
+#include <updatablenode.h>
 
-class Hud : public osg::Camera
+class Hud : public osg::Camera, public UpdatableNode
 {
 public:
 	Hud();
@@ -11,7 +12,7 @@ public:
 
 	void setPlayer(Player* player);
 
-	void onPlayerUpdate();
+	void onUpdate();
 	void onGameEnd(bool won);
 
 private:

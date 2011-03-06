@@ -2,6 +2,7 @@
 #include <hud.h>
 
 #include <hudbackground.h>
+#include <updatecallback.h>
 
 #include <sstream>
 
@@ -21,6 +22,10 @@ Hud* Hud::instance()
 
 Hud::Hud()
 {
+	this->_player = NULL;
+
+	this->addUpdateCallback(new UpdateCallback());
+
 	this->setProjectionMatrix(osg::Matrix::ortho2D(0,160,0,100));
 	this->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
 	this->setViewMatrix(osg::Matrix::identity());
@@ -38,11 +43,13 @@ Hud::Hud()
 void Hud::setPlayer(Player* player)
 {
 	_player = player;
-	onPlayerUpdate();
 }
 
-void Hud::onPlayerUpdate() 
+void Hud::onUpdate() 
 {
+	if(_player == NULL)
+		return;
+
 	std::stringstream moneytext; 
 	moneytext << _player->getMoney() << " Gold"; 
 	_goldDisplay->setText(moneytext.str()); 

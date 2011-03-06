@@ -104,7 +104,6 @@ void World::onDeath(Creep* creep)
 {
 	int bounty = creep->bounty();
 	_map->getPlayer()->addMoney(bounty);
-	Hud::instance()->onPlayerUpdate();
 
 	InSceneText* bountyText = new InSceneText(Convert::toString(bounty), creep->getPosition());
 	bountyText->setColor(osg::Vec3(1.0, 1.0, 0.0));
@@ -115,7 +114,6 @@ void World::onDeath(Creep* creep)
 void World::onLeak(Creep* creep)
 {
 	_map->getPlayer()->takeLife();
-	Hud::instance()->onPlayerUpdate();
 	if(_map->getPlayer()->getLives() == 0)
 	{
 		GameTimer::instance()->pause();

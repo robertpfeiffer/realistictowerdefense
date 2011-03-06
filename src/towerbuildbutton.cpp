@@ -39,6 +39,5 @@ void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
 	{
 		World::instance()->getMap()->getPlayer()->decreaseMoney(_towerattributes->cost);
 		_towerattributes->stock--;
-		Hud::instance()->onPlayerUpdate();
 	}
 }
