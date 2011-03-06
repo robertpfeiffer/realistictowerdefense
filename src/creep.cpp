@@ -42,6 +42,12 @@ void Creep::onUpdate()
 
 void Creep::OnHit(ProjectileAttributes* hitter)
 {
+	if(isLeaked())
+	{
+		//corner-case: leaked, but killing projectile is on its way
+		return;
+	}
+
 	_health -= computeDamageReceived(hitter);
 	_healthBar->setHealth(_health);
 

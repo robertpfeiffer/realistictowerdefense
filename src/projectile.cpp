@@ -19,7 +19,7 @@ Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* at
 
 void Projectile::onUpdate()
 {
-	if(_target->health() <= 0)
+	if(!_target->isAlive() || _target->isLeaked())
 	{
 		Graveyard::instance()->killChild(this);
 		return;
