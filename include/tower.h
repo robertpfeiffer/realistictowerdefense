@@ -19,7 +19,6 @@ public:
 	osg::Vec3 getPosition();
 
 	virtual void onFocus(osgGA::GUIActionAdapter& aa);
-	virtual void onClick(osgGA::GUIActionAdapter& aa);
 	virtual void onBlur();
 
 private:

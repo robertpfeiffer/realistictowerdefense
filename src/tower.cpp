@@ -4,9 +4,11 @@
 #include <creep.h>
 #include <gametimer.h>
 #include <hatchery.h>
+#include <hud.h>
 #include <projectile.h>
 #include <towerattributes.h>
 #include <towercontextmenu.h>
+#include <towerinfobox.h>
 #include <world.h>
 
 Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
@@ -88,11 +90,8 @@ void Tower::onFocus(osgGA::GUIActionAdapter& aa)
 {
 	this->_menu = new TowerContextMenu(this);
 	this->addChild(_menu);
-}
 
-void Tower::onClick(osgGA::GUIActionAdapter& aa)
-{
-  //handled by menubutton
+	Hud::instance()->setInfoBox(new TowerInfoBox(_attributes));
 }
 
 void Tower::onBlur()
@@ -100,4 +99,6 @@ void Tower::onBlur()
 	if(this->_menu != NULL)
 		this->removeChild(this->_menu);
 	this->_menu = NULL;
+
+	Hud::instance()->setInfoBox(NULL);
 }
