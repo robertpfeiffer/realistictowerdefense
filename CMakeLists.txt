@@ -71,6 +71,7 @@ set(sources
 	"src/tower.cpp"
 	"src/towerbuildbutton.cpp"
 	"src/towercontextmenu.cpp"
+	"src/towerinfobox.cpp"
 	"src/towerupgradebutton.cpp"
 	"src/transformhelper.cpp"
 	"src/updatablenode.cpp"
@@ -116,6 +117,7 @@ set(sources
 	"include/towerattributes.h"
 	"include/towerbuildbutton.h"
 	"include/towercontextmenu.h"
+	"include/towerinfobox.h"
 	"include/towerupgradebutton.h"
 	"include/transformhelper.h"
 	"include/updatablenode.h"
@@ -196,6 +198,7 @@ source_group("Source Files\\User Interface" FILES
 	"src/menubutton.cpp"
 	"src/towerbuildbutton.cpp"
 	"src/towercontextmenu.cpp"
+	"src/towerinfobox.cpp"
 	"src/towerupgradebutton.cpp"
 )
 
@@ -211,6 +214,7 @@ source_group("Header Files\\User Interface" FILES
 	"include/menubutton.h"
 	"include/towerbuildbutton.h"
 	"include/towercontextmenu.h"
+	"include/towerinfobox.h"
 	"include/towerupgradebutton.h"
 )
 
