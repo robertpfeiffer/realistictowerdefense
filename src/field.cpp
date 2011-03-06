@@ -90,7 +90,6 @@ bool Field::setBuilding(Tower* tower)
 	_content = tower;
 	this->addChild(tower);
 	World::instance()->registerForUpdates(tower);
-	_isBuildable = false;
 
 	return true;
 }
@@ -98,12 +97,15 @@ bool Field::setBuilding(Tower* tower)
 bool Field::destroyBuilding()
 {
 	if (!this->hasTower())
-	  	return false;
+	{
+		return false;
+	}
 
 	Tower *tower = dynamic_cast<Tower*>(_content.get());	
-	tower->getAttributes()->stock--;
-	_isBuildable = true;
+	tower->getAttributes()->stock++;
 	this->removeChild(tower);
+	this->_content = NULL;
+
 	return true;
 }
 

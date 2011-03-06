@@ -33,13 +33,12 @@ void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
 		return;
 	}
 
-	_towerattributes->stock--;
-
 	bool wasBuilt = _field->setBuilding(new Tower(_field->getPosition(), _towerattributes));
 
 	if(wasBuilt)
 	{
 		World::instance()->getMap()->getPlayer()->decreaseMoney(_towerattributes->cost);
+		_towerattributes->stock--;
 		Hud::instance()->onPlayerUpdate();
 	}
 }
