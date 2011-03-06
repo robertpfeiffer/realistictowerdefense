@@ -57,7 +57,7 @@ void Hud::setInfoBox(InfoBox* infoBox)
 
 	if(_infoBox != NULL)
 	{
-		_infoBox->setPosition(osg::Vec3(5.0, 50.0, 0.0)); //TODO: better positioning
+		_infoBox->setPosition(osg::Vec3(3.0, 30.0, 0.0)); //TODO: better positioning
 		this->addChild(_infoBox);
 	}
 }
