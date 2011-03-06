@@ -15,6 +15,20 @@ std::string Convert::toString(int i)
 	return out.str();
 }
 
+std::string Convert::toString(long l)
+{
+	std::stringstream out;
+	out << l;
+	return out.str();
+}
+
+std::string Convert::toString(double d)
+{
+	std::stringstream out;
+	out << d;
+	return out.str();
+}
+
 bool Convert::attrToBool(xml_attribute<>* attr, bool defaultValue)
 {
 	if (attr == NULL) return defaultValue;
