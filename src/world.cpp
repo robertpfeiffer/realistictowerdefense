@@ -8,6 +8,7 @@
 #include <osgGA/TerrainManipulator>
 #include <osgFX/Cartoon>
 #include <osgFX/SpecularHighlights>
+#include <osgFX/Scribe>
 
 #include <osg/AlphaFunc>
 #include <osgDB/Registry>
@@ -178,10 +179,11 @@ void World::loadMap(const std::string mapFilename)
 	_map = new Map(mapFilename);
 	if ( false ) { //TODO
 		osg::Group* g = new osgFX::Cartoon;
-		osg::Group* h = new osgFX::SpecularHighlights;
-                this->addChild(h);
-		h->addChild(g);
-		g->addChild(new Terrain(_map));
+		//osg::Group* h = new osgFX::SpecularHighlights;
+		osg::Group* h = new osgFX::Scribe;
+		this->addChild(h);
+		//h->addChild(g);
+		h->addChild(new Terrain(_map));
 	} else {
 		this->addChild(new Terrain(_map));
 		this->addChild(new SkyBox(_map->getSkyBoxAttributes()));
