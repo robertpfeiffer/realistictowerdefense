@@ -7,7 +7,7 @@
 class InSceneText : public osg::PositionAttitudeTransform, public UpdatableNode
 {
 public:
-	InSceneText(osgText::String text, osg::Vec3 position);
+	InSceneText(const std::string text, osg::Vec3 position);
 	void onUpdate();
 	void setColor(osg::Vec3 color);
 

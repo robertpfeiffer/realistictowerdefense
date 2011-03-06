@@ -5,14 +5,14 @@
 float InSceneText::_totalDistance = 10.0f;
 float InSceneText::_stepSize = 0.25f;
 
-InSceneText::InSceneText(osgText::String text, osg::Vec3 position)
+InSceneText::InSceneText(const std::string text, osg::Vec3 position)
 {
 	_distanceLeft = _totalDistance;
 
 	_text = new osgText::Text();
     _text->setCharacterSize(0.4);
     _text->setFont("fonts/DejaVuSans.ttf");
-    _text->setText(text);
+    _text->setText(osgText::String(text));
 	_text->setAxisAlignment(osgText::Text::SCREEN);
 	_text->setColor(osg::Vec4(1.0, 1.0, 1.0, 1.0));
 

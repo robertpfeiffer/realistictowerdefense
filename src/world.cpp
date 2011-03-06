@@ -104,7 +104,7 @@ void World::onDeath(Creep* creep)
 	_map->getPlayer()->addMoney(bounty);
 	Hud::instance()->onPlayerUpdate();
 
-	InSceneText* bountyText = new InSceneText(osgText::String(Convert::toString(bounty)), creep->getPosition());
+	InSceneText* bountyText = new InSceneText(Convert::toString(bounty), creep->getPosition());
 	bountyText->setColor(osg::Vec3(1.0, 1.0, 0.0));
 	Hatchery::instance()->enqueueChild(bountyText);
 
@@ -120,7 +120,7 @@ void World::onLeak(Creep* creep)
 		Hud::instance()->onGameEnd(false);
 	}
 
-	InSceneText* lifeLostText = new InSceneText(osgText::String("-1"), creep->getPosition());
+	InSceneText* lifeLostText = new InSceneText("-1", creep->getPosition());
 	lifeLostText->setColor(osg::Vec3(1.0, 0.0, 0.0));
 	Hatchery::instance()->enqueueChild(lifeLostText);
 
