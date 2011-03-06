@@ -19,11 +19,9 @@ int main(int argc, char **argv)
 	srand(time(NULL));
 
 	osg::ArgumentParser arguments(&argc, argv);
-	std::string mapFilename = "maps/snake.tdmap";
-	arguments.read("map", mapFilename);
 
 	Game game;
-	game.run(mapFilename);
+	game.run(arguments);
 
 	return 0;
 }

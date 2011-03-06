@@ -88,10 +88,6 @@ void Creep::setModel(osg::Node* model)
 	//calculate new zPosition of healtbar
 	float zMax;
 	osg::PositionAttitudeTransform* pat = dynamic_cast<osg::PositionAttitudeTransform*>(model);
-	if (pat)
-	{
-		osg::Vec3d scaleVec = pat->getScale();
-	}
 
 	osg::ComputeBoundsVisitor boundsVisitor;
 	boundsVisitor.apply(*model);
