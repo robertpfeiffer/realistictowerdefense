@@ -56,20 +56,20 @@
 				</Model>
 			</Field>
 			<Field texture="gras.jpg" symbol="M" buildable="true">
-				<Model path="shrubs/mushrooms3.osg" probability="0.2">
-					<Scale min="0.15" max="0.25" />
+				<Model path="shrubs/mushrooms3.osg" probability="0.3">
+					<Scale min="0.04" max="0.08" />
 					<Rotation min="0" max="360" />
 				</Model>
 			</Field>
 			<Field texture="gras.jpg" symbol="B" buildable="true">
 				<Model path="trees/arbol2.osg" probability="1">
-					<Scale min="0.8" max="1.2" />
+					<Scale min="0.7" max="1.0" />
 					<Rotation min="0" max="360" />
 				</Model>
 			</Field>
 				<Field texture="gras.jpg" symbol="F" buildable="false">
 					<Model path="towers/ventilatower.osg" probability="1">
-						<Scale min="1" max="1" />
+						<Scale min="0.5" max="0.5" />
 						<Rotation min="0" max="360" />
 					</Model>
 				</Field>
