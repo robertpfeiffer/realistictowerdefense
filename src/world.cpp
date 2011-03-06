@@ -12,6 +12,7 @@
 
 #include <constants.h>
 #include <convert.h>
+#include <gametimer.h>
 #include <graveyard.h>
 #include <hatchery.h>
 #include <hud.h>
@@ -87,6 +88,14 @@ void World::startNextWave()
 		this->addUpdateCallback(_currentWave);
 		_waveDone = false;
 	}
+	else
+	{
+		if(_map->getPlayer()->getLives() > 0)
+		{
+			GameTimer::instance()->pause();
+			Hud::instance()->onGameEnd(true);
+		}
+	}
 }
 
 void World::onDeath(Creep* creep)
@@ -105,6 +114,11 @@ void World::onLeak(Creep* creep)
 {
 	_map->getPlayer()->takeLife();
 	Hud::instance()->onPlayerUpdate();
+	if(_map->getPlayer()->getLives() == 0)
+	{
+		GameTimer::instance()->pause();
+		Hud::instance()->onGameEnd(false);
+	}
 
 	InSceneText* lifeLostText = new InSceneText(osgText::String("-1"), creep->getPosition());
 	lifeLostText->setColor(osg::Vec3(1.0, 0.0, 0.0));
