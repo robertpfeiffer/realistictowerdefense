@@ -1,6 +1,8 @@
 #include <osg/Geode>
 #include <osgText/Text>
 
+#include <hudbackground.h>
+
 class HudElement : public osg::Geode
 {
 public:
@@ -12,10 +14,9 @@ private:
 	void updateBackgroundBounds();
 
 	void setupText(osg::Vec2);
-	void setupBackground();
 
 	osg::ref_ptr<osgText::Text> _text;
-	osg::ref_ptr<osg::Geometry> _background;
+	osg::ref_ptr<HudBackground> _background;
 
 	static double _backgroundPadding;
 };

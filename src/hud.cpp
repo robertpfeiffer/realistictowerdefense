@@ -49,3 +49,8 @@ void Hud::onPlayerUpdate()
 	livestext << _player->getLives() << " Lives"; 
 	_lifeDisplay->setText(livestext.str()); 
 }
+
+void Hud::onGameEnd(bool won)
+{
+
+}

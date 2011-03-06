@@ -12,6 +12,7 @@ public:
 	void setPlayer(Player* player);
 
 	void onPlayerUpdate();
+	void onGameEnd(bool won);
 
 private:
 	Player* _player;
