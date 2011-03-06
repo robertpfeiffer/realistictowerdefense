@@ -66,17 +66,22 @@ void Hud::onGameEnd(bool won)
 	this->addChild(endScreen);
 
 	osgText::Text* text = new osgText::Text();
-	text->setCharacterSize(4);
-	text->setFont("fonts/DejaVuSans.ttf");
+	text->setCharacterSize(24);
+	text->setFont("fonts/orbitron-black.ttf");
 	text->setAxisAlignment(osgText::Text::SCREEN);
 	text->setAlignment(osgText::Text::CENTER_CENTER);
-	text->setColor(osg::Vec4(1.0, 1.0, 1.0, 1.0));
 	text->setPosition(osg::Vec3(80.0, 50.0, 0.0));
 
 	if(won)
+	{
+		text->setColor(osg::Vec4(1.0, 1.0, 0, 1.0));
 		text->setText(osgText::String("WIN"));
+	}
 	else
-		text->setText(osgText::String("LOSE"));
+	{
+		text->setColor(osg::Vec4(1.0, 0.0, 0.0, 1.0));
+		text->setText(osgText::String("FAIL"));
+	}
 
 	endScreen->addDrawable(text);
 }
