@@ -74,6 +74,11 @@ void InfoBox::addEntry(const std::string title, const std::string description)
 	_geode->addDrawable(descriptionText);
 }
 
+void InfoBox::addSpacing()
+{
+	addEntry("", "");
+}
+
 void InfoBox::updateLayout()
 {
 	//compute indent for descriptions

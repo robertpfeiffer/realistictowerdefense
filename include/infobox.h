@@ -9,6 +9,7 @@ public:
 	InfoBox(const std::string title);
 
 	void addEntry(const std::string, const std::string);
+	void addSpacing();
 
 	friend class Hud;
 
