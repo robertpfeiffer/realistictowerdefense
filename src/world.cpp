@@ -43,7 +43,8 @@ void World::createPath()
 		pathPoints[i] = OpenSteer::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) -((*checkpoints)[i].Y));
 	}
 	
-	_path = new OpenSteer::PolylineSegmentedPathwaySingleRadius(pathPoints.size(), pathPoints.data(), 0.5, false);
+	//FIXME: made path extra-narrow to work around creeps leaving path
+	_path = new OpenSteer::PolylineSegmentedPathwaySingleRadius(pathPoints.size(), pathPoints.data(), 0.35, false);
 }
 
 OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
