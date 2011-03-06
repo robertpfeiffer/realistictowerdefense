@@ -54,6 +54,8 @@ void Hud::onPlayerUpdate()
 
 void Hud::onGameEnd(bool won)
 {
+	//TODO: clean up that mess
+
 	osg::Geode* endScreen = new osg::Geode();
 
 	osg::BoundingBox bb;
@@ -63,5 +65,18 @@ void Hud::onGameEnd(bool won)
 	endScreen->addDrawable(new HudBackground(bb, 0.0));
 	this->addChild(endScreen);
 
-	//TODO: add a text-message
+	osgText::Text* text = new osgText::Text();
+	text->setCharacterSize(4);
+	text->setFont("fonts/DejaVuSans.ttf");
+	text->setAxisAlignment(osgText::Text::SCREEN);
+	text->setAlignment(osgText::Text::CENTER_CENTER);
+	text->setColor(osg::Vec4(1.0, 1.0, 1.0, 1.0));
+	text->setPosition(osg::Vec3(80.0, 50.0, 0.0));
+
+	if(won)
+		text->setText(osgText::String("WIN"));
+	else
+		text->setText(osgText::String("LOSE"));
+
+	endScreen->addDrawable(text);
 }
