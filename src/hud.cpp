@@ -76,12 +76,12 @@ void Hud::onGameEnd(bool won)
 	if(won)
 	{
 		text->setColor(osg::Vec4(1.0, 1.0, 0, 1.0));
-		text->setText(osgText::String("WIN"));
+		text->setText(osgText::String("EPIC\nWIN"));
 	}
 	else
 	{
 		text->setColor(osg::Vec4(1.0, 0.0, 0.0, 1.0));
-		text->setText(osgText::String("FAIL"));
+		text->setText(osgText::String("EPIC\nFAIL"));
 	}
 
 	endScreen->addDrawable(text);
