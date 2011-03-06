@@ -11,6 +11,7 @@ public:
 	double cooldown;
 	double range;
 	long cost;
+	long stock;
 	double height;
 	std::string name;
 

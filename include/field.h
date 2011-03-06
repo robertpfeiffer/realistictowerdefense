@@ -12,6 +12,8 @@ class Field : public osg::PositionAttitudeTransform, public MouseEventHandler
 public:
 	Field(FieldType* fieldType);
 	bool setBuilding(Tower* tower);
+	bool destroyBuilding();
+
 	bool isBuildable();
 	bool hasTower();
 	osg::Node* getContent();

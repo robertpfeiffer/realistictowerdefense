@@ -9,6 +9,7 @@
 #include <osg/Node>
 #include <osg/Group>
 
+
 #include <constants.h>
 #include <fieldcontextmenu.h>
 
@@ -91,6 +92,18 @@ bool Field::setBuilding(Tower* tower)
 	World::instance()->registerForUpdates(tower);
 	_isBuildable = false;
 
+	return true;
+}
+
+bool Field::destroyBuilding()
+{
+	if (!this->hasTower())
+	  	return false;
+
+	Tower *tower = dynamic_cast<Tower*>(_content.get());	
+	tower->getAttributes()->stock--;
+	_isBuildable = true;
+	this->removeChild(tower);
 	return true;
 }
 

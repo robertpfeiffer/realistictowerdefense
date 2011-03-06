@@ -44,6 +44,11 @@ TowerAttributes* Tower::getAttributes()
 	return _attributes;
 }
 
+
+osg::Vec3 Tower::getPosition()
+{
+	return _position;
+}
 void Tower::upgradeTo(TowerAttributes* attributes)
 {
 	this->removeChild(_attributes->model);
