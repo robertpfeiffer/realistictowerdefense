@@ -9,6 +9,7 @@
 #include <osg/Node>
 #include <osg/Group>
 
+
 #include <constants.h>
 #include <fieldcontextmenu.h>
 
@@ -81,15 +82,10 @@ bool Field::setBuilding(Tower* tower)
 	if (!this->isBuildable() || this->hasTower())
 	  	return false;
 
-	if(tower->getAttributes()->stock == 0)
-		return false;
-
 	if(_content != NULL)
 	{
 		this->removeChild(_content);
 	}
-
-	tower->getAttributes()->stock--;
 
 	_content = tower;
 	this->addChild(tower);
