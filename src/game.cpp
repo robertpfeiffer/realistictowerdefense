@@ -13,6 +13,7 @@
 
 #include <osg/Group>
 #include <osgParticle/FireEffect>
+#include <osgViewer/Viewer>
 
 void Game::setCameraManipulator()
 {
@@ -70,13 +71,15 @@ void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 	}
 }
 
-void Game::run(std::string mapFilename)
+void Game::run(osg::ArgumentParser arguments)
 {
 	AssetLibrary::instance()->unmark();
 	osg::Group* root = new osg::Group();
 
-	_viewer = new TDViewer();
+	_viewer = new TDViewer(arguments);
 
+	std::string mapFilename = "maps/snake.tdmap";
+	arguments.read("map", mapFilename);
 	World::instance()->loadMap(mapFilename);
 	root->addChild(World::instance());
 	root->addChild(Hud::instance());

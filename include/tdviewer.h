@@ -7,6 +7,8 @@
 class TDViewer : public osgViewer::Viewer
 {
 public:
+	TDViewer(osg::ArgumentParser& arguments): osgViewer::Viewer(arguments) {};
+
 	virtual void frame(double time);
 
 	void limitCamera(osgGA::TerrainManipulator* manipulator);
