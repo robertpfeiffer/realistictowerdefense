@@ -23,6 +23,7 @@ Hud* Hud::instance()
 Hud::Hud()
 {
 	this->_player = NULL;
+	this->_infoBox = NULL;
 
 	this->addUpdateCallback(new UpdateCallback());
 
@@ -56,23 +57,30 @@ void Hud::setInfoBox(InfoBox* infoBox)
 
 	if(_infoBox != NULL)
 	{
-		_infoBox->setPosition(osg::Vec2()); //TODO: real positioning
+		_infoBox->setPosition(osg::Vec3(5.0, 50.0, 0.0)); //TODO: better positioning
 		this->addChild(_infoBox);
 	}
 }
 
 void Hud::onUpdate() 
 {
-	if(_player == NULL)
-		return;
+	if(_infoBox != NULL)
+	{
+		//FIXME: this is only neccessary because the bounding-box is not computed correctly
+		//inside the info-box
+		_infoBox->updateLayout();
+	}
 
-	std::stringstream moneytext; 
-	moneytext << _player->getMoney() << " Gold"; 
-	_goldDisplay->setText(moneytext.str()); 
+	if(_player != NULL)
+	{
+		std::stringstream moneytext; 
+		moneytext << _player->getMoney() << " Gold"; 
+		_goldDisplay->setText(moneytext.str()); 
 
-	std::stringstream livestext; 
-	livestext << _player->getLives() << " Lives"; 
-	_lifeDisplay->setText(livestext.str()); 
+		std::stringstream livestext; 
+		livestext << _player->getLives() << " Lives"; 
+		_lifeDisplay->setText(livestext.str()); 
+	}
 }
 
 void Hud::onGameEnd(bool won)
