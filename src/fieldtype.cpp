@@ -12,8 +12,7 @@ FieldType::FieldType(osg::Texture2D* texture, ModelData* modelData, bool isBuild
 	//Create ground
 	_ground = new osg::Geode();
 
-	osg::Geometry* geometry = new osg::Geometry();
-	   
+	osg::Geometry* geometry = new osg::Geometry();   
 
 	osg::Vec3Array* vertices = new osg::Vec3Array(4);
 	(*vertices)[0].set(osg::Vec3(-0.5, -0.5, 0.0));
@@ -41,6 +40,15 @@ FieldType::FieldType(osg::Texture2D* texture, ModelData* modelData, bool isBuild
 	normals->push_back(osg::Vec3(0.0, 0.0, 1.0));
 	geometry->setNormalArray(normals);
 	geometry->setNormalBinding(osg::Geometry::BIND_OVERALL);
+        
+	osg::Vec4Array* colors = new osg::Vec4Array(1);
+
+	(*colors)[0] = _isBuildable ? osg::Vec4( 0.2, 0.6, 0.2, 1.0 ) : osg::Vec4( 0.4, 0.3, 0.2, 1.0 );
+
+	geometry->setColorArray(colors);
+
+	geometry->setColorBinding(osg::Geometry::BIND_OVERALL);
+
 
 	osg::StateSet* state = new osg::StateSet();
 	state->setTextureAttributeAndModes(0, texture, osg::StateAttribute::ON);

@@ -17,8 +17,8 @@ Group {
         Material {
           name "cylinder1_auv"
           ColorMode OFF
-          ambientColor 0.2 0.2 0.2 1
-          diffuseColor 0.8 0.8 0.8 1
+          ambientColor 0.6 0.2 0.2 1
+          diffuseColor 0.8 0.3 0.3 1
           specularColor 0 0 0 1
           emissionColor 0 0 0 1
           shininess 0
