@@ -1,3 +1,4 @@
+#pragma once
 #include <infobox.h>
 
 class TowerAttributes;

@@ -1,3 +1,4 @@
+#pragma once
 #include <hudbackground.h>
 #include <osg/PositionAttitudeTransform>
 #include <osgText/Text>
