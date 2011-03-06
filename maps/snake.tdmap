@@ -27,7 +27,7 @@
 		<Tower name="Base tower" model="towers/basictower.osg" icon="comictower.png" cost="40" cooldown="1.25" scale="0.4" projectile="projectiles/cannonball.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
 			<Tower name="Upgraded Tower" model="towers/burningtower.osg" icon="fire.png" cost="100" cooldown="1.0" scale="0.4" projectile="projectiles/fire.osg" physicaldamage="30" magicalDamage="15" projectilespeed="4.0" range="4.0" projectilescale="0.1" shotheight="1.5" />
 		</Tower>
-		<Tower name="Ventilatower" model="towers/ventilatower.osg" icon="tornado.png" cost="100" cooldown="1.25" scale="0.4" projectile="pojectiles/bomb.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
+		<Tower name="Ventilatower" model="towers/ventilatower.osg" icon="tornado.png" cost="100" cooldown="1.25" scale="0.4" projectile="pojectiles/bomb.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5" slow="0.3">
 		</Tower>
 		<Tower name="Second base tower" model="towers/sauron.osg" icon="sauron.png" cost="125" cooldown="0.3" scale="0.2" projectile="projectiles/fireball.osg" physicaldamage="4" magicalDamage="10" stock="1" projectilespeed="4" range="3.5" shotheight="3" projectilescale="1" />
 	</Towers>
@@ -68,27 +68,36 @@
 				</Model>
 			</Field>
 				<Field texture="gras.jpg" symbol="F" buildable="false">
-					<Model path="creeps/zeppelin.osg" probability="0">
-						<Scale min="0.5" max="0.5" />
+					<Model path="towers/ventilatower.osg" probability="1">
+						<Scale min="0.01" max="0.03" />
 						<Rotation min="0" max="360" />
 					</Model>
 				</Field>
+
+                                <Field texture="gras.jpg" symbol="V" buildable="false">
+                                        <Model path="shrubs/nobot.osg" probability="1">
+                                                <Scale min="0.5" max="0.7" />
+                                                <Rotation min="0" max="360" />
+                                        </Model>
+                                </Field>
+
+
 		</Fields>
 		<Grid>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
-			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
-			<Row>TTGGG+++++++++GGFGGGMTT</Row>
+			<Row>TTTTGGGGGGGGG+GGGGGGGTT</Row>
+			<Row>TTTGG+++++++++GGFGGGMTT</Row>
 			<Row>TTGBG+GGGGGGGGGGGGGGGTT</Row>
 			<Row>TTGGG+GGGGGGGGGGGGMGGTT</Row>
 			<Row>TTMGG+++++++++GGGGGGGTT</Row>
 			<Row>TTGGMGGGGMGGG+GGGMGGGTT</Row>
-			<Row>TTGGGMGMGGGGG+GGGGGGGTT</Row>
-			<Row>TTGGG+++++++++GGGGGGGTT</Row>
-			<Row>TTGGG+GGGGGGGGGGGMGGGTT</Row>
-			<Row>TTGGG+GGGGGGMGGGGGGGGTT</Row>
-			<Row>TTGGG+++++++++GGMGGGGTT</Row>
-			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
+			<Row>TTMGGMGMGGGGG+GGGGGGGTT</Row>
+			<Row>TTGGM+++++++++GGGGGGGTT</Row>
+			<Row>TTGGG+GGGGGGGGMGGMGGGTT</Row>
+			<Row>TTGMG+GGGGGGMGGGGGGGGTT</Row>
+			<Row>TTTMG+++++++++GGMGGMVTT</Row>
+			<Row>TTTTGGGGGGGGG+GGGGGTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 		</Grid>
