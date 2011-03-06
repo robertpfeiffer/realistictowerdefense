@@ -8,8 +8,9 @@
 
 #include <game.h>
 #include <iostream>
+#include <osg/ArgumentParser>
 
-int main(int argc, const char *argv[])
+int main(int argc, char **argv)
 {
 	#ifdef _MSC_VER
 		_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
@@ -17,11 +18,12 @@ int main(int argc, const char *argv[])
 
 	srand(time(NULL));
 
-	Game game;
-	
-	game.mapFile = argc == 2 ? argv[1] : "maps/snake.tdmap";
+	osg::ArgumentParser arguments(&argc, argv);
+	std::string mapFilename = "maps/snake.tdmap";
+	arguments.read("map", mapFilename);
 
-	game.run();
+	Game game;
+	game.run(mapFilename);
 
 	return 0;
 }

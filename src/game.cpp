@@ -70,14 +70,14 @@ void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 	}
 }
 
-void Game::run()
+void Game::run(std::string mapFilename)
 {
 	AssetLibrary::instance()->unmark();
 	osg::Group* root = new osg::Group();
 
 	_viewer = new TDViewer();
 
-	World::instance()->loadMap(this->mapFile);
+	World::instance()->loadMap(mapFilename);
 	root->addChild(World::instance());
 	root->addChild(Hud::instance());
 

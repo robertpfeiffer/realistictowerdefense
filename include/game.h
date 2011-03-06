@@ -14,8 +14,7 @@
 class Game : KeyboardEventHandler
 {
 public:
-	void run();
-        std::string mapFile;
+	void run(std::string mapFilename);
 
 	inline UserInteractionHandler* getInteractiontHandler() { return _interactionHandler.get(); };
 private:
