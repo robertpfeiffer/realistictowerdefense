@@ -68,6 +68,7 @@ void Hud::onGameEnd(bool won)
 	osgText::Text* text = new osgText::Text();
 	text->setCharacterSize(24);
 	text->setFont("fonts/orbitron-black.ttf");
+	text->setFontResolution(40,40);
 	text->setAxisAlignment(osgText::Text::SCREEN);
 	text->setAlignment(osgText::Text::CENTER_CENTER);
 	text->setPosition(osg::Vec3(80.0, 50.0, 0.0));

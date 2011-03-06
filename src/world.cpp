@@ -173,7 +173,7 @@ void World::loadMap(const std::string mapFilename)
 
 
 	_map = new Map(mapFilename);
-	if (false) { //TODO
+	if ( false ) { //TODO
 		osg::Group* cartoon = new osgFX::Cartoon;
 		this->addChild(cartoon);
 		cartoon->addChild(new Terrain(_map));

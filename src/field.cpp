@@ -81,16 +81,33 @@ bool Field::setBuilding(Tower* tower)
 	if (!this->isBuildable() || this->hasTower())
 	  	return false;
 
+	if(tower->getAttributes()->stock == 0)
+		return false;
+
 	if(_content != NULL)
 	{
 		this->removeChild(_content);
 	}
+
+	tower->getAttributes()->stock--;
 
 	_content = tower;
 	this->addChild(tower);
 	World::instance()->registerForUpdates(tower);
 	_isBuildable = false;
 
+	return true;
+}
+
+bool Field::destroyBuilding()
+{
+	if (!this->hasTower())
+	  	return false;
+
+	Tower *tower = dynamic_cast<Tower*>(_content.get());	
+	tower->getAttributes()->stock--;
+	_isBuildable = true;
+	this->removeChild(tower);
 	return true;
 }
 
