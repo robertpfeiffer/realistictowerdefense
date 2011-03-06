@@ -45,6 +45,22 @@ void Hud::setPlayer(Player* player)
 	_player = player;
 }
 
+void Hud::setInfoBox(InfoBox* infoBox)
+{
+	if(_infoBox != NULL)
+	{
+		this->removeChild(_infoBox);
+	}
+
+	_infoBox = infoBox;
+
+	if(_infoBox != NULL)
+	{
+		_infoBox->setPosition(osg::Vec2()); //TODO: real positioning
+		this->addChild(_infoBox);
+	}
+}
+
 void Hud::onUpdate() 
 {
 	if(_player == NULL)

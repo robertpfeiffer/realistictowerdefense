@@ -1,6 +1,7 @@
 #pragma once
 #include <osg/Camera>
 #include <hudelement.h>
+#include <infobox.h>
 #include <player.h>
 #include <updatablenode.h>
 
@@ -11,6 +12,7 @@ public:
 	static Hud* instance();
 
 	void setPlayer(Player* player);
+	void setInfoBox(InfoBox*);
 
 	void onUpdate();
 	void onGameEnd(bool won);
@@ -20,4 +22,5 @@ private:
 
 	osg::ref_ptr<HudElement> _goldDisplay;
 	osg::ref_ptr<HudElement> _lifeDisplay;
+	osg::ref_ptr<InfoBox> _infoBox;
 };
