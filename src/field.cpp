@@ -63,7 +63,7 @@ void Field::onBlur()
 
 bool Field::isBuildable()
 {
-	return _fieldType->isBuildable() && this->_content.get() == NULL;
+	return _fieldType->isBuildable() && !hasTower();
 }
 
 bool Field::hasTower()
@@ -78,8 +78,13 @@ osg::Node* Field::getContent()
 
 bool Field::setBuilding(Tower* tower)
 {
-	if (!this->isBuildable())
+	if (!this->isBuildable() || this->hasTower())
 	  	return false;
+
+	if(_content != NULL)
+	{
+		this->removeChild(_content);
+	}
 
 	_content = tower;
 	this->addChild(tower);
