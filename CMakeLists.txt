@@ -186,35 +186,47 @@ source_group("Header Files\\Resources managment" FILES
 
 # User Interface
 # -------------------
-source_group("Source Files\\User Interface" FILES
-	"src/contextmenu.cpp"
-	"src/fieldcontextmenu.cpp"
+source_group("Source Files\\UI" FILES
 	"src/healthbar.cpp"
 	"src/hud.cpp"
 	"src/hudbackground.cpp"
 	"src/hudelement.cpp"
-	"src/infobox.cpp"
 	"src/inscenetext.cpp"
-	"src/menubutton.cpp"
-	"src/towerbuildbutton.cpp"
-	"src/towercontextmenu.cpp"
-	"src/towerinfobox.cpp"
-	"src/towerupgradebutton.cpp"
 )
 
-source_group("Header Files\\User Interface" FILES
-	"include/contextmenu.h"
-	"include/fieldcontextmenu.h"
+source_group("Header Files\\UI" FILES
 	"include/healthbar.h"
 	"include/hud.h"
 	"include/hudbackground.h"
 	"include/hudelement.h"
-	"include/infobox.h"
 	"include/inscenetext.h"
+)
+
+source_group("Source Files\\UI\\InfoBoxes" FILES
+	"src/infobox.cpp"
+	"src/towerinfobox.cpp"
+)
+
+source_group("Header Files\\UI\\InfoBoxes" FILES
+	"include/infobox.h"
+	"include/towerinfobox.h"
+)
+
+source_group("Source Files\\UI\\Menus" FILES
+	"src/contextmenu.cpp"
+	"src/fieldcontextmenu.cpp"
+	"src/menubutton.cpp"
+	"src/towerbuildbutton.cpp"
+	"src/towercontextmenu.cpp"
+	"src/towerupgradebutton.cpp"
+)
+
+source_group("Header Files\\UI\\Menus" FILES
+	"include/contextmenu.h"
+	"include/fieldcontextmenu.h"
 	"include/menubutton.h"
 	"include/towerbuildbutton.h"
 	"include/towercontextmenu.h"
-	"include/towerinfobox.h"
 	"include/towerupgradebutton.h"
 )
 
