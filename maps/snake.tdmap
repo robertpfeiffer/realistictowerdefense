@@ -68,7 +68,7 @@
 				</Model>
 			</Field>
 				<Field texture="gras.jpg" symbol="F" buildable="false">
-					<Model path="towers/ventilatower.osg" probability="1">
+					<Model path="shrubs/nobot.osg" probability="1">
 						<Scale min="0.5" max="0.5" />
 						<Rotation min="0" max="360" />
 					</Model>
