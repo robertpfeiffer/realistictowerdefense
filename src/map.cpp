@@ -190,7 +190,7 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 	tower->cost = Convert::attrToLong(node->first_attribute("cost", 0, false), 0);
 	tower->height = Convert::attrToDouble(node->first_attribute("shotheight", 0, false), 0);
 
-	tower->stock = Convert::attrToLong(node->first_attribute("stock", 0, false), 10);
+	tower->stock = Convert::attrToLong(node->first_attribute("stock", 0, false), 100);
 
 	xml_attribute<>* nameAttr = node->first_attribute("name", 0, false);
 	tower->name = "";

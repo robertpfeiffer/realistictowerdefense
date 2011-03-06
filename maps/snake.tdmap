@@ -29,7 +29,7 @@
 		</Tower>
 		<Tower name="Ventilatower" model="towers/ventilatower.osg" icon="tornado.png" cost="100" cooldown="1.25" scale="0.4" projectile="pojectiles/bomb.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
 		</Tower>
-		<Tower name="Second base tower" model="towers/sauron.osg" icon="sauron.png" cost="125" cooldown="0.3" scale="0.2" projectile="projectiles/fireball.osg" physicaldamage="4" magicalDamage="10" projectilespeed="4" range="3.5" shotheight="3" projectilescale="1" />
+		<Tower name="Second base tower" model="towers/sauron.osg" icon="sauron.png" cost="125" cooldown="0.3" scale="0.2" projectile="projectiles/fireball.osg" physicaldamage="4" magicalDamage="10" stock="1" projectilespeed="4" range="3.5" shotheight="3" projectilescale="1" />
 	</Towers>
 	<Checkpoints>
 		<Checkpoint x="13" y= "0" />
@@ -56,7 +56,7 @@
 				</Model>
 			</Field>
 			<Field texture="gras.jpg" symbol="M" buildable="true">
-				<Model path="shrubs/mushrooms3.osg" probability="0.3">
+				<Model path="shrubs/mushrooms.osg" probability="0.3">
 					<Scale min="0.04" max="0.08" />
 					<Rotation min="0" max="360" />
 				</Model>
@@ -68,7 +68,7 @@
 				</Model>
 			</Field>
 				<Field texture="gras.jpg" symbol="F" buildable="false">
-					<Model path="shrubs/nobot.osg" probability="1">
+					<Model path="creeps/zeppelin.osg" probability="0">
 						<Scale min="0.5" max="0.5" />
 						<Rotation min="0" max="360" />
 					</Model>

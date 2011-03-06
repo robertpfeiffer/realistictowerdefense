@@ -17,6 +17,9 @@ void TowerUpgradeButton::onClick(osgGA::GUIActionAdapter& aa)
 	{
 		return;
 	}
+	
+	if(_towerattributes->stock <= 0)
+	return;
 
 	_tower->upgradeTo(_towerattributes);
 	World::instance()->getMap()->getPlayer()->decreaseMoney(_towerattributes->cost);

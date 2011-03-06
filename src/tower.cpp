@@ -46,9 +46,11 @@ TowerAttributes* Tower::getAttributes()
 
 void Tower::upgradeTo(TowerAttributes* attributes)
 {
+	attributes->stock++;
 	this->removeChild(_attributes->model);
 	this->addChild(attributes->model);
 	_attributes = attributes;
+        attributes->stock--;
 }
 
 bool Tower::findNewTarget()
