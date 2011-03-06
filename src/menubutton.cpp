@@ -29,10 +29,8 @@ void MenuButton::init(osg::Texture2D* texture)
 
 	this->setStateSet(createStateSetFromTexture(texture));
 
-	osg::Vec4Array* colors = new osg::Vec4Array();
-    colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f));
-	this->setColorArray(colors);
-	this->setColorBinding(osg::Geometry::BIND_OVERALL);
+	_enabled = false; //avoid optimisation
+	setEnabled(true);
 }
 
 void MenuButton::setPosition(osg::Vec2 pos)
@@ -43,6 +41,29 @@ void MenuButton::setPosition(osg::Vec2 pos)
 	(*verts)[2] = osg::Vec3( pos.x() + 0.5, 0, pos.y() + 0.5);
 	(*verts)[3] = osg::Vec3( pos.x() - 0.5, 0, pos.y() + 0.5);
 	this->setVertexArray(verts);
+}
+
+void MenuButton::setEnabled(bool enabled)
+{
+	if(enabled == _enabled)
+	{
+		return;
+	}
+
+	_enabled = enabled;
+
+	osg::Vec4Array* colors = new osg::Vec4Array();
+	if(_enabled)
+	{
+		colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	}
+	else
+	{
+		colors->push_back(osg::Vec4(1.0f, 1.0f, 1.0f, 0.5f));
+	}
+
+	this->setColorArray(colors);
+	this->setColorBinding(osg::Geometry::BIND_OVERALL);
 }
 
 void MenuButton::setCallback(void (* callback)(osg::ref_ptr<MenuButton>))
