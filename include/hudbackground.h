@@ -1,3 +1,4 @@
+#pragma once
 #include <osg/Geometry>
 
 class HudBackground : public osg::Geometry

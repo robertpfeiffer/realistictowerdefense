@@ -1,6 +1,8 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 #include <hud.h>
 
+#include <hudbackground.h>
+
 #include <sstream>
 
 #include <osg/Geode>
@@ -52,5 +54,14 @@ void Hud::onPlayerUpdate()
 
 void Hud::onGameEnd(bool won)
 {
+	osg::Geode* endScreen = new osg::Geode();
 
+	osg::BoundingBox bb;
+	bb.expandBy(osg::Vec3(0.0, 0.0, 0.0));
+	bb.expandBy(osg::Vec3(160.0, 100.0, 0.0));
+
+	endScreen->addDrawable(new HudBackground(bb, 0.0));
+	this->addChild(endScreen);
+
+	//TODO: add a text-message
 }
