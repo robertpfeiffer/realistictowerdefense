@@ -2,6 +2,7 @@ Name "Tower Defense"
 
 OutFile "setup_TowerDefense.exe"
 InstallDir "$PROGRAMFILES\Tower Defense"
+LicenseData "LICENSE.txt"
 
 Page license
 Page directory
@@ -34,6 +35,28 @@ Section "Core Components"
 	SetOutPath "$INSTDIR\models\creeps"
 	File "models\creeps\*.osg"
 	
+	SetOutPath "$INSTDIR\models\projectiles"
+	File "models\projectiles\*.osg"
+	
+	SetOutPath "$INSTDIR\models\shrubs"
+	File "models\shrubs\*.osg"
+	
 	SetOutPath "$INSTDIR\models\towers"
 	File "models\towers\*.osg"
+	
+	SetOutPath "$INSTDIR\models\trees"
+	File "models\trees\*.osg"
+	
+	SetOutPath "$INSTDIR\textures"
+	File "textures\*.png"
+	File "textures\*.jpg"
+	
+	SetOutPath "$INSTDIR\textures\billboards"
+	File "textures\billboards\*.png"
+	
+	SetOutPath "$INSTDIR\textures\healthbar"
+	File "textures\healthbar\*.png"
+	
+	SetOutPath "$INSTDIR\textures\lostvalley"
+	File "textures\lostvalley\*.png"
 SectionEnd
