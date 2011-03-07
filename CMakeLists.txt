@@ -47,6 +47,7 @@ set(sources
 	"src/contextmenu.cpp"
 	"src/convert.cpp"
 	"src/creep.cpp"
+	"src/creepinfobox.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
 	"src/fieldcontextmenu.cpp"
@@ -59,6 +60,7 @@ set(sources
 	"src/hud.cpp"
 	"src/hudbackground.cpp"
 	"src/hudelement.cpp"
+	"src/infobox.cpp"
 	"src/inscenetext.cpp"
 	"src/main.cpp"
 	"src/tdviewer.cpp"
@@ -70,6 +72,7 @@ set(sources
 	"src/tower.cpp"
 	"src/towerbuildbutton.cpp"
 	"src/towercontextmenu.cpp"
+	"src/towerinfobox.cpp"
 	"src/towerupgradebutton.cpp"
 	"src/transformhelper.cpp"
 	"src/updatablenode.cpp"
@@ -85,6 +88,7 @@ set(sources
 	"include/convert.h"
 	"include/creep.h"
 	"include/creepattributes.h"
+	"include/creepinfobox.h"
 	"include/creepsteering.h"	
 	"include/field.h"
 	"include/fieldcontextmenu.h"
@@ -98,6 +102,7 @@ set(sources
 	"include/hud.h"
 	"include/hudbackground.h"
 	"include/hudelement.h"
+	"include/infobox.h"
 	"include/inscenetext.h"
 	"include/keyboardeventhandler.h"
 	"include/map.h"
@@ -114,6 +119,7 @@ set(sources
 	"include/towerattributes.h"
 	"include/towerbuildbutton.h"
 	"include/towercontextmenu.h"
+	"include/towerinfobox.h"
 	"include/towerupgradebutton.h"
 	"include/transformhelper.h"
 	"include/updatablenode.h"
@@ -182,28 +188,46 @@ source_group("Header Files\\Resources managment" FILES
 
 # User Interface
 # -------------------
-source_group("Source Files\\User Interface" FILES
-	"src/contextmenu.cpp"
-	"src/fieldcontextmenu.cpp"
+source_group("Source Files\\UI" FILES
 	"src/healthbar.cpp"
 	"src/hud.cpp"
 	"src/hudbackground.cpp"
 	"src/hudelement.cpp"
 	"src/inscenetext.cpp"
+)
+
+source_group("Header Files\\UI" FILES
+	"include/healthbar.h"
+	"include/hud.h"
+	"include/hudbackground.h"
+	"include/hudelement.h"
+	"include/inscenetext.h"
+)
+
+source_group("Source Files\\UI\\InfoBoxes" FILES
+	"src/creepinfobox.cpp"
+	"src/infobox.cpp"
+	"src/towerinfobox.cpp"
+)
+
+source_group("Header Files\\UI\\InfoBoxes" FILES
+	"include/creepinfobox.h"
+	"include/infobox.h"
+	"include/towerinfobox.h"
+)
+
+source_group("Source Files\\UI\\Menus" FILES
+	"src/contextmenu.cpp"
+	"src/fieldcontextmenu.cpp"
 	"src/menubutton.cpp"
 	"src/towerbuildbutton.cpp"
 	"src/towercontextmenu.cpp"
 	"src/towerupgradebutton.cpp"
 )
 
-source_group("Header Files\\User Interface" FILES
+source_group("Header Files\\UI\\Menus" FILES
 	"include/contextmenu.h"
 	"include/fieldcontextmenu.h"
-	"include/healthbar.h"
-	"include/hud.h"
-	"include/hudbackground.h"
-	"include/hudelement.h"
-	"include/inscenetext.h"
 	"include/menubutton.h"
 	"include/towerbuildbutton.h"
 	"include/towercontextmenu.h"

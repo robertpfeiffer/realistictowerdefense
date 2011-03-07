@@ -1,21 +1,24 @@
 #pragma once
 #include <creepsteering.h>
+#include <healthbar.h>
+#include <mouseeventhandler.h>
 #include <updatablenode.h>
+
 #include <osg/Geometry>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Timer>
-#include <healthbar.h>
 
 class CreepAttributes;
 class GameTimer;
 class ProjectileAttributes;
 
-class Creep : public osg::PositionAttitudeTransform, public UpdatableNode
+class Creep : public osg::PositionAttitudeTransform, public UpdatableNode, public MouseEventHandler
 {
 public:
 	Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path);
 	void onUpdate();
 	void OnHit(ProjectileAttributes* hitter);
+        osg::Vec3 getHitPosition();
 	void setCreepStats(CreepAttributes* attributes);
 	void setModel(osg::Node* model);
 
@@ -29,10 +32,15 @@ public:
 	int speed();
 	int bounty();
 
+	virtual void onFocus(osgGA::GUIActionAdapter& aa);
+	virtual void onBlur();
+
 	~Creep();
 private:
 	CreepSteering* _steering;
 	GameTimer* _gameTimer;
+
+	float _zMax;
 
 	osg::ref_ptr<HealthBar> _healthBar;
 	int _health;

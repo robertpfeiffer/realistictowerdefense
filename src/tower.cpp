@@ -4,9 +4,12 @@
 #include <creep.h>
 #include <gametimer.h>
 #include <hatchery.h>
+#include <hud.h>
+#include <field.h>
 #include <projectile.h>
 #include <towerattributes.h>
 #include <towercontextmenu.h>
+#include <towerinfobox.h>
 #include <world.h>
 
 Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
@@ -28,7 +31,7 @@ void Tower::onUpdate()
 
 	_currentCooldown = _attributes->cooldown;
 
-	if(_target.get() == NULL || !_target->isAlive() || _target->isLeaked() || !isInRange(_target))
+	if(_target.get() == NULL || !_target->isAlive() || _target->isLeaked() || !isInRange(_target) || _attributes->strategy != 1)
 	{
 		if(!findNewTarget())
 		{
@@ -44,26 +47,66 @@ TowerAttributes* Tower::getAttributes()
 	return _attributes;
 }
 
+
+osg::Vec3 Tower::getPosition()
+{
+	return _position;
+}
+
 void Tower::upgradeTo(TowerAttributes* attributes)
 {
-	attributes->stock++;
 	this->removeChild(_attributes->model);
 	this->addChild(attributes->model);
 	_attributes = attributes;
-        attributes->stock--;
+	dynamic_cast<Field*>(this->getParent(0))->reset();
 }
 
 bool Tower::findNewTarget()
 {
 	float range = _attributes->range * _attributes->range; //we will do comparison on range 
 	std::set< osg::ref_ptr<Creep> >::iterator it;
-	for(it = World::instance()->getCreepsIterator(); it != World::instance()->getCreepsIteratorEnd(); it++)
+	_target = NULL;
+	switch(_attributes->strategy)
 	{
-		if(isInRange(*it))
+	case 2:
+	{
+		//hit weakest target
+		int health = 1000000;
+		for(it = World::instance()->getCreepsIterator(); it != World::instance()->getCreepsIteratorEnd(); it++)
 		{
-			_target = it->get();
-			return true;
+			if(isInRange(*it) && health >_target->health() )
+			{
+				_target = it->get();
+				health = _target->health();
+			}
 		}
+		if ( _target != NULL )
+			return true;
+	}
+	case 3:
+	{
+		//hit youngest target
+		for(it = World::instance()->getCreepsIterator(); it != World::instance()->getCreepsIteratorEnd(); it++)
+		{
+			if(isInRange(*it))
+			{
+				_target = it->get();
+			}
+		}
+		if ( _target != NULL )
+			return true;
+	}
+	default:
+	{
+		for(it = World::instance()->getCreepsIterator(); it != World::instance()->getCreepsIteratorEnd(); it++)
+		{
+			if(isInRange(*it))
+			{
+				_target = it->get();
+				return true;
+			}
+		}
+	}
 	}
 	_target = NULL;
 	return false;
@@ -85,11 +128,8 @@ void Tower::onFocus(osgGA::GUIActionAdapter& aa)
 {
 	this->_menu = new TowerContextMenu(this);
 	this->addChild(_menu);
-}
 
-void Tower::onClick(osgGA::GUIActionAdapter& aa)
-{
-  //handled by menubutton
+	Hud::instance()->pushInfoBox(new TowerInfoBox(_attributes));
 }
 
 void Tower::onBlur()
@@ -97,4 +137,6 @@ void Tower::onBlur()
 	if(this->_menu != NULL)
 		this->removeChild(this->_menu);
 	this->_menu = NULL;
+
+	Hud::instance()->popInfoBox();
 }

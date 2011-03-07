@@ -20,5 +20,5 @@ double const PI = 2 * acos(0.0);
 #define EVENT_NORMALIZE_SPEED 3
 #define EVENT_DECREASE_SPEED 4
 
-#define DAMAGE_DISPLAY_DURATION 0.25 //seconds
+#define DAMAGE_DISPLAY_DURATION 0.3 //seconds
 #define DAMAGE_DISPLAY_DECREASE_DURATION 0.25

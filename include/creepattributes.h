@@ -8,6 +8,7 @@ public:
 	int armor;
 	int magicResistance;
 	double speed;
+        double height;
 	int bounty;
 	std::string name;
 	osg::ref_ptr<osg::PositionAttitudeTransform> model;

@@ -12,6 +12,7 @@ public:
 	double range;
 	long cost;
 	long stock;
+        long strategy;
 	double height;
 	std::string name;
 

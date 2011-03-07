@@ -1,7 +1,9 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <creep.h>
 #include <creepattributes.h>
+#include <creepinfobox.h>
 #include <gametimer.h>
+#include <hud.h>
 #include <projectileattributes.h>
 #include <transformhelper.h>
 #include <world.h>
@@ -48,6 +50,7 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 		return;
 	}
 
+	_steering->setSpeed(_steering->speed() * hitter->slow);
 	_health -= computeDamageReceived(hitter);
 	_healthBar->setHealth(_health);
 
@@ -86,12 +89,7 @@ void Creep::setModel(osg::Node* model)
 	this->addChild(model);
 
 	//calculate new zPosition of healtbar
-	float zMax;
 	osg::PositionAttitudeTransform* pat = dynamic_cast<osg::PositionAttitudeTransform*>(model);
-	if (pat)
-	{
-		osg::Vec3d scaleVec = pat->getScale();
-	}
 
 	osg::ComputeBoundsVisitor boundsVisitor;
 	boundsVisitor.apply(*model);
@@ -99,15 +97,15 @@ void Creep::setModel(osg::Node* model)
 	if (pat)
 	{
 		osg::Vec3d scaleVec = pat->getScale();
-		zMax = boundingBox.zMax()*scaleVec.z();
+		_zMax = boundingBox.zMax()*scaleVec.z();
 	}
 	else
 	{
-		zMax = boundingBox.zMax();
+		_zMax = boundingBox.zMax();
 	}
 
 	//applay calculated position
-	_healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, zMax + 0.1));
+	_healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, _zMax + 0.1));
 }
 
 bool Creep::isAlive()
@@ -156,9 +154,27 @@ void Creep::updateRealPosition()
 	osg::Vec3 pos = this->getPosition();
 }
 
+osg::Vec3 Creep::getHitPosition()
+{
+	if (_attributes->height < 0)
+		return this->getPosition() + osg::Vec3(0, 0, _zMax + _attributes->height);
+	
+	return this->getPosition() + osg::Vec3(0, 0, _attributes->height);
+}
+
 void Creep::updateRealHeading()
 {
 	osg::Vec3 directionVector = osg::Vec3(_steering->forward().x, _steering->forward().z, 0);
 	directionVector.normalize();
 	this->setAttitude(TransformHelper::lookAt(directionVector));
+}
+
+void Creep::onFocus(osgGA::GUIActionAdapter& aa)
+{
+	Hud::instance()->pushInfoBox(new CreepInfoBox(_attributes));
+}
+
+void Creep::onBlur()
+{
+	Hud::instance()->popInfoBox();
 }

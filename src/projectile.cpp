@@ -27,7 +27,7 @@ void Projectile::onUpdate()
 
 	approachToTarget();
 
-	if((this->getPosition()-_target->getPosition()).length2() < 0.1) //FIXME is this a good condition?
+	if((this->getPosition()-_target->getHitPosition()).length2() < 0.1) //FIXME is this a good condition?
 	{
 		hitTarget();
 	}
@@ -41,7 +41,7 @@ void Projectile::hitTarget()
 
 void Projectile::approachToTarget()
 {
-	osg::Vec3 targetVector = _target->getPosition() - this->getPosition();
+	osg::Vec3 targetVector = _target->getHitPosition() - this->getPosition();
 	float maxDistance = targetVector.normalize();
 	float travelDistance = _attributes->travelSpeed * GameTimer::instance()->elapsedTime();
 	travelDistance = std::min(maxDistance, travelDistance);
@@ -52,5 +52,5 @@ void Projectile::approachToTarget()
 
 void Projectile::turnToTarget()
 {
-	this->setAttitude(TransformHelper::lookAt(this->getPosition(), _target->getPosition()));
+	this->setAttitude(TransformHelper::lookAt(this->getPosition(), _target->getHitPosition()));
 }

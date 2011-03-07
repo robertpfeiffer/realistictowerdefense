@@ -2,6 +2,7 @@
 #include <hud.h>
 
 #include <hudbackground.h>
+#include <updatecallback.h>
 
 #include <sstream>
 
@@ -21,6 +22,10 @@ Hud* Hud::instance()
 
 Hud::Hud()
 {
+	this->_player = NULL;
+
+	this->addUpdateCallback(new UpdateCallback());
+
 	this->setProjectionMatrix(osg::Matrix::ortho2D(0,160,0,100));
 	this->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
 	this->setViewMatrix(osg::Matrix::identity());
@@ -38,18 +43,54 @@ Hud::Hud()
 void Hud::setPlayer(Player* player)
 {
 	_player = player;
-	onPlayerUpdate();
 }
 
-void Hud::onPlayerUpdate() 
+void Hud::pushInfoBox(InfoBox* infoBox)
 {
-	std::stringstream moneytext; 
-	moneytext << _player->getMoney() << " Gold"; 
-	_goldDisplay->setText(moneytext.str()); 
+	if(_infoBoxes.size() > 0)
+	{
+		this->removeChild(_infoBoxes.top());
+	}
 
-	std::stringstream livestext; 
-	livestext << _player->getLives() << " Lives"; 
-	_lifeDisplay->setText(livestext.str()); 
+	_infoBoxes.push(infoBox);
+
+	_infoBoxes.top()->setPosition(osg::Vec3(3.0, 30.0, 0.0)); //TODO: better positioning
+	this->addChild(_infoBoxes.top());
+}
+
+void Hud::popInfoBox()
+{
+	if(_infoBoxes.size() > 0)
+	{
+		this->removeChild(_infoBoxes.top());
+		_infoBoxes.pop();
+	}
+
+	if(_infoBoxes.size() > 0)
+	{
+		this->addChild(_infoBoxes.top());
+	}
+}
+
+void Hud::onUpdate() 
+{
+	if(_infoBoxes.size() > 0)
+	{
+		//FIXME: this is only neccessary because the bounding-box is not computed correctly
+		//inside the info-box
+		_infoBoxes.top()->updateLayout();
+	}
+
+	if(_player != NULL)
+	{
+		std::stringstream moneytext; 
+		moneytext << _player->getMoney() << " Gold"; 
+		_goldDisplay->setText(moneytext.str()); 
+
+		std::stringstream livestext; 
+		livestext << _player->getLives() << " Lives"; 
+		_lifeDisplay->setText(livestext.str()); 
+	}
 }
 
 void Hud::onGameEnd(bool won)
@@ -76,12 +117,12 @@ void Hud::onGameEnd(bool won)
 	if(won)
 	{
 		text->setColor(osg::Vec4(1.0, 1.0, 0, 1.0));
-		text->setText(osgText::String("WIN"));
+		text->setText(osgText::String("EPIC\nWIN"));
 	}
 	else
 	{
 		text->setColor(osg::Vec4(1.0, 0.0, 0.0, 1.0));
-		text->setText(osgText::String("FAIL"));
+		text->setText(osgText::String("EPIC\nFAIL"));
 	}
 
 	endScreen->addDrawable(text);

@@ -14,7 +14,7 @@
 class Game : KeyboardEventHandler
 {
 public:
-	void run(std::string mapFilename);
+	void run(osg::ArgumentParser arguments);
 
 	inline UserInteractionHandler* getInteractiontHandler() { return _interactionHandler.get(); };
 private:

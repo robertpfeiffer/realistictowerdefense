@@ -46,7 +46,8 @@ void World::createPath()
 		pathPoints[i] = OpenSteer::Vec3((float) ((*checkpoints)[i].X), 0.0, (float) -((*checkpoints)[i].Y));
 	}
 	
-	_path = new OpenSteer::PolylineSegmentedPathwaySingleRadius(pathPoints.size(), pathPoints.data(), 0.5, false);
+	//FIXME: made path extra-narrow to work around creeps leaving path
+	_path = new OpenSteer::PolylineSegmentedPathwaySingleRadius(pathPoints.size(), pathPoints.data(), 0.35, false);
 }
 
 OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
@@ -105,7 +106,6 @@ void World::onDeath(Creep* creep)
 {
 	int bounty = creep->bounty();
 	_map->getPlayer()->addMoney(bounty);
-	Hud::instance()->onPlayerUpdate();
 
 	InSceneText* bountyText = new InSceneText(Convert::toString(bounty), creep->getPosition());
 	bountyText->setColor(osg::Vec3(1.0, 1.0, 0.0));
@@ -116,7 +116,6 @@ void World::onDeath(Creep* creep)
 void World::onLeak(Creep* creep)
 {
 	_map->getPlayer()->takeLife();
-	Hud::instance()->onPlayerUpdate();
 	if(_map->getPlayer()->getLives() == 0)
 	{
 		GameTimer::instance()->pause();

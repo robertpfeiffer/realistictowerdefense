@@ -3,15 +3,15 @@
 	<Player money="500" lives="50"/>
 	<Waves>
 		<Wave spawnoffset="10">
-			<Creep model="creeps/cartoonbot.osg" name="Simple Bots" health="300" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="1.0" scale="0.2" />
+			<Creep model="creeps/cartoonbot.osg" name="Simple Bot" health="300" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="1.0" scale="0.2" />
 		</Wave>
 
 		<Wave spawnoffset="10">
-			<Creep model="creeps/flat-kingpin.osg" name="Simple Pins" health="300" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="1.0" scale="0.2" />
+			<Creep model="creeps/flat-kingpin.osg" name="Simple Pin" health="300" bounty="20" count="10" speed="100" armor="30" magicresist="20" spawnoffset="1.0" scale="0.2" />
 		</Wave>
 
 		<Wave spawnoffset="5">
-			<Creep model="creeps/bot.osg" name="Simple Bots" health="500" count="25" bounty="50" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
+			<Creep model="creeps/bot.osg" name="Simple Bot" health="500" count="25" bounty="50" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
 			<Creep model="creeps/bot.osg" name="Master Bot" health="750" count="1" bounty="250" speed="100" armor="100" magicresist="50" spawnoffset="3.0" scale="0.3" />
 		</Wave>
 		
@@ -20,17 +20,43 @@
 		</Wave>
 		
 		<Wave spawnoffset="5">
-			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="10" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
+			<Creep model="creeps/zeppelin.osg" name="Airship" health="400" bounty="10" count="10" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
 		</Wave>
 	</Waves>
-	<Towers>
-		<Tower name="Base tower" model="towers/basictower.osg" icon="comictower.png" cost="40" cooldown="1.25" scale="0.4" projectile="projectiles/cannonball.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
-			<Tower name="Upgraded Tower" model="towers/burningtower.osg" icon="fire.png" cost="100" cooldown="1.0" scale="0.4" projectile="projectiles/fire.osg" physicaldamage="30" magicalDamage="15" projectilespeed="4.0" range="4.0" projectilescale="0.1" shotheight="1.5" />
-		</Tower>
-		<Tower name="Ventilatower" model="towers/ventilatower.osg" icon="tornado.png" cost="100" cooldown="1.25" scale="0.4" projectile="pojectiles/bomb.osg" physicaldamage="20" magicalDamage="10" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.5">
-		</Tower>
-		<Tower name="Second base tower" model="towers/sauron.osg" icon="sauron.png" cost="125" cooldown="0.3" scale="0.2" projectile="projectiles/fireball.osg" physicaldamage="4" magicalDamage="10" stock="1" projectilespeed="4" range="3.5" shotheight="3" projectilescale="1" />
-	</Towers>
+ <Towers>
+    <Tower name="Base tower" model="towers/basictower.osg"
+           icon="comictower.png" cost="40" cooldown="1.25" scale="0.35"
+           projectile="projectiles/cruise_missile.osg" physicaldamage="20"
+           magicalDamage="10" projectilespeed="4.0" range="3.0"
+           projectilescale="0.1" shotheight="1.5">
+
+      <Tower name="Strong Tower" model="towers/basictower.osg"
+             icon="comictower.png" cost="100" cooldown="1.0" scale="0.4"
+             projectile="projectiles/swarm_missile.osg" physicaldamage="45"
+             magicalDamage="5" projectilespeed="4.0" range="4.0"
+             projectilescale="0.06" shotheight="1.5" />
+
+      <Tower name="Upgraded Tower" model="towers/burningtower.osg"
+             icon="fire.png" cost="100" cooldown="1.0" scale="0.3"
+             projectile="projectiles/lavaball.osg" physicaldamage="30"
+             magicalDamage="15" projectilespeed="4.0" range="4.0"
+             projectilescale="0.3" shotheight="1.5" />
+    </Tower>
+
+    <Tower name="Slowing Ventilatower" model="towers/ventilatower.osg"
+           icon="tornado.png" cost="100" cooldown="1.25" scale="0.4"
+           projectile="pojectiles/bomb.osg" physicaldamage="20"
+           magicalDamage="10" projectilespeed="4.0" range="3.0"
+           projectilescale="0.1" shotheight="1.5" slow="0.3"
+           strategy="3" />
+
+    <Tower name="Magic tower" model="towers/sauron.osg"
+           icon="sauron.png" cost="125" cooldown="0.3" scale="0.2"
+           projectile="projectiles/fireball.osg" physicaldamage="4"
+           magicalDamage="10" stock="1" projectilespeed="4"
+           range="3.5" shotheight="3" projectilescale="1" strategy="3" />
+
+  </Towers>
 	<Checkpoints>
 		<Checkpoint x="13" y= "0" />
 		<Checkpoint x="13" y="3" />
@@ -67,18 +93,12 @@
 					<Rotation min="0" max="360" />
 				</Model>
 			</Field>
-				<Field texture="gras.jpg" symbol="F" buildable="false">
-					<Model path="creeps/zeppelin.osg" probability="0">
-						<Scale min="0.5" max="0.5" />
-						<Rotation min="0" max="360" />
-					</Model>
-				</Field>
 		</Fields>
 		<Grid>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
 			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
-			<Row>TTGGG+++++++++GGFGGGMTT</Row>
+			<Row>TTGGG+++++++++GGGGGGMTT</Row>
 			<Row>TTGBG+GGGGGGGGGGGGGGGTT</Row>
 			<Row>TTGGG+GGGGGGGGGGGGMGGTT</Row>
 			<Row>TTMGG+++++++++GGGGGGGTT</Row>
