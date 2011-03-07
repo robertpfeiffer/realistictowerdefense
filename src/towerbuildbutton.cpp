@@ -5,6 +5,7 @@
 #include <hud.h>
 #include <tower.h>
 #include <towerattributes.h>
+#include <towerinfobox.h>
 #include <world.h>
 #include <inscenetext.h>
 #include <hatchery.h>
@@ -40,4 +41,14 @@ void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
 		World::instance()->getMap()->getPlayer()->decreaseMoney(_towerattributes->cost);
 		_towerattributes->stock--;
 	}
+}
+
+void TowerBuildButton::onHover(osgGA::GUIActionAdapter& aa)
+{
+	Hud::instance()->setInfoBox(new TowerInfoBox(_towerattributes));
+}
+
+void TowerBuildButton::onUnhover()
+{
+	Hud::instance()->setInfoBox(NULL);
 }

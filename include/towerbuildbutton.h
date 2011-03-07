@@ -9,6 +9,8 @@ public:
 	TowerBuildButton(Field* f, TowerAttributes* ta);
 
 	virtual void onClick(osgGA::GUIActionAdapter& aa);
+	virtual void onHover(osgGA::GUIActionAdapter& aa);
+	virtual void onUnhover();
 
 private:
 	Field* _field;

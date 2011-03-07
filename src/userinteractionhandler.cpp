@@ -166,6 +166,7 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 				_hoveredMouseHandler = handler;
 			}
 		}
+		return false;
 	}
 	default:
 		return false;

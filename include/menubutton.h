@@ -3,7 +3,7 @@
 #include <osg/Geometry>
 #include <osg/Texture2D>
 
-class MenuButton : public osg::Geometry
+class MenuButton : public osg::Geometry, public MouseEventHandler
 {
 public:
 	MenuButton(const std::string texturepath);
