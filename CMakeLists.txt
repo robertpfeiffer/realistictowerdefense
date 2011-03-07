@@ -47,6 +47,7 @@ set(sources
 	"src/contextmenu.cpp"
 	"src/convert.cpp"
 	"src/creep.cpp"
+	"src/creepinfobox.cpp"
 	"src/creepsteering.cpp"
 	"src/field.cpp"
 	"src/fieldcontextmenu.cpp"
@@ -87,6 +88,7 @@ set(sources
 	"include/convert.h"
 	"include/creep.h"
 	"include/creepattributes.h"
+	"include/creepinfobox.h"
 	"include/creepsteering.h"	
 	"include/field.h"
 	"include/fieldcontextmenu.h"
@@ -203,11 +205,13 @@ source_group("Header Files\\UI" FILES
 )
 
 source_group("Source Files\\UI\\InfoBoxes" FILES
+	"src/creepinfobox.cpp"
 	"src/infobox.cpp"
 	"src/towerinfobox.cpp"
 )
 
 source_group("Header Files\\UI\\InfoBoxes" FILES
+	"include/creepinfobox.h"
 	"include/infobox.h"
 	"include/towerinfobox.h"
 )

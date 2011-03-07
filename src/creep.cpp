@@ -1,7 +1,9 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <creep.h>
 #include <creepattributes.h>
+#include <creepinfobox.h>
 #include <gametimer.h>
+#include <hud.h>
 #include <projectileattributes.h>
 #include <transformhelper.h>
 #include <world.h>
@@ -158,4 +160,14 @@ void Creep::updateRealHeading()
 	osg::Vec3 directionVector = osg::Vec3(_steering->forward().x, _steering->forward().z, 0);
 	directionVector.normalize();
 	this->setAttitude(TransformHelper::lookAt(directionVector));
+}
+
+void Creep::onFocus(osgGA::GUIActionAdapter& aa)
+{
+	Hud::instance()->setInfoBox(new CreepInfoBox(_attributes));
+}
+
+void Creep::onBlur()
+{
+	Hud::instance()->setInfoBox(NULL);
 }
