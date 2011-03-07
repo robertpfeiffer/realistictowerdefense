@@ -150,7 +150,7 @@ void Map::_loadWaves(xml_node<> *node)
 			{
 				attributes->name = nameAttr->value();
 			}
-			
+
 			attributes->maxHealth = Convert::attrToLong(creep->first_attribute("health", 0, false), 1);
 			attributes->armor = Convert::attrToLong(creep->first_attribute("armor", 0, false), 0);
 			attributes->magicResistance = Convert::attrToLong(creep->first_attribute("magicresist", 0, false), 0);
@@ -193,6 +193,8 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 
 	tower->stock = Convert::attrToLong(node->first_attribute("stock", 0, false), LONG_MAX);
 
+	tower->strategy = Convert::attrToLong(node->first_attribute("strategy", 0, false), 1);
+
 	xml_attribute<>* nameAttr = node->first_attribute("name", 0, false);
 	tower->name = "";
 	if (nameAttr != NULL)
@@ -224,7 +226,7 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 		float scale = Convert::attrToDouble(node->first_attribute("projectilescale", 0, false), 1);
 		tower->projectile.model->setScale(osg::Vec3d(scale, scale, scale));
 	}
-
+	tower->projectile.slow = Convert::attrToDouble(node->first_attribute("slow", 0, false), 1.0);
 	tower->projectile.physicalDamage = Convert::attrToLong(node->first_attribute("physicalDamage", 0, false), 0);
 	tower->projectile.magicalDamage = Convert::attrToLong(node->first_attribute("magicalDamage", 0, false), 0);
 	tower->projectile.travelSpeed = Convert::attrToLong(node->first_attribute("projectilespeed", 0, false), 1);

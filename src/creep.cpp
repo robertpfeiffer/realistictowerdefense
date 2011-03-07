@@ -50,6 +50,7 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 		return;
 	}
 
+	_steering->setSpeed(_steering->speed() * hitter->slow);
 	_health -= computeDamageReceived(hitter);
 	_healthBar->setHealth(_health);
 
