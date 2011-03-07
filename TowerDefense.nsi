@@ -3,6 +3,7 @@ Name "Tower Defense"
 OutFile "setup_TowerDefense.exe"
 InstallDir "$PROGRAMFILES\Tower Defense"
 LicenseData "LICENSE.txt"
+RequestExecutionLevel admin
 
 Page license
 Page directory
