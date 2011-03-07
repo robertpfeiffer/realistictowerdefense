@@ -25,7 +25,8 @@ class Map : public osg::Referenced
 {	
 public:
 	Map();
-	Map(const std::string& filename);
+	bool loadMap(const std::string& filename);
+
 	long getWidth();
 	long getHeight();
 
@@ -42,7 +43,7 @@ private:
 	float _attrToFloat(xml_attribute<>* attr, float defaultValue) const;
 	void _reset();
 	void _cleanup();
-	void _load(const std::string& filename);				// +
+	void _loadLevel();										// +
 	void _loadPlayer(xml_node<> *node);						// - +
 	void _loadWaves(xml_node<> *node);						// - +
 	void _loadTowers(xml_node<> *node);						// - +

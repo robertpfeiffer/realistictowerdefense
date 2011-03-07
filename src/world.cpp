@@ -155,9 +155,9 @@ void World::registerForUpdates(osg::Node* node)
 	node->addUpdateCallback(_updateCallback.get());
 }
 
-World::World() : osg::Group()
+World::World()
 {
-	//hack hack: all construction stuff moved into loadMap
+	_path = NULL;
 }
 
 //TODO: this is not intended to be called twice
@@ -171,7 +171,9 @@ void World::loadMap(const std::string mapFilename)
 	this->addChild(grp);
 
 
-	_map = new Map(mapFilename);
+	_map = new Map();
+	if (!_map->loadMap(mapFilename)) exit(1);
+
 	if ( false ) { //TODO
 		osg::Group* cartoon = new osgFX::Cartoon;
 		this->addChild(cartoon);
@@ -204,6 +206,6 @@ void World::addAnimation(osgAnimation::Animation* anim)
 
 World::~World()
 {
-	delete _path;
+	if (_path != NULL)	delete _path;
 	//delete _proximities; //uncomment for crash -> crash because memory is still in use by creeps
 }

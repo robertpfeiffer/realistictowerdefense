@@ -18,7 +18,6 @@ public:
 
 	inline UserInteractionHandler* getInteractiontHandler() { return _interactionHandler.get(); };
 private:
-	void activateAntialiasing(unsigned int samples);
 	void setGlobalLight();
 	void setCameraManipulator();
 	void setWindowTitle(const std::string& title);

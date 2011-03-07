@@ -24,9 +24,26 @@ Map::Map()
 	_reset();
 }
 
-Map::Map(const std::string& filename)
+bool Map::loadMap(const std::string& filename)
 {
-	_load(filename);
+	rapidxml::file<>* xmlFile;
+
+	try
+	{
+		xmlFile = new rapidxml::file<>(filename.c_str());
+	}
+	catch(std::runtime_error rex)
+	{
+		return false;
+	};
+
+	_xml.parse<0>(xmlFile->data());
+
+	_loadLevel();
+
+	delete xmlFile;
+
+	return true;
 }
 
 std::vector<MapPoint>* Map::getCheckpoints()
@@ -82,12 +99,9 @@ void Map::_cleanup()
 	}
 }
 
-void Map::_load(const std::string& filename)
+void Map::_loadLevel()
 {
 	_reset();
-
-	file<> file(filename.c_str());
-	_xml.parse<0>(file.data());
 
 	xml_node<> *root = _xml.first_node("Map", 0, false);
 
