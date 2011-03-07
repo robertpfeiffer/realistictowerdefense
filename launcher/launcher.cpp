@@ -21,7 +21,7 @@ void Launcher::startGame()
 
     QStringList parameters;
     parameters << "--map";
-   parameters << mapData->getFilepath();
+    parameters << mapData->getFilepath();
 
     parameters << "--stereo";
     parameters << _getStereoParamter();
