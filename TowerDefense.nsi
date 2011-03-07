@@ -10,19 +10,19 @@ UninstPage uninstConfirm
 UninstPage instfiles
 
 Section "Core Components"
-	SetOutPath $INSTDIR
-	File "build/bin/TowerDefense.exe"
+	SetOutPath "$INSTDIR"
+	File "build\bin\Towerdefense.exe"
 	;TODO: OSG-libraries
 	
-	SetOutPath "$INSTDIR/fonts"
-	File "fonts/*.ttf"
+	SetOutPath "$INSTDIR\fonts"
+	File "fonts\*.ttf"
 	
-	SetOutPath "$INSTDIR/maps"
-	File "maps/*.tdmap"
+	SetOutPath "$INSTDIR\maps"
+	File "maps\*.tdmap"
 	
-	SetOutPath "$INSTDIR/models/creeps"
-	File "models/creeps/*.osg"
+	SetOutPath "$INSTDIR\models\creeps"
+	File "models\creeps\*.osg"
 	
-	SetOutPath "$INSTDIR/models/towers"
-	File "models/towers/*.osg"
+	SetOutPath "$INSTDIR\models\towers"
+	File "models\towers\*.osg"
 SectionEnd
