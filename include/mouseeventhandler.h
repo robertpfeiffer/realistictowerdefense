@@ -14,7 +14,9 @@ public:
 	//triggered on each click on the object
 	virtual void onClick(osgGA::GUIActionAdapter& aa) {};
 
-	virtual void onEnter(osgGA::GUIActionAdapter& aa) {};
+	//triggered when the mouse hovers for a moment over a location
+	virtual void onHover(osgGA::GUIActionAdapter& aa) {};
 
-	virtual void onLeave(osgGA::GUIActionAdapter& aa) {};
+	//triggered when the mouse moves again after hovering
+	virtual void onUnhover() {};
 };

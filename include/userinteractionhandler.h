@@ -23,11 +23,12 @@ private:
 	double _mouseHoverStartTime;
 	bool _hoverTriggered;
 
-	void setActiveMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa);
+	void setFocusedMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa);
 	void blurActiveMouseHandler();
 	KeyboardEvent* getKeyboardHandler(const osgGA::GUIEventAdapter& ea);
 
-	MouseEventHandler* _activeMouseHandler;
+	MouseEventHandler* _focusedMouseHandler;
+	MouseEventHandler* _hoveredMouseHandler;
 
 	keyboardEventMap _keyMapping;
 };

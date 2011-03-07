@@ -8,24 +8,25 @@
 
 UserInteractionHandler::UserInteractionHandler()
 {
-	_activeMouseHandler = NULL;
+	_focusedMouseHandler = NULL;
+	_hoveredMouseHandler = NULL;
 }
 
-void UserInteractionHandler::setActiveMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa)
+void UserInteractionHandler::setFocusedMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa)
 {
-	if (_activeMouseHandler == handler) return;
+	if (_focusedMouseHandler == handler) return;
 	blurActiveMouseHandler();
 
-	_activeMouseHandler = handler;
+	_focusedMouseHandler = handler;
 	handler->onFocus(aa);
 }
 
 void UserInteractionHandler::blurActiveMouseHandler()
 {
-	if (_activeMouseHandler != NULL) 
+	if (_focusedMouseHandler != NULL) 
 	{
-		_activeMouseHandler->onBlur();
-		_activeMouseHandler = NULL;
+		_focusedMouseHandler->onBlur();
+		_focusedMouseHandler = NULL;
 	}
 }
 
@@ -98,7 +99,7 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 			blurActiveMouseHandler();
 			MouseEventHandler* handler = findEventHandler(ea, aa);
 			if (handler != NULL)
-				setActiveMouseHandler(handler, aa);
+				setFocusedMouseHandler(handler, aa);
 			return false;
 		}
 		
@@ -142,9 +143,14 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 		{
 			if(_hoverTriggered)
 			{
+				if(_hoveredMouseHandler != NULL)
+				{
+					_hoveredMouseHandler->onUnhover();
+					_hoveredMouseHandler = NULL;
+				}
 				_hoverTriggered = false;
-				//onLeave
 			}
+
 			_mouseHoverStartPoint = currentPoint;
 			_mouseHoverStartTime = ea.getTime();
 			return false;
@@ -155,7 +161,10 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 			_hoverTriggered = true;
 			MouseEventHandler* handler = findEventHandler(ea, aa);
 			if(handler != NULL)
-				handler->onEnter(aa);
+			{
+				handler->onHover(aa);
+				_hoveredMouseHandler = handler;
+			}
 		}
 	}
 	default:
