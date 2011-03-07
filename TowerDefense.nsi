@@ -12,7 +12,18 @@ UninstPage instfiles
 Section "Core Components"
 	SetOutPath "$INSTDIR"
 	File "build\bin\Towerdefense.exe"
-	;TODO: OSG-libraries
+	File "OSG\bin\osg67-osg.dll"
+	File "OSG\bin\osg67-osgParticle.dll"
+	File "OSG\bin\osg67-osgUtil.dll"
+	File "OSG\bin\osg67-osgDB.dll"
+	File "OSG\bin\osg67-osgAnimation.dll"
+	File "OSG\bin\osg67-osgText.dll"
+	File "OSG\bin\osg67-osgGA.dll"
+	File "OSG\bin\osg67-osgViewer.dll"
+	File "OSG\bin\osg67-osgFX.dll"
+	File "OSG\bin\ot12-OpenThreads.dll"
+	
+	;TODO: plugins
 	
 	SetOutPath "$INSTDIR\fonts"
 	File "fonts\*.ttf"
