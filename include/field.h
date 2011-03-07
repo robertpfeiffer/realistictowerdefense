@@ -14,6 +14,8 @@ public:
 	bool setBuilding(Tower* tower);
 	bool destroyBuilding();
 
+        void reset();
+
 	bool isBuildable();
 	bool hasTower();
 	osg::Node* getContent();

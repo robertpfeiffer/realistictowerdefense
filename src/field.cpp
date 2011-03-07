@@ -91,7 +91,14 @@ bool Field::setBuilding(Tower* tower)
 	this->addChild(tower);
 	World::instance()->registerForUpdates(tower);
 
+	reset();
+
 	return true;
+}
+
+void Field::reset(){
+	this->getParent(0)->addChild(this);
+	this->getParent(0)->removeChild(this);
 }
 
 bool Field::destroyBuilding()

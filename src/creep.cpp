@@ -89,7 +89,6 @@ void Creep::setModel(osg::Node* model)
 	this->addChild(model);
 
 	//calculate new zPosition of healtbar
-	float zMax;
 	osg::PositionAttitudeTransform* pat = dynamic_cast<osg::PositionAttitudeTransform*>(model);
 
 	osg::ComputeBoundsVisitor boundsVisitor;
@@ -98,15 +97,15 @@ void Creep::setModel(osg::Node* model)
 	if (pat)
 	{
 		osg::Vec3d scaleVec = pat->getScale();
-		zMax = boundingBox.zMax()*scaleVec.z();
+		_zMax = boundingBox.zMax()*scaleVec.z();
 	}
 	else
 	{
-		zMax = boundingBox.zMax();
+		_zMax = boundingBox.zMax();
 	}
 
 	//applay calculated position
-	_healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, zMax + 0.1));
+	_healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, _zMax + 0.1));
 }
 
 bool Creep::isAlive()
@@ -155,6 +154,14 @@ void Creep::updateRealPosition()
 	osg::Vec3 pos = this->getPosition();
 }
 
+osg::Vec3 Creep::getHitPosition()
+{
+	if (_attributes->height < 0)
+		return this->getPosition() + osg::Vec3(0, 0, _zMax + _attributes->height);
+	
+	return this->getPosition() + osg::Vec3(0, 0, _attributes->height);
+}
+
 void Creep::updateRealHeading()
 {
 	osg::Vec3 directionVector = osg::Vec3(_steering->forward().x, _steering->forward().z, 0);
@@ -164,10 +171,10 @@ void Creep::updateRealHeading()
 
 void Creep::onFocus(osgGA::GUIActionAdapter& aa)
 {
-	Hud::instance()->setInfoBox(new CreepInfoBox(_attributes));
+	Hud::instance()->pushInfoBox(new CreepInfoBox(_attributes));
 }
 
 void Creep::onBlur()
 {
-	Hud::instance()->setInfoBox(NULL);
+	Hud::instance()->popInfoBox();
 }

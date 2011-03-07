@@ -151,6 +151,7 @@ void Map::_loadWaves(xml_node<> *node)
 				attributes->name = nameAttr->value();
 			}
 
+			attributes->height = Convert::attrToDouble(creep->first_attribute("height", 0, false), -0.5);
 			attributes->maxHealth = Convert::attrToLong(creep->first_attribute("health", 0, false), 1);
 			attributes->armor = Convert::attrToLong(creep->first_attribute("armor", 0, false), 0);
 			attributes->magicResistance = Convert::attrToLong(creep->first_attribute("magicresist", 0, false), 0);

@@ -18,6 +18,7 @@ public:
 	Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path);
 	void onUpdate();
 	void OnHit(ProjectileAttributes* hitter);
+        osg::Vec3 getHitPosition();
 	void setCreepStats(CreepAttributes* attributes);
 	void setModel(osg::Node* model);
 
@@ -38,6 +39,8 @@ public:
 private:
 	CreepSteering* _steering;
 	GameTimer* _gameTimer;
+
+	float _zMax;
 
 	osg::ref_ptr<HealthBar> _healthBar;
 	int _health;

@@ -23,7 +23,6 @@ Hud* Hud::instance()
 Hud::Hud()
 {
 	this->_player = NULL;
-	this->_infoBox = NULL;
 
 	this->addUpdateCallback(new UpdateCallback());
 
@@ -46,29 +45,40 @@ void Hud::setPlayer(Player* player)
 	_player = player;
 }
 
-void Hud::setInfoBox(InfoBox* infoBox)
+void Hud::pushInfoBox(InfoBox* infoBox)
 {
-	if(_infoBox != NULL)
+	if(_infoBoxes.size() > 0)
 	{
-		this->removeChild(_infoBox);
+		this->removeChild(_infoBoxes.top());
 	}
 
-	_infoBox = infoBox;
+	_infoBoxes.push(infoBox);
 
-	if(_infoBox != NULL)
+	_infoBoxes.top()->setPosition(osg::Vec3(3.0, 30.0, 0.0)); //TODO: better positioning
+	this->addChild(_infoBoxes.top());
+}
+
+void Hud::popInfoBox()
+{
+	if(_infoBoxes.size() > 0)
 	{
-		_infoBox->setPosition(osg::Vec3(3.0, 30.0, 0.0)); //TODO: better positioning
-		this->addChild(_infoBox);
+		this->removeChild(_infoBoxes.top());
+		_infoBoxes.pop();
+	}
+
+	if(_infoBoxes.size() > 0)
+	{
+		this->addChild(_infoBoxes.top());
 	}
 }
 
 void Hud::onUpdate() 
 {
-	if(_infoBox != NULL)
+	if(_infoBoxes.size() > 0)
 	{
 		//FIXME: this is only neccessary because the bounding-box is not computed correctly
 		//inside the info-box
-		_infoBox->updateLayout();
+		_infoBoxes.top()->updateLayout();
 	}
 
 	if(_player != NULL)
