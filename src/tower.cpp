@@ -91,7 +91,7 @@ void Tower::onFocus(osgGA::GUIActionAdapter& aa)
 	this->_menu = new TowerContextMenu(this);
 	this->addChild(_menu);
 
-	Hud::instance()->setInfoBox(new TowerInfoBox(_attributes));
+	Hud::instance()->pushInfoBox(new TowerInfoBox(_attributes));
 }
 
 void Tower::onBlur()
@@ -100,5 +100,5 @@ void Tower::onBlur()
 		this->removeChild(this->_menu);
 	this->_menu = NULL;
 
-	Hud::instance()->setInfoBox(NULL);
+	Hud::instance()->popInfoBox();
 }

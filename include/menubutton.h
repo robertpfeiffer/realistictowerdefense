@@ -17,6 +17,13 @@ public:
 
 	virtual void onClick(osgGA::GUIActionAdapter& aa);
 
+protected:
+	//hack hack hack (see cpp)
+	void preventGC();
+	void allowGC();
+	osg::ref_ptr<MenuButton> _gcPreventor;
+
+
 private:
 	void (* _onClick)(osg::ref_ptr<MenuButton> );
 	bool _enabled;

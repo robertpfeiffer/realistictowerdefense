@@ -40,10 +40,12 @@ void TowerUpgradeButton::onClick(osgGA::GUIActionAdapter& aa)
 
 void TowerUpgradeButton::onHover(osgGA::GUIActionAdapter& aa)
 {
-	Hud::instance()->setInfoBox(new TowerInfoBox(_towerattributes));
+	Hud::instance()->pushInfoBox(new TowerInfoBox(_towerattributes));
+	preventGC();
 }
 
 void TowerUpgradeButton::onUnhover()
 {
-	Hud::instance()->setInfoBox(NULL);
+	Hud::instance()->popInfoBox();
+	allowGC();
 }
