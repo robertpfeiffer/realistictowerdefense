@@ -208,8 +208,6 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 
 	tower->stock = Convert::attrToLong(node->first_attribute("stock", 0, false), LONG_MAX);
 
-	tower->strategy = Convert::attrToLong(node->first_attribute("strategy", 0, false), 1);
-
 	xml_attribute<>* nameAttr = node->first_attribute("name", 0, false);
 	tower->name = "";
 	if (nameAttr != NULL)
