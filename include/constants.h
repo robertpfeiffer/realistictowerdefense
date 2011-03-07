@@ -4,7 +4,6 @@
 double const PI = 2 * acos(0.0);
 
 #define AF_LEVEL 16.0
-#define NUM_MULTISAMPLES 4
 
 #define WHEEL_ZOOM_FACTOR -0.1
 //elevation im bogenmass

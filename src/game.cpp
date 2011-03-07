@@ -25,11 +25,6 @@ void Game::setCameraManipulator()
 	_viewer->setCameraManipulator(manipulator);
 }
 
-void Game::activateAntialiasing(unsigned int samples)
-{
-	osg::DisplaySettings::instance()->setNumMultiSamples(samples);
-}
-
 //FIXME: move into TDviewer
 void Game::setGlobalLight()
 {
@@ -81,17 +76,10 @@ void Game::run(osg::ArgumentParser arguments)
 	std::string mapFilename = "maps/snake.tdmap";
 	arguments.read("map", mapFilename);
 	World::instance()->loadMap(mapFilename);
+
 	root->addChild(World::instance());
 	root->addChild(Hud::instance());
-
-	if (getenv("NETBOOK") == NULL)
-	{
-		activateAntialiasing(NUM_MULTISAMPLES);	//this line must be currently called before calling setUpViewInWindow
-		_viewer->setUpViewInWindow(100, 100, 1024, 768);
-	} else {
-		_viewer->setUpViewInWindow(100, 100, 600, 450); //maybe improve with osgViewer::WindowSizeHandler
-	}
-
+	
 	setCameraManipulator();
 	setGlobalLight();
 
