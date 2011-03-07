@@ -159,7 +159,10 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 		if(!_hoverTriggered && (ea.getTime() - _mouseHoverStartTime) > 0.5)
 		{
 			_hoverTriggered = true;
-			MouseEventHandler* handler = findEventHandler(ea, aa);
+			MouseEventHandler* handler = findMenuButton(ea, aa); //buttons are prioritized
+			if(handler == NULL)
+				handler = findEventHandler(ea, aa);
+
 			if(handler != NULL)
 			{
 				handler->onHover(aa);
