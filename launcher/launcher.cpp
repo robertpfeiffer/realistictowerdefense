@@ -20,8 +20,8 @@ void Launcher::startGame()
     if (!mapData) return;
 
     QStringList parameters;
-    QString mapFilename = mapData->getFilepath();
-    parameters << "map=" + mapFilename;
+    parameters << "--map";
+   parameters << mapData->getFilepath();
 
     parameters << "--stereo";
     parameters << _getStereoParamter();
@@ -102,6 +102,7 @@ void Launcher::_findAndAddMaps()
     {
         ui->startButton->setEnabled(false);
     }
+    ui->mapListWidget->setCurrentRow(0);
 }
 
 void Launcher::_addMap(const QFileInfo fileinfo)

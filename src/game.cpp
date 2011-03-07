@@ -73,8 +73,8 @@ void Game::run(osg::ArgumentParser arguments)
 
 	_viewer = new TDViewer(arguments);
 
-	std::string mapFilename = "maps/snake.tdmap";
-	arguments.read("map", mapFilename);
+	std::string mapFilename = "";
+	while(arguments.read("--map", mapFilename)) {}
 	World::instance()->loadMap(mapFilename);
 
 	root->addChild(World::instance());
