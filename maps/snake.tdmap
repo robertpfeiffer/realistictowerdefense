@@ -88,8 +88,8 @@
 				</Model>
 			</Field>
 				<Field texture="gras.jpg" symbol="F" buildable="false">
-					<Model path="creeps/zeppelin.osg" probability="0">
-						<Scale min="0.5" max="0.5" />
+					<Model path="towers/ventilatower.osg" probability="0">
+						<Scale min="0.02" max="0.02" />
 						<Rotation min="0" max="360" />
 					</Model>
 				</Field>
