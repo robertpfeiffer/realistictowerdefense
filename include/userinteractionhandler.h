@@ -19,9 +19,13 @@ private:
 	typedef std::map<int, KeyboardEvent> keyboardKeyMap;
 	typedef std::map<int, keyboardKeyMap> keyboardEventMap;
 
+	osg::Vec2 _mouseHoverStartPoint;
+	double _mouseHoverStartTime;
+	bool _hoverTriggered;
+
 	void setActiveMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa);
 	void blurActiveMouseHandler();
-	KeyboardEvent* getKeyBoardHandler(const osgGA::GUIEventAdapter& ea);
+	KeyboardEvent* getKeyboardHandler(const osgGA::GUIEventAdapter& ea);
 
 	MouseEventHandler* _activeMouseHandler;
 

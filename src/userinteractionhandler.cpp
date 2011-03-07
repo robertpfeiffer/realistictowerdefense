@@ -29,7 +29,7 @@ void UserInteractionHandler::blurActiveMouseHandler()
 	}
 }
 
-UserInteractionHandler::KeyboardEvent* UserInteractionHandler::getKeyBoardHandler(const osgGA::GUIEventAdapter& ea)
+UserInteractionHandler::KeyboardEvent* UserInteractionHandler::getKeyboardHandler(const osgGA::GUIEventAdapter& ea)
 {
 	keyboardEventMap::iterator keyMask = _keyMapping.find(ea.getModKeyMask());
 	if (keyMask == _keyMapping.end()) return NULL;
@@ -119,7 +119,7 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 	}
 	case(osgGA::GUIEventAdapter::KEYDOWN):
 	{
-		KeyboardEvent* keyboardEvent = getKeyBoardHandler(ea);
+		KeyboardEvent* keyboardEvent = getKeyboardHandler(ea);
 		if (keyboardEvent != NULL)
 		{
 			keyboardEvent->eventHandler->onKeyDown(aa, keyboardEvent->eventId);
@@ -128,12 +128,35 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 	}
 	case(osgGA::GUIEventAdapter::KEYUP):
 	{
-		KeyboardEvent* keyboardEvent = getKeyBoardHandler(ea);
+		KeyboardEvent* keyboardEvent = getKeyboardHandler(ea);
 		if (keyboardEvent != NULL)
 		{
 			keyboardEvent->eventHandler->onKeyUp(aa, keyboardEvent->eventId);
 		}
 		return false;
+	}
+	case(osgGA::GUIEventAdapter::FRAME):
+	{
+		osg::Vec2 currentPoint = osg::Vec2(ea.getX(), ea.getY());
+		if(currentPoint != _mouseHoverStartPoint)
+		{
+			if(_hoverTriggered)
+			{
+				_hoverTriggered = false;
+				//onLeave
+			}
+			_mouseHoverStartPoint = currentPoint;
+			_mouseHoverStartTime = ea.getTime();
+			return false;
+		}
+
+		if(!_hoverTriggered && (ea.getTime() - _mouseHoverStartTime) > 0.5)
+		{
+			_hoverTriggered = true;
+			MouseEventHandler* handler = findEventHandler(ea, aa);
+			if(handler != NULL)
+				handler->onEnter(aa);
+		}
 	}
 	default:
 		return false;
