@@ -176,13 +176,13 @@ void World::loadMap(const std::string mapFilename)
 
 
 	_map = new Map(mapFilename);
-	if ( false ) { //TODO
+	if ( true ) { //TODO
 		osg::Group* g = new osgFX::Cartoon;
 		//osg::Group* h = new osgFX::SpecularHighlights;
-		osg::Group* h = new osgFX::Scribe;
-		this->addChild(h);
+		//osg::Group* h = new osgFX::Scribe;
+		this->addChild(g);
 		//h->addChild(g);
-		h->addChild(new Terrain(_map));
+		g->addChild(new Terrain(_map));
 	} else {
 		this->addChild(new Terrain(_map));
 		this->addChild(new SkyBox(_map->getSkyBoxAttributes()));
