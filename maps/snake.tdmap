@@ -47,14 +47,13 @@
            icon="tornado.png" cost="100" cooldown="1.25" scale="0.4"
            projectile="pojectiles/bomb.osg" physicaldamage="20"
            magicalDamage="10" projectilespeed="4.0" range="3.0"
-           projectilescale="0.1" shotheight="1.5" slow="0.3"
-           strategy="3" />
+           projectilescale="0.1" shotheight="1.5" slow="0.3" />
 
     <Tower name="Magic tower" model="towers/sauron.osg"
            icon="sauron.png" cost="125" cooldown="0.3" scale="0.2"
            projectile="projectiles/fireball.osg" physicaldamage="4"
            magicalDamage="10" stock="1" projectilespeed="4"
-           range="3.5" shotheight="3" projectilescale="1" strategy="3" />
+           range="3.5" shotheight="3" projectilescale="1" />
 
   </Towers>
 	<Checkpoints>
