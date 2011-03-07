@@ -171,10 +171,10 @@ void Creep::updateRealHeading()
 
 void Creep::onFocus(osgGA::GUIActionAdapter& aa)
 {
-	Hud::instance()->setInfoBox(new CreepInfoBox(_attributes));
+	Hud::instance()->pushInfoBox(new CreepInfoBox(_attributes));
 }
 
 void Creep::onBlur()
 {
-	Hud::instance()->setInfoBox(NULL);
+	Hud::instance()->popInfoBox();
 }

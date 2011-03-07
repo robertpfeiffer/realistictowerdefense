@@ -3,6 +3,7 @@
 #include <hudelement.h>
 #include <infobox.h>
 #include <player.h>
+#include <stack>
 #include <updatablenode.h>
 
 class Hud : public osg::Camera, public UpdatableNode
@@ -12,7 +13,8 @@ public:
 	static Hud* instance();
 
 	void setPlayer(Player* player);
-	void setInfoBox(InfoBox*);
+	void pushInfoBox(InfoBox*);
+	void popInfoBox();
 
 	void onUpdate();
 	void onGameEnd(bool won);
@@ -22,5 +24,5 @@ private:
 
 	osg::ref_ptr<HudElement> _goldDisplay;
 	osg::ref_ptr<HudElement> _lifeDisplay;
-	osg::ref_ptr<InfoBox> _infoBox;
+	std::stack< osg::ref_ptr<InfoBox> > _infoBoxes;
 };

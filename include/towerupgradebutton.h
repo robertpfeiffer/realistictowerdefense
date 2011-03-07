@@ -9,6 +9,8 @@ public:
 	TowerUpgradeButton(Tower* t, TowerAttributes* ta);
 
 	virtual void onClick(osgGA::GUIActionAdapter& aa);
+	virtual void onHover(osgGA::GUIActionAdapter& aa);
+	virtual void onUnhover();
 
 private:
 	Tower* _tower;
