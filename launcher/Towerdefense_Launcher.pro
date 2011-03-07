@@ -15,7 +15,6 @@ SOURCES += main.cpp\
     mapdata.cpp
 
 HEADERS  += launcher.h \
-    launcher.h \
     mapdata.h
 
 FORMS    += launcher.ui

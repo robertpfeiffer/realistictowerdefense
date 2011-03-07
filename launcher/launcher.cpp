@@ -37,6 +37,9 @@ void Launcher::startGame()
 
     if (ui->windowModeRadioButton->isChecked())
     {
+        parameters << "--screen";
+        parameters << ui->windowModeDisplaySpinBox->text();
+
         parameters << "--window";
         parameters << ui->windowModePosXSpinBox->text();
         parameters << ui->windowModePosYSpinBox->text();
@@ -94,6 +97,10 @@ void Launcher::_findAndAddMaps()
     QFileInfoList filenames = dir.entryInfoList(filters, QDir::Files);
     foreach (QFileInfo filename, filenames) {
         this->_addMap(filename);
+    }
+    if (ui->mapListWidget->count() <= 0)
+    {
+        ui->startButton->setEnabled(false);
     }
 }
 
