@@ -91,21 +91,27 @@ void Creep::setModel(osg::Node* model)
 	//calculate new zPosition of healtbar
 	osg::PositionAttitudeTransform* pat = dynamic_cast<osg::PositionAttitudeTransform*>(model);
 
+	double zMax = 0;
+	double zMin = 0;
+
 	osg::ComputeBoundsVisitor boundsVisitor;
 	boundsVisitor.apply(*model);
 	osg::BoundingBox boundingBox = boundsVisitor.getBoundingBox();
 	if (pat)
 	{
 		osg::Vec3d scaleVec = pat->getScale();
-		_zMax = boundingBox.zMax()*scaleVec.z();
+		zMax = boundingBox.zMax()*scaleVec.z();
+		zMin = boundingBox.zMin()*scaleVec.z();
 	}
 	else
 	{
-		_zMax = boundingBox.zMax();
+		zMax = boundingBox.zMax();
+		zMin = boundingBox.zMin();
 	}
 
-	//applay calculated position
-	_healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, _zMax + 0.1));
+	//apply calculated position
+	_healthBarTransform->setPosition(osg::Vec3d(0.0, 0.0, zMax + 0.1));
+	_hitHeight = (double)(zMax + zMin) / 2.0;
 }
 
 bool Creep::isAlive()
@@ -155,11 +161,8 @@ void Creep::updateRealPosition()
 }
 
 osg::Vec3 Creep::getHitPosition()
-{
-	if (_attributes->height < 0)
-		return this->getPosition() + osg::Vec3(0, 0, _zMax + _attributes->height);
-	
-	return this->getPosition() + osg::Vec3(0, 0, _attributes->height);
+{	
+	return this->getPosition() + osg::Vec3(0, 0, _hitHeight);
 }
 
 void Creep::updateRealHeading()

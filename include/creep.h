@@ -40,7 +40,7 @@ private:
 	CreepSteering* _steering;
 	GameTimer* _gameTimer;
 
-	float _zMax;
+	double _hitHeight;
 
 	osg::ref_ptr<HealthBar> _healthBar;
 	int _health;
