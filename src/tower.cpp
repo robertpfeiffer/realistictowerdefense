@@ -5,6 +5,7 @@
 #include <gametimer.h>
 #include <hatchery.h>
 #include <hud.h>
+#include <field.h>
 #include <projectile.h>
 #include <towerattributes.h>
 #include <towercontextmenu.h>
@@ -51,11 +52,13 @@ osg::Vec3 Tower::getPosition()
 {
 	return _position;
 }
+
 void Tower::upgradeTo(TowerAttributes* attributes)
 {
 	this->removeChild(_attributes->model);
 	this->addChild(attributes->model);
 	_attributes = attributes;
+	dynamic_cast<Field*>(this->getParent(0))->reset();
 }
 
 bool Tower::findNewTarget()
