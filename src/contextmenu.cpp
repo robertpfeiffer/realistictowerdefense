@@ -11,6 +11,7 @@ ContextMenu::ContextMenu()
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
 	this->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 	this->addEntry(NULL,"select.png");
+       	this->getOrCreateStateSet()->setRenderBinDetails( 11, "RenderBin");
 }
 
 osg::Vec2 ContextMenu::positionForNextButton()
