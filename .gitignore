@@ -14,7 +14,8 @@ core
 .*
 *~
 *orig
-
+ui_*
+moc_*
 
 CMakeCache.txt
 /bin
