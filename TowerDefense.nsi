@@ -15,7 +15,7 @@ Section "Core Components"
 	SetOutPath "$INSTDIR"
 	;TD
 	File "build\bin\Towerdefense.exe"
-	File "build\bin\Towerdefense_Launcher.exe"
+	File "Towerdefense_Launcher.exe"
 	;OpenSceneGraph
 	File "OSG\bin\osg67-osg.dll"
 	File "OSG\bin\osg67-osgParticle.dll"

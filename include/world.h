@@ -2,18 +2,20 @@
 
 #define HAVE_NO_GLUT
 
-#include <map.h>
 #include <osg/Group>
 #include <OpenSteer/PolylineSegmentedPathwaySingleRadius.h>
-#include <creep.h>
-#include <updatecallback.h>
 #include <osgParticle/ParticleSystemUpdater>
 #include <osgParticle/ParticleSystem>
 #include <osgParticle/ParticleEffect>
 #include <osgAnimation/Animation>
 #include <osgAnimation/BasicAnimationManager>
 
+#include <creepsteering.h>
+
+class Map;
 class UpdatableNode;
+class UpdateCallback;
+class Wave;
 
 class World : public osg::Group
 {
@@ -41,8 +43,8 @@ public:
 
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
 	ProximityDatabase* getProximities();
-        void addParticleEffect(osgParticle::ParticleSystem* ps);
-        void addAnimation(osgAnimation::Animation* anim);
+	void addParticleEffect(osgParticle::ParticleSystem* ps);
+	void addAnimation(osgAnimation::Animation* anim);
 
 private:
 	void createPath();

@@ -1,7 +1,9 @@
 #pragma once
 
-#include "keyboardeventhandler.h"
 #include <osgGA/GUIEventHandler>
+
+class KeyboardEventHandler;
+class MouseEventHandler;
 
 class UserInteractionHandler : public osgGA::GUIEventHandler
 {

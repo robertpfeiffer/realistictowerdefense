@@ -1,7 +1,7 @@
 #include <osg/Geode>
 #include <osgText/Text>
 
-#include <hudbackground.h>
+class HudBackground;
 
 class HudElement : public osg::Geode
 {

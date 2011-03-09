@@ -1,10 +1,13 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
+#include <terrain.h>
+
 #include <osg/CullFace>
 #include <osg/Geometry>
 #include <osg/Group>
 #include <osg/PositionAttitudeTransform>
 
-#include <terrain.h>
+#include <field.h>
+#include <map.h>
 
 Terrain::Terrain(Map* map) : osg::Group()
 {

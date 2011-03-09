@@ -1,5 +1,7 @@
 #include <fieldcontextmenu.h>
+
 #include <field.h>
+#include <map.h>
 #include <towerbuildbutton.h>
 #include <tower.h>
 #include <world.h>

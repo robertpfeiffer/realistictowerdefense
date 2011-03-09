@@ -2,7 +2,8 @@
 
 #include <osg/Geode>
 #include <osg/Texture2D>
-#include <map.h>
+
+class Map;
 
 class Terrain : public osg::Group
 {

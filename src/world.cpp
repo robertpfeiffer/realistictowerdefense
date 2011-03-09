@@ -1,4 +1,6 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
+#include <world.h>
+
 #include <osg/Node>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Group>
@@ -7,14 +9,17 @@
 #include <terrain.h>
 #include <constants.h>
 #include <convert.h>
+#include <creep.h>
 #include <gametimer.h>
 #include <graveyard.h>
 #include <hatchery.h>
 #include <hud.h>
+#include <inscenetext.h>
 #include <map.h>
-#include <wave.h>
-#include <world.h>
 #include <skybox.h>
+#include <terrain.h>
+#include <updatecallback.h>
+#include <wave.h>
 
 World* World::instance()
 {

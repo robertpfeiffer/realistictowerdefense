@@ -2,13 +2,14 @@
 #include <towerbuildbutton.h>
 
 #include <field.h>
+#include <hatchery.h>
 #include <hud.h>
+#include <inscenetext.h>
+#include <map.h>
 #include <tower.h>
 #include <towerattributes.h>
 #include <towerinfobox.h>
 #include <world.h>
-#include <inscenetext.h>
-#include <hatchery.h>
 
 TowerBuildButton::TowerBuildButton(Field* field, TowerAttributes* attributes) : MenuButton(attributes->icon)
 {

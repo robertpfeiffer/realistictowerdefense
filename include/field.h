@@ -1,10 +1,10 @@
 #pragma once
-#include <fieldtype.h>
 #include <mouseeventhandler.h>
 #include <string>
 #include <osg/Geode>
 #include <osg/PositionAttitudeTransform>
 
+class FieldType;
 class Tower;
 
 class Field : public osg::PositionAttitudeTransform, public MouseEventHandler
@@ -14,7 +14,7 @@ public:
 	bool setBuilding(Tower* tower);
 	bool destroyBuilding();
 
-        void reset();
+	void reset();
 
 	bool isBuildable();
 	bool hasTower();
