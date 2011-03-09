@@ -136,6 +136,7 @@ osg::Node* AssetLibrary::getModel(const std::string filename)
 	_addParticleEffects(newElement.item);
 	_addAnimations(newElement.item);
 	_modelCache.push_back(newElement);
+	World::instance()->getChild(0)->asGroup()->addChild(newElement.item);
 	return newElement.item;
 }
 

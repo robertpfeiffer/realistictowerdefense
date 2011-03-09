@@ -1,25 +1,17 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <osg/Node>
-#include <osg/Geode>
-#include <osg/Geometry>
-#include <osg/Group>
-#include <osg/Texture2D>
-#include <osgDB/ReadFile>
-#include <osgGA/TerrainManipulator>
+#include <osg/PositionAttitudeTransform>
 #include <osgFX/Cartoon>
 
-#include <osg/AlphaFunc>
-#include <osgDB/Registry>
-
+#include <inscenetext.h>
+#include <terrain.h>
 #include <constants.h>
 #include <convert.h>
 #include <gametimer.h>
 #include <graveyard.h>
 #include <hatchery.h>
 #include <hud.h>
-#include <inscenetext.h>
 #include <map.h>
-#include <terrain.h>
 #include <wave.h>
 #include <world.h>
 #include <skybox.h>
@@ -163,13 +155,14 @@ World::World()
 //TODO: this is not intended to be called twice
 void World::loadMap(const std::string mapFilename)
 {
+        osg::PositionAttitudeTransform* grp = new osg::PositionAttitudeTransform;
+        this->addChild(grp);
+	grp->setScale(osg::Vec3(0.00001,0.00001,0.00001));
 	_psu = new osgParticle::ParticleSystemUpdater;
 	this->addChild(_psu);
-	_mng = new osgAnimation::BasicAnimationManager();
-    osg::Group* grp = new osg::Group;
-	this->setUpdateCallback(_mng);
-	this->addChild(grp);
 
+	_mng = new osgAnimation::BasicAnimationManager();
+	this->setUpdateCallback(_mng);
 
 	_map = new Map();
 	if (!_map->loadMap(mapFilename)) exit(1);
