@@ -3,6 +3,7 @@
 #include <creepattributes.h>
 #include <creepinfobox.h>
 #include <gametimer.h>
+#include <healthbar.h>
 #include <hud.h>
 #include <projectileattributes.h>
 #include <transformhelper.h>

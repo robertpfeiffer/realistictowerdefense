@@ -1,17 +1,19 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <field.h>
-#include <modeldata.h>
-#include <tower.h>
-#include <world.h>
+
 #include <iostream>
 #include <stdlib.h>
 
 #include <osg/Node>
 #include <osg/Group>
 
-
 #include <constants.h>
 #include <fieldcontextmenu.h>
+#include <fieldtype.h>
+#include <modeldata.h>
+#include <tower.h>
+#include <towerattributes.h>
+#include <world.h>
 
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround()), _fieldType(fieldType)
 {

@@ -1,7 +1,8 @@
 #pragma once
-#include <hudbackground.h>
 #include <osg/PositionAttitudeTransform>
 #include <osgText/Text>
+
+#include <hudbackground.h>
 
 class InfoBox : public osg::PositionAttitudeTransform
 {

@@ -1,7 +1,9 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
-#include <gametimer.h>
-#include <creepattributes.h>
 #include <wave.h>
+
+#include <creep.h>
+#include <creepattributes.h>
+#include <gametimer.h>
 #include <world.h>
 
 Wave::Wave(double waveOffset)

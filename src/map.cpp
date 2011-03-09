@@ -1,8 +1,5 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
-#include <assetlibrary.h>
 #include <map.h>
-#include <constants.h>
-#include <modeldata.h>
 #include <limits>
 #include <string.h>
 #include <osg/PositionAttitudeTransform>
@@ -10,8 +7,14 @@
 #include <osgDB/ReadFile>
 #include <stdlib.h>
 
-#include <creepattributes.h>
+#include <assetlibrary.h>
+#include <constants.h>
 #include <convert.h>
+#include <creepattributes.h>
+#include <field.h>
+#include <fieldtype.h>
+#include <modeldata.h>
+#include <towerattributes.h>
 #include <wave.h>
 
 #include "rapidxml.hpp"

@@ -1,7 +1,8 @@
 #include <towercontextmenu.h>
 
-#include <towerupgradebutton.h>
 #include <tower.h>
+#include <towerattributes.h>
+#include <towerupgradebutton.h>
 #include <world.h>
  
 TowerContextMenu::TowerContextMenu(Tower* tower)

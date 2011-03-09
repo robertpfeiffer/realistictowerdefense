@@ -1,10 +1,11 @@
 #pragma once
 #include <osg/Camera>
-#include <hudelement.h>
-#include <infobox.h>
-#include <player.h>
 #include <stack>
 #include <updatablenode.h>
+
+class HudElement;
+class InfoBox;
+class Player;
 
 class Hud : public osg::Camera, public UpdatableNode
 {

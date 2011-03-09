@@ -1,14 +1,17 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 #include <hud.h>
 
-#include <hudbackground.h>
-#include <updatecallback.h>
-
 #include <sstream>
 
 #include <osg/Geode>
 #include <osg/MatrixTransform>
 #include <osgText/Text>
+
+#include <hudbackground.h>
+#include <hudelement.h>
+#include <infobox.h>
+#include <player.h>
+#include <updatecallback.h>
 
 Hud* Hud::instance()
 {

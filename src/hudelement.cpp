@@ -2,6 +2,8 @@
 
 #include <osg/BlendFunc>
 
+#include <hudbackground.h>
+
 double HudElement::_backgroundPadding = 0.5;
 
 HudElement::HudElement(osg::Vec2 position, std::string text)

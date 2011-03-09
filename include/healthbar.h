@@ -4,7 +4,6 @@
 #include <osg/Billboard>
 #include <osg/Drawable>
 #include <osg/Texture2D>
-#include <constants.h>
 #include <updatablenode.h>
 
 class HealthBar : public osg::Billboard, public UpdatableNode

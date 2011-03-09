@@ -1,19 +1,21 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
-#include <assetlibrary.h>
-#include <constants.h>
 #include <game.h>
-#include <world.h>
-#include <hud.h>
-#include <graveyard.h>
-#include <hatchery.h>
-#include <tdviewer.h>
-#include <userinteractionhandler.h>
+
 #include <osgGA/TerrainManipulator>
 #include <osgViewer/ViewerEventHandlers>
-
 #include <osg/Group>
 #include <osgParticle/FireEffect>
 #include <osgViewer/Viewer>
+
+#include <assetlibrary.h>
+#include <constants.h>
+#include <gametimer.h>
+#include <graveyard.h>
+#include <hatchery.h>
+#include <hud.h>
+#include <map.h>
+#include <tdviewer.h>
+#include <world.h>
 
 void Game::setCameraManipulator()
 {
@@ -23,6 +25,11 @@ void Game::setCameraManipulator()
 	manipulator->setAllowThrow(false);
 
 	_viewer->setCameraManipulator(manipulator);
+}
+
+UserInteractionHandler* Game::getInteractiontHandler()
+{
+	return _interactionHandler;
 }
 
 //FIXME: move into TDviewer

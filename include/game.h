@@ -1,7 +1,4 @@
 #pragma once
-
-#include <gametimer.h>
-#include <map.h>
 #include <keyboardeventhandler.h>
 #include <userinteractionhandler.h>
 #include <string>
@@ -9,14 +6,15 @@
 #include <osg/Node>
 #include <osgGA/TerrainManipulator>
 #include <osgViewer/Viewer>
-#include <tdviewer.h>
+
+class GameTimer;
 
 class Game : KeyboardEventHandler
 {
 public:
 	void run(osg::ArgumentParser arguments);
 
-	inline UserInteractionHandler* getInteractiontHandler() { return _interactionHandler.get(); };
+	inline UserInteractionHandler* getInteractiontHandler();
 private:
 	void setGlobalLight();
 	void setCameraManipulator();

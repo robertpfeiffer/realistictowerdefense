@@ -2,8 +2,8 @@
 #pragma once
 
 #include <osg/Billboard>
-#include <menubutton.h>
-#include <constants.h>
+
+class MenuButton;
 
 class ContextMenu : public osg::Billboard
 {

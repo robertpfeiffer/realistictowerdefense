@@ -1,6 +1,5 @@
 #pragma once
 #include <creepsteering.h>
-#include <healthbar.h>
 #include <mouseeventhandler.h>
 #include <updatablenode.h>
 
@@ -10,6 +9,7 @@
 
 class CreepAttributes;
 class GameTimer;
+class HealthBar;
 class ProjectileAttributes;
 
 class Creep : public osg::PositionAttitudeTransform, public UpdatableNode, public MouseEventHandler

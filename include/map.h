@@ -6,13 +6,15 @@
 #include <osg/Texture2D>
 #include <rapidxml.hpp>
 
-class Wave;
-
 #include <player.h>
-#include <modeldata.h>
-#include <field.h>
 #include <skyboxattributes.h>
-#include <towerattributes.h>
+
+class Field;
+class FieldType;
+class ModelData;
+class Player;
+class TowerAttributes;
+class Wave;
 
 using namespace rapidxml;
 
