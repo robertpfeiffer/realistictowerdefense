@@ -40,10 +40,7 @@ osg::Texture2D* AssetLibrary::getTexture(const std::string filename)
 		texture->setWrap(osg::Texture::WRAP_T, osg::Texture::REPEAT);
 		texture->setDataVariance(osg::Object::STATIC);
 
-		if (getenv("NETBOOK") == NULL)
-		{
-			texture->setMaxAnisotropy(AF_LEVEL);
-		}
+		texture->setMaxAnisotropy(AF_LEVEL);
 
 		
 		CacheElement< osg::ref_ptr<osg::Texture2D> > newElement;
