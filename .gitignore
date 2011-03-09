@@ -9,10 +9,12 @@ core
 *.o
 *.exe
 *.dll
-#*#
+*.3ds
+\#*
 .*
 *~
 *orig
+
 
 CMakeCache.txt
 /bin
