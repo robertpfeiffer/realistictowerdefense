@@ -13,7 +13,10 @@ UninstPage instfiles
 
 Section "Core Components"
 	SetOutPath "$INSTDIR"
+	;TD
 	File "build\bin\Towerdefense.exe"
+	File "build\bin\Towerdefense_Launcher.exe"
+	;OpenSceneGraph
 	File "OSG\bin\osg67-osg.dll"
 	File "OSG\bin\osg67-osgParticle.dll"
 	File "OSG\bin\osg67-osgUtil.dll"
@@ -24,8 +27,12 @@ Section "Core Components"
 	File "OSG\bin\osg67-osgViewer.dll"
 	File "OSG\bin\osg67-osgFX.dll"
 	File "OSG\bin\ot12-OpenThreads.dll"
-	
 	;TODO: plugins
+	;Qt-Dependencies
+	File "libgcc_s_dw2-1.dll"
+	File "mingwm10.dll"
+	File "QtCore4.dll"
+	File "QtGui4.dll"
 	
 	SetOutPath "$INSTDIR\fonts"
 	File "fonts\*.ttf"

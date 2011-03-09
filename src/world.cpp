@@ -1,7 +1,7 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <osg/Node>
 #include <osg/PositionAttitudeTransform>
-#include <osgFX/Cartoon>
+#include <osg/Group>
 
 #include <inscenetext.h>
 #include <terrain.h>
@@ -155,26 +155,19 @@ World::World()
 //TODO: this is not intended to be called twice
 void World::loadMap(const std::string mapFilename)
 {
-        osg::PositionAttitudeTransform* grp = new osg::PositionAttitudeTransform;
-        this->addChild(grp);
+	osg::PositionAttitudeTransform* grp = new osg::PositionAttitudeTransform;
+	this->addChild(grp);
 	grp->setScale(osg::Vec3(0.00001,0.00001,0.00001));
 	_psu = new osgParticle::ParticleSystemUpdater;
 	this->addChild(_psu);
-
 	_mng = new osgAnimation::BasicAnimationManager();
 	this->setUpdateCallback(_mng);
 
 	_map = new Map();
 	if (!_map->loadMap(mapFilename)) exit(1);
 
-	if ( false ) { //TODO
-		osg::Group* cartoon = new osgFX::Cartoon;
-		this->addChild(cartoon);
-		cartoon->addChild(new Terrain(_map));
-	} else {
-		this->addChild(new Terrain(_map));
-		this->addChild(new SkyBox(_map->getSkyBoxAttributes()));
-	}
+	this->addChild(new Terrain(_map));
+	this->addChild(new SkyBox(_map->getSkyBoxAttributes()));
 	Hud::instance()->setPlayer(_map->getPlayer());
 
 	_waveDone = true;

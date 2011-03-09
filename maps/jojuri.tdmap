@@ -1,0 +1,148 @@
+<?xml version="1.0" ?>
+<Map>
+	<Player money="225" lives="20" />
+	<Waves>
+		<!--// max player money = 225 //-->
+		<Wave spawnoffset="5">
+			<Creep model="creeps/bot.osg" name="1st Wave - Armor Bot" health="400" bounty="10" count="10" speed="100" armor="30" magicresist="20" spawnoffset="2.0" scale="0.2" />
+		</Wave>
+		
+		<!--// max player money = 325 //-->
+		<Wave spawnoffset="5">
+			<Creep model="creeps/pin.osg" name="2nd Wave - Magic Resist Pin" health="400" count="10" bounty="10" speed="100" armor="10" magicresist="40" spawnoffset="2.0" scale="0.15" />
+		</Wave>
+		
+		<!--// max player money = 425 //-->
+		<Wave>
+			<Creep model="creeps/zeppelin.osg" name="3rd Wave - Speed Zeppelin" health="400" count="10" bounty="10" speed="400" armor="30" magicresist="30" spawnoffset="3.0" scale="0.2" />
+		</Wave>
+		
+		<!--// max player money = 525 //-->
+		<Wave spawnoffset="5">
+			<Creep model="creeps/bot.osg" name="4th Wave - Armor Bot" health="700" bounty="10" count="10" speed="100" armor="50" magicresist="10" spawnoffset="2.0" scale="0.2" />
+		</Wave>
+		
+		<!--// max player money = 625 //-->
+		<Wave spawnoffset="5">
+			<Creep model="creeps/bot.osg" name="5th Wave - Armor Bot" health="900" bounty="10" count="10" speed="100" armor="100" magicresist="10" spawnoffset="2.0" scale="0.2" />
+		</Wave>
+		
+		<!--// bounty set to 20 //-->
+		
+		<!--// max player money = 725 //-->
+		<Wave spawnoffset="5">
+			<Creep model="creeps/bot.osg" name="6th Wave - Armor Bot" health="1000" bounty="20" count="10" speed="100" armor="100" magicresist="10" spawnoffset="2.0" scale="0.2" />
+		</Wave>
+		
+		<!--// max player money = 925 //-->
+		<Wave spawnoffset="5">
+			<Creep model="creeps/zeppelin.osg" name="7th Wave - Speed Zeppelin" health="1000" bounty="20" count="10" speed="400" armor="40" magicresist="40" spawnoffset="2.0" scale="0.2" />
+		</Wave>
+		
+		<!--// max player money = 1125 //-->
+		<Wave spawnoffset="5">
+			<Creep model="creeps/pin.osg" name="8th Wave - Magic Resist Pin" health="1000" bounty="20" count="10" speed="150" armor="50" magicresist="120" spawnoffset="2.0" scale="0.2" />
+		</Wave>
+		
+
+		<!--// max player money = 1325 //-->
+		<Wave spawnoffset="5">
+			<Creep model="creeps/pin.osg" name="9th Wave - Big Wave Magic Resist Pin" health="1000" bounty="20" count="20" speed="150" armor="50" magicresist="120" spawnoffset="1.5" scale="0.2" />
+		</Wave>
+		
+		<!--// max player money = 1725 //-->
+		<Wave>
+			<Creep model="creeps/bot.osg" name="10th Wave - Boss Armor Bot" health="10000" count="1" bounty="100" speed="100" armor="150" magicresist="50" spawnoffset="3.0" scale="0.3" />
+		</Wave>
+	</Waves>
+	
+	<Towers>
+		<Tower name="Base tower" model="towers/basictower.osg" icon="tower.png" cost="50" cooldown="1.5" scale="0.3" projectile="projectiles/bomb.osg" physicaldamage="40" magicalDamage="40" projectilespeed="4.0" range="3.0" projectilescale="0.1" shotheight="1.3">
+			<Tower name="Fire Tower" model="towers/redtower.osg" icon="redtower.png" cost="200" cooldown="1.2" scale="0.45" projectile="projectiles/cannonball.osg" physicaldamage="195" magicalDamage="170" projectilespeed="4.0" range="3.5" projectilescale="0.1" shotheight="1.2" />
+			
+			<Tower name="Water Tower" model="towers/bluetower.osg" icon="bluetower.png" cost="300" cooldown="0.2" scale="0.45" projectile="projectiles/fireball.osg" physicaldamage="50" magicalDamage="40" projectilespeed="6.0" range="3.5" projectilescale="0.7" shotheight="1.5" />
+		</Tower>
+		
+		<Tower name="Magic tower" model="towers/obelisk_of_light.osg" icon="fire.png" cost="125" cooldown="4.0" scale="0.1" projectile="projectiles/bolt.osg" physicaldamage="10" magicalDamage="80" projectilespeed="4" range="7" shotheight="1.5" projectilescale="0.5">
+			<Tower name="Improved magic tower" model="towers/historic_obelisk.osg" icon="fire.png" cost="400" cooldown="3.5" scale="0.2" projectile="projectiles/bolt.osg" physicaldamage="40" magicalDamage="340" projectilespeed="4" range="8" shotheight="2" projectilescale="0.5">
+				<Tower name="Very improved magic tower" model="towers/sauron.osg" icon="fire.png" cost="1000" cooldown="0.7" scale="0.12" projectile="projectiles/bolt.osg" physicaldamage="40" magicalDamage="340" projectilespeed="4" range="10" shotheight="2.2" projectilescale="0.5" />
+			</Tower>
+		</Tower>
+	</Towers>
+	
+	<Checkpoints>
+		<Checkpoint x="13" y="0" />
+		<Checkpoint x="13" y="3" />
+		<Checkpoint x="6" y="3" />
+		<Checkpoint x="6" y="6" />
+		<Checkpoint x="14" y="6" />
+		<Checkpoint x="14" y="9" />
+		<Checkpoint x="4" y="9" />
+		<Checkpoint x="4" y="12" />
+		<Checkpoint x="12" y="12" />
+		<Checkpoint x="12" y="15" />
+	</Checkpoints>
+	
+	<Skybox posX="Cubemap_snow/posx.jpg" negX="Cubemap_snow/negx.jpg" posY="Cubemap_snow/posy.jpg" negY="Cubemap_snow/negy.jpg" posZ="Cubemap_snow/posz.jpg" negZ="Cubemap_snow/negz.jpg" />
+	
+	<Terrain>
+		<Strata texture="sediment.jpg" />
+		<Fields>
+			<Field texture="gras.jpg" symbol="G" buildable="true"	/>
+			<Field texture="way.jpg"	symbol="+" buildable="false" />
+			<Field texture="gras.jpg" symbol="T" buildable="true">
+				<Model path="trees/tanne.osg" probability="0.2">
+					<Scale min="0.3" max="0.5" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
+			
+			<Field texture="gras.jpg" symbol="M" buildable="true">
+				<Model path="shrubs/mushrooms.osg" probability="0.2">
+					<Scale min="0.15" max="0.2" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
+			
+			<Field texture="gras.jpg" symbol="N" buildable="true">
+				<Model path="shrubs/mushrooms2.osg" probability="0.1">
+					<Scale min="0.05" max="0.15" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
+			
+			<Field texture="gras.jpg" symbol="B" buildable="true">
+				<Model path="trees/baum.3ds" probability="1">
+					<Scale min="0.8" max="1.2" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
+			
+			<Field texture="way.jpg" symbol="F" buildable="false">
+				<Model path="firtree/fire.osg" probability="1">
+					<Scale min="0.1" max="0.6" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
+		</Fields>
+		
+		<Grid>
+			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
+			<Row>TTTTTTTTTTTTT+TTTTTTTTT</Row>
+			<Row>TTGGGGGGGGGGG+GGGGGGGTT</Row>
+			<Row>TTGGGG++++++++GGGGGGMTT</Row>
+			<Row>TTGBGG+GGGGGGGGGGGGGGTT</Row>
+			<Row>TTGGGG+GGGGGGGGGGGMGGTT</Row>
+			<Row>TTNGGG+++++++++GGGGGGTT</Row>
+			<Row>TTGGMGGGGNGGGG+GGMGGGTT</Row>
+			<Row>TTGGGMGMGGGGGG+GGGGGGTT</Row>
+			<Row>TTGG+++++++++++GGGGGGTT</Row>
+			<Row>TTGG+GGGGGGGGGGGGMGGGTT</Row>
+			<Row>TTGG+GGGGGGGMGGGGGGGGTT</Row>
+			<Row>TTGG+++++++++GGGMGGGGTT</Row>
+			<Row>TTNGGGGGGGGG+GGGGGGGGTT</Row>
+			<Row>TTTTTTTTTTTT+TTTTTTTTTT</Row>
+			<Row>TTTTTTTTTTTT+TTTTTTTTTT</Row>
+		</Grid>
+	</Terrain>	
+</Map>
