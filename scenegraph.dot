@@ -1,0 +1,35 @@
+digraph scenegraph{
+
+ Root -> HUD -> InfoBox;
+ HUD -> PlayerInfo;
+ Root -> ParticleSystemUpdater;
+ Root -> AnimationManager;
+
+ HUD[rank="min"];
+ subgraph{
+  World -> Skybox;
+  World -> InSceneText;
+ }
+
+ World -> Terrain;
+
+ subgraph{
+  Ground2[label = "Ground"];
+  Field3[label = "Field"];
+  Field2[label = "Field"];
+
+  Terrain -> Field -> Ground;
+  Terrain -> Field2 -> Ground2;
+  Terrain -> Field3 -> Ground;
+  Field -> Tree;
+  Field2 -> Tower;
+  Tower -> ContextMenu;
+ }
+
+ Root -> World;
+
+ World -> Projectile;
+ World -> Creep -> LifeBar;
+ {rank="same"; Creep; Tower; Projectile};
+
+}
