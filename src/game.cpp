@@ -19,7 +19,7 @@
 
 void Game::setCameraManipulator()
 {
-    osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
+	osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
 	manipulator->setVerticalAxisFixed(true);
 	manipulator->setWheelZoomFactor(WHEEL_ZOOM_FACTOR);
 	manipulator->setAllowThrow(false);
@@ -39,11 +39,11 @@ void Game::setGlobalLight()
 	osg::Light* globalLight = new osg::Light;
 	globalLight->setLightNum(0);
 	globalLight->setAmbient(osg::Vec4(0.5, 0.5, 0.5, 1.0));
-        globalLight->setDiffuse(osg::Vec4(2.0, 2.0, 2.0, 1.0));
-        globalLight->setSpecular(osg::Vec4(5.0, 5.0, 5.0, 1.0));
-    globalLight->setConstantAttenuation(0.05);
-    //light->setLinearAttenuation(0.05);
-    globalLight->setQuadraticAttenuation(0.05);
+	globalLight->setDiffuse(osg::Vec4(1.0, 1.0, 1.0, 1.0));
+	globalLight->setSpecular(osg::Vec4(15.0, 15.0, 15.0, 1.0));
+	//globalLight->setConstantAttenuation(0.05);
+	//light->setLinearAttenuation(0.05);
+	//globalLight->setQuadraticAttenuation(0.05);
 	_viewer->setLight(globalLight);
 }
 
