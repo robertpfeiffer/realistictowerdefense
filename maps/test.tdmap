@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<Map>
+	<Player money="500" lives="50"/>
+	<Waves>
+		
+		<Wave spawnoffset="5">
+			<Creep model="creeps/bot.osg" name="Airship" health="400" bounty="10" count="10" speed="30" armor="30" magicresist="20" spawnoffset="5.0" scale="0.2" />
+		</Wave>
+	</Waves>
+ <Towers>
+      <Tower name="Strong Tower" model="towers/tower7_bump.osg"
+             icon="comictower.png" cost="100" cooldown="1.0" scale="1.1"
+             projectile="projectiles/swarm_missile.osg" physicaldamage="45"
+             magicalDamage="5" projectilespeed="4.0" range="4.0"
+             projectilescale="0.06" shotheight="1.5" />
+  </Towers>
+	<Checkpoints>
+		<Checkpoint x="3" y="0" />
+		<Checkpoint x="3" y="7" />
+	</Checkpoints>
+	<Skybox negX="lostvalley/lostvalley_east.png" posX="lostvalley/lostvalley_west.png" posY="lostvalley/lostvalley_down.png" negY="lostvalley/lostvalley_up.png" negZ="lostvalley/lostvalley_north.png" posZ="lostvalley/lostvalley_south.png" />
+	<Terrain>
+		<Strata texture="sediment.jpg" />
+		<Fields>
+			<Field texture="gras.jpg" symbol="G" buildable="true"	/>
+			<Field texture="way.jpg" symbol="+" buildable="false" />
+                        <Field texture="way.jpg" symbol="T" buildable="true"   />
+                        <Field texture="gras.jpg" symbol="B" buildable="true">
+                                <Model path="towers/tower7_bump.osg" probability="1">
+                                        <Scale min="3.7" max="4.0" />
+                                        <Rotation min="0" max="360" />
+                                </Model>
+                        </Field>
+
+		</Fields>
+		<Grid>
+			<Row>TTT+TT</Row>
+			<Row>TTT+TT</Row>
+			<Row>TTG+GG</Row>
+			<Row>TTG+GT</Row>
+			<Row>TTG+GT</Row>
+			<Row>TGG+GT</Row>
+			<Row>TTG+GT</Row>
+			<Row>TTG+GT</Row>
+		</Grid>
+	</Terrain>	
+</Map>
