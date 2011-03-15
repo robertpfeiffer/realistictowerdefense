@@ -5,6 +5,22 @@
 		<Wave spawnoffset="5">
 			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="10" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
 		</Wave>
+
+		<Wave spawnoffset="5">
+			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="15" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
+		</Wave>
+
+		<Wave spawnoffset="5">
+			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="20" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
+		</Wave>
+
+		<Wave spawnoffset="5">
+			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="25" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
+		</Wave>
+
+		<Wave spawnoffset="5">
+			<Creep model="creeps/zeppelin.osg" name="Airships!" health="400" bounty="10" count="40" speed="300" armor="30" magicresist="20" spawnoffset="2.0" scale="0.6" />
+		</Wave>
 	</Waves>
 	<Towers>
 		<Tower name="Base tower" model="towers/basictower.osg"
@@ -71,7 +87,12 @@
 	<Terrain>
 		<Strata texture="sediment.jpg" />
 		<Fields>
-			<Field texture="gras.jpg" symbol="G" buildable="true"  />
+			<Field texture="gras.jpg" symbol="G" buildable="true">
+				<Model path="trees/tanne.osg" probability="0.03">
+					<Scale min="0.3" max="0.9" />
+					<Rotation min="0" max="360" />
+				</Model>
+			</Field>
 			<Field texture="way.jpg"  symbol="+" buildable="false" />
 			<Field texture="gras.jpg" symbol="T" buildable="true">
 				<Model path="trees/tanne.osg" probability="0.9">
