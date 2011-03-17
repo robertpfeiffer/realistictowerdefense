@@ -52,7 +52,7 @@
            projectilescale="0.1" shotheight="1.5">
 
       <Tower name="Strong Tower" model="towers/steeltower.osg"
-             icon="comictower.png" cost="170" cooldown="1.0" scale="1.0"
+             icon="comictower.png" cost="170" cooldown="1.0" scale="0.8"
              projectile="projectiles/swarm_missile.osg" physicaldamage="45"
              magicalDamage="5" projectilespeed="4.0" range="4.0"
              projectilescale="0.06" shotheight="1.5" />

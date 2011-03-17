@@ -40,7 +40,7 @@ void Game::setGlobalLight()
 	globalLight->setLightNum(0);
 	globalLight->setAmbient(osg::Vec4(0.5, 0.5, 0.5, 1.0));
 	globalLight->setDiffuse(osg::Vec4(1.0, 1.0, 1.0, 1.0));
-	globalLight->setSpecular(osg::Vec4(15.0, 15.0, 15.0, 1.0));
+	globalLight->setSpecular(osg::Vec4(5.0, 5.0, 5.0, 1.0));
 	//globalLight->setConstantAttenuation(0.05);
 	//light->setLinearAttenuation(0.05);
 	//globalLight->setQuadraticAttenuation(0.05);

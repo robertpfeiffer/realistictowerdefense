@@ -27,7 +27,7 @@ osgFX::BumpMapping {
           diffuseColor 1 1 1 1
           specularColor 1 1 1 1
           emissionColor 0 0 0 1
-          shininess 13
+          shininess 5 
         }
           textureUnit 0 {
             GL_TEXTURE_2D ON
