@@ -49,7 +49,8 @@ void Launcher::startGame()
 
     QProcess *gameProcess = new QProcess(this);
     this->hide();
-    gameProcess->start("Towerdefense", parameters);
+    //Qt convert automatically from "/" to correct seperator
+    gameProcess->start(QDir::currentPath() + "/Towerdefense", parameters);
     gameProcess->waitForFinished(-1);
     this->show();
 }
