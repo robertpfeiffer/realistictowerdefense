@@ -112,7 +112,7 @@ void Game::run(osg::ArgumentParser arguments)
 	_interactionHandler->registerKeyEvent(0, 'n', this, EVENT_NORMALIZE_SPEED);
 	_interactionHandler->registerKeyEvent(0, '+', this, EVENT_INCREASE_SPEED);
 
-	//_viewer.addEventHandler( new osgViewer::StatsHandler());
+	_viewer->addEventHandler( new osgViewer::StatsHandler());
 
 	_viewer->run();
 	AssetLibrary::instance()->sweep();
