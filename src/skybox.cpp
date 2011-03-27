@@ -72,16 +72,21 @@ public:
     }
 };
 
+osg::Image* SkyBox::getImageFromTexture(osg::Texture2D* texture)
+{
+	return (texture != NULL) ? texture->getImage() : NULL;
+}
+
 osg::TextureCubeMap* SkyBox::readCubeMap(SkyBoxAttributes* attributes)
 {
     osg::TextureCubeMap* cubemap = new osg::TextureCubeMap;
 	
-    cubemap->setImage(osg::TextureCubeMap::POSITIVE_X, attributes->texturePosX->getImage());
-    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_X, attributes->textureNegX->getImage());
-    cubemap->setImage(osg::TextureCubeMap::POSITIVE_Y, attributes->texturePosY->getImage());
-    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_Y, attributes->textureNegY->getImage());
-    cubemap->setImage(osg::TextureCubeMap::POSITIVE_Z, attributes->texturePosZ->getImage());
-    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_Z, attributes->textureNegZ->getImage());
+    cubemap->setImage(osg::TextureCubeMap::POSITIVE_X, getImageFromTexture(attributes->texturePosX));
+    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_X, getImageFromTexture(attributes->textureNegX));
+    cubemap->setImage(osg::TextureCubeMap::POSITIVE_Y, getImageFromTexture(attributes->texturePosY));
+    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_Y, getImageFromTexture(attributes->textureNegY));
+    cubemap->setImage(osg::TextureCubeMap::POSITIVE_Z, getImageFromTexture(attributes->texturePosZ));
+    cubemap->setImage(osg::TextureCubeMap::NEGATIVE_Z, getImageFromTexture(attributes->textureNegZ));
 
     cubemap->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
     cubemap->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
