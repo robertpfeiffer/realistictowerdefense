@@ -21,6 +21,13 @@
 #include <updatecallback.h>
 #include <wave.h>
 
+/**
+ * \fn	World* World::instance()
+ *
+ * \brief	Gets the instance of the world (singleton).
+ *
+ * \return	null if it fails, else.
+ */
 World* World::instance()
 {
 	static osg::ref_ptr<World> world_ptr;
@@ -31,6 +38,11 @@ World* World::instance()
 	return world_ptr.get();
 }
 
+/**
+ * \fn	void World::createPath()
+ *
+ * \brief	Creates the path for creeps from checkpoint list.
+ */
 void World::createPath()
 {
 	std::vector<OpenSteer::Vec3> pathPoints = std::vector<OpenSteer::Vec3>();
@@ -43,11 +55,6 @@ void World::createPath()
 	
 	//FIXME: made path extra-narrow to work around creeps leaving path
 	_path = new OpenSteer::PolylineSegmentedPathwaySingleRadius(pathPoints.size(), pathPoints.data(), 0.35, false);
-}
-
-OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
-{
-	return _path;
 }
 
 void World::spawnCreep(Creep* creep)
@@ -161,12 +168,13 @@ World::World()
 void World::loadMap(const std::string mapFilename)
 {
 	osg::PositionAttitudeTransform* grp = new osg::PositionAttitudeTransform;
-	this->addChild(grp);
 	grp->setScale(osg::Vec3(0.00001,0.00001,0.00001));
-	_psu = new osgParticle::ParticleSystemUpdater;
-	this->addChild(_psu);
-	_mng = new osgAnimation::BasicAnimationManager();
-	this->setUpdateCallback(_mng);
+	this->addChild(grp);
+	
+	_particleUpdater = new osgParticle::ParticleSystemUpdater;
+	this->addChild(_particleUpdater);
+	_animationManager = new osgAnimation::BasicAnimationManager();
+	this->setUpdateCallback(_animationManager);
 
 	_map = new Map();
 	if (!_map->loadMap(mapFilename)) exit(1);
@@ -186,13 +194,13 @@ void World::loadMap(const std::string mapFilename)
 
 void World::addParticleEffect(osgParticle::ParticleSystem* ps)
 {
-	_psu->addParticleSystem(ps);
+	_particleUpdater->addParticleSystem(ps);
 }
 
 void World::addAnimation(osgAnimation::Animation* anim)
 {
-	_mng->registerAnimation(anim);
-	_mng->playAnimation(anim);
+	_animationManager->registerAnimation(anim);
+	_animationManager->playAnimation(anim);
 }
 
 World::~World()

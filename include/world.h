@@ -41,7 +41,7 @@ public:
 
 	Map* getMap();
 
-	OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath();
+	inline OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath(){ return _path; };
 	ProximityDatabase* getProximities();
 	void addParticleEffect(osgParticle::ParticleSystem* ps);
 	void addAnimation(osgAnimation::Animation* anim);
@@ -55,8 +55,8 @@ private:
 	std::set<osg::ref_ptr<Creep> > _creeps;
 
 	osg::ref_ptr<Map> _map;
-	osg::ref_ptr<osgParticle::ParticleSystemUpdater> _psu;
-	osg::ref_ptr<osgAnimation::BasicAnimationManager> _mng;
+	osg::ref_ptr<osgParticle::ParticleSystemUpdater> _particleUpdater;
+	osg::ref_ptr<osgAnimation::BasicAnimationManager> _animationManager;
 	OpenSteer::PolylineSegmentedPathwaySingleRadius* _path;
 
 	osg::ref_ptr<UpdateCallback> _updateCallback;
