@@ -34,7 +34,7 @@ public:
 
 	void spawnCreep(Creep* creep);
 	void dropCreep(Creep* creep);
-	void OnWaveDone();
+	void onWaveDone();
 
 	void addUpdatableNode(osg::Node* node);
 	/*inline*/ void registerForUpdates(osg::Node* node);
