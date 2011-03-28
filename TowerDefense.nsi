@@ -17,16 +17,16 @@ Section "Core Components"
 	File "Towerdefense_Launcher.exe"
 	
 	;OpenSceneGraph
-	File "OSG\bin\osg67-osg.dll"
-	File "OSG\bin\osg67-osgAnimation.dll"
-	File "OSG\bin\osg67-osgDB.dll"
-	File "OSG\bin\osg67-osgFX.dll"
-	File "OSG\bin\osg67-osgGA.dll"
-	File "OSG\bin\osg67-osgParticle.dll"
-	File "OSG\bin\osg67-osgSim.dll"
-	File "OSG\bin\osg67-osgText.dll"
-	File "OSG\bin\osg67-osgUtil.dll"
-	File "OSG\bin\osg67-osgViewer.dll"
+	File "OSG\bin\osg71-osg.dll"
+	File "OSG\bin\osg71-osgAnimation.dll"
+	File "OSG\bin\osg71-osgDB.dll"
+	File "OSG\bin\osg71-osgFX.dll"
+	File "OSG\bin\osg71-osgGA.dll"
+	File "OSG\bin\osg71-osgParticle.dll"
+	File "OSG\bin\osg71-osgSim.dll"
+	File "OSG\bin\osg71-osgText.dll"
+	File "OSG\bin\osg71-osgUtil.dll"
+	File "OSG\bin\osg71-osgViewer.dll"
 	File "OSG\bin\ot12-OpenThreads.dll"
 	;OSG-plugins
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_3ds.dll"
@@ -79,9 +79,11 @@ Section "Core Components"
 SectionEnd
 
 Section "Startmenu Shortcut"
+	SetOutPath "$INSTDIR"
 	CreateShortCut "$SMPROGRAMS\TowerDefense.lnk" "$INSTDIR\Towerdefense_Launcher.exe"
 SectionEnd
 
 Section "Desktop Shortcut"
+	SetOutPath "$INSTDIR"
 	CreateShortCut "$DESKTOP\TowerDefense.lnk" "$INSTDIR\Towerdefense_Launcher.exe"
 SectionEnd
