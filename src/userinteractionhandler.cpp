@@ -144,9 +144,10 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 		{
 			if(_hoverTriggered)
 			{
-				if(_hoveredMouseHandler != NULL)
+				if(_hoveredMouseHandler.get() != NULL)
 				{
-					_hoveredMouseHandler->onUnhover();
+					//dynamic cast will work, because we casted from MouseEventHandler to Referenced before
+					dynamic_cast<MouseEventHandler*>(_hoveredMouseHandler.get())->onUnhover();
 					_hoveredMouseHandler = NULL;
 				}
 				_hoverTriggered = false;
@@ -166,8 +167,11 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 
 			if(handler != NULL)
 			{
-				handler->onHover(aa);
-				_hoveredMouseHandler = handler;
+				_hoveredMouseHandler = dynamic_cast<osg::Referenced*>(handler);
+				if(_hoveredMouseHandler != NULL) //only hover if we can unhover later
+				{
+					handler->onHover(aa);
+				}
 			}
 		}
 		return false;

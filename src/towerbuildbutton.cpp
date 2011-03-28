@@ -47,11 +47,9 @@ void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
 void TowerBuildButton::onHover(osgGA::GUIActionAdapter& aa)
 {
 	Hud::instance()->pushInfoBox(new TowerInfoBox(_towerattributes));
-	preventGC();
 }
 
 void TowerBuildButton::onUnhover()
 {
 	Hud::instance()->popInfoBox();
-	allowGC();
 }
