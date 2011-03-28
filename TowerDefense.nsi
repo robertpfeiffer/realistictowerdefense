@@ -7,6 +7,7 @@ RequestExecutionLevel admin
 
 Page license
 Page directory
+Page components
 Page instfiles
 UninstPage uninstConfirm
 UninstPage instfiles
@@ -76,4 +77,12 @@ Section "Core Components"
 	
 	SetOutPath "$INSTDIR\textures\lostvalley"
 	File "textures\lostvalley\*.png"
+SectionEnd
+
+Section "Startmenu Shortcut"
+	CreateShortCut "$SMPROGRAMS\TowerDefense.lnk" "$INSTDIR\Towerdefense_Launcher.exe"
+SectionEnd
+
+Section "Desktop Shortcut"
+	CreateShortCut "$DESKTOP\TowerDefense.lnk" "$INSTDIR\Towerdefense_Launcher.exe"
 SectionEnd
