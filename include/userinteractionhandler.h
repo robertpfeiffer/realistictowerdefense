@@ -33,4 +33,6 @@ private:
 	osg::ref_ptr<osg::Referenced> _hoveredMouseHandler;
 
 	keyboardEventMap _keyMapping;
+
+	static double _hoverDelay;
 };

@@ -7,6 +7,8 @@
 #include <iostream>
 #include <osgViewer/Viewer>
 
+double UserInteractionHandler::_hoverDelay = 0.2;
+
 UserInteractionHandler::UserInteractionHandler()
 {
 	_focusedMouseHandler = NULL;
@@ -158,7 +160,7 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 			return false;
 		}
 
-		if(!_hoverTriggered && (ea.getTime() - _mouseHoverStartTime) > 0.5)
+		if(!_hoverTriggered && (ea.getTime() - _mouseHoverStartTime) > _hoverDelay)
 		{
 			_hoverTriggered = true;
 			MouseEventHandler* handler = findMenuButton(ea, aa); //buttons are prioritized
