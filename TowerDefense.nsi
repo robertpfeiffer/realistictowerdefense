@@ -9,14 +9,13 @@ Page license
 Page directory
 Page components
 Page instfiles
-UninstPage uninstConfirm
-UninstPage instfiles
 
 Section "Core Components"
 	SetOutPath "$INSTDIR"
 	;TD
 	File "build\bin\Towerdefense.exe"
 	File "Towerdefense_Launcher.exe"
+	
 	;OpenSceneGraph
 	File "OSG\bin\osg67-osg.dll"
 	File "OSG\bin\osg67-osgAnimation.dll"
