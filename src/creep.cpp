@@ -12,6 +12,17 @@
 #include <osg/PositionAttitudeTransform>
 #include <osg/ComputeBoundsVisitor>
 
+/**
+ * \fn	Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path)
+ *
+ * \brief	Creates a new creep
+ *
+ * \param	pd	A OpenSteer-Proximity database that all creeps share
+ *
+ * \param	position	The starting-position of the creep
+ *
+ * \param	path	The path which the creep will follow.
+ */
 Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegmentedPathwaySingleRadius* path)
 {
 	OpenSteer::Vec3 steer_position = OpenSteer::Vec3(position.x(), position.y(), position.z());
@@ -36,6 +47,11 @@ Creep::~Creep()
 	delete _steering;
 }
 
+/**
+ * \fn	Creep::onUpdate()
+ *
+ * \brief	Will update the creeps position and heading according to the time elapsed since the last call to onUpdate()
+ */
 void Creep::onUpdate()
 {
 	_steering->update(_gameTimer->elapsedTime());
@@ -43,6 +59,13 @@ void Creep::onUpdate()
 	updateRealHeading();
 }
 
+/**
+ * \fn	Creep::OnHit(ProjectileAttributes* hitter)
+ *
+ * \brief	When the creep is hit by a projectile, calling this method will result in the creep processing that (e.g. reducing health-points).
+ *
+ * \param	hitter	The attributes of the projectile that hit the creep.
+ */
 void Creep::OnHit(ProjectileAttributes* hitter)
 {
 	if(isLeaked())
@@ -74,6 +97,13 @@ int Creep::computeDamageReceived(ProjectileAttributes* source)
 	return totalDamage;
 }
 
+/**
+ * \fn	Creep::setCreepStats(CreepAttributes* attributes)
+ *
+ * \brief	Assigns new stats to the creep.
+ *
+ * \param	attributes	The attributes to assign.
+ */
 void Creep::setCreepStats(CreepAttributes* attributes)
 {
 	_attributes = attributes;
@@ -82,6 +112,13 @@ void Creep::setCreepStats(CreepAttributes* attributes)
 	_steering->setMaxSpeed((float)_attributes->speed/100.0f);
 }
 
+/**
+ * \fn	Creep::setModel(osg::Node* model)
+ *
+ * \brief	Assigns a new model to the creep, thus giving it a new visual appearance.
+ *
+ * \param	model	The new model.
+ */
 void Creep::setModel(osg::Node* model)
 {
 	//replace model
@@ -115,41 +152,97 @@ void Creep::setModel(osg::Node* model)
 	_hitHeight = (double)(zMax + zMin) / 2.0;
 }
 
+/**
+ * \fn	Creep::isAlive()
+ *
+ * \brief	tells whether the creep is still alive or if it was killed.
+ *
+ * \return	true if it is alive; false otherwise
+ */
 bool Creep::isAlive()
 {
 	return _health > 0;
 }
 
+/**
+ * \fn	Creep::isLeaked()
+ *
+ * \brief	tells whether the creep has reached the end of its path and disappeared.
+ *
+ * \return	true if it reached the end; false otherwise
+ */
 bool Creep::isLeaked()
 {
 	return _steering->isLeaked();
 }
 
+/**
+ * \fn	Creep::health()
+ *
+ * \brief	tells how many health-points the creep has left
+ *
+ * \return	the amount of health
+ */
 int Creep::health()
 {
 	return _health;
 }
 
+/**
+ * \fn	Creep::maxHealth()
+ *
+ * \brief	tells how many health-points the creep had initailly.
+ *
+ * \return	the amount of initial health-points
+ */
 int Creep::maxHealth()
 {
 	return _attributes->maxHealth;
 }
 
+/**
+ * \fn	Creep::armor()
+ *
+ * \brief	tells how much armor the creep has. Higher armor will result in receiving less damage from a physical damage source.
+ *
+ * \return	the amount of armor
+ */
 int Creep::armor()
 {
 	return _attributes->armor;
 }
 
+/**
+ * \fn	Creep::magicResistance()
+ *
+ * \brief	tells how much magic-resistance the creep has. Higher magic-resistance will result in receiving less damage from a magical damage source.
+ *
+ * \return	the amount of magic-resistance
+ */
 int Creep::magicResistance()
 {
 	return _attributes->magicResistance;
 }
 
+/**
+ * \fn	Creep::speed()
+ *
+ * \brief	tells the maximum speed at which this creep can travel.
+ *
+ * \return	the maximum speed of the creep
+ */
 int Creep::speed()
 {
 	return _steering->maxSpeed()*100;
 }
 
+/**
+ * \fn	Creep::bounty()
+ *
+ * \brief	tells how much gold the player will receive when killing that creep.
+ *
+ * \return	the amount of gold received
+ */
 int Creep::bounty()
 {
 	return _attributes->bounty;
