@@ -1,6 +1,11 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <field.h>
 
+/*
+  A field is a scenegraph node.
+  It represents a ground tile and what is built on it.
+ */
+
 #include <iostream>
 #include <stdlib.h>
 
@@ -21,8 +26,14 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 
 	ModelData* modelData = fieldType->getModelData();
 
+
+	/*
+	  Scenery like rocks or vegetation is randomly placed on the field.
+	  It is randomly rotated and scaled, within configurable bounds.
+	 */
+
 	_content = NULL;
-	if (modelData != NULL)
+	if (modelData != NULL) // is scenery configured for this field type?
 	{
 		if (modelData->probability >= (float) rand() / RAND_MAX)
 		{
@@ -48,17 +59,19 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
+    //add Context menu into the scenegraph if clicked
 	this->_menu = new FieldContextMenu(this);
 	this->addChild(_menu);
 }
 
 void Field::onClick(osgGA::GUIActionAdapter& aa)
 {
-  //handled by menubutton
+    //handled by menubutton
 }
 
 void Field::onBlur()
 {
+    //remove Context menu on lost focus
 	if(this->_menu != NULL)
 		this->removeChild(this->_menu);
 	this->_menu = NULL;
@@ -82,8 +95,9 @@ osg::Node* Field::getContent()
 bool Field::setBuilding(Tower* tower)
 {
 	if (!this->isBuildable() || this->hasTower())
-	  	return false;
+		return false; // failure, can't build
 
+	// remove scenery to make way for the building
 	if(_content != NULL)
 	{
 		this->removeChild(_content);
@@ -94,10 +108,16 @@ bool Field::setBuilding(Tower* tower)
 	World::instance()->registerForUpdates(tower);
 
 	reset();
-
-	return true;
+	
+	return true; //success
 }
 
+/*
+  Put the tower into the scenegraph again.
+  This is a HACK.
+  We needed this to guarantee a certain traversal order
+  for the animation and particle systems.
+*/
 void Field::reset(){
 	this->getParent(0)->addChild(this);
 	this->getParent(0)->removeChild(this);

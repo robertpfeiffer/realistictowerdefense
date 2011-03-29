@@ -1,6 +1,12 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include<projectile.h>
 
+/*
+  Projectile game object
+  Projectiles are shot by towers.
+  Each has a projectileattributes that represents the kind of projectile.
+ */
+
 #include <creep.h>
 #include <algorithm>
 #include <gametimer.h>
@@ -27,7 +33,9 @@ void Projectile::onUpdate()
 
 	approachToTarget();
 
-	if((this->getPosition()-_target->getHitPosition()).length2() < 0.1) //FIXME is this a good condition?
+    //FIXME is this a good condition?
+	// maybe use bounding boxes for collision detection?
+	if((this->getPosition()-_target->getHitPosition()).length2() < 0.1) 
 	{
 		hitTarget();
 	}

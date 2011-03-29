@@ -1,4 +1,11 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
+#include <healthbar.h>
+
+/*
+  Health bar for a creep.
+  It is a node in the scene graph below the creep.
+  Visually, the health bar floats over the creeps head.
+ */
 
 #include <sstream>
 #include <osg/BlendFunc>
@@ -7,7 +14,6 @@
 #include <osg/Texture2D>
 
 #include <constants.h>
-#include <healthbar.h>
 #include <assetlibrary.h>
 #include <world.h>
 #include <gametimer.h>
@@ -61,7 +67,6 @@ void HealthBar::_setBillBoardStateSet()
 	billBoardStateSet->setAttributeAndModes( new osg::BlendFunc, osg::StateAttribute::ON );
 	billBoardStateSet->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
 
-	// Make sure the geometry has the correct state
 	this->setStateSet(billBoardStateSet);
 }
 
@@ -78,6 +83,7 @@ osg::Geometry* HealthBar::_createBackgroundGemoetry() const
     geometry = new osg::Geometry();
 
 	//add vertices and texture
+	//set the y coordinate farther away from the camera
 	osg::Vec3Array* verts = new osg::Vec3Array(4);	
 	(*verts)[0] = osg::Vec3( -width/2, 0.01f, -height/2);
 	(*verts)[1] = osg::Vec3( +width/2, 0.01f, -height/2);
@@ -112,6 +118,7 @@ osg::Geometry* HealthBar::_createHealthGemoetry(osg::Texture2D* texture) const
 {
 	// Declare and initialize geometry
     osg::Geometry* geometry = new osg::Geometry();
+	// the coordinates are set in _updateHealthBar
 
 	//add vertices and texture
 	geometry->setVertexArray(new osg::Vec3Array(4));	
@@ -140,10 +147,13 @@ void HealthBar::_updateHealthBar()
 
 	float healthWidth = width * static_cast<float>(_health) / static_cast<float>(_maxHealth);
 	float halfWidth = width/2;	
-
+	
+	// the green bar indicates remeining health
 	_updateGeometrySize(_healthGeometry, -halfWidth, healthWidth, height);
 	_updateTextureSize(_healthGeometry, _health, 0.0f);
 
+	// the red bar indicates damage taken recently
+    // on the same scale as the helath bar
 	float damageWidth = width * static_cast<float>(_damage) / static_cast<float>(_maxHealth);
 	_updateGeometrySize(_damageGeometry, -halfWidth + healthWidth, damageWidth, height);
 	_updateTextureSize(_damageGeometry, _damage, healthWidth);

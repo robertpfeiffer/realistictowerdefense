@@ -1,6 +1,13 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <contextmenu.h>
 
+/*
+  The Context Menu Widget.
+  Context menues are usually directly attached into the scenegraph.
+  The visual style is a radial Menu of Buttons around the object.
+  The Buttons are facing the Player around the Object.
+ */
+
 #include <osg/AlphaFunc>
 #include <osg/Texture2D>
 
@@ -16,6 +23,10 @@ ContextMenu::ContextMenu()
        	this->getOrCreateStateSet()->setRenderBinDetails( 11, "RenderBin");
 }
 
+/*
+  arranges menu buttons radially.
+  The first menu item is drawn in the center of the circle.
+*/
 osg::Vec2 ContextMenu::positionForNextButton()
 {	
 	float x;
@@ -25,6 +36,9 @@ osg::Vec2 ContextMenu::positionForNextButton()
 		x=0;
 		y=0;
 	} else {
+		// the entries are positioned 1.5 units from the center and
+		// 45 degrees away from each other
+		// this means there can only be 8 menu buttons or they overlap
 		x = 1.5 *  sin(_numberOfEntries * PI/4);
 		y = 1.5 * -cos(_numberOfEntries * PI/4);
 	}

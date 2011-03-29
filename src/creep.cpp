@@ -1,5 +1,11 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <creep.h>
+
+/*
+  Creep Game object
+  Configuration is in a creepattributes instance
+ */
+
 #include <creepattributes.h>
 #include <creepinfobox.h>
 #include <gametimer.h>
@@ -36,8 +42,10 @@ Creep::~Creep()
 	delete _steering;
 }
 
+
 void Creep::onUpdate()
 {
+	// move along path
 	_steering->update(_gameTimer->elapsedTime());
 	updateRealPosition();
 	updateRealHeading();
@@ -50,7 +58,7 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 		//corner-case: leaked, but killing projectile is on its way
 		return;
 	}
-
+	// slowed down by a factor depending on the projectile
 	_steering->setSpeed(_steering->speed() * hitter->slow);
 	_health -= computeDamageReceived(hitter);
 	_healthBar->setHealth(_health);
@@ -64,6 +72,8 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 
 int Creep::computeDamageReceived(ProjectileAttributes* source)
 {
+
+	// damage equation from WC3
 	double physDmgFactor = 1.0 - (double)_attributes->armor/(100.0+(double)_attributes->armor);
 	double magicDmgFactor = 1.0 - (double)_attributes->magicResistance/(100.0+(double)_attributes->magicResistance);
 
@@ -173,6 +183,7 @@ void Creep::updateRealHeading()
 	this->setAttitude(TransformHelper::lookAt(directionVector));
 }
 
+// no context menu, just the infobox
 void Creep::onFocus(osgGA::GUIActionAdapter& aa)
 {
 	Hud::instance()->pushInfoBox(new CreepInfoBox(_attributes));

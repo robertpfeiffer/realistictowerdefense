@@ -1,10 +1,12 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
+#include <tdviewer.h>
+
 #include <graveyard.h>
 #include <hatchery.h>
-#include <tdviewer.h>
 #include <constants.h>
 #include <gametimer.h>
 
+// do not zoom too far in/out and do not look at the field from below
 void TDViewer::limitCamera(osgGA::TerrainManipulator* manipulator)
 {
 	if(manipulator->getElevation() > -MIN_ELEVATION) {
@@ -19,10 +21,14 @@ void TDViewer::limitCamera(osgGA::TerrainManipulator* manipulator)
 	}
 }
 
+// we use the osg time in the viewer for rendering
+// our own timer in only for the game logic
 void TDViewer::frame(double time)
 {
-	//ViewerBase::frame(time);
+	// Call the superclass method
 	Viewer::frame(time);
+
+    // game-specific stuff that must be done every frame
 	GameTimer::instance()->nextFrame();
     limitCamera((osgGA::TerrainManipulator*) getCameraManipulator());
     Graveyard::instance()->burryAll();
