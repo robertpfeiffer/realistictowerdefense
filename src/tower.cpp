@@ -12,6 +12,15 @@
 #include <towerinfobox.h>
 #include <world.h>
 
+/**
+ * \fn	Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
+ *
+ * \brief	Creates a new tower-instance
+ *
+ * \param	position	The position of the tower, this is important for range-calculations
+ *
+ * \param	attributes	The attributes of the tower, they will determine its range and other game-values
+ */
 Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
 {
 	_position = position;
@@ -21,6 +30,11 @@ Tower::Tower(osg::Vec3 position, TowerAttributes* attributes)
 	this->addChild(_attributes->model);
 }
 
+/**
+ * \fn	Tower::onUpdate()
+ *
+ * \brief	Updates the tower, it might aim for creeps and spawn projectiles to kill them.
+ */
 void Tower::onUpdate()
 {
 	_currentCooldown -= GameTimer::instance()->elapsedTime();
@@ -42,17 +56,37 @@ void Tower::onUpdate()
 	shootAtTarget();
 }
 
+/**
+ * \fn	Tower::getAttributes()
+ *
+ * \brief	tells which attributes belong to the tower (attributes contain game-relevant values)
+ *
+ * \return	the attributes of this tower
+ */
 TowerAttributes* Tower::getAttributes()
 {
 	return _attributes;
 }
 
-
+/**
+ * \fn	Tower::getPosition()
+ *
+ * \brief	returns the position of the tower
+ *
+ * \return	the towers position
+ */
 osg::Vec3 Tower::getPosition()
 {
 	return _position;
 }
 
+/**
+ * \fn	Tower::upgradeTo(TowerAttributes* attributes)
+ *
+ * \brief	Tells the tower to replace its own attributes by the ones specified.
+ *
+ * \param	attributes	the new attributes
+ */
 void Tower::upgradeTo(TowerAttributes* attributes)
 {
 	this->removeChild(_attributes->model);
