@@ -30,7 +30,9 @@ private:
 	KeyboardEvent* getKeyboardHandler(const osgGA::GUIEventAdapter& ea);
 
 	MouseEventHandler* _focusedMouseHandler;
-	MouseEventHandler* _hoveredMouseHandler;
+	osg::ref_ptr<osg::Referenced> _hoveredMouseHandler;
 
 	keyboardEventMap _keyMapping;
+
+	static double _hoverDelay;
 };

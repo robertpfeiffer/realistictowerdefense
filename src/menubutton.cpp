@@ -89,23 +89,3 @@ osg::StateSet* MenuButton::createStateSetFromTexture(osg::Texture2D* texture)
 
 	return stateSet;
 }
-
-/*
- * The following code is a hack to prevent a menubutton from being deleted by osg.
- * The reason is, that the UserInteractionHandler will try to call onUnhover.
- * If the button is removed before this call would fail.
- * There seems no nice possibility to resolve this, because a MouseEventHandler is not osg::referenced
- * by itself and making it referenced will cause 'ambigious'-errors.
- *
- * GC is prevented using a self-referencing ref_ptr.
- */
-
-void MenuButton::preventGC()
-{
-	_gcPreventor = this;
-}
-
-void MenuButton::allowGC()
-{
-	_gcPreventor = NULL;
-}

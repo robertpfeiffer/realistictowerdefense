@@ -18,10 +18,22 @@ class Wave;
 
 using namespace rapidxml;
 
+/**
+ * \struct	MapPoint
+ *
+ * \brief	Map point. 
+ */
+
 struct MapPoint{
 	long X;
 	long Y;
 };
+
+/**
+ * \class	Map
+ *
+ * \brief	Load game level settings and create necessary objects.
+ */
 
 class Map : public osg::Referenced
 {	
@@ -29,12 +41,12 @@ public:
 	Map();
 	bool loadMap(const std::string& filename);
 
-	long getWidth();
-	long getHeight();
+	inline long getWidth() { return _width; };
+	inline long getHeight() { return _height; };
 
-	Field* getField(unsigned int x, unsigned int y);
-	std::vector<MapPoint>* getCheckpoints();
-	osg::Texture2D* getStrataTexture();
+	inline Field* getField(unsigned int x, unsigned int y) { return _fields[y][x]; };
+	inline std::vector<MapPoint>* getCheckpoints() { return &_checkpoints; };
+	inline osg::Texture2D* getStrataTexture() { return _strata.get(); };
 	inline Player* getPlayer() { return &_player; };
 	inline std::queue< osg::ref_ptr<Wave> >* getWaves() { return &_waves; };
 	inline std::vector< osg::ref_ptr<TowerAttributes> >* getTowerAttributes() { return &_towers; };

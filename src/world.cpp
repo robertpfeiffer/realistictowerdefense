@@ -21,6 +21,13 @@
 #include <updatecallback.h>
 #include <wave.h>
 
+/**
+ * \fn	World* World::instance()
+ *
+ * \brief	Gets the instance of the world (singleton).
+ *
+ * \return	null if it fails, else.
+ */
 World* World::instance()
 {
 	static osg::ref_ptr<World> world_ptr;
@@ -31,6 +38,11 @@ World* World::instance()
 	return world_ptr.get();
 }
 
+/**
+ * \fn	void World::createPath()
+ *
+ * \brief	Creates the path for creeps from checkpoint list.
+ */
 void World::createPath()
 {
 	std::vector<OpenSteer::Vec3> pathPoints = std::vector<OpenSteer::Vec3>();
@@ -43,11 +55,6 @@ void World::createPath()
 	
 	//FIXME: made path extra-narrow to work around creeps leaving path
 	_path = new OpenSteer::PolylineSegmentedPathwaySingleRadius(pathPoints.size(), pathPoints.data(), 0.35, false);
-}
-
-OpenSteer::PolylineSegmentedPathwaySingleRadius* World::getPath()
-{
-	return _path;
 }
 
 void World::spawnCreep(Creep* creep)
@@ -135,11 +142,19 @@ void World::dropCreep(Creep* creep)
 	}
 }
 
-void World::OnWaveDone()
+void World::onWaveDone()
 {
 	this->removeUpdateCallback(_currentWave);
 	_waveDone = true;
 }
+
+/**
+ * \fn	void World::addUpdatableNode(osg::Node* node)
+ *
+ * \brief	Adds a node to scenegraph and register it for the update callback. 
+ *
+ * \param	node	The node.
+ */
 
 void World::addUpdatableNode(osg::Node* node)
 {
@@ -147,27 +162,48 @@ void World::addUpdatableNode(osg::Node* node)
 	registerForUpdates(node);
 }
 
+/**
+ * \fn	void World::registerForUpdates(osg::Node* node)
+ *
+ * \brief	Registers this object for updates.
+ *
+ * \param	node	The node, which want to recieve the update callback.
+ */
 void World::registerForUpdates(osg::Node* node)
 {
 	node->addUpdateCallback(_updateCallback.get());
 }
 
+/**
+ * \fn	World::World()
+ *
+ * \brief	Default constructor.
+ * 			Add a ParticleSystemUpdater and a BasicAnimationManager to scenegraph
+ */
 World::World()
 {
 	_path = NULL;
+
+	osg::PositionAttitudeTransform* grp = new osg::PositionAttitudeTransform;
+	grp->setScale(osg::Vec3(0.00001,0.00001,0.00001));
+	this->addChild(grp);
+	
+	_particleUpdater = new osgParticle::ParticleSystemUpdater;
+	this->addChild(_particleUpdater);
+
+	_animationManager = new osgAnimation::BasicAnimationManager();
+	this->setUpdateCallback(_animationManager);
 }
 
-//TODO: this is not intended to be called twice
+/**
+ * \fn	void World::loadMap(const std::string mapFilename)
+ *
+ * \brief	Loads a map and add them to scenegraph.
+ *
+ * \param	mapFilename	Filename of the map file.
+ */
 void World::loadMap(const std::string mapFilename)
 {
-	osg::PositionAttitudeTransform* grp = new osg::PositionAttitudeTransform;
-	this->addChild(grp);
-	grp->setScale(osg::Vec3(0.00001,0.00001,0.00001));
-	_psu = new osgParticle::ParticleSystemUpdater;
-	this->addChild(_psu);
-	_mng = new osgAnimation::BasicAnimationManager();
-	this->setUpdateCallback(_mng);
-
 	_map = new Map();
 	if (!_map->loadMap(mapFilename)) exit(1);
 
@@ -184,16 +220,37 @@ void World::loadMap(const std::string mapFilename)
 	startNextWave();
 }
 
+/**
+ * \fn	void World::addParticleEffect(osgParticle::ParticleSystem* ps)
+ *
+ * \brief	Adds a particle effect. 
+ *
+ * \param	ps	The particle, which should be registered.
+ */
 void World::addParticleEffect(osgParticle::ParticleSystem* ps)
 {
-	_psu->addParticleSystem(ps);
+	_particleUpdater->addParticleSystem(ps);
 }
+
+/**
+ * \fn	void World::addAnimation(osgAnimation::Animation* anim)
+ *
+ * \brief	Adds an animation. 
+ *
+ * \param	anim	The animation, which should be registered.
+ */
 
 void World::addAnimation(osgAnimation::Animation* anim)
 {
-	_mng->registerAnimation(anim);
-	_mng->playAnimation(anim);
+	_animationManager->registerAnimation(anim);
+	_animationManager->playAnimation(anim);
 }
+
+/**
+ * \fn	World::~World()
+ *
+ * \brief	Destructor.
+ */
 
 World::~World()
 {

@@ -31,7 +31,7 @@ void Wave::prepareNextCreep()
 	if(_attributes.size() == 0)
 	{
 		_doSpawn = false;
-		World::instance()->OnWaveDone();
+		World::instance()->onWaveDone();
 		return;
 	}
 

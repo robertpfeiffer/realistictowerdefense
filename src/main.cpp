@@ -10,6 +10,16 @@
 #include <iostream>
 #include <osg/ArgumentParser>
 
+/**
+ * \fn	int main(int argc, char **argv)
+ *
+ * \brief	Main entry-point for this application.
+ *
+ * \param	argc	Number of command-line arguments.
+ * \param	argv	Array of command-line argument strings.
+ *
+ * \return	Exit-code for the process - 0 for success, else an error code.
+ */
 int main(int argc, char **argv)
 {
 	#ifdef _MSC_VER

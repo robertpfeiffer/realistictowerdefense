@@ -22,11 +22,25 @@
 
 using namespace rapidxml;
 
+/**
+ * \fn	Map::Map()
+ *
+ * \brief	Default constructor.
+ */
 Map::Map()
 {
 	_reset();
 }
 
+/**
+ * \fn	bool Map::loadMap(const std::string& filename)
+ *
+ * \brief	Loads a map.
+ *
+ * \param	filename	Filename of the file.
+ *
+ * \return	true if it succeeds, false if it fails.
+ */
 bool Map::loadMap(const std::string& filename)
 {
 	rapidxml::file<>* xmlFile;
@@ -49,31 +63,15 @@ bool Map::loadMap(const std::string& filename)
 	return true;
 }
 
-std::vector<MapPoint>* Map::getCheckpoints()
-{
-	return &_checkpoints;
-}
-
-osg::Texture2D* Map::getStrataTexture()
-{
-	return _strata.get();
-}
-
-long Map::getWidth()
-{
-	return _width;
-}
-
-long Map::getHeight()
-{
-	return _height;
-}
-
-Field* Map::getField(unsigned int x, unsigned int y)
-{
-	return _fields[y][x];
-}
-
+/**
+ * \fn	osg::Texture2D* Map::_getTexture(xml_attribute<> *attr)
+ *
+ * \brief	Gets a texture.
+ *
+ * \param	attr	If non-null, the attribute.
+ *
+ * \return	null if it fails, else the texture.
+ */
 osg::Texture2D* Map::_getTexture(xml_attribute<> *attr)
 {
 	if (attr == NULL) return NULL;
@@ -81,6 +79,11 @@ osg::Texture2D* Map::_getTexture(xml_attribute<> *attr)
 	return AssetLibrary::instance()->getTexture(attr->value());
 }
 
+/**
+ * \fn	void Map::_reset()
+ *
+ * \brief	Resets this object.
+ */
 void Map::_reset()
 {
 	_checkpoints.clear();
@@ -94,6 +97,12 @@ void Map::_reset()
 	_height = 0;
 }
 
+/**
+ * \fn	void Map::_cleanup()
+ *
+ * \brief	remove unneeded pointer.
+ */
+
 void Map::_cleanup()
 {
 	for (int i = 0; i <= 255; i++)
@@ -102,6 +111,11 @@ void Map::_cleanup()
 	}
 }
 
+/**
+ * \fn	void Map::_loadLevel()
+ *
+ * \brief	Loads the level.
+ */
 void Map::_loadLevel()
 {
 	_reset();
@@ -147,12 +161,27 @@ void Map::_loadLevel()
 	_cleanup();
 }
 
+/**
+ * \fn	void Map::_loadPlayer(xml_node<> *node)
+ *
+ * \brief	Loads player settings.
+ *
+ * \param	node	The xml node.
+ */
+
 void Map::_loadPlayer(xml_node<> *node)
 {
 	_player.setLives(Convert::attrToLong(node->first_attribute("lives", 0, false), 1));
 	_player.setMoney(Convert::attrToLong(node->first_attribute("money", 0, false), 50));
 }
 
+/**
+ * \fn	void Map::_loadWaves(xml_node<> *node)
+ *
+ * \brief	Loads the waves settings.
+ *
+ * \param	node	The xml node.
+ */
 void Map::_loadWaves(xml_node<> *node)
 {
 	for(xml_node<> *creepWave = node->first_node("Wave", 0, false); creepWave; creepWave = creepWave->next_sibling("Wave", 0, false))
@@ -192,6 +221,13 @@ void Map::_loadWaves(xml_node<> *node)
 	}
 }
 
+/**
+ * \fn	void Map::_loadTowers(xml_node<> *node)
+ *
+ * \brief	Loads the towers settings.
+ *
+ * \param	node	The xml node.
+ */
 void Map::_loadTowers(xml_node<> *node)
 {
 	for(xml_node<> *child = node->first_node("Tower", 0, false); child; child = child->next_sibling("Tower", 0, false))
@@ -200,6 +236,15 @@ void Map::_loadTowers(xml_node<> *node)
 	}
 }
 
+/**
+ * \fn	TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
+ *
+ * \brief	Loads tower attributes
+ *
+ * \param	node	The xml node.
+ *
+ * \return	The tower attributes.
+ */
 TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 {
 	TowerAttributes* tower = new TowerAttributes();
@@ -254,6 +299,14 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
 	return tower;
 }
 
+/**
+ * \fn	void Map::_loadSkyBox(xml_node<> *node)
+ *
+ * \brief	Loads the sky box images.
+ *
+ * \param	node	The xml node.
+ */
+
 void Map::_loadSkyBox(xml_node<> *node)
 {
 	_skyBoxAttributes.texturePosX = _getTexture(node->first_attribute("posX", 0, false));
@@ -264,6 +317,13 @@ void Map::_loadSkyBox(xml_node<> *node)
 	_skyBoxAttributes.textureNegZ = _getTexture(node->first_attribute("negZ", 0, false));
 }
 
+/**
+ * \fn	void Map::_loadTerrain(xml_node<> *node)
+ *
+ * \brief	Loads a terrain.
+ *
+ * \param	node	The xml node.
+ */
 void Map::_loadTerrain(xml_node<> *node)
 {
 	xml_node<> *child = node->first_node("Strata", 0, false);
@@ -285,11 +345,26 @@ void Map::_loadTerrain(xml_node<> *node)
 	}
 }
 
+/**
+ * \fn	void Map::_loadStrata(xml_node<> *node)
+ *
+ * \brief	Loads a strata texture.
+ *
+ * \param	node	The xml node.
+ */
+
 void Map::_loadStrata(xml_node<> *node)
 {
 	_strata = _getTexture(node->first_attribute("texture", 0, false));
 }
 
+/**
+ * \fn	void Map::_loadFieldTypes(xml_node<> *node)
+ *
+ * \brief	Loads the field types.
+ *
+ * \param	node	The xml node.
+ */
 void Map::_loadFieldTypes(xml_node<> *node)
 {
 	for(xml_node<> *child = node->first_node("Field", 0, false); child; child = child->next_sibling("Field", 0, false))
@@ -324,6 +399,15 @@ void Map::_loadFieldTypes(xml_node<> *node)
 	}
 }
 
+/**
+ * \fn	ModelData* Map::_readModel(xml_node<> *node)
+ *
+ * \brief	Reads a model settings.
+ *
+ * \param	node	The xml node.
+ *
+ * \return	The model.
+ */
 ModelData* Map::_readModel(xml_node<> *node)
 {
 	ModelData* modelData = new ModelData();
@@ -354,6 +438,13 @@ ModelData* Map::_readModel(xml_node<> *node)
 	return modelData;
 }
 
+/**
+ * \fn	void Map::_loadGrid(xml_node<> *node)
+ *
+ * \brief	Loads the grid.
+ *
+ * \param	node	The xml node.
+ */
 void Map::_loadGrid(xml_node<> *node)
 {
 	_height = 0;
@@ -374,6 +465,13 @@ void Map::_loadGrid(xml_node<> *node)
 	}
 }
 
+/**
+ * \fn	void Map::_loadCheckPoints(xml_node<> *node)
+ *
+ * \brief	Loads the check points.
+ *
+ * \param	node	The xml node.
+ */
 void Map::_loadCheckPoints(xml_node<> *node)
 {
 	for(xml_node<> *child = node->first_node("Checkpoint", 0, false); child; child = child->next_sibling("Checkpoint", 0, false))
