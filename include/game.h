@@ -9,6 +9,11 @@
 
 class GameTimer;
 
+/**
+ * \class	Game
+ *
+ * \brief	Contains the game instance. 
+ */
 class Game : KeyboardEventHandler
 {
 public:

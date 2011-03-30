@@ -7,6 +7,11 @@
 class ProjectileAttributes;
 class Creep;
 
+/**
+ * \class	Projectile
+ *
+ * \brief	A single projectile. 
+ */
 class Projectile : public osg::PositionAttitudeTransform, public UpdatableNode
 {
 public:

@@ -8,7 +8,11 @@
 #include <osg/Texture2D>
 #include <osg/Node>
 
-
+/**
+ * \class	AssetLibrary
+ *
+ * \brief	Asset library. 
+ */
 class AssetLibrary {
 public:
 	static AssetLibrary* instance();

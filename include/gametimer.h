@@ -2,6 +2,11 @@
 
 #include <osg/Timer>
 
+/**
+ * \class	GameTimer
+ *
+ * \brief	A game timer, which can paused and change the game speed.
+ */
 class GameTimer
 {
 public:

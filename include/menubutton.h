@@ -3,6 +3,11 @@
 #include <osg/Geometry>
 #include <osg/Texture2D>
 
+/**
+ * \class	MenuButton
+ *
+ * \brief	Menu button. 
+ */
 class MenuButton : public osg::Geometry, public MouseEventHandler
 {
 public:

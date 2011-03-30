@@ -2,6 +2,11 @@
 
 #include <osgGA/GUIActionAdapter>
 
+/**
+ * \class	MouseEventHandler
+ *
+ * \brief	Mouse event handler. 
+ */
 class MouseEventHandler
 {
 public:

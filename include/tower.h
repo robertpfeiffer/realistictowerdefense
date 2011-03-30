@@ -8,6 +8,11 @@ class ContextMenu;
 class Creep;
 class TowerAttributes;
 
+/**
+ * \class	Tower
+ *
+ * \brief	A single Tower. 
+ */
 class Tower : public osg::Group, public UpdatableNode, public MouseEventHandler
 {
 public:

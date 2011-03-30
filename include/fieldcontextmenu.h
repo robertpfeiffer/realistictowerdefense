@@ -3,6 +3,11 @@
 
 class Field;
 
+/**
+ * \class	FieldContextMenu
+ *
+ * \brief	Context menu of menu. 
+ */
 class FieldContextMenu : public ContextMenu
 {
 public:

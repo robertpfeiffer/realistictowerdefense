@@ -4,6 +4,11 @@
 
 struct SkyBoxAttributes;
 
+/**
+ * \class	SkyBox
+ *
+ * \brief	The skybox. 
+ */
 class SkyBox : public osg::ClearNode
 {
 public:

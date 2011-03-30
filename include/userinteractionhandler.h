@@ -5,6 +5,11 @@
 class KeyboardEventHandler;
 class MouseEventHandler;
 
+/**
+ * \class	UserInteractionHandler
+ *
+ * \brief	User interaction handler. 
+ */
 class UserInteractionHandler : public osgGA::GUIEventHandler
 {
 public:

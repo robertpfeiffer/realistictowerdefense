@@ -4,7 +4,12 @@
 
 using namespace rapidxml;
 
-class Convert
+/**
+ * \class	Convert
+ *
+ * \brief	Contains static method to convert variables. 
+ */
+static class Convert
 {
 public:
 	static std::string toString(int i);

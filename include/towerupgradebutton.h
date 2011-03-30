@@ -3,6 +3,11 @@
 class Tower;
 class TowerAttributes;
 
+/**
+ * \class	TowerUpgradeButton
+ *
+ * \brief	Upgrade button of a tower. 
+ */
 class TowerUpgradeButton : public MenuButton
 {
 public:

@@ -2,6 +2,11 @@
 
 #include<osg/Node>
 
+/**
+ * \class	Graveyard
+ *
+ * \brief	Graveyard for nodes. 
+ */
 class Graveyard
 {
 public:

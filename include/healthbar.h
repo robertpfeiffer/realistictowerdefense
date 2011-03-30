@@ -6,6 +6,11 @@
 #include <osg/Texture2D>
 #include <updatablenode.h>
 
+/**
+ * \class	HealthBar
+ *
+ * \brief	Health bar of a creep. 
+ */
 class HealthBar : public osg::Billboard, public UpdatableNode
 {
 public:
