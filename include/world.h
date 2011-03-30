@@ -20,7 +20,7 @@ class Wave;
 /**
  * \class	World
  *
- * \brief	Thw World of the game. 
+ * \brief	The World of the game. 
  */
 class World : public osg::Group
 {

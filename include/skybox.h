@@ -14,6 +14,6 @@ class SkyBox : public osg::ClearNode
 public:
 	SkyBox(SkyBoxAttributes*);
 private:
-	osg::TextureCubeMap* readCubeMap(SkyBoxAttributes*);
+	osg::TextureCubeMap* createTextureCubeMap(SkyBoxAttributes*);
 	osg::Image* getImageFromTexture(osg::Texture2D* texture);
 };

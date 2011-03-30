@@ -12,16 +12,34 @@
 #include <skybox.h>
 #include <skyboxattributes.h>
 
-// Update texture matrix for cubemaps
+/**
+ * \struct	TexMatCallback
+ *
+ * \brief	Update texture matrix for cubemaps. 
+ *
+ * \author	Code by OpenSceneGraph examples
+ */
 struct TexMatCallback : public osg::NodeCallback
 {
 public:
 
+    /**
+     * \fn	TexMatCallback(osg::TexMat& tm)
+     *
+     * \brief	Constructor.
+     *
+     * \param	tm	The texture matrix.
+     */
     TexMatCallback(osg::TexMat& tm) :
         _texMat(tm)
     {
     }
 
+    /**
+     * \fn	virtual void operator()(osg::Node* node, osg::NodeVisitor* nv)
+     *
+     * \brief	void casting operator.
+     */
     virtual void operator()(osg::Node* node, osg::NodeVisitor* nv)
     {
         osgUtil::CullVisitor* cv = dynamic_cast<osgUtil::CullVisitor*>(nv);
@@ -43,11 +61,26 @@ public:
     osg::TexMat& _texMat;
 };
 
-
+/**
+ * \struct	MoveEarthySkyWithEyePointTransform
+ *
+ * \brief	Movee earthy sky with eye point transform. 
+ *
+ * \author	Code by OpenSceneGraph examples
+ */
 class MoveEarthySkyWithEyePointTransform : public osg::Transform
 {
 public:
-    /** Get the transformation matrix which moves from local coords to world coords.*/
+    /**
+     * \fn	virtual bool :::computeLocalToWorldMatrix(osg::Matrix& matrix,osg::NodeVisitor* nv) const
+     *
+     * \brief	Calculates the local to world matrix.
+     *
+     * \param	matrix	The matrix.
+     * \param	nv	  	If non-null, the nv.
+     *
+     * \return	true.
+     */
     virtual bool computeLocalToWorldMatrix(osg::Matrix& matrix,osg::NodeVisitor* nv) const 
     {
         osgUtil::CullVisitor* cv = dynamic_cast<osgUtil::CullVisitor*>(nv);
@@ -59,7 +92,16 @@ public:
         return true;
     }
 
-    /** Get the transformation matrix which moves from world coords to local coords.*/
+    /**
+     * \fn	virtual bool :::computeWorldToLocalMatrix(osg::Matrix& matrix,osg::NodeVisitor* nv) const
+     *
+     * \brief	Calculates the world to local matrix.
+     *
+     * \param	matrix	The matrix.
+     * \param	nv	  	If non-null, the nv.
+     *
+     * \return	true.
+     */
     virtual bool computeWorldToLocalMatrix(osg::Matrix& matrix,osg::NodeVisitor* nv) const
     {
         osgUtil::CullVisitor* cv = dynamic_cast<osgUtil::CullVisitor*>(nv);
@@ -72,12 +114,30 @@ public:
     }
 };
 
+/**
+ * \fn	osg::Image* SkyBox::getImageFromTexture(osg::Texture2D* texture)
+ *
+ * \brief	Gets an image from texture.
+ *
+ * \param	texture	If non-null, the texture.
+ *
+ * \return	null if it fails, else the image from texture.
+ */
 osg::Image* SkyBox::getImageFromTexture(osg::Texture2D* texture)
 {
 	return (texture != NULL) ? texture->getImage() : NULL;
 }
 
-osg::TextureCubeMap* SkyBox::readCubeMap(SkyBoxAttributes* attributes)
+/**
+ * \fn	osg::TextureCubeMap* SkyBox::createTextureCubeMap(SkyBoxAttributes* attributes)
+ *
+ * \brief	Creates a texture cube map.
+ *
+ * \param	attributes	The attributes.
+ *
+ * \return	The TextureCubeMap.
+ */
+osg::TextureCubeMap* SkyBox::createTextureCubeMap(SkyBoxAttributes* attributes)
 {
     osg::TextureCubeMap* cubemap = new osg::TextureCubeMap;
 	
@@ -98,6 +158,13 @@ osg::TextureCubeMap* SkyBox::readCubeMap(SkyBoxAttributes* attributes)
     return cubemap;
 }
 
+/**
+ * \fn	SkyBox::SkyBox(SkyBoxAttributes* attributes)
+ *
+ * \brief	Copy constructor.
+ *
+ * \param	attributes	The attributes of sky box.
+ */
 SkyBox::SkyBox(SkyBoxAttributes* attributes)
 {
 	osg::StateSet* stateset = new osg::StateSet();
@@ -113,7 +180,7 @@ SkyBox::SkyBox(SkyBoxAttributes* attributes)
     osg::TexMat *tm = new osg::TexMat;
     stateset->setTextureAttribute(0, tm);
 
-    osg::TextureCubeMap* skymap = readCubeMap(attributes);
+    osg::TextureCubeMap* skymap = createTextureCubeMap(attributes);
     stateset->setTextureAttributeAndModes(0, skymap, osg::StateAttribute::ON);
 
     stateset->setMode( GL_LIGHTING, osg::StateAttribute::OFF );
