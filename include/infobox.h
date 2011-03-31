@@ -22,7 +22,6 @@ public:
 private:
 	osgText::Text* createTitle(const std::string);
 	osgText::Text* createEntryTitle(const std::string);
-	osgText::Text* createEntryDescription(const std::string);
 	void updateLayout();
 
 	std::vector< osg::ref_ptr<osgText::Text> > _entryTitles;

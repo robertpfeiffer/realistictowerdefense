@@ -26,6 +26,6 @@ private:
 	void (* _onClick)(osg::ref_ptr<MenuButton> );
 	bool _enabled;
 
-	osg::StateSet* createStateSetFromTexture(osg::Texture2D* texture);
+	osg::StateSet* createTextureStateSet(osg::Texture2D* texture);
 };
 

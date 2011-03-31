@@ -2,7 +2,12 @@
 #include <graveyard.h>
 #include <world.h>
 
-/**	Gets the instance of the Graveyard (singleton).
+/**
+ * \fn	Graveyard* Graveyard::instance()
+ *
+ * \brief	Gets the instance (singleton).
+ *
+ * \return	The graveyard.
  */
 Graveyard* Graveyard::instance()
 {
@@ -10,6 +15,11 @@ Graveyard* Graveyard::instance()
 	return &yard;
 }
 
+/**
+ * \fn	void Graveyard::burryAll()
+ *
+ * \brief	Remove all nodes of graveyard from scenegraph at end of frame.
+ */
 void Graveyard::burryAll()
 {
 	while(_killList.size() > 0)
@@ -19,6 +29,13 @@ void Graveyard::burryAll()
 	}
 }
 
+/**
+ * \fn	void Graveyard::killChild(osg::Node* child)
+ *
+ * \brief	Kill child.
+ *
+ * \param	child	The child.
+ */
 void Graveyard::killChild(osg::Node* child)
 {
 	_killList.push_back(child);

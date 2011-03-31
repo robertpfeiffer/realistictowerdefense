@@ -13,6 +13,13 @@
 #include <player.h>
 #include <updatecallback.h>
 
+/**
+ * \fn	Hud* Hud::instance()
+ *
+ * \brief	Gets the instance of the hud (singleton).
+ *
+ * \return	The hud.
+ */
 Hud* Hud::instance()
 {
 	static osg::ref_ptr<Hud> hud_ptr;
@@ -23,6 +30,12 @@ Hud* Hud::instance()
 	return hud_ptr.get();
 }
 
+/**
+ * \fn	Hud::Hud()
+ *
+ * \brief	Create the hud.
+ * 			Contains by default hud elements for life and gold of player.
+ */
 Hud::Hud()
 {
 	this->_player = NULL;
@@ -43,11 +56,25 @@ Hud::Hud()
 	this->addChild(_lifeDisplay);
 }
 
+/**
+ * \fn	void Hud::setPlayer(Player* player)
+ *
+ * \brief	Set the player.
+ *
+ * \param	player	The player.
+ */
 void Hud::setPlayer(Player* player)
 {
 	_player = player;
 }
 
+/**
+ * \fn	void Hud::pushInfoBox(InfoBox* infoBox)
+ *
+ * \brief	Display the information box. If there already exists one, hide them.
+ *
+ * \param	The information box.
+ */
 void Hud::pushInfoBox(InfoBox* infoBox)
 {
 	if(_infoBoxes.size() > 0)
@@ -61,6 +88,11 @@ void Hud::pushInfoBox(InfoBox* infoBox)
 	this->addChild(_infoBoxes.top());
 }
 
+/**
+ * \fn	void Hud::popInfoBox()
+ *
+ * \brief	Remove current information box and restore previous one.
+ */
 void Hud::popInfoBox()
 {
 	if(_infoBoxes.size() > 0)
@@ -75,6 +107,11 @@ void Hud::popInfoBox()
 	}
 }
 
+/**
+ * \fn	void Hud::onUpdate()
+ *
+ * \brief	Update the content of the gold and live text.
+ */
 void Hud::onUpdate() 
 {
 	if(_infoBoxes.size() > 0)
@@ -96,6 +133,13 @@ void Hud::onUpdate()
 	}
 }
 
+/**
+ * \fn	void Hud::onGameEnd(bool won)
+ *
+ * \brief	Display the game end screen.
+ *
+ * \param	True if the player has won, else false.
+ */
 void Hud::onGameEnd(bool won)
 {
 	//TODO: clean up that mess

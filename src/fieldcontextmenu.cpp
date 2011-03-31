@@ -5,7 +5,14 @@
 #include <towerbuildbutton.h>
 #include <tower.h>
 #include <world.h>
- 
+
+/**
+ * \fn	FieldContextMenu::FieldContextMenu(Field* field)
+ *
+ * \brief	Create a context menu for a field.
+ *
+ * \param	field	The field.
+ */
 FieldContextMenu::FieldContextMenu(Field* field)
 {
 	_field = field;
@@ -13,6 +20,11 @@ FieldContextMenu::FieldContextMenu(Field* field)
 	addAllItems();
 }
 
+/**
+ * \fn	void FieldContextMenu::addAllItems()
+ *
+ * \brief	Add build buttons for towers.
+ */
 void FieldContextMenu::addAllItems()
 {
 	if (_field->isBuildable()){

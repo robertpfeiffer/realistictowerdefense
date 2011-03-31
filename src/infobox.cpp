@@ -6,6 +6,13 @@ double InfoBox::_entryIndent = 0.5;
 double InfoBox::_entryLineHeight = 2.2;
 double InfoBox::_entrySpacing = 1.0;
 
+/**
+ * \fn	InfoBox::InfoBox(const std::string title)
+ *
+ * \brief	Create a info box.
+ *
+ * \param	title	The title.
+ */
 InfoBox::InfoBox(const std::string title)
 {
 	_geode = new osg::Geode();
@@ -19,20 +26,38 @@ InfoBox::InfoBox(const std::string title)
 	updateLayout();
 }
 
+/**
+ * \fn	osgText::Text* InfoBox::createTitle(const std::string title)
+ *
+ * \brief	Creates a title aligned to left top.
+ *
+ * \param	title	The title.
+ *
+ * \return	The text.
+ */
 osgText::Text* InfoBox::createTitle(const std::string title)
 {
-	osgText::Text* t = new osgText::Text();
-	t->setCharacterSize(2);
-	t->setFont("fonts/DejaVuSans.ttf");
-	t->setAxisAlignment(osgText::Text::SCREEN);
-	t->setAlignment(osgText::Text::LEFT_TOP);
-	t->setColor(osg::Vec4(1.0, 1.0, 0.0, 1.0));
-	t->setPosition(osg::Vec3(0.0, 0.0, 0.0));
-	t->setText(osgText::String(title));
+	osgText::Text* text = new osgText::Text();
+	text->setCharacterSize(2);
+	text->setFont("fonts/DejaVuSans.ttf");
+	text->setAxisAlignment(osgText::Text::SCREEN);
+	text->setAlignment(osgText::Text::LEFT_TOP);
+	text->setColor(osg::Vec4(1.0, 1.0, 0.0, 1.0));
+	text->setPosition(osg::Vec3(0.0, 0.0, 0.0));
+	text->setText(osgText::String(title));
 
-	return t;
+	return text;
 }
 
+/**
+ * \fn	osgText::Text* InfoBox::createEntryTitle(const std::string title)
+ *
+ * \brief	Creates a title aligned to left base line.
+ *
+ * \param	title	The title.
+ *
+ * \return	The text.
+ */
 osgText::Text* InfoBox::createEntryTitle(const std::string title)
 {
 	osgText::Text* t = new osgText::Text();
@@ -46,18 +71,14 @@ osgText::Text* InfoBox::createEntryTitle(const std::string title)
 	return t;
 }
 
-osgText::Text* InfoBox::createEntryDescription(const std::string description)
-{
-	osgText::Text* t = new osgText::Text();
-	t->setCharacterSize(2);
-	t->setFont("fonts/DejaVuSans.ttf");
-	t->setAxisAlignment(osgText::Text::SCREEN);
-	t->setAlignment(osgText::Text::LEFT_BASE_LINE);
-	t->setColor(osg::Vec4(1.0, 1.0, 1.0, 1.0));
-	t->setText(osgText::String(description));
-
-	return t;
-}
+/**
+ * \fn	void InfoBox::addEntry(const std::string title, const std::string description)
+ *
+ * \brief	Adds an entry to the info box.
+ *
+ * \param	title	   	The title.
+ * \param	description	The description.
+ */
 
 void InfoBox::addEntry(const std::string title, const std::string description)
 {
@@ -74,11 +95,21 @@ void InfoBox::addEntry(const std::string title, const std::string description)
 	_geode->addDrawable(descriptionText);
 }
 
+/**
+ * \fn	void InfoBox::addSpacing()
+ *
+ * \brief	Adds spacing line to info box.
+ */
 void InfoBox::addSpacing()
 {
 	addEntry("", "");
 }
 
+/**
+ * \fn	void InfoBox::updateLayout()
+ *
+ * \brief	Updates the layout.
+ */
 void InfoBox::updateLayout()
 {
 	//compute indent for descriptions

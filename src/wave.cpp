@@ -5,12 +5,27 @@
 #include <gametimer.h>
 #include <world.h>
 
+/**
+ * \fn	Wave::Wave(double waveOffset)
+ *
+ * \brief	Create a new wave spawner.
+ *
+ * \param	waveOffset	The wave offset.
+ */
 Wave::Wave(double waveOffset)
 {
 	_waveOffset = waveOffset;
 	_doSpawn = false;
 }
 
+/**
+ * \fn	void Wave::addCreeps(int count, CreepAttributes* attributes)
+ *
+ * \brief	Adds the creeps to spawn list.
+ *
+ * \param	count		Number of creeps to spawn of this type.
+ * \param	attributes	The attributes.
+ */
 void Wave::addCreeps(int count, CreepAttributes* attributes)
 {
 	for(int i=0;i<count;i++)
@@ -19,12 +34,22 @@ void Wave::addCreeps(int count, CreepAttributes* attributes)
 	}
 }
 
+/**
+ * \fn	void Wave::startSpawning()
+ *
+ * \brief	Starts spawning of creeps.
+ */
 void Wave::startSpawning()
 {
 	_doSpawn = true;
 	prepareNextCreep();
 }
 
+/**
+ * \fn	void Wave::prepareNextCreep()
+ *
+ * \brief	Prepare next creep.
+ */
 void Wave::prepareNextCreep()
 {
 	if(_attributes.size() == 0)
@@ -37,6 +62,11 @@ void Wave::prepareNextCreep()
 	_currentOffset = _attributes.front()->spawnOffset;
 }
 
+/**
+ * \fn	void Wave::spawnNextCreep()
+ *
+ * \brief	Spawn next creep.
+ */
 void Wave::spawnNextCreep()
 {
 	OpenSteer::Vec3 steerSpawn = World::instance()->getPath()->point(0);
@@ -52,6 +82,11 @@ void Wave::spawnNextCreep()
 	prepareNextCreep();
 }
 
+/**
+ * \fn	void Wave::operator()(osg::Node* node, osg::NodeVisitor* nv)
+ *
+ * \brief	Spawn next creep, if enough time is elapsed to previous wave/creep.
+ */
 void Wave::operator()(osg::Node* node, osg::NodeVisitor* nv)
 {
 	World* myWorld = dynamic_cast<World*>(node);

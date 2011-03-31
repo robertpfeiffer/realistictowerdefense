@@ -11,12 +11,27 @@
 #include <towerinfobox.h>
 #include <world.h>
 
+/**
+ * \fn	TowerBuildButton::TowerBuildButton(Field* field, TowerAttributes* attributes)
+ *
+ * \brief	Create a build button for tower.
+ *
+ * \param	field	  	The field.
+ * \param	attributes	The attributes.
+ */
 TowerBuildButton::TowerBuildButton(Field* field, TowerAttributes* attributes) : MenuButton(attributes->icon)
 {
 	_field = field;
 	_towerattributes = attributes;
 }
 
+/**
+ * \fn	void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Try to build the tower.
+ *
+ * \param [in,out]	aa	The GUIActionAdapter.
+ */
 void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
 {
 	if(World::instance()->getMap()->getPlayer()->getMoney() < _towerattributes->cost)
@@ -44,11 +59,24 @@ void TowerBuildButton::onClick(osgGA::GUIActionAdapter& aa)
 	}
 }
 
+/**
+ * \fn	void TowerBuildButton::onHover(osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Show information box, if mouse hover button.
+ *
+ * \param [in,out]	aa	The GUIActionAdapter.
+ */
+
 void TowerBuildButton::onHover(osgGA::GUIActionAdapter& aa)
 {
 	Hud::instance()->pushInfoBox(new TowerInfoBox(_towerattributes));
 }
 
+/**
+ * \fn	void TowerBuildButton::onUnhover()
+ *
+ * \brief	Remove infobox, if mouse is moved away.
+ */
 void TowerBuildButton::onUnhover()
 {
 	Hud::instance()->popInfoBox();

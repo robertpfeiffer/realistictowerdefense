@@ -11,12 +11,29 @@
 #include <osgParticle/ParticleSystemUpdater>
 #include <osgParticle/ParticleSystem>
 
+/**
+ * \fn	AssetLibrary* AssetLibrary::instance()
+ *
+ * \brief	Gets the instance (singleton).
+ *
+ * \return	The AssetLibrary.
+ */
 AssetLibrary* AssetLibrary::instance()
 {
 	static AssetLibrary s_library;
 	return &s_library;
 }
 
+/**
+ * \fn	osg::Texture2D* AssetLibrary::getTexture(const std::string filename)
+ *
+ * \brief	Gets a texture by its filename.
+ * 			Load it from disc, if it is not cached, else return it from cache.
+ *
+ * \param	filename	Filename of the texture.
+ *
+ * \return	null if it fails, else the texture.
+ */
 osg::Texture2D* AssetLibrary::getTexture(const std::string filename)
 {
 	std::list< CacheElement< osg::ref_ptr<osg::Texture2D> > >::iterator it;
@@ -54,6 +71,13 @@ osg::Texture2D* AssetLibrary::getTexture(const std::string filename)
 	return NULL;
 }
 
+/**
+ * \fn	void AssetLibrary::_addParticleEffects(osg::Node* currNode)
+ *
+ * \brief	Adds a particle effects. 
+ *
+ * \param	currNode	If non-null, the curr node.
+ */
 void AssetLibrary::_addParticleEffects(osg::Node* currNode)
 {
 	if (!currNode)	return;
@@ -91,6 +115,13 @@ void AssetLibrary::_addParticleEffects(osg::Node* currNode)
 	}
 }
 
+/**
+ * \fn	void AssetLibrary::_addAnimations(osg::Node* currNode)
+ *
+ * \brief	Adds an animations. 
+ *
+ * \paramcurrNode	If non-null, the curr node.
+ */
 void AssetLibrary::_addAnimations(osg::Node* currNode)
 {
 	if (!currNode)	return;
@@ -113,6 +144,16 @@ void AssetLibrary::_addAnimations(osg::Node* currNode)
 	}
 }
 
+/**
+ * \fn	osg::Node* AssetLibrary::getModel(const std::string filename)
+ *
+ * \brief	Gets a model by its filename.
+ * 			Load it from disc, if it is not cached, else return it from cache.
+ *
+ * \param	filename	Filename of the model.
+ *
+ * \return	null if it fails, else the model.
+ */
 osg::Node* AssetLibrary::getModel(const std::string filename)
 {
 	std::list< CacheElement< osg::ref_ptr<osg::Node> > >::iterator it;
@@ -140,22 +181,48 @@ osg::Node* AssetLibrary::getModel(const std::string filename)
 	return newElement.item;
 }
 
-//callback for remove_if
+/**
+ * \fn	bool isTextureUnused(AssetLibrary::CacheElement<osg::ref_ptr<osg::Texture2D> > item)
+ *
+ * \brief	Query if texture is unused.
+ *
+ * \param	item	The item.
+ *
+ * \return	true if texture is unused, false if not.
+ */
 bool isTextureUnused(AssetLibrary::CacheElement<osg::ref_ptr<osg::Texture2D> > item) {
     return !item.used;
 }
 
-//callback for remove_if
+/**
+ * \fn	bool isModelUnused(AssetLibrary::CacheElement<osg::ref_ptr<osg::Node> > item)
+ *
+ * \brief	Query if model unused.
+ *
+ * \param	item	The item.
+ *
+ * \return	true if model unused, false if not.
+ */
 bool isModelUnused(AssetLibrary::CacheElement<osg::ref_ptr<osg::Node> > item) {
     return !item.used;
 }
 
+/**
+ * \fn	void AssetLibrary::sweep()
+ *
+ * \brief	Sweeps this model and texture cache.
+ */
 void AssetLibrary::sweep()
 {
 	_textureCache.remove_if(isTextureUnused);
 	_modelCache.remove_if(isModelUnused);
 }
 
+/**
+ * \fn	void AssetLibrary::unmark()
+ *
+ * \brief	Unmarks all texture and models as unused.
+ */
 void AssetLibrary::unmark()
 {
 	//mark all textures as not used on current map
@@ -175,5 +242,4 @@ void AssetLibrary::unmark()
 			it->used = false;
 		}
 	}
-
 }

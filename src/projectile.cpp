@@ -14,6 +14,15 @@
 #include <projectileattributes.h>
 #include <transformhelper.h>
 
+/**
+ * \fn	Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* attributes)
+ *
+ * \brief	Create a new projectile.
+ *
+ * \param	origin		The origin.
+ * \param	target	  	Target creep.
+ * \param	attributes	The projectile attributes.
+ */
 Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* attributes)
 {
 	_attributes = attributes;
@@ -23,6 +32,11 @@ Projectile::Projectile(osg::Vec3 origin, Creep* target, ProjectileAttributes* at
 	this->addChild(_attributes->model);
 }
 
+/**
+ * \fn	void Projectile::onUpdate()
+ *
+ * \brief	Fly in direction of creep if it still exists.
+ */
 void Projectile::onUpdate()
 {
 	if(!_target->isAlive() || _target->isLeaked())
@@ -41,12 +55,22 @@ void Projectile::onUpdate()
 	}
 }
 
+/**
+ * \fn	void Projectile::hitTarget()
+ *
+ * \brief	Hit target.
+ */
 void Projectile::hitTarget()
 {
 	_target->OnHit(_attributes);
 	Graveyard::instance()->killChild(this);
 }
 
+/**
+ * \fn	void Projectile::approachToTarget()
+ *
+ * \brief	Approach to target.
+ */
 void Projectile::approachToTarget()
 {
 	osg::Vec3 targetVector = _target->getHitPosition() - this->getPosition();
@@ -58,6 +82,11 @@ void Projectile::approachToTarget()
 	turnToTarget();
 }
 
+/**
+ * \fn	void Projectile::turnToTarget()
+ *
+ * \brief	Turn to target.
+ */
 void Projectile::turnToTarget()
 {
 	this->setAttitude(TransformHelper::lookAt(this->getPosition(), _target->getHitPosition()));

@@ -1,5 +1,13 @@
 #include <hudbackground.h>
 
+/**
+ * \fn	HudBackground::HudBackground(osg::BoundingBox dimensions, double padding)
+ *
+ * \brief	Create an hud background.
+ *
+ * \param	dimensions	The dimensions of the content.
+ * \param	padding   	The padding to the content.
+ */
 HudBackground::HudBackground(osg::BoundingBox dimensions, double padding)
 {
 	_padding = padding;
@@ -23,6 +31,13 @@ HudBackground::HudBackground(osg::BoundingBox dimensions, double padding)
 	setDimensions(dimensions);
 }
 
+/**
+ * \fn	void HudBackground::setDimensions(osg::BoundingBox dimensions)
+ *
+ * \brief	Sets the dimensions of the background.
+ *
+ * \param	dimensions	The dimensions.
+ */
 void HudBackground::setDimensions(osg::BoundingBox dimensions)
 {
 	osg::Vec3Array* vertices = new osg::Vec3Array;

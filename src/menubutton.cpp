@@ -3,16 +3,37 @@
 #include <assetlibrary.h>
 #include <osg/BlendFunc>
 
+/**
+ * \fn	MenuButton::MenuButton(const std::string texturepath)
+ *
+ * \brief	Create a menu button.
+ *
+ * \param	texturepath	The texturepath.
+ */
 MenuButton::MenuButton(const std::string texturepath)
 {
 	init(AssetLibrary::instance()->getTexture(texturepath));
 }
 
+/**
+ * \fn	MenuButton::MenuButton(osg::Texture2D* texture)
+ *
+ * \brief	Create a menu button.
+ *
+ * \param	texture	The texture.
+ */
 MenuButton::MenuButton(osg::Texture2D* texture)
 {
 	init(texture);
 }
 
+/**
+ * \fn	void MenuButton::init(osg::Texture2D* texture)
+ *
+ * \brief	Initialises this object.
+ *
+ * \param	texture	The texture.
+ */
 void MenuButton::init(osg::Texture2D* texture)
 {
 	this->setPosition(osg::Vec2(0.0, 0.0));
@@ -27,12 +48,19 @@ void MenuButton::init(osg::Texture2D* texture)
 	
 	this->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS,0,4));
 
-	this->setStateSet(createStateSetFromTexture(texture));
+	this->setStateSet(createTextureStateSet(texture));
 
 	_enabled = false; //avoid optimisation
 	setEnabled(true);
 }
 
+/**
+ * \fn	void MenuButton::setPosition(osg::Vec2 pos)
+ *
+ * \brief	Sets a position of button.
+ *
+ * \param	pos	The position.
+ */
 void MenuButton::setPosition(osg::Vec2 pos)
 {
 	osg::Vec3Array* verts = new osg::Vec3Array(4);
@@ -43,7 +71,12 @@ void MenuButton::setPosition(osg::Vec2 pos)
 	this->setVertexArray(verts);
 }
 
-/** Draw a button as enabled or greyed out.
+/**
+ * \fn	void MenuButton::setEnabled(bool enabled)
+ *
+ * \brief	Draw a button as enabled or greyed out.
+ *
+ * \param	enabled	true to enable, false to disable.
  */
 void MenuButton::setEnabled(bool enabled)
 {
@@ -68,18 +101,41 @@ void MenuButton::setEnabled(bool enabled)
 	this->setColorBinding(osg::Geometry::BIND_OVERALL);
 }
 
+/**
+ * \fn	void MenuButton::setCallback(void (* callback)(osg::ref_ptr<MenuButton>))
+ *
+ * \brief	Set callback triggered on onClick.
+ *
+ * \param	callback	The callback method.
+ */
 void MenuButton::setCallback(void (* callback)(osg::ref_ptr<MenuButton>))
 {
 	this->_onClick = callback;
 }
 
+/**
+ * \fn	void MenuButton::onClick(osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Trigger onclick callback, if set.
+ *
+ * \param [in,out]	aa	The GUIActionAdapter.
+ */
 void MenuButton::onClick(osgGA::GUIActionAdapter& aa)
 {
   if(this->_onClick != NULL)
       (this->_onClick)(this);
 }
 
-osg::StateSet* MenuButton::createStateSetFromTexture(osg::Texture2D* texture)
+/**
+ * \fn	osg::StateSet* MenuButton::createTextureStateSet(osg::Texture2D* texture)
+ *
+ * \brief	Creates a texture state set.
+ *
+ * \param	texture	If non-null, the texture.
+ *
+ * \return	The state set.
+ */
+osg::StateSet* MenuButton::createTextureStateSet(osg::Texture2D* texture)
 {
 	osg::StateSet* stateSet = new osg::StateSet;
 

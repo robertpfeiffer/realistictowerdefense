@@ -20,8 +20,8 @@ public:
 	void setMaxHealth(int health, int maxHealth);
 private:
 	void _setBillBoardStateSet();
-	osg::Geometry* _createHealthGemoetry(osg::Texture2D* texture) const;
-	osg::Geometry* _createBackgroundGemoetry() const;
+	osg::Geometry* _createHealthGeometry(osg::Texture2D* texture) const;
+	osg::Geometry* _createBackgroundGeometry() const;
 	void _updateHealthBar();
 	void _updateTextureSize(osg::Geometry* geometry, int health, float textureOffset) const;
 	void _updateGeometrySize(osg::Geometry* geometry, float offset, float length, float height) const;

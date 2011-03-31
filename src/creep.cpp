@@ -43,6 +43,11 @@ Creep::Creep(ProximityDatabase& pd, osg::Vec3 position, OpenSteer::PolylineSegme
 	updateRealHeading();
 }
 
+/**
+ * \fn	Creep::~Creep()
+ *
+ * \brief	Destroy the steering.
+ */
 Creep::~Creep()
 {
 	delete _steering;
@@ -87,6 +92,15 @@ void Creep::OnHit(ProjectileAttributes* hitter)
 	}
 }
 
+/**
+ * \fn	int Creep::computeDamageReceived(ProjectileAttributes* source)
+ *
+ * \brief	Calculates the damage received.
+ *
+ * \param	source	The source projectile.
+ *
+ * \return	The calculated damage received.
+ */
 int Creep::computeDamageReceived(ProjectileAttributes* source)
 {
 
@@ -252,17 +266,34 @@ int Creep::bounty()
 	return _attributes->bounty;
 }
 
+/**
+ * \fn	void Creep::updateRealPosition()
+ *
+ * \brief	Updates the real position.
+ */
 void Creep::updateRealPosition()
 {
 	this->setPosition(osg::Vec3(_steering->position().x, _steering->position().z, 0));
 	osg::Vec3 pos = this->getPosition();
 }
 
+/**
+ * \fn	osg::Vec3 Creep::getHitPosition()
+ *
+ * \brief	Gets the hit position.
+ *
+ * \return	The hit position.
+ */
 osg::Vec3 Creep::getHitPosition()
 {	
 	return this->getPosition() + osg::Vec3(0, 0, _hitHeight);
 }
 
+/**
+ * \fn	void Creep::updateRealHeading()
+ *
+ * \brief	Updates the real heading.
+ */
 void Creep::updateRealHeading()
 {
 	osg::Vec3 directionVector = osg::Vec3(_steering->forward().x, _steering->forward().z, 0);
@@ -270,12 +301,23 @@ void Creep::updateRealHeading()
 	this->setAttitude(TransformHelper::lookAt(directionVector));
 }
 
-// no context menu, just the infobox
+/**
+ * \fn	void Creep::onFocus(osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Show a info box for creep, if clicked on this creep.
+ *
+ * \param [in,out]	aa	The GUIActionAdapter.
+ */
 void Creep::onFocus(osgGA::GUIActionAdapter& aa)
 {
 	Hud::instance()->pushInfoBox(new CreepInfoBox(_attributes));
 }
 
+/**
+ * \fn	void Creep::onBlur()
+ *
+ * \brief	Remove info box if creep lose focus.
+ */
 void Creep::onBlur()
 {
 	Hud::instance()->popInfoBox();

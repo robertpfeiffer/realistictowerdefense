@@ -6,6 +6,14 @@
 
 double HudElement::_backgroundPadding = 0.5;
 
+/**
+ * \fn	HudElement::HudElement(osg::Vec2 position, std::string text)
+ *
+ * \brief	Create an hud element with speciefied text on a background at speciefied position.
+ *
+ * \param	position	The position of the text.
+ * \param	text		The text.
+ */
 HudElement::HudElement(osg::Vec2 position, std::string text)
 {
 	osg::StateSet* ss = this->getOrCreateStateSet();
@@ -20,6 +28,13 @@ HudElement::HudElement(osg::Vec2 position, std::string text)
 	this->setText(text);
 }
 
+/**
+ * \fn	void HudElement::setupText(osg::Vec2 position)
+ *
+ * \brief	Sets up the text.
+ *
+ * \param	position	The position of the text.
+ */
 void HudElement::setupText(osg::Vec2 position)
 {
 	_text = new osgText::Text();
@@ -31,13 +46,15 @@ void HudElement::setupText(osg::Vec2 position)
 	_text->setPosition(osg::Vec3(position.x(), position.y(), 0.0));
 }
 
+/**
+ * \fn	void HudElement::setText(const std::string text)
+ *
+ * \brief	Set the text.
+ *
+ * \param	text	The text.
+ */
 void HudElement::setText(const std::string text)
 {
 	_text->setText(osgText::String(text));
-	updateBackgroundBounds();
-}
-
-void HudElement::updateBackgroundBounds()
-{
 	_background->setDimensions(_text->computeBound());
 }

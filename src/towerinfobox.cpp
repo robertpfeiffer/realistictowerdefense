@@ -3,6 +3,13 @@
 #include <convert.h>
 #include <towerattributes.h>
 
+/**
+ * \fn	TowerInfoBox::TowerInfoBox(TowerAttributes* attributes)
+ *
+ * \brief	Create a info box for a twoer.
+ *
+ * \param	attributes	The attributes of the tower.
+ */
 TowerInfoBox::TowerInfoBox(TowerAttributes* attributes) : InfoBox("Tower")
 {
 	this->addEntry("Name", attributes->name);

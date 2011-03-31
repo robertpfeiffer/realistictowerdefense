@@ -103,7 +103,7 @@ public:
     // or neighbors if needed, otherwise follow the path and wander
     OpenSteer::Vec3 determineCombinedSteering (const float elapsedTime);
 
-	bool isLeaked();
+	inline bool isLeaked() { return _leaked; };
 private:
 	void RaiseLeakEvent();
 

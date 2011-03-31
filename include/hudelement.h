@@ -16,8 +16,6 @@ public:
 	void setText(const std::string text);
 
 private:
-	void updateBackgroundBounds();
-
 	void setupText(osg::Vec2);
 
 	osg::ref_ptr<osgText::Text> _text;

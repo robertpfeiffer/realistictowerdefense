@@ -9,13 +9,25 @@
 
 double UserInteractionHandler::_hoverDelay = 0.2;
 
+/**
+ * \fn	UserInteractionHandler::UserInteractionHandler()
+ *
+ * \brief	Create a new UserInteractionHandler.
+ */
 UserInteractionHandler::UserInteractionHandler()
 {
 	_focusedMouseHandler = NULL;
 	_hoveredMouseHandler = NULL;
 }
 
-/** called when a Node is focused
+/**
+ * \fn	void UserInteractionHandler::setFocusedMouseHandler(MouseEventHandler* handler,
+ * 		osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	called when a Node is focused
+ *
+ * \param	handler	If non-null, the MouseEventHandler.
+ * \param	aa	   	The GUIActionAdapter.
  */
 void UserInteractionHandler::setFocusedMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa)
 {
@@ -26,7 +38,10 @@ void UserInteractionHandler::setFocusedMouseHandler(MouseEventHandler* handler, 
 	handler->onFocus(aa);
 }
 
-/** called when the focused Node has lost the focus
+/**
+ * \fn	void UserInteractionHandler::blurActiveMouseHandler()
+ *
+ * \brief	Blur active mouse handler.
  */
 void UserInteractionHandler::blurActiveMouseHandler()
 {
@@ -37,6 +52,15 @@ void UserInteractionHandler::blurActiveMouseHandler()
 	}
 }
 
+/**
+ * \fn	UserInteractionHandler::KeyboardEvent* UserInteractionHandler::getKeyboardHandler(const osgGA::GUIEventAdapter& ea)
+ *
+ * \brief	Gets a keyboard handler.
+ *
+ * \param	ea	The GUIEventAdapter.
+ *
+ * \return	null if it fails, else the keyboard event handler.
+ */
 UserInteractionHandler::KeyboardEvent* UserInteractionHandler::getKeyboardHandler(const osgGA::GUIEventAdapter& ea)
 {
 	keyboardEventMap::iterator keyMask = _keyMapping.find(ea.getModKeyMask());
@@ -48,7 +72,15 @@ UserInteractionHandler::KeyboardEvent* UserInteractionHandler::getKeyboardHandle
 	return &keyMapping->second;
 }
 
-/** Cast a ray to find a menu button.
+/**
+ * \fn	MenuButton* findMenuButton(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Cast a ray to searches for the first menu button.
+ *
+ * \param	ea		  	The GUIEventAdapter.
+ * \param [in,out]	aa	The GUIActionAdapter.
+ *
+ * \return	null if it fails, else the found menu button.
  */
 MenuButton* findMenuButton(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
@@ -69,7 +101,16 @@ MenuButton* findMenuButton(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAda
 	return NULL;
 }
 
-/** Cast a ray to find a clickable Node or a Node with clickable Parents.
+/**
+ * \fn	MouseEventHandler* findEventHandler(const osgGA::GUIEventAdapter& ea,
+ * 		osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Cast a ray to find a clickable node or a node with clickable Parents.
+ *
+ * \param	ea		  	The GUIEventAdapter.
+ * \param [in,out]	aa	The GUIActionAdapter.
+ *
+ * \return	null if it fails, else the found event handler.
  */
 MouseEventHandler* findEventHandler(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
@@ -96,11 +137,19 @@ MouseEventHandler* findEventHandler(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 	return NULL;
 }
 
-/** Handle key presses and mouse clicks
+/**
+ * \fn	bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea,
+ * 		osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Handle key presses and mouse clicks.
+ *
+ * \param	ea		  	The GUIEventAdapter.
+ * \param [in,out]	aa	The GUIActionAdapter.
+ *
+ * \return	return false.
  */
 bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
-
 	osgGA::GUIEventAdapter::EventType eType = ea.getEventType();
 
 	switch(eType)
@@ -193,6 +242,18 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 	}
 }
 
+/**
+ * \fn	void UserInteractionHandler::registerKeyEvent(int modKeyMask, int key,
+ * 		KeyboardEventHandler* eventReceiver, int eventId)
+ *
+ * \brief	Registers the key event for speciefied key combination.
+ * 			If this key combination is already used, it overrides existing.
+ *
+ * \param	modKeyMask			 	The modifier key mask.
+ * \param	key					 	The key.
+ * \para	eventReceiver	If non-null, the event receiver.
+ * \param	eventId				 	Identifier for the event.
+ */
 void UserInteractionHandler::registerKeyEvent(int modKeyMask, int key, KeyboardEventHandler* eventReceiver, int eventId)
 {
 	KeyboardEvent* keyboardEvent = &_keyMapping[modKeyMask][key];
@@ -200,6 +261,14 @@ void UserInteractionHandler::registerKeyEvent(int modKeyMask, int key, KeyboardE
 	keyboardEvent->eventId = eventId;
 }
 
+/**
+ * \fn	void UserInteractionHandler::unregisterKeyEvent(int modKeyMask, int key)
+ *
+ * \brief	Unregisters the key event.
+ *
+ * \param	modKeyMask	The modifier key mask.
+ * \param	key		  	The key.
+ */
 void UserInteractionHandler::unregisterKeyEvent(int modKeyMask, int key)
 {
 	keyboardEventMap::iterator keyMask = _keyMapping.find(modKeyMask);

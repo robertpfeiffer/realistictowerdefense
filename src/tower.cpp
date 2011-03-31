@@ -95,6 +95,13 @@ void Tower::upgradeTo(TowerAttributes* attributes)
 	dynamic_cast<Field*>(this->getParent(0))->reset();
 }
 
+/**
+ * \fn	bool Tower::findNewTarget()
+ *
+ * \brief	Searches for the first new target.
+ *
+ * \return	true if it succeeds, false if it fails.
+ */
 bool Tower::findNewTarget()
 {
 	float range = _attributes->range * _attributes->range; //we will do comparison on range 
@@ -111,17 +118,39 @@ bool Tower::findNewTarget()
 	return false;
 }
 
+/**
+ * \fn	bool Tower::isInRange(Creep* creep)
+ *
+ * \brief	Query if creep is in range.
+ *
+ * \param	creep	The creep.
+ *
+ * \return	true if in range, false if not.
+ */
 bool Tower::isInRange(Creep* creep)
 {
 	return (_position - creep->getPosition()).length() <= _attributes->range;
 }
 
+/**
+ * \fn	void Tower::shootAtTarget()
+ *
+ * \brief	Shoot at target.
+ */
 void Tower::shootAtTarget()
 {
 	osg::Vec3 origin = osg::Vec3(_position.x(), _position.y(), _attributes->height);
 	Projectile* p = new Projectile(origin, _target.get(), &(_attributes->projectile));
 	Hatchery::instance()->enqueueChild(p);
 }
+
+/**
+ * \fn	void Tower::onFocus(osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Open context menu if tower get focus.
+ *
+ * \param [in,out]	aa	The GUIActionAdapter.
+ */
 
 void Tower::onFocus(osgGA::GUIActionAdapter& aa)
 {
@@ -131,6 +160,11 @@ void Tower::onFocus(osgGA::GUIActionAdapter& aa)
 	Hud::instance()->pushInfoBox(new TowerInfoBox(_attributes));
 }
 
+/**
+ * \fn	void Tower::onBlur()
+ *
+ * \brief	Close menu if field lose focus.
+ */
 void Tower::onBlur()
 {
 	if(this->_menu != NULL)

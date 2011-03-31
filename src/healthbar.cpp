@@ -18,6 +18,11 @@
 #include <world.h>
 #include <gametimer.h>
 
+/**
+ * \fn	HealthBar::HealthBar()
+ *
+ * \brief	Create the health bar.
+ */
 HealthBar::HealthBar()
 {
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
@@ -26,12 +31,12 @@ HealthBar::HealthBar()
 	_maxHealth = 1;
 	this->_setBillBoardStateSet();
 
-	this->addDrawable(_createBackgroundGemoetry());
+	this->addDrawable(_createBackgroundGeometry());
 
-	_healthGeometry = _createHealthGemoetry(AssetLibrary::instance()->getTexture("healthbar/hp.png"));
+	_healthGeometry = _createHealthGeometry(AssetLibrary::instance()->getTexture("healthbar/hp.png"));
 	this->addDrawable(_healthGeometry);
 
-	_damageGeometry = _createHealthGemoetry(AssetLibrary::instance()->getTexture("healthbar/damage.png"));
+	_damageGeometry = _createHealthGeometry(AssetLibrary::instance()->getTexture("healthbar/damage.png"));
 	this->addDrawable(_damageGeometry);
 
 	_updateHealthBar();
@@ -39,6 +44,11 @@ HealthBar::HealthBar()
 	World::instance()->registerForUpdates(this);
 }
 
+/**
+ * \fn	void HealthBar::onUpdate()
+ *
+ * \brief	Update the damage animation.
+ */
 void HealthBar::onUpdate()
 {
 	if (_damage == 0) return;
@@ -53,6 +63,13 @@ void HealthBar::onUpdate()
 	_updateHealthBar();
 }
 
+/**
+ * \fn	int HealthBar::_damageLeft()
+ *
+ * \brief	Calculcate the damage left after elapsed time.
+ *
+ * \return	The left damage.
+ */
 int HealthBar::_damageLeft()
 {
 	if (_elapsedTimeSinceLastDamage < DAMAGE_DISPLAY_DURATION) return _damage;
@@ -60,6 +77,11 @@ int HealthBar::_damageLeft()
 	return _damage * (DAMAGE_DISPLAY_DECREASE_DURATION - (_elapsedTimeSinceLastDamage - DAMAGE_DISPLAY_DURATION)) / DAMAGE_DISPLAY_DECREASE_DURATION;
 }
 
+/**
+ * \fn	void HealthBar::_setBillBoardStateSet()
+ *
+ * \brief	Sets the bill board state set.
+ */
 void HealthBar::_setBillBoardStateSet()
 {
 	osg::StateSet* billBoardStateSet = new osg::StateSet();	
@@ -70,7 +92,14 @@ void HealthBar::_setBillBoardStateSet()
 	this->setStateSet(billBoardStateSet);
 }
 
-osg::Geometry* HealthBar::_createBackgroundGemoetry() const
+/**
+ * \fn	osg::Geometry* HealthBar::_createBackgroundGeometry() const
+ *
+ * \brief	Creates the background geometry.
+ *
+ * \return	The geometrye.
+ */
+osg::Geometry* HealthBar::_createBackgroundGeometry() const
 {
 	float width = 0.8f;
 	float height = 0.12f;
@@ -114,7 +143,16 @@ osg::Geometry* HealthBar::_createBackgroundGemoetry() const
 	return geometry;
 }
 
-osg::Geometry* HealthBar::_createHealthGemoetry(osg::Texture2D* texture) const
+/**
+ * \fn	osg::Geometry* HealthBar::_createHealthGemoetry(osg::Texture2D* texture) const
+ *
+ * \brief	Creates a health geometry.
+ *
+ * \param	texture	If non-null, the texture.
+ *
+ * \return	The geometry.
+ */
+osg::Geometry* HealthBar::_createHealthGeometry(osg::Texture2D* texture) const
 {
 	// Declare and initialize geometry
     osg::Geometry* geometry = new osg::Geometry();
@@ -139,6 +177,11 @@ osg::Geometry* HealthBar::_createHealthGemoetry(osg::Texture2D* texture) const
 	return geometry;
 }
 
+/**
+ * \fn	void HealthBar::_updateHealthBar()
+ *
+ * \brief	Updates the health bar.
+ */
 void HealthBar::_updateHealthBar()
 {
 	// Standard size shrub
@@ -159,6 +202,17 @@ void HealthBar::_updateHealthBar()
 	_updateTextureSize(_damageGeometry, _damage, healthWidth);
 }
 
+/**
+ * \fn	void HealthBar::_updateGeometrySize(osg::Geometry* geometry, float offset, float length,
+ * 		float height) const
+ *
+ * \brief	Updates the geometry size.
+ *
+ * \param	geometry	The geometry.
+ * \param	offset		The offset.
+ * \param	length		The length.
+ * \param	height		The height.
+ */
 void HealthBar::_updateGeometrySize(osg::Geometry* geometry, float offset, float length, float height) const
 {
 	float halfHeight = height/2;
@@ -172,6 +226,16 @@ void HealthBar::_updateGeometrySize(osg::Geometry* geometry, float offset, float
 	geometry->setVertexArray(verts);
 }
 
+/**
+ * \fn	void HealthBar::_updateTextureSize(osg::Geometry* geometry, int health,
+ * 		float textureOffset) const
+ *
+ * \brief	Updates the texture size of a geometry.
+ *
+ * \param	geometry			The geometry.
+ * \param	health				The health.
+ * \param	textureOffset   	The texture offset.
+ */
 void HealthBar::_updateTextureSize(osg::Geometry* geometry, int health, float textureOffset) const
 {
 	//update Texture width (reuse array, because we know how much vertices it has)
@@ -183,6 +247,13 @@ void HealthBar::_updateTextureSize(osg::Geometry* geometry, int health, float te
 	geometry->setTexCoordArray(0, texCoords);
 }
 
+/**
+ * \fn	void HealthBar::setHealth(int health)
+ *
+ * \brief	Set current health.
+ *
+ * \param	health	Current health.
+ */
 void HealthBar::setHealth(int health)
 {
 	if (health < _health)
@@ -194,6 +265,14 @@ void HealthBar::setHealth(int health)
 	_updateHealthBar();
 }
 
+/**
+ * \fn	void HealthBar::setMaxHealth(int health, int maxHealth)
+ *
+ * \brief	Set the maximum health.
+ *
+ * \param	health   	Current health.
+ * \param	maxHealth	The maximum health.
+ */
 void HealthBar::setMaxHealth(int health, int maxHealth)
 {
 	_damage = 0;

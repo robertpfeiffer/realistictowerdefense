@@ -52,6 +52,17 @@ float CreepSteering::_avoidCollisionWeight	= 5.0f;
 float CreepSteering::_pathFollowLeadTime		 = 0.4f;
 float CreepSteering::_collisionAvoidanceLeadTime = 4.0f;
 
+/**
+ * \fn	CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition,
+ * 		OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath, Creep* creep)
+ *
+ * \brief	Create a new steering for a creep.
+ *
+ * \param	pd	   			The ProximityDatabase.
+ * \param	startPosition  	The start position.
+ * \param	runPath			The path of the creeps.
+ * \param	creep  			The creep.
+ */
 CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath, Creep* creep)
 {
     proximityToken = pd.allocateToken (this);        
@@ -61,14 +72,26 @@ CreepSteering::CreepSteering(ProximityDatabase& pd, OpenSteer::Vec3 startPositio
     init (startPosition, runPath);
 }
 
-// destructor
+/**
+ * \fn	CreepSteering::~CreepSteering()
+ *
+ * \brief	Delete proximityToken.
+ */
 CreepSteering::~CreepSteering()
 {
     // delete this boid's token in the proximity database
     delete proximityToken;
 }
 
-// reset all instance state
+/**
+ * \fn	void CreepSteering::init (OpenSteer::Vec3 startPosition,
+ * 		OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath)
+ *
+ * \brief	Reset all instance state.
+ *
+ * \param	startPosition  	The start position.
+ * \param	runPath			The path of the creeps.
+ */
 void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegmentedPathwaySingleRadius* runPath)
 {
     // reset the vehicle 
@@ -102,13 +125,25 @@ void CreepSteering::init (OpenSteer::Vec3 startPosition, OpenSteer::PolylineSegm
     proximityToken->updateForNewPosition (position());
 }
 
-//needs to be overridden
+/**
+ * \fn	void CreepSteering::update (const float, const float elapsedTime)
+ *
+ * \brief	Updates this object.
+ *
+ * \param	elapsedTime	Elapsed time.
+ */
 void CreepSteering::update (const float, const float elapsedTime)
 {
 	update(elapsedTime);
 }
 
-// per frame simulation update
+/**
+ * \fn	void CreepSteering::update (const float elapsedTime)
+ *
+ * \brief	Per frame simulation update.
+ *
+ * \param	elapsedTime	Elapsed time.
+ */
 void CreepSteering::update (const float elapsedTime)
 {
     // apply steering force to our momentum
@@ -124,6 +159,11 @@ void CreepSteering::update (const float elapsedTime)
 	}
 }
 
+/**
+ * \fn	void CreepSteering::RaiseLeakEvent()
+ *
+ * \brief	Raises the leak event.
+ */
 void CreepSteering::RaiseLeakEvent()
 {
 	if(_leaked) // just to be save from any update-anormalies
@@ -133,8 +173,18 @@ void CreepSteering::RaiseLeakEvent()
 	World::instance()->onLeak(_creep);
 }
 
-// compute combined steering force: move forward, avoid obstacles
-// or neighbors if needed, otherwise follow the path and wander
+/**
+ * \fn	OpenSteer::Vec3 CreepSteering::determineCombinedSteering (const float elapsedTime)
+ *
+ * \brief	Compute combined steering force: move forward, avoid obstacles or neighbors if needed, otherwise follow the path and wander.
+ *
+ * \author	Sun Black
+ * \date	31.03.2011
+ *
+ * \param	elapsedTime	Elapsed time.
+ *
+ * \return	Steering constrained to global XZ "ground" plane.
+ */
 OpenSteer::Vec3 CreepSteering::determineCombinedSteering (const float elapsedTime)
 {
     // move forward
@@ -172,10 +222,4 @@ OpenSteer::Vec3 CreepSteering::determineCombinedSteering (const float elapsedTim
 
     // return steering constrained to global XZ "ground" plane
     return steeringForce.setYtoZero ();
-}
-
-
-bool CreepSteering::isLeaked()
-{
-	return _leaked;
 }

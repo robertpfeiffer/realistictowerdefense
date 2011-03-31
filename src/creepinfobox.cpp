@@ -3,6 +3,13 @@
 #include <convert.h>
 #include <creepattributes.h>
 
+/**
+ * \fn	CreepInfoBox::CreepInfoBox(CreepAttributes* attributes)
+ *
+ * \brief	Create a info box for a creep.
+ *
+ * \param	attributes	If non-null, the attributes.
+ */
 CreepInfoBox::CreepInfoBox(CreepAttributes* attributes) : InfoBox("Creep")
 {
 	this->addEntry("Name", attributes->name);

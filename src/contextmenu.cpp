@@ -7,6 +7,12 @@
 #include <constants.h>
 #include <menubutton.h>
 
+/**
+ * \fn	ContextMenu::ContextMenu()
+ *
+ * \brief	Create a context menu.
+ */
+
 ContextMenu::ContextMenu()
 {
 	this->_numberOfEntries = 0;
@@ -17,9 +23,14 @@ ContextMenu::ContextMenu()
 	this->getOrCreateStateSet()->setRenderBinDetails(11, "RenderBin");
 }
 
-/** Arrange menu buttons radially.
- * The first menu item is drawn in the center of the circle.
- * @return The position for the button relative to the context menu billboard.
+/**
+ * \fn	osg::Vec2 ContextMenu::positionForNextButton()
+ *
+ * \brief	Gets the position for next button.
+ * 			Arrange menu buttons radially.
+ * 			The first menu item is drawn in the center of the circle
+ *
+ * \return	The position for the button relative to the context menu billboard.
  */
 osg::Vec2 ContextMenu::positionForNextButton()
 {	
@@ -40,10 +51,16 @@ osg::Vec2 ContextMenu::positionForNextButton()
 	return osg::Vec2(x, y);
 }
 
-/** Create a menubutton in the menu with an Icon and an action when clicked.
+/**
+ * \fn	void ContextMenu::addEntry(void (* callback)(osg::ref_ptr<MenuButton>),
+ * 		const std::string texturepath)
+ *
+ * \brief	Create a menubutton in the menu with an Icon and an action when clicked.
+ *
+ * \param	callback	The callback.
+ * \param	texturepath	The path of texture.
  */
-void ContextMenu::addEntry(void (* callback)(osg::ref_ptr<MenuButton>),
-						   const std::string texturepath)
+void ContextMenu::addEntry(void (* callback)(osg::ref_ptr<MenuButton>), const std::string texturepath)
 {
 	MenuButton* button = new MenuButton(texturepath);
 
@@ -51,6 +68,13 @@ void ContextMenu::addEntry(void (* callback)(osg::ref_ptr<MenuButton>),
 	this->addEntry(button);
 }
 
+/**
+ * \fn	void ContextMenu::addEntry(MenuButton* button)
+ *
+ * \brief	Adds an entry to the context menu. 
+ *
+ * \param	button	The button.
+ */
 void ContextMenu::addEntry(MenuButton* button)
 {
 	button->setPosition(positionForNextButton());
