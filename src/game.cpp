@@ -21,6 +21,11 @@
 #include <tdviewer.h>
 #include <world.h>
 
+/**
+ * \fn	void Game::setCameraManipulator()
+ *
+ * \brief	Sets the camera manipulator.
+ */
 void Game::setCameraManipulator()
 {
 	osgGA::TerrainManipulator* manipulator = new osgGA::TerrainManipulator();
@@ -31,11 +36,11 @@ void Game::setCameraManipulator()
 	_viewer->setCameraManipulator(manipulator);
 }
 
-UserInteractionHandler* Game::getInteractiontHandler()
-{
-	return _interactionHandler;
-}
-
+/**
+ * \fn	void Game::setGlobalLight()
+ *
+ * \brief	Sets the global light.
+ */
 //FIXME: move into TDviewer
 void Game::setGlobalLight()
 {
@@ -51,6 +56,13 @@ void Game::setGlobalLight()
 	_viewer->setLight(globalLight);
 }
 
+/**
+ * \fn	void Game::setWindowTitle(const std::string& title)
+ *
+ * \brief	Change the window title.
+ *
+ * \param	title	The new window title.
+ */
 void Game::setWindowTitle(const std::string& title)
 {
 	osgViewer::Viewer::Windows windows;
@@ -61,6 +73,13 @@ void Game::setWindowTitle(const std::string& title)
 	}
 }
 
+/**
+ * \fn	void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
+ *
+ * \brief	Handle the key down action.
+ * \param	aa	The GUIActionAdapter.
+ * \param	eventId   	Identifier for the event.
+ */
 void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 {
 	switch (eventId)
@@ -82,6 +101,13 @@ void Game::onKeyDown(osgGA::GUIActionAdapter& aa, int eventId)
 	}
 }
 
+/**
+ * \fn	void Game::run(osg::ArgumentParser arguments)
+ *
+ * \brief	Prepares the world and after this start the rendering loop.
+ *
+ * \param	arguments	The arguments.
+ */
 void Game::run(osg::ArgumentParser arguments)
 {
 	AssetLibrary::instance()->unmark();

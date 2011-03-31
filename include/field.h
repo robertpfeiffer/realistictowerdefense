@@ -23,14 +23,11 @@ public:
 
 	bool isBuildable();
 	bool hasTower();
-	osg::Node* getContent();
-
 private:
 	bool _isBuildable;
 
 	float _getRandomFloat(float min, float max);
 	void onFocus(osgGA::GUIActionAdapter& aa);
-	void onClick(osgGA::GUIActionAdapter& aa);
 	void onBlur();
 
 	osg::ref_ptr<osg::Node> _ground;

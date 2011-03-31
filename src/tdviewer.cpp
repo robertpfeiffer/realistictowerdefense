@@ -6,7 +6,13 @@
 #include <constants.h>
 #include <gametimer.h>
 
-// do not zoom too far in/out and do not look at the field from below
+/**
+ * \fn	void TDViewer::limitCamera(osgGA::TerrainManipulator* manipulator)
+ *
+ * \brief	Limit camera distance and perspective, so the player can not look from below.
+ *
+ * \param [in,out]	manipulator	If non-null, the manipulator.
+ */
 void TDViewer::limitCamera(osgGA::TerrainManipulator* manipulator)
 {
 	if(manipulator->getElevation() > -MIN_ELEVATION) {
@@ -21,8 +27,14 @@ void TDViewer::limitCamera(osgGA::TerrainManipulator* manipulator)
 	}
 }
 
-// we use the osg time in the viewer for rendering
-// our own timer in only for the game logic
+/**
+ * \fn	void TDViewer::frame(double time)
+ *
+ * \brief	Render next frame.
+ * 			Update gametimer and remove at end of frame all unnecessary nodes.
+ *
+ * \param	time	The time.
+ */
 void TDViewer::frame(double time)
 {
 	// Call the superclass method

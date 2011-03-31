@@ -12,9 +12,7 @@ class GameTimer
 public:
 	static GameTimer* instance();
 
-	GameTimer();
-
-	double nextFrame();
+	void nextFrame();
 	double elapsedTime();
 	inline void togglePause() {_paused = !_paused;};
 	inline void pause() {_paused = true; };
@@ -25,6 +23,7 @@ public:
 	void normalizeSpeed();
 	void decreaseSpeed();
 private:
+	GameTimer();
 	osg::Timer* _timer;
 	bool _paused;
 	double _elapsedTime;

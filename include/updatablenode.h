@@ -8,5 +8,10 @@
 class UpdatableNode
 {
 public:
-	void virtual onUpdate();
+	/**
+	 * \fn	void UpdatableNode::onUpdate()
+	 *
+	 * \brief	Executed on update traversale each frame.
+	 */
+	void virtual onUpdate() {};
 };

@@ -19,7 +19,7 @@ class Game : KeyboardEventHandler
 public:
 	void run(osg::ArgumentParser arguments);
 
-	inline UserInteractionHandler* getInteractiontHandler();
+	inline UserInteractionHandler* getInteractiontHandler() { return _interactionHandler; };
 private:
 	void setGlobalLight();
 	void setCameraManipulator();

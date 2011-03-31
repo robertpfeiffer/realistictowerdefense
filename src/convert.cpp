@@ -13,6 +13,15 @@ using namespace rapidxml;
 	#define _strcmpi strcasecmp
 #endif
 
+/**
+ * \fn	std::string Convert::toString(int i)
+ *
+ * \brief	Convert an integer value into a string representation.
+ *
+ * \param	i	The integer value.
+ *
+ * \return	A string representation of the integer value.
+ */
 std::string Convert::toString(int i)
 {
 	std::stringstream out;
@@ -20,6 +29,15 @@ std::string Convert::toString(int i)
 	return out.str();
 }
 
+/**
+ * \fn	std::string Convert::toString(long l)
+ *
+ * \brief	Convert an long value into a string representation.
+ *
+ * \param	l	The long value.
+ *
+ * \return	A string representation of the long value.
+ */
 std::string Convert::toString(long l)
 {
 	std::stringstream out;
@@ -27,6 +45,15 @@ std::string Convert::toString(long l)
 	return out.str();
 }
 
+/**
+ * \fn	std::string Convert::toString(double d)
+ *
+ * \brief	Convert an double value into a string representation.
+ *
+ * \param	l	The double value.
+ *
+ * \return	A string representation of the double value.
+ */
 std::string Convert::toString(double d)
 {
 	std::stringstream out;
@@ -34,6 +61,16 @@ std::string Convert::toString(double d)
 	return out.str();
 }
 
+/**
+ * \fn	bool Convert::attrToBool(xml_attribute<>* attr, bool defaultValue)
+ *
+ * \brief	Convert an XML attribute to bool.
+ *
+ * \param	attr	If non-null, the attribute.
+ * \param	defaultValue	default value.
+ *
+ * \return	The detected value if it succeeds, else the default value.
+ */
 bool Convert::attrToBool(xml_attribute<>* attr, bool defaultValue)
 {
 	if (attr == NULL) return defaultValue;
@@ -48,6 +85,16 @@ bool Convert::attrToBool(xml_attribute<>* attr, bool defaultValue)
 	return defaultValue;
 }
 
+/**
+ * \fn	long Convert::attrToLong(xml_attribute<>* attr, long defaultValue)
+ *
+ * \brief	Convert an XML attribute to long.
+ *
+ * \param	attr	If non-null, the attribute.
+ * \param	defaultValue	default value.
+ *
+ * \return	The detected value if it succeeds, else the default value.
+ */
 long Convert::attrToLong(xml_attribute<>* attr, long defaultValue)
 {
 	if (attr == NULL) return defaultValue;
@@ -61,6 +108,16 @@ long Convert::attrToLong(xml_attribute<>* attr, long defaultValue)
 	return val;	
 }
 
+/**
+ * \fn	double Convert::attrToDouble(xml_attribute<>* attr, double defaultValue)
+ *
+ * \brief	Convert an XML attribute to double.
+ *
+ * \param	attr	If non-null, the attribute.
+ * \param	defaultValue	default value.
+ *
+ * \return	The detected value if it succeeds, else the default value.
+ */
 double Convert::attrToDouble(xml_attribute<>* attr, double defaultValue)
 {
 	if (attr == NULL) return defaultValue;

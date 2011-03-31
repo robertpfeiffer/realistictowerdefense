@@ -6,7 +6,7 @@
  *
  * \brief	Transform helper. 
  */
-static class TransformHelper
+class TransformHelper
 {
 public:
 	static osg::Quat lookAt(osg::Vec3 to);

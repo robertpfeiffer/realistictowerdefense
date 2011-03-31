@@ -14,6 +14,16 @@
 
 #include <modeldata.h>
 
+/**
+ * \fn	FieldType::FieldType(osg::Texture2D* texture, ModelData* modelData,
+ * 		bool isBuildable) : osg::Referenced(), _modelData(modelData), _isBuildable(isBuildable)
+ *
+ * \brief	Creates a new template of a field.
+ *
+ * \param	texture  	If non-null, the texture.
+ * \param	modelData	Information describing the model.
+ * \param	isBuildable 	true if field is buildable.
+ */
 FieldType::FieldType(osg::Texture2D* texture, ModelData* modelData, bool isBuildable)
 	: osg::Referenced(), _modelData(modelData), _isBuildable(isBuildable)
 {
