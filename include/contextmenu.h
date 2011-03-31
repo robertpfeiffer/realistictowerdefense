@@ -5,6 +5,11 @@
 
 class MenuButton;
 
+/**
+ * \class	ContextMenu
+ *
+ * \brief	Context menu. 
+ */
 class ContextMenu : public osg::Billboard
 {
 public:

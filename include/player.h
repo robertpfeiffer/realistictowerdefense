@@ -1,6 +1,11 @@
 #pragma once
 #include <osg/Referenced>
 
+/**
+ * \class	Player
+ *
+ * \brief	Contains properties of the player. 
+ */
 class Player : public osg::Referenced
 {
 public:

@@ -12,6 +12,11 @@ class GameTimer;
 class HealthBar;
 class ProjectileAttributes;
 
+/**
+ * \class	Creep
+ *
+ * \brief	A single Creep. 
+ */
 class Creep : public osg::PositionAttitudeTransform, public UpdatableNode, public MouseEventHandler
 {
 public:

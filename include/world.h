@@ -17,6 +17,11 @@ class UpdatableNode;
 class UpdateCallback;
 class Wave;
 
+/**
+ * \class	World
+ *
+ * \brief	The World of the game. 
+ */
 class World : public osg::Group
 {
 public:

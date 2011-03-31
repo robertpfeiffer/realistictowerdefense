@@ -2,6 +2,11 @@
 #include <osgDB/Callbacks>
 #include <osg/Node>
 
+/**
+ * \class	UpdateCallback
+ *
+ * \brief	Update callback. 
+ */
 class UpdateCallback : public osg::NodeCallback
 {
 public:

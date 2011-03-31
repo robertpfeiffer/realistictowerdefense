@@ -2,6 +2,11 @@
 
 #include<osg/Node>
 
+/**
+ * \class	Hatchery
+ *
+ * \brief	Hatchery. 
+ */
 class Hatchery
 {
 public:

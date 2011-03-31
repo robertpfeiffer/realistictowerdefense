@@ -5,6 +5,11 @@
 
 class ModelData;
 
+/**
+ * \class	FieldType
+ *
+ * \brief	The template of a field. 
+ */
 class FieldType : public osg::Referenced
 {
 public:

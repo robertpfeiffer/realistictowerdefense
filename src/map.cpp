@@ -168,7 +168,6 @@ void Map::_loadLevel()
  *
  * \param	node	The xml node.
  */
-
 void Map::_loadPlayer(xml_node<> *node)
 {
 	_player.setLives(Convert::attrToLong(node->first_attribute("lives", 0, false), 1));
@@ -306,7 +305,6 @@ TowerAttributes* Map::_getTowerAttributes(xml_node<> *node)
  *
  * \param	node	The xml node.
  */
-
 void Map::_loadSkyBox(xml_node<> *node)
 {
 	_skyBoxAttributes.texturePosX = _getTexture(node->first_attribute("posX", 0, false));
@@ -352,7 +350,6 @@ void Map::_loadTerrain(xml_node<> *node)
  *
  * \param	node	The xml node.
  */
-
 void Map::_loadStrata(xml_node<> *node)
 {
 	_strata = _getTexture(node->first_attribute("texture", 0, false));

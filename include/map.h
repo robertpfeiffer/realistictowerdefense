@@ -34,7 +34,6 @@ struct MapPoint{
  *
  * \brief	Load game level settings and create necessary objects.
  */
-
 class Map : public osg::Referenced
 {	
 public:

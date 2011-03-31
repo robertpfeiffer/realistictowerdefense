@@ -3,6 +3,11 @@
 
 class Tower;
 
+/**
+ * \class	TowerContextMenu
+ *
+ * \brief	Context menu of twoer. 
+ */
 class TowerContextMenu : public ContextMenu
 {
 public:

@@ -1,6 +1,11 @@
 #pragma once
 #include <osg/PositionAttitudeTransform>
 
+/**
+ * \class	CreepAttributes
+ *
+ * \brief	Creep attributes. 
+ */
 class CreepAttributes : osg::Referenced
 {
 public:

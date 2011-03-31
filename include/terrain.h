@@ -5,6 +5,11 @@
 
 class Map;
 
+/**
+ * \class	Terrain
+ *
+ * \brief	The Terrain. 
+ */
 class Terrain : public osg::Group
 {
 public:

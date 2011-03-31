@@ -4,6 +4,11 @@
 
 #include <hudbackground.h>
 
+/**
+ * \class	InfoBox
+ *
+ * \brief	Information box. 
+ */
 class InfoBox : public osg::PositionAttitudeTransform
 {
 public:

@@ -5,6 +5,11 @@
 
 #include <projectileattributes.h>
 
+/**
+ * \class	TowerAttributes
+ *
+ * \brief	Tower attributes. 
+ */
 class TowerAttributes : public osg::Referenced
 {
 public:

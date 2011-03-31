@@ -3,6 +3,11 @@
 #include <osg/Referenced>
 #include <osg/Node>
 
+/**
+ * \class	ModelData
+ *
+ * \brief	Contains fixed properies of a model. 
+ */
 class ModelData : public osg::Referenced
 {	
 public:

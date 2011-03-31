@@ -3,6 +3,11 @@
 
 class HudBackground;
 
+/**
+ * \class	HudElement
+ *
+ * \brief	Hud element. 
+ */
 class HudElement : public osg::Geode
 {
 public:

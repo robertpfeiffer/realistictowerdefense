@@ -3,6 +3,11 @@
 
 class CreepAttributes;
 
+/**
+ * \class	CreepInfoBox
+ *
+ * \brief	Creep information box. 
+ */
 class CreepInfoBox : public InfoBox
 {
 public:

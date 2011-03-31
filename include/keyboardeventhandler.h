@@ -2,6 +2,11 @@
 
 #include <osgGA/GUIActionAdapter>
 
+/**
+ * \class	KeyboardEventHandler
+ *
+ * \brief	Keyboard event handler. 
+ */
 class KeyboardEventHandler
 {
 public:

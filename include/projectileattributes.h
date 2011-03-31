@@ -2,6 +2,11 @@
 
 #include <osg/PositionAttitudeTransform>
 
+/**
+ * \class	ProjectileAttributes
+ *
+ * \brief	Projectile attributes. 
+ */
 class ProjectileAttributes
 {
 public:

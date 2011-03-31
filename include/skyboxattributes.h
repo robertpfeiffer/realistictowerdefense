@@ -2,6 +2,11 @@
 
 #include <osg/Texture2D>
 
+/**
+ * \struct	SkyBoxAttributes
+ *
+ * \brief	Contains textures for the skybox. 
+ */
 struct SkyBoxAttributes
 {
 	osg::ref_ptr<osg::Texture2D> texturePosX;

@@ -1,6 +1,11 @@
 #pragma once
 #include <osg/Geometry>
 
+/**
+ * \class	HudBackground
+ *
+ * \brief	Hud background. 
+ */
 class HudBackground : public osg::Geometry
 {
 public:

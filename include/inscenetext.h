@@ -4,6 +4,11 @@
 #include <osgText/Text>
 #include <updatablenode.h>
 
+/**
+ * \class	InSceneText
+ *
+ * \brief	In scene text. 
+ */
 class InSceneText : public osg::PositionAttitudeTransform, public UpdatableNode
 {
 public:

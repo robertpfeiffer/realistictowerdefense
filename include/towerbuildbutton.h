@@ -3,6 +3,11 @@
 class Field;
 class TowerAttributes;
 
+/**
+ * \class	TowerBuildButton
+ *
+ * \brief	Tower build button. 
+ */
 class TowerBuildButton : public MenuButton
 {
 public:

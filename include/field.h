@@ -7,6 +7,11 @@
 class FieldType;
 class Tower;
 
+/**
+ * \class	Field
+ *
+ * \brief	A single field of the terrain. 
+ */
 class Field : public osg::PositionAttitudeTransform, public MouseEventHandler
 {
 public:

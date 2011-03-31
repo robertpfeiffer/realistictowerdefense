@@ -7,6 +7,11 @@ class HudElement;
 class InfoBox;
 class Player;
 
+/**
+ * \class	Hud
+ *
+ * \brief	Hud. 
+ */
 class Hud : public osg::Camera, public UpdatableNode
 {
 public:

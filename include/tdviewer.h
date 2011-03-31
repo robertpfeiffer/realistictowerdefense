@@ -4,6 +4,11 @@
 #include <osgViewer/Viewer>
 #include <osgGA/TerrainManipulator>
 
+/**
+ * \class	TDViewer
+ *
+ * \brief	Extended default viewer, which limit the camera. 
+ */
 class TDViewer : public osgViewer::Viewer
 {
 public:
