@@ -75,7 +75,6 @@ set(sources
 	"src/towerinfobox.cpp"
 	"src/towerupgradebutton.cpp"
 	"src/transformhelper.cpp"
-	"src/updatablenode.cpp"
 	"src/updatecallback.cpp"
 	"src/userinteractionhandler.cpp"
 	"src/wave.cpp"
