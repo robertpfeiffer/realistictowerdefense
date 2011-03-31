@@ -144,7 +144,7 @@ osg::Geometry* HealthBar::_createBackgroundGeometry() const
 }
 
 /**
- * \fn	osg::Geometry* HealthBar::_createHealthGemoetry(osg::Texture2D* texture) const
+ * \fn	osg::Geometry* HealthBar::_createHealthGeometry(osg::Texture2D* texture) const
  *
  * \brief	Creates a health geometry.
  *

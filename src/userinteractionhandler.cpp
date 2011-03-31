@@ -251,7 +251,7 @@ bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUI
  *
  * \param	modKeyMask			 	The modifier key mask.
  * \param	key					 	The key.
- * \para	eventReceiver	If non-null, the event receiver.
+ * \param	eventReceiver	If non-null, the event receiver.
  * \param	eventId				 	Identifier for the event.
  */
 void UserInteractionHandler::registerKeyEvent(int modKeyMask, int key, KeyboardEventHandler* eventReceiver, int eventId)

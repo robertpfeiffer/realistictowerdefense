@@ -45,7 +45,7 @@ std::string Convert::toString(long l)
  *
  * \brief	Convert an double value into a string representation.
  *
- * \param	l	The double value.
+ * \param	d	The double value.
  *
  * \return	A string representation of the double value.
  */

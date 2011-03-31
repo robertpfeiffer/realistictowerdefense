@@ -73,7 +73,7 @@ void Hud::setPlayer(Player* player)
  *
  * \brief	Display the information box. If there already exists one, hide them.
  *
- * \param	The information box.
+ * \param	infoBox	The information box.
  */
 void Hud::pushInfoBox(InfoBox* infoBox)
 {
@@ -138,7 +138,7 @@ void Hud::onUpdate()
  *
  * \brief	Display the game end screen.
  *
- * \param	True if the player has won, else false.
+ * \param	won	True if the player has won, else false.
  */
 void Hud::onGameEnd(bool won)
 {

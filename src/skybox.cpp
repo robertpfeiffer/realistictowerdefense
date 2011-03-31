@@ -71,6 +71,7 @@ public:
 class MoveEarthySkyWithEyePointTransform : public osg::Transform
 {
 public:
+
     /**
      * \fn	virtual bool :::computeLocalToWorldMatrix(osg::Matrix& matrix,osg::NodeVisitor* nv) const
      *
