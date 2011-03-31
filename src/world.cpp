@@ -57,32 +57,24 @@ void World::createPath()
 	_path = new OpenSteer::PolylineSegmentedPathwaySingleRadius(pathPoints.size(), pathPoints.data(), 0.35, false);
 }
 
+/**
+ * \fn	void World::spawnCreep(Creep* creep)
+ *
+ * \brief	Spawns a creep.
+ *
+ * \param	creep	The new creep.
+ */
 void World::spawnCreep(Creep* creep)
 {
 	this->addUpdatableNode(creep);
 	_creeps.insert(creep);
 }
 
-std::set< osg::ref_ptr<Creep> >::iterator World::getCreepsIterator()
-{
-	return _creeps.begin();
-}
-
-std::set< osg::ref_ptr<Creep> >::iterator World::getCreepsIteratorEnd()
-{
-	return _creeps.end();
-}
-
-ProximityDatabase* World::getProximities()
-{
-	return _proximities;
-}
-
-Map* World::getMap()
-{
-	return _map.get();
-}
-
+/**
+ * \fn	void World::startNextWave()
+ *
+ * \brief	Start next wave.
+ */
 void World::startNextWave()
 {
 	if(_map->getWaves()->size() > 0)
@@ -104,6 +96,14 @@ void World::startNextWave()
 	}
 }
 
+/**
+ * \fn	void World::onDeath(Creep* creep)
+ *
+ * \brief	Executed if the player had killed a creep.
+ * 			Show an InSceneText, that the player got a bounty for this kill.
+ *
+ * \param	creep	The killed creep.
+ */
 void World::onDeath(Creep* creep)
 {
 	int bounty = creep->bounty();
@@ -115,6 +115,16 @@ void World::onDeath(Creep* creep)
 
 	dropCreep(creep);
 }
+
+/**
+ * \fn	void World::onLeak(Creep* creep)
+ *
+ * \brief	Executed if a creep reach his target field.
+ * 			Reduce live of player by once.
+ * 			Show an InSceneText, that the player lost a live.
+ *
+ * \param	creep	The creep.
+ */
 void World::onLeak(Creep* creep)
 {
 	_map->getPlayer()->takeLife();
@@ -131,6 +141,14 @@ void World::onLeak(Creep* creep)
 	dropCreep(creep);
 }
 
+/**
+ * \fn	void World::dropCreep(Creep* creep)
+ *
+ * \brief	Drop a creep from world.
+ * 			Start a new wave, if all creeps are removed from world.
+ *
+ * \param	creep	The creep.
+ */
 void World::dropCreep(Creep* creep)
 {
 	Graveyard::instance()->killChild(creep);
@@ -142,6 +160,12 @@ void World::dropCreep(Creep* creep)
 	}
 }
 
+/**
+ * \fn	void World::onWaveDone()
+ *
+ * \brief	Executed, if the wave spawned completly.
+ * 			Remove callback on wave spawner.
+ */
 void World::onWaveDone()
 {
 	this->removeUpdateCallback(_currentWave);
@@ -155,7 +179,6 @@ void World::onWaveDone()
  *
  * \param	node	The node.
  */
-
 void World::addUpdatableNode(osg::Node* node)
 {
 	this->addChild(node);
@@ -239,7 +262,6 @@ void World::addParticleEffect(osgParticle::ParticleSystem* ps)
  *
  * \param	anim	The animation, which should be registered.
  */
-
 void World::addAnimation(osgAnimation::Animation* anim)
 {
 	_animationManager->registerAnimation(anim);
@@ -251,7 +273,6 @@ void World::addAnimation(osgAnimation::Animation* anim)
  *
  * \brief	Destructor.
  */
-
 World::~World()
 {
 	if (_path != NULL)	delete _path;

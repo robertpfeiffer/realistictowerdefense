@@ -25,7 +25,6 @@ class Wave;
 class World : public osg::Group
 {
 public:
-	World();
 	static World* instance();
 	~World();
 
@@ -34,8 +33,8 @@ public:
 	void onDeath(Creep* creep);
 	void onLeak(Creep* creep);
 
-	std::set< osg::ref_ptr<Creep> >::iterator getCreepsIterator();
-	std::set< osg::ref_ptr<Creep> >::iterator getCreepsIteratorEnd();
+	inline std::set< osg::ref_ptr<Creep> >::iterator getCreepsIterator() { return _creeps.begin(); };
+	inline std::set< osg::ref_ptr<Creep> >::iterator getCreepsIteratorEnd() { return _creeps.end(); };
 
 	void spawnCreep(Creep* creep);
 	void dropCreep(Creep* creep);
@@ -44,14 +43,14 @@ public:
 	void addUpdatableNode(osg::Node* node);
 	/*inline*/ void registerForUpdates(osg::Node* node);
 
-	Map* getMap();
+	inline Map* getMap() { return _map.get(); };
 
 	inline OpenSteer::PolylineSegmentedPathwaySingleRadius* getPath(){ return _path; };
-	ProximityDatabase* getProximities();
+	inline ProximityDatabase* getProximities() {return _proximities; };
 	void addParticleEffect(osgParticle::ParticleSystem* ps);
 	void addAnimation(osgAnimation::Animation* anim);
-
 private:
+	World();
 	void createPath();
 	void startNextWave();
 
