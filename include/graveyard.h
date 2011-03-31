@@ -6,6 +6,7 @@
  * \class	Graveyard
  *
  * \brief	Graveyard for nodes. 
+ * 			This class implements the singleton pattern.
  */
 class Graveyard
 {
@@ -15,5 +16,6 @@ public:
 	void burryAll();
 	void killChild(osg::Node* child);
 private:
+	Graveyard() {};  //to make sure it is a singleton
 	std::vector< osg::ref_ptr<osg::Node> > _killList;
 };

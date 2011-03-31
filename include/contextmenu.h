@@ -8,7 +8,10 @@ class MenuButton;
 /**
  * \class	ContextMenu
  *
- * \brief	Context menu. 
+ * \brief	The context menu widget.
+ * 			Context menues are usually directly attached to their objects in the scenegraph.
+ * 			The visual style is a radial Menu of Buttons around the object.
+ * 			The Buttons are facing the Player around the Object.
  */
 class ContextMenu : public osg::Billboard
 {

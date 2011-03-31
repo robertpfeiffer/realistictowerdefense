@@ -15,7 +15,7 @@ class ProjectileAttributes;
 /**
  * \class	Creep
  *
- * \brief	A single Creep. 
+ * \brief	A creep/enemy in the Game.
  */
 class Creep : public osg::PositionAttitudeTransform, public UpdatableNode, public MouseEventHandler
 {

@@ -1,14 +1,6 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <contextmenu.h>
 
-/**
- * @class ContextMenu
- * The Context Menu Widget.
- * Context menues are usually directly attached to their objects in the scenegraph.
- * The visual style is a radial Menu of Buttons around the object.
- * The Buttons are facing the Player around the Object.
- */
-
 #include <osg/AlphaFunc>
 #include <osg/Texture2D>
 

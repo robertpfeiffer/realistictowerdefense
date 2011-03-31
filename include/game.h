@@ -12,7 +12,7 @@ class GameTimer;
 /**
  * \class	Game
  *
- * \brief	Contains the game instance. 
+ * \brief	Initialisation of the viewer and the game loop. 
  */
 class Game : KeyboardEventHandler
 {

@@ -6,6 +6,7 @@
  * \class	GameTimer
  *
  * \brief	A game timer, which can paused and change the game speed.
+ * 			Implements the singleton pattern.
  */
 class GameTimer
 {

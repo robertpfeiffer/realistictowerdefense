@@ -1,10 +1,5 @@
 #include <convert.h>
 
-/*
- * @class Convert 
- * Convert strings from the config file into typed values.
- */
-
 using namespace rapidxml;
 
 #ifndef WIN32

@@ -1,13 +1,5 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <gametimer.h>
-
-/** 
- * @class GameTimer
- * Keeps track of time elapsed in-game.
- * Can be paused, slowed or sped up.
- * Implements the singleton pattern.
- */
-
 #include <algorithm>
 
 double GameTimer::_hardLimit = 0.5;

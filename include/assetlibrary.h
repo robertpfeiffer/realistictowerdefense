@@ -11,7 +11,8 @@
 /**
  * \class	AssetLibrary
  *
- * \brief	Asset library. 
+ * \brief	Loading, Caching and Initialisation of models and textures.
+ * 			Implements the singleton pattern.
  */
 class AssetLibrary {
 public:

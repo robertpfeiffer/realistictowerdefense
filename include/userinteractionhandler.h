@@ -8,7 +8,7 @@ class MouseEventHandler;
 /**
  * \class	UserInteractionHandler
  *
- * \brief	User interaction handler. 
+ * \brief	 Handler for keyboard and mouse input.
  */
 class UserInteractionHandler : public osgGA::GUIEventHandler
 {
