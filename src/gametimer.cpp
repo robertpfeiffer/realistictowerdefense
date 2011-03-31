@@ -18,16 +18,13 @@ GameTimer::GameTimer()
 	_offsetTicks = _timer->tick();
 	_paused = false;
 	_speed = _defaultSpeed;
-	_timer->time_s();
 }
 
-double GameTimer::nextFrame()
+void GameTimer::nextFrame()
 {
 	osg::Timer_t _newOffsetTicks = _timer->tick();
 	_elapsedTime = _timer->delta_s(_offsetTicks, _newOffsetTicks);
 	_offsetTicks = _newOffsetTicks;
-
-	return _offsetTicks;
 }
 
 double GameTimer::elapsedTime()

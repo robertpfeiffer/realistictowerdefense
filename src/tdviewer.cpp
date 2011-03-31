@@ -23,6 +23,18 @@ void TDViewer::limitCamera(osgGA::TerrainManipulator* manipulator)
 
 // we use the osg time in the viewer for rendering
 // our own timer in only for the game logic
+
+/**
+ * \fn	void TDViewer::frame(double time)
+ *
+ * \brief	Render next frame.
+ * 			Update gametimer and remove at end of frame all unnecessary nodes.
+ *
+ * \author	Sun Black
+ * \date	31.03.2011
+ *
+ * \param	time	The time.
+ */
 void TDViewer::frame(double time)
 {
 	// Call the superclass method

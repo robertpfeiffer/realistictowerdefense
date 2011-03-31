@@ -13,6 +13,14 @@
 #include <field.h>
 #include <map.h>
 
+/**
+ * \fn	Terrain::Terrain(Map* map) : osg::Group()
+ *
+ * \brief	Constructor.
+ * 			Add fields and strata to himself.
+ *
+ * \param	map	The map.
+ */
 Terrain::Terrain(Map* map) : osg::Group()
 {
 	_map = map;
@@ -27,6 +35,16 @@ Terrain::Terrain(Map* map) : osg::Group()
 	this->addChild(createStrata());
 }
 
+/**
+ * \fn	osg::Node* Terrain::createTerrainBlock(int x, int y)
+ *
+ * \brief	Creates a terrain block.
+ *
+ * \param	x	The x coordinate.
+ * \param	y	The y coordinate.
+ *
+ * \return	The field.
+ */
 osg::Node* Terrain::createTerrainBlock(int x, int y)
 {
 	osg::Vec3 terrainBlockTranslation(x, -y, 0);
@@ -35,6 +53,13 @@ osg::Node* Terrain::createTerrainBlock(int x, int y)
 	return _map->getField(x, y);
 }
 
+/**
+ * \fn	osg::Node* Terrain::createStrata()
+ *
+ * \brief	Creates the strata.
+ *
+ * \return	The strata node.
+ */
 osg::Node* Terrain::createStrata()
 {
 	osg::Geode* strata = new osg::Geode();

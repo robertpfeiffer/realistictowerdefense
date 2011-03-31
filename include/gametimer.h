@@ -14,7 +14,7 @@ public:
 
 	GameTimer();
 
-	double nextFrame();
+	void nextFrame();
 	double elapsedTime();
 	inline void togglePause() {_paused = !_paused;};
 	inline void pause() {_paused = true; };
