@@ -1,11 +1,6 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <field.h>
 
-/*
-  A field is a scenegraph node.
-  It represents a ground tile and what is built on it.
- */
-
 #include <iostream>
 #include <stdlib.h>
 
@@ -24,6 +19,7 @@
  * \fn	Field::Field(FieldType* fieldType)
  *
  * \brief	Create a new field, containing its model.
+ * 			It represents a ground tile and what is built on it.
  *
  * \param [in,out]	fieldType	The template of the field.
  */
