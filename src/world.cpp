@@ -1,6 +1,12 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <world.h>
 
+/**
+ * @class World
+ * The World holds the current Level in the Game.
+ * This class implements the singleton pattern.
+ */
+
 #include <osg/Node>
 #include <osg/PositionAttitudeTransform>
 #include <osg/Group>
@@ -21,10 +27,7 @@
 #include <updatecallback.h>
 #include <wave.h>
 
-/**
- * \fn	World* World::instance()
- *
- * \brief	Gets the instance of the world (singleton).
+/**	Gets the instance of the world (singleton).
  *
  * \return	null if it fails, else.
  */
@@ -38,10 +41,7 @@ World* World::instance()
 	return world_ptr.get();
 }
 
-/**
- * \fn	void World::createPath()
- *
- * \brief	Creates the path for creeps from checkpoint list.
+/**	Creates the path for creeps from checkpoint list.
  */
 void World::createPath()
 {
@@ -115,6 +115,9 @@ void World::onDeath(Creep* creep)
 
 	dropCreep(creep);
 }
+
+/** This is called when a Creep reaches the end of the path.
+ */
 void World::onLeak(Creep* creep)
 {
 	_map->getPlayer()->takeLife();
@@ -130,6 +133,7 @@ void World::onLeak(Creep* creep)
 
 	dropCreep(creep);
 }
+
 
 void World::dropCreep(Creep* creep)
 {
@@ -148,24 +152,17 @@ void World::onWaveDone()
 	_waveDone = true;
 }
 
-/**
- * \fn	void World::addUpdatableNode(osg::Node* node)
- *
- * \brief	Adds a node to scenegraph and register it for the update callback. 
+/**	Adds a node to scenegraph and register it for the update callback. 
  *
  * \param	node	The node.
  */
-
 void World::addUpdatableNode(osg::Node* node)
 {
 	this->addChild(node);
 	registerForUpdates(node);
 }
 
-/**
- * \fn	void World::registerForUpdates(osg::Node* node)
- *
- * \brief	Registers this object for updates.
+/**	Registers this object for updates.
  *
  * \param	node	The node, which want to recieve the update callback.
  */
@@ -174,11 +171,9 @@ void World::registerForUpdates(osg::Node* node)
 	node->addUpdateCallback(_updateCallback.get());
 }
 
-/**
- * \fn	World::World()
+/**	Default constructor.
  *
- * \brief	Default constructor.
- * 			Add a ParticleSystemUpdater and a BasicAnimationManager to scenegraph
+ * 	Add a ParticleSystemUpdater and a BasicAnimationManager to scenegraph.
  */
 World::World()
 {
@@ -195,10 +190,7 @@ World::World()
 	this->setUpdateCallback(_animationManager);
 }
 
-/**
- * \fn	void World::loadMap(const std::string mapFilename)
- *
- * \brief	Loads a map and add them to scenegraph.
+/** Loads a map and add them to scenegraph.
  *
  * \param	mapFilename	Filename of the map file.
  */
@@ -220,10 +212,7 @@ void World::loadMap(const std::string mapFilename)
 	startNextWave();
 }
 
-/**
- * \fn	void World::addParticleEffect(osgParticle::ParticleSystem* ps)
- *
- * \brief	Adds a particle effect. 
+/**	Adds a particle effect.
  *
  * \param	ps	The particle, which should be registered.
  */
@@ -232,26 +221,18 @@ void World::addParticleEffect(osgParticle::ParticleSystem* ps)
 	_particleUpdater->addParticleSystem(ps);
 }
 
-/**
- * \fn	void World::addAnimation(osgAnimation::Animation* anim)
- *
- * \brief	Adds an animation. 
+/**	Adds an animation. 
  *
  * \param	anim	The animation, which should be registered.
  */
-
 void World::addAnimation(osgAnimation::Animation* anim)
 {
 	_animationManager->registerAnimation(anim);
 	_animationManager->playAnimation(anim);
 }
 
-/**
- * \fn	World::~World()
- *
- * \brief	Destructor.
+/**	Destructor.
  */
-
 World::~World()
 {
 	if (_path != NULL)	delete _path;

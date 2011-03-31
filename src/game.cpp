@@ -1,5 +1,9 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode: t; c-file-style: "stroustrup" -*-
 #include <game.h>
+/**
+ * @class Game
+ * Initialisation of the viewer and the game loop
+ */
 
 #include <osgGA/TerrainManipulator>
 #include <osgViewer/ViewerEventHandlers>

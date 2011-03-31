@@ -3,6 +3,7 @@
 /OSGBullet
 /Bullet
 /lib
+/doc/doxygen
 
 TAGS
 core

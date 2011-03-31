@@ -2,6 +2,15 @@
 #include <graveyard.h>
 #include <world.h>
 
+/**
+ * @class Graveyard
+ * Helper class for Creep removal.
+ * This class implements the singleton pattern.
+ */
+
+
+/**	Gets the instance of the Graveyard (singleton).
+ */
 Graveyard* Graveyard::instance()
 {
 	static Graveyard yard;

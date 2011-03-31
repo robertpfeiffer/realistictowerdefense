@@ -1,9 +1,10 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <fieldtype.h>
 
-/*
-  Objects of this class represent a kind of map tile, each is defined by a map tile node in the xml config.
-  The letters in the 2d map define which tile has which kind.
+/**
+ * @class FieldType
+ * A kind of map tile, defined in the xml config.
+ * The letters in the 2d map define which tile has which kind.
  */
 
 #include <osg/Geode>

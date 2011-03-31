@@ -43,6 +43,8 @@ void MenuButton::setPosition(osg::Vec2 pos)
 	this->setVertexArray(verts);
 }
 
+/** Draw a button as enabled or greyed out.
+ */
 void MenuButton::setEnabled(bool enabled)
 {
 	if(enabled == _enabled)

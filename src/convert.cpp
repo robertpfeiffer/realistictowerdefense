@@ -1,7 +1,8 @@
 #include <convert.h>
 
 /*
-  Convert strings from the config file into typed values.
+ * @class Convert 
+ * Convert strings from the config file into typed values.
  */
 
 using namespace rapidxml;

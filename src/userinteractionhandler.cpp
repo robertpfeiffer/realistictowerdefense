@@ -1,6 +1,11 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <userinteractionhandler.h>
 
+/**
+ * @class UserInteractionHandler
+ * Handler for keyboard and mouse input.
+ */
+
 #include <keyboardeventhandler.h>
 #include <mouseeventhandler.h>
 #include <menubutton.h>
@@ -15,6 +20,8 @@ UserInteractionHandler::UserInteractionHandler()
 	_hoveredMouseHandler = NULL;
 }
 
+/** called when a Node is focused
+ */
 void UserInteractionHandler::setFocusedMouseHandler(MouseEventHandler* handler, osgGA::GUIActionAdapter& aa)
 {
 	if (_focusedMouseHandler == handler) return;
@@ -24,6 +31,8 @@ void UserInteractionHandler::setFocusedMouseHandler(MouseEventHandler* handler, 
 	handler->onFocus(aa);
 }
 
+/** called when the focused Node has lost the focus
+ */
 void UserInteractionHandler::blurActiveMouseHandler()
 {
 	if (_focusedMouseHandler != NULL) 
@@ -44,6 +53,8 @@ UserInteractionHandler::KeyboardEvent* UserInteractionHandler::getKeyboardHandle
 	return &keyMapping->second;
 }
 
+/** Cast a ray to find a menu button.
+ */
 MenuButton* findMenuButton(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
 	osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
@@ -63,6 +74,8 @@ MenuButton* findMenuButton(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAda
 	return NULL;
 }
 
+/** Cast a ray to find a clickable Node or a Node with clickable Parents.
+ */
 MouseEventHandler* findEventHandler(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
 	osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
@@ -88,6 +101,8 @@ MouseEventHandler* findEventHandler(const osgGA::GUIEventAdapter& ea, osgGA::GUI
 	return NULL;
 }
 
+/** Handle key presses and mouse clicks
+ */
 bool UserInteractionHandler::handle(const osgGA::GUIEventAdapter& ea, osgGA::GUIActionAdapter& aa)
 {
 

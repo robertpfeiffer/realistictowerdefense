@@ -1,9 +1,9 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <field.h>
 
-/*
-  A field is a scenegraph node.
-  It represents a ground tile and what is built on it.
+/**
+ * @class Field
+ * A scenegraph node for a ground tile and what is built on it.
  */
 
 #include <iostream>
@@ -112,17 +112,17 @@ bool Field::setBuilding(Tower* tower)
 	return true; //success
 }
 
-/*
-  Put the tower into the scenegraph again.
-  This is a HACK.
-  We needed this to guarantee a certain traversal order
-  for the animation and particle systems.
-*/
+/** Reinsert the tower into the scenegraph.
+ * This is a HACK.
+ * We needed this to guarantee a certain traversal order for the animation and particle systems.
+ */
 void Field::reset(){
 	this->getParent(0)->addChild(this);
 	this->getParent(0)->removeChild(this);
 }
 
+/** Destroy the tower that in on th field
+ */
 bool Field::destroyBuilding()
 {
 	if (!this->hasTower())

@@ -1,11 +1,12 @@
 // -*- mode: c++; coding: utf-8; c-basic-offset: 4; tab-width: 4; indent-tabs-mode:t; c-file-style: "stroustrup" -*-
 #include <contextmenu.h>
 
-/*
-  The Context Menu Widget.
-  Context menues are usually directly attached into the scenegraph.
-  The visual style is a radial Menu of Buttons around the object.
-  The Buttons are facing the Player around the Object.
+/**
+ * @class ContextMenu
+ * The Context Menu Widget.
+ * Context menues are usually directly attached to their objects in the scenegraph.
+ * The visual style is a radial Menu of Buttons around the object.
+ * The Buttons are facing the Player around the Object.
  */
 
 #include <osg/AlphaFunc>
@@ -20,13 +21,14 @@ ContextMenu::ContextMenu()
 	this->setMode(osg::Billboard::POINT_ROT_EYE);
 	this->setNormal(osg::Vec3(0.0f,-1.0f,0.0f));
 	this->addEntry(NULL,"select.png");
-       	this->getOrCreateStateSet()->setRenderBinDetails( 11, "RenderBin");
+	// always on top
+	this->getOrCreateStateSet()->setRenderBinDetails(11, "RenderBin");
 }
 
-/*
-  arranges menu buttons radially.
-  The first menu item is drawn in the center of the circle.
-*/
+/** Arrange menu buttons radially.
+ * The first menu item is drawn in the center of the circle.
+ * @return The position for the button relative to the context menu billboard.
+ */
 osg::Vec2 ContextMenu::positionForNextButton()
 {	
 	float x;
@@ -46,6 +48,8 @@ osg::Vec2 ContextMenu::positionForNextButton()
 	return osg::Vec2(x, y);
 }
 
+/** Create a menubutton in the menu with an Icon and an action when clicked.
+ */
 void ContextMenu::addEntry(void (* callback)(osg::ref_ptr<MenuButton>),
 						   const std::string texturepath)
 {
