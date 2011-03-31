@@ -5,6 +5,20 @@ The skybox-textures (folder textures/lostvalley):
 The skybox-textures are licensed under a CC-BY-NC license (http://creativecommons.org/licenses/by-nc/3.0/), this especially means, that you are not allowed to use them for any commercial purposes.
 These textures were created by hazelwhorley (www: http://hazelwhorley.com/).
 
+The zeppelin model:
+The zeppelin model is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 2.
+
+It is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+The "Orbitron" font:
+The font "Orbitron" by Matt McInerney was released by The League of Moveable Type under the SIL Open Font License.
+http://www.theleagueofmoveabletype.com/fonts/12-orbitron
+
 The dejavu-fonts:
 BEGIN OF DEJAVU LICENSE-TEXT
 Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved. Bitstream Vera is a trademark of Bitstream, Inc. 

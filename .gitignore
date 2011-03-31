@@ -11,6 +11,8 @@ core
 *.exe
 *.dll
 *.3ds
+*.bak
+*.bundle
 \#*
 .*
 *~
