@@ -5,11 +5,24 @@
 double GameTimer::_hardLimit = 0.5;
 int GameTimer::_defaultSpeed = 2;
 
+/**
+ * \fn	GameTimer* GameTimer::instance()
+ *
+ * \brief	Gets the instance of the game timer (singleton).
+ *
+ * \return	The game timer.
+ */
 GameTimer* GameTimer::instance()
 {
 	static GameTimer timer;
 	return &timer;
 }
+
+/**
+ * \fn	GameTimer::GameTimer()
+ *
+ * \brief	Default constructor.
+ */
 
 GameTimer::GameTimer()
 {
@@ -20,6 +33,12 @@ GameTimer::GameTimer()
 	_speed = _defaultSpeed;
 }
 
+/**
+ * \fn	void GameTimer::nextFrame()
+ *
+ * \brief	Calculate new elapsed time since last frame.
+ */
+
 void GameTimer::nextFrame()
 {
 	osg::Timer_t _newOffsetTicks = _timer->tick();
@@ -27,6 +46,16 @@ void GameTimer::nextFrame()
 	_offsetTicks = _newOffsetTicks;
 }
 
+/**
+ * \fn	double GameTimer::elapsedTime()
+ *
+ * \brief	Gets the elapsed time.
+ *
+ * \author	Sun Black
+ * \date	31.03.2011
+ *
+ * \return	0 if game is paused, else elapsed game time.
+ */
 double GameTimer::elapsedTime()
 {
 	if (_paused)
@@ -37,16 +66,32 @@ double GameTimer::elapsedTime()
 	return std::min(_speed * _elapsedTime, _hardLimit);
 }
 
+/**
+ * \fn	void GameTimer::increaseSpeed()
+ *
+ * \brief	Increase game speed.
+ */
+
 void GameTimer::increaseSpeed()
 {
 	_speed *= 2;
 }
 
+/**
+ * \fn	void GameTimer::normalizeSpeed()
+ *
+ * \brief	Reset game speed.
+ */
 void GameTimer::normalizeSpeed()
 {
 	_speed = _defaultSpeed;
 }
 
+/**
+ * \fn	void GameTimer::decreaseSpeed()
+ *
+ * \brief	Decrease game speed.
+ */
 void GameTimer::decreaseSpeed()
 {
 	if (_speed > 1)

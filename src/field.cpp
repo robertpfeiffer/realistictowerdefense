@@ -20,18 +20,23 @@
 #include <towerattributes.h>
 #include <world.h>
 
+/**
+ * \fn	Field::Field(FieldType* fieldType)
+ *
+ * \brief	Create a new field, containing its model.
+ *
+ * \param [in,out]	fieldType	The template of the field.
+ */
 Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _ground(fieldType->getGround()), _fieldType(fieldType)
 {
 	this->addChild(_ground.get());
 
 	ModelData* modelData = fieldType->getModelData();
-
-
+	
 	/*
 	  Scenery like rocks or vegetation is randomly placed on the field.
 	  It is randomly rotated and scaled, within configurable bounds.
 	 */
-
 	_content = NULL;
 	if (modelData != NULL) // is scenery configured for this field type?
 	{
@@ -57,6 +62,13 @@ Field::Field(FieldType* fieldType) : _isBuildable(fieldType->isBuildable()), _gr
 	}
 }
 
+/**
+ * \fn	void Field::onFocus(osgGA::GUIActionAdapter& aa)
+ *
+ * \brief	Open a menu, if field get focus.
+ *
+ * \param	aa	The GUIActionAdapter.
+ */
 void Field::onFocus(osgGA::GUIActionAdapter& aa)
 {
     //add Context menu into the scenegraph if clicked
@@ -64,11 +76,11 @@ void Field::onFocus(osgGA::GUIActionAdapter& aa)
 	this->addChild(_menu);
 }
 
-void Field::onClick(osgGA::GUIActionAdapter& aa)
-{
-    //handled by menubutton
-}
-
+/**
+ * \fn	void Field::onBlur()
+ *
+ * \brief	Close menu, if field lose focus.
+ */
 void Field::onBlur()
 {
     //remove Context menu on lost focus
@@ -77,21 +89,39 @@ void Field::onBlur()
 	this->_menu = NULL;
 }
 
+/**
+ * \fn	bool Field::isBuildable()
+ *
+ * \brief	Query if this object is buildable.
+ *
+ * \return	true if buildable, false if not.
+ */
 bool Field::isBuildable()
 {
 	return _fieldType->isBuildable() && !hasTower();
 }
 
+/**
+ * \fn	bool Field::hasTower()
+ *
+ * \brief	Query if this object has tower.
+ *
+ * \return	true if tower exists, false if not.
+ */
 bool Field::hasTower()
 {
 	return _fieldType->isBuildable() && (dynamic_cast<Tower*>(_content.get()) != NULL);
 }
 
-osg::Node* Field::getContent()
-{
-	return _content;
-}
-
+/**
+ * \fn	bool Field::setBuilding(Tower* tower)
+ *
+ * \brief	Sets a building to the field.
+ *
+ * \param	tower	The tower.
+ *
+ * \return	true if it succeeds, false if it fails.
+ */
 bool Field::setBuilding(Tower* tower)
 {
 	if (!this->isBuildable() || this->hasTower())
@@ -112,17 +142,25 @@ bool Field::setBuilding(Tower* tower)
 	return true; //success
 }
 
-/*
-  Put the tower into the scenegraph again.
-  This is a HACK.
-  We needed this to guarantee a certain traversal order
-  for the animation and particle systems.
-*/
+/**
+ * \fn	void Field::reset()
+ *
+ * \brief	Put the tower into the scenegraph again.
+ * 			This is a HACK.
+ * 			We needed this to guarantee a certain traversal order for the animation and particle systems..
+ */
 void Field::reset(){
 	this->getParent(0)->addChild(this);
 	this->getParent(0)->removeChild(this);
 }
 
+/**
+ * \fn	bool Field::destroyBuilding()
+ *
+ * \brief	Destroys the building.
+ *
+ * \return	true if it succeeds, false if it fails.
+ */
 bool Field::destroyBuilding()
 {
 	if (!this->hasTower())
@@ -138,6 +176,16 @@ bool Field::destroyBuilding()
 	return true;
 }
 
+/**
+ * \fn	float Field::_getRandomFloat(float min, float max)
+ *
+ * \brief	Gets a random float.
+ *
+ * \param	min	The minimum.
+ * \param	max	The maximum.
+ *
+ * \return	The random float.
+ */
 float Field::_getRandomFloat(float min, float max)
 {
 	return min + ((max - min) * (float) rand() / RAND_MAX);
