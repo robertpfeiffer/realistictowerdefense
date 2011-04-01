@@ -83,7 +83,12 @@
 		<Checkpoint x="12" y="15" />
 	</Checkpoints>
 	
-	<Skybox posX="Cubemap_snow/posx.jpg" negX="Cubemap_snow/negx.jpg" posY="Cubemap_snow/posy.jpg" negY="Cubemap_snow/negy.jpg" posZ="Cubemap_snow/posz.jpg" negZ="Cubemap_snow/negz.jpg" />
+	<Skybox negX="lostvalley/lostvalley_east.png"
+          posX="lostvalley/lostvalley_west.png"
+          posY="lostvalley/lostvalley_down.png"
+          negY="lostvalley/lostvalley_up.png"
+          negZ="lostvalley/lostvalley_north.png"
+          posZ="lostvalley/lostvalley_south.png" />
 	
 	<Terrain>
 		<Strata texture="sediment.jpg" />

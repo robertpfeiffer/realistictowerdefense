@@ -31,12 +31,15 @@ Section "Core Components"
 	;OSG-plugins
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_3ds.dll"
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_bmp.dll"
+	File "OSG\bin\osgPlugins-2.9.11\osgdb_osg.dll"
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_deprecated_osg.dll"
+	File "OSG\bin\osgPlugins-2.9.11\osgdb_deprecated_osgfx.dll"
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_deprecated_osganimation.dll"
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_deprecated_osgparticle.dll"
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_freetype.dll"
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_jpeg.dll"
 	File "OSG\bin\osgPlugins-2.9.11\osgdb_png.dll"
+	File "OSG\bin\osgPlugins-2.9.11\osgdb_rgb.dll"
 	;Qt-Dependencies
 	File "libgcc_s_dw2-1.dll"
 	File "mingwm10.dll"
@@ -51,18 +54,24 @@ Section "Core Components"
 	
 	SetOutPath "$INSTDIR\models\creeps"
 	File "models\creeps\*.osg"
+	File "models\creeps\*.png"
 	
 	SetOutPath "$INSTDIR\models\projectiles"
 	File "models\projectiles\*.osg"
+	File "models\projectiles\*.png"
 	
 	SetOutPath "$INSTDIR\models\shrubs"
 	File "models\shrubs\*.osg"
+	File "models\shrubs\*.png"
 	
 	SetOutPath "$INSTDIR\models\towers"
 	File "models\towers\*.osg"
+	File "models\towers\*.png"
 	
 	SetOutPath "$INSTDIR\models\trees"
 	File "models\trees\*.osg"
+	File "models\trees\*.png"
+	File "models\trees\*.jpg"
 	
 	SetOutPath "$INSTDIR\textures"
 	File "textures\*.png"
